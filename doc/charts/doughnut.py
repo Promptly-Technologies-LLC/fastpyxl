@@ -1,11 +1,11 @@
-from openpyxl import Workbook
+from fastpyxl import Workbook
 
-from openpyxl.chart import (
+from fastpyxl.chart import (
     DoughnutChart,
     Reference,
     Series,
 )
-from openpyxl.chart.series import DataPoint
+from fastpyxl.chart.series import DataPoint
 
 data = [
     ['Pie', 2014, 2015],

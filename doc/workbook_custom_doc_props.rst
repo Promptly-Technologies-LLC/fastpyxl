@@ -29,7 +29,7 @@ Adding a new property:
 
 .. code::
 
-    from openpyxl.packaging.custom import (
+    from fastpyxl.packaging.custom import (
         BoolProperty,
         DateTimeProperty,
         FloatProperty,
@@ -61,4 +61,4 @@ Deleting properties
 
 .. note::
 
-    Currently not all possible property types are supported. If openpyxl cannot read a particular type, it will provide a warning and ignore it.
+    Currently not all possible property types are supported. If fastpyxl cannot read a particular type, it will provide a warning and ignore it.

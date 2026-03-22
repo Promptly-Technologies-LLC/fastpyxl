@@ -1,6 +1,0 @@
-pip>=18.0
-lxml==5.0.1
-pytest
-pillow
-tox
-pandas

@@ -3,7 +3,7 @@ Positioning Charts with Anchors
 
 You can position charts using one of three different kinds of anchor:
 
-    * OneCell – where the top-left of a chart is anchored to a single cell. This is the default for openpyxl and corresponds to the layout option "Move but don't size with cells".
+    * OneCell – where the top-left of a chart is anchored to a single cell. This is the default for fastpyxl and corresponds to the layout option "Move but don't size with cells".
 
     * TwoCell – where the top-left of a chart is anchored to one cell, and the bottom-right to another cell. This corresponds to the layout option "Move and size with cells".
 
@@ -19,7 +19,7 @@ keep it with our table of data, say A9 to C20. We can do this by creating a
 TwoCellAnchor for those two cells.::
 
 
-    from openpyxl.drawing.spreadsheet_drawing import TwoCellAnchor
+    from fastpyxl.drawing.spreadsheet_drawing import TwoCellAnchor
 
     anchor = TwoCellAnchor()
     anchor._from.col = 0 #A

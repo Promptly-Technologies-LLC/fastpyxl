@@ -1,14 +1,14 @@
 Print Settings
 ==============
 
-openpyxl provides reasonably full support for print settings.
+fastpyxl provides reasonably full support for print settings.
 
 
 Edit Print Options
 -------------------
 .. :: doctest
 
->>> from openpyxl.workbook import Workbook
+>>> from fastpyxl.workbook import Workbook
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -30,7 +30,7 @@ manually.
 
 .. :: doctest
 
->>> from openpyxl.workbook import Workbook
+>>> from fastpyxl.workbook import Workbook
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -52,7 +52,7 @@ labelled.
 
 .. :: doctest
 
->>> from openpyxl.workbook import Workbook
+>>> from fastpyxl.workbook import Workbook
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -68,7 +68,7 @@ You can select a part of a worksheet as the only part that you want to print
 
 .. :: doctest
 
->>> from openpyxl.workbook import Workbook
+>>> from fastpyxl.workbook import Workbook
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -90,6 +90,6 @@ You can adjust the size and print orientation per sheet of a workbook.
 >>> ws.page_setup.paperSize = ws.PAPERSIZE_A5
 
 The table size is stored internally as an integer, a number of alias variables are
-also available for common sizes (refer to PAPERSIZE_* in :mod:`openpyxl.worksheet.worksheet` ).
+also available for common sizes (refer to PAPERSIZE_* in :mod:`fastpyxl.worksheet.worksheet` ).
 If you need a non-standard size, a full list can be found by searching `ECMA-376 pageSetup`
 and setting that value as the paperSize

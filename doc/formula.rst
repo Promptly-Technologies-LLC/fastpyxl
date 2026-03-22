@@ -1,13 +1,13 @@
 Parsing Formulas
 ================
 
-`openpyxl` supports limited parsing of formulas embedded in cells. The
-`openpyxl.formula` package contains a `Tokenizer` class to break
+`fastpyxl` supports limited parsing of formulas embedded in cells. The
+`fastpyxl.formula` package contains a `Tokenizer` class to break
 formulas into their constituent tokens. Usage is as follows:
 
 .. doctest
 
->>> from openpyxl.formula import Tokenizer
+>>> from fastpyxl.formula import Tokenizer
 >>> tok = Tokenizer("""=IF($A$1,"then True",MAX(DEFAULT_VAL,'Sheet 2'!B1))""")
 >>> print("\n".join("%12s%11s%9s" % (t.value, t.type, t.subtype) for t in tok.items))
          IF(       FUNC     OPEN
@@ -96,11 +96,11 @@ Translating formulae from one location to another
 
 
 It is possible to translate (in the mathematical sense) formulae from one
-location to another using the :class:`openpyxl.formulas.translate.Translator`
+location to another using the :class:`fastpyxl.formulas.translate.Translator`
 class. For example, there a range of cells ``B2:E7`` with a sum of each
 row in column ``F``::
 
-    >>> from openpyxl.formula.translate import Translator
+    >>> from fastpyxl.formula.translate import Translator
     >>> ws['F2'] = "=SUM(B2:E2)"
     >>> # move the formula one colum to the right
     >>> ws['G2'] = Translator("=SUM(B2:E2)", origin="F2").translate_formula("G2")

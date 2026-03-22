@@ -5,7 +5,7 @@ syntax: regexp
 .coverage
 org.eclipse
 \.pytest
-(build|dist|openpyxl.egg-info)
+(build|dist|fastpyxl.egg-info)
 \.(dot|svg|pf)
 \.noseids
 \.*\.swp
@@ -27,7 +27,7 @@ downloads/
 Compliance
 Spec
 doc/api
-openpyxl-env
+fastpyxl-env
 *.c
 bin/
 Issues/

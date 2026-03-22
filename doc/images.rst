@@ -5,8 +5,8 @@ Inserting an image
 -------------------
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.drawing.image import Image
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.drawing.image import Image
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active

@@ -19,7 +19,7 @@ The following are the default values
 
 .. :: doctest
 
->>> from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
+>>> from fastpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
 >>> font = Font(name='Calibri',
 ...                 size=11,
 ...                 bold=False,
@@ -74,9 +74,9 @@ style for lots of cells when only one changes.
 
 .. :: doctest
 
->>> from openpyxl.styles import colors
->>> from openpyxl.styles import Font, Color
->>> from openpyxl import Workbook
+>>> from fastpyxl.styles import colors
+>>> from fastpyxl.styles import Font, Color
+>>> from fastpyxl import Workbook
 >>> wb = Workbook()
 >>> ws = wb.active
 >>>
@@ -100,7 +100,7 @@ Styles can also be copied
 
 .. :: doctest
 
->>> from openpyxl.styles import Font
+>>> from fastpyxl.styles import Font
 >>> from copy import copy
 >>>
 >>> ft1 = Font(name='Arial', size=14)
@@ -125,19 +125,19 @@ aRGB colours
 
 RGB colours are set using hexadecimal values for red, green and blue.
 
->>> from openpyxl.styles import Font
+>>> from fastpyxl.styles import Font
 >>> font = Font(color="FF0000")
 
 The alpha value refers in theory to the transparency of the colour but this is not relevant for cell styles. The default of 00 will prepended to any simple RGB value:
 
->>> from openpyxl.styles import Font
+>>> from fastpyxl.styles import Font
 >>> font = Font(color="00FF00")
 >>> font.color.rgb
 '0000FF00'
 
 There is also support for legacy indexed colours as well as themes and tints.
 
->>> from openpyxl.styles.colors import Color
+>>> from fastpyxl.styles.colors import Color
 >>> c = Color(indexed=32)
 >>> c = Color(theme=6, tint=0.5)
 
@@ -155,8 +155,8 @@ Styles are applied directly to cells
 
 .. :: doctest
 
->>> from openpyxl.workbook import Workbook
->>> from openpyxl.styles import Font, Fill
+>>> from fastpyxl.workbook import Workbook
+>>> from fastpyxl.styles import Font, Fill
 >>> wb = Workbook()
 >>> ws = wb.active
 >>> c = ws['A1']
@@ -195,8 +195,8 @@ The formatting is generated for the purpose of writing.
 
 .. :: doctest
 
->>> from openpyxl.styles import Border, Side, PatternFill, Font, GradientFill, Alignment
->>> from openpyxl import Workbook
+>>> from fastpyxl.styles import Border, Side, PatternFill, Font, GradientFill, Alignment
+>>> from fastpyxl import Workbook
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -224,7 +224,7 @@ You can specify the number format for cells, or for some instances (ie datetime)
 .. :: doctest
 
 >>> import datetime
->>> from openpyxl import Workbook
+>>> from fastpyxl import Workbook
 >>> wb = Workbook()
 >>> ws = wb.active
 >>> # set date using a Python datetime
@@ -241,7 +241,7 @@ Edit Page Setup
 -------------------
 .. :: doctest
 
->>> from openpyxl.workbook import Workbook
+>>> from fastpyxl.workbook import Workbook
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -268,7 +268,7 @@ Creating a Named Style
 
 .. :: doctest
 
->>> from openpyxl.styles import NamedStyle, Font, Border, Side
+>>> from fastpyxl.styles import NamedStyle, Font, Border, Side
 >>> highlight = NamedStyle(name="highlight")
 >>> highlight.font = Font(bold=True, size=20)
 >>> bd = Side(style='thick', color="000000")
@@ -292,7 +292,7 @@ Using builtin styles
 
 The specification includes some builtin styles which can also be used.
 Unfortunately, the names for these styles are stored in their localised
-forms. openpyxl will only recognise the English names and only exactly as
+forms. fastpyxl will only recognise the English names and only exactly as
 written here. These are as follows:
 
 
@@ -367,5 +367,5 @@ Highlights
 * '60 % - Accent6'
 * 'Pandas'
 
-For more information about the builtin styles please refer to the :mod:`openpyxl.styles.builtins`
+For more information about the builtin styles please refer to the :mod:`fastpyxl.styles.builtins`
 

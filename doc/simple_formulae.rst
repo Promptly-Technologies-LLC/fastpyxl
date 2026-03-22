@@ -9,7 +9,7 @@ Formualae may be parsed and modified as well.
 
 .. :: doctest
 
->>> from openpyxl import Workbook
+>>> from fastpyxl import Workbook
 >>> wb = Workbook()
 >>> ws = wb.active
 >>> # add a simple formula
@@ -19,11 +19,11 @@ Formualae may be parsed and modified as well.
 .. warning::
     NB you must use the English name for a function and function arguments *must* be separated by commas and not other punctuation such as semi-colons.
 
-openpyxl **never** evaluates formula but it is possible to check the name of a formula:
+fastpyxl **never** evaluates formula but it is possible to check the name of a formula:
 
 .. :: doctest
 
->>> from openpyxl.utils import FORMULAE
+>>> from fastpyxl.utils import FORMULAE
 >>> "HEX2DEC" in FORMULAE
 True
 
@@ -33,7 +33,7 @@ If you're trying to use a formula that isn't known this could be because you're 
 Special formulae
 ++++++++++++++++
 
-Openpyxl also supports two special kinds of formulae: `Array Formulae <https://support.microsoft.com/en-us/office/guidelines-and-examples-of-array-formulas-7d94a64e-3ff3-4686-9372-ecfd5caa57c7#ID0EAAEAAA=Office_2010_-_Office_2019>`_ and `Data Table Formulae <https://support.microsoft.com/en-us/office/calculate-multiple-results-by-using-a-data-table-e95e2487-6ca6-4413-ad12-77542a5ea50b>`_. Given the frequent use of "data tables" within OOXML the latter are particularly confusing.
+Fastpyxl also supports two special kinds of formulae: `Array Formulae <https://support.microsoft.com/en-us/office/guidelines-and-examples-of-array-formulas-7d94a64e-3ff3-4686-9372-ecfd5caa57c7#ID0EAAEAAA=Office_2010_-_Office_2019>`_ and `Data Table Formulae <https://support.microsoft.com/en-us/office/calculate-multiple-results-by-using-a-data-table-e95e2487-6ca6-4413-ad12-77542a5ea50b>`_. Given the frequent use of "data tables" within OOXML the latter are particularly confusing.
 
 In general, support for these kinds of formulae is limited to preserving them in Excel files but the implementation is complete.
 
@@ -47,8 +47,8 @@ Creating your own array formulae is fairly straightforward
 
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.worksheet.formula import ArrayFormula
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.worksheet.formula import ArrayFormula
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active

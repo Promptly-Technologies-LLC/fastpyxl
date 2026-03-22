@@ -1,4 +1,4 @@
-from openpyxl import Workbook
+from fastpyxl import Workbook
 wb = Workbook()
 
 # grab the active worksheet

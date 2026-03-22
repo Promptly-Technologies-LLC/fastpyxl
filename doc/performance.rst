@@ -1,7 +1,7 @@
 Performance
 ===========
 
-openpyxl attempts to balance functionality and performance. Where in doubt,
+fastpyxl attempts to balance functionality and performance. Where in doubt,
 we have focused on functionality over optimisation: performance tweaks are
 easier once an API has been established. Memory use is fairly high in
 comparison with other libraries and applications and is approximately 50
@@ -21,11 +21,11 @@ Write Performance
 +++++++++++++++++
 
 The `benchmark code
-<https://foss.heptapod.net/openpyxl/openpyxl/-/snippets/66>`_
+<https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/66>`_
 can be adjusted to use more sheets and adjust the proportion of data that is
 strings. Because the version of Python being used can also significantly
 affect performance, a `driver script
-<https://foss.heptapod.net/openpyxl/openpyxl/-/snippets/67>`_
+<https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/67>`_
 can also be used to test with different Python versions with a tox
 environment.
 
@@ -38,16 +38,16 @@ Read Performance
 ++++++++++++++++
 
 Performance is measured using a file provided with a previous `bug report
-<https://bitbucket.org/openpyxl/openpyxl/issues/494/>`_ and compared with the
+<https://bitbucket.org/fastpyxl/fastpyxl/issues/494/>`_ and compared with the
 older xlrd library. xlrd is primarily for the older BIFF file format of .XLS
 files but it does have limited support for XLSX.
 
 The code for the `benchmark
-<https://foss.heptapod.net/openpyxl/openpyxl/-/snippets/68>`_ shows the importance of
+<https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/68>`_ shows the importance of
 choosing the right options when working with a file. In this case disabling
-external links stops openpyxl opening cached copies of the linked worksheets.
+external links stops fastpyxl opening cached copies of the linked worksheets.
 
-One major difference between the libraries is that openpyxl's read-only mode
+One major difference between the libraries is that fastpyxl's read-only mode
 opens a workbook almost immediately making it suitable for multiple
 processes, this also reduces memory use significantly. xlrd does also not
 automatically convert dates and times into Python datetimes, though it does
@@ -63,10 +63,10 @@ Parallelisation
 
 Reading worksheets is fairly CPU-intensive which limits any benefits to be
 gained by parallelisation. However, if you are mainly interested in dumping
-the contents of a workbook then you can use openpyxl's read-only mode and
+the contents of a workbook then you can use fastpyxl's read-only mode and
 open multiple instances of a workbook and take advantage of multiple CPUs.
 
-`Sample code <https://foss.heptapod.net/openpyxl/openpyxl/-/snippets/69>`_ using the
+`Sample code <https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/69>`_ using the
 same source file as for read performance shows that performance scales
 reasonably with only a slight overhead due to creating additional Python
 processes.

@@ -1,33 +1,33 @@
 Development
 ===========
 
-If you find the openpyxl project intriguing and want to contribute a new awesome
+If you find the fastpyxl project intriguing and want to contribute a new awesome
 feature, fix a nasty bug or improve the documentation this section will guide you
 in setting up your development environment.
 
 We will look into the coding standards and version control system workflows used,
-as well as cloning the openpyxl code to your local machine, setting up a virtual
+as well as cloning the fastpyxl code to your local machine, setting up a virtual
 Python environment, running tests and building the documentation.
 
 
 Getting the source
 ------------------
 
-The source code of openpyxl is hosted on `Heptapod <https://foss.heptapod.net/openpyxl/openpyxl>`_
+The source code of fastpyxl is hosted on `Heptapod <https://foss.heptapod.net/fastpyxl/fastpyxl>`_
 as a Mercurial project which you can download using e.g. the GUI client
 `SourceTree <http://www.sourcetreeapp.com>`_ by Atlassian. If you prefer working
 with the command line you can use the following:
 
 .. parsed-literal::
 
-    $ hg clone \https://foss.heptapod.net/openpyxl/openpyxl
+    $ hg clone \https://foss.heptapod.net/fastpyxl/fastpyxl
     $ hg up |version|
 
 Please note that the default branch should never be used for development
 work. For bug fixes and minor patches you should base your work on the branch
 of the current release, e.g |version|. New features should generally be based
 on the development branch of the **next** minor version. If in doubt get in
-touch with the openpyxl development team.
+touch with the fastpyxl development team.
 
 It is worthwhile to add an upstream remote reference to the
 original repository to update your fork with the latest changes, by adding
@@ -35,26 +35,26 @@ to the :code:`./hg/hgrc` file the following::
 
     [paths]
     default = ...
-    openpyxl-master = https://foss.heptapod.net/openpyxl/openpyxl
+    fastpyxl-master = https://foss.heptapod.net/fastpyxl/fastpyxl
 
 You can then grab any new changes using::
 
-    $ hg pull openpyxl-master
+    $ hg pull fastpyxl-master
 
 After that you should create a virtual environment using :code:`virtualenv`
 and install the project requirements and the project itself::
 
-    $ cd openpyxl
-    $ virtualenv openpyxl-env
+    $ cd fastpyxl
+    $ virtualenv fastpyxl-env
 
 Activate the environment using::
 
-    $ source bin/activate  # or ./openpyxl-env/Scripts/activate on Windows
+    $ source bin/activate  # or ./fastpyxl-env/Scripts/activate on Windows
 
 Install the dev and prod dependencies and the package itself using::
 
-    (openpyxl-env) $ pip install -U -r requirements.txt
-    (openpyxl-env) $ pip install -e .
+    (fastpyxl-env) $ pip install -U -r requirements.txt
+    (fastpyxl-env) $ pip install -e .
 
 
 Running tests
@@ -67,12 +67,12 @@ We use :code:`pytest` as the test runner with :code:`pytest-cov` for coverage in
 
 To run all the tests you need to either execute::
 
-    (openpxyl-env) $ pytest -xrf openpyxl  # the flags will stop testing at the first error
+    (openpxyl-env) $ pytest -xrf fastpyxl  # the flags will stop testing at the first error
 
 Or use :code:`tox` to run the tests on different Python versions and
 configurations::
 
-    $ tox openpyxl
+    $ tox fastpyxl
 
 
 Coverage
@@ -81,22 +81,22 @@ Coverage
 The goal is 100 % coverage for unit tests - data types and utility functions.
 Coverage information can be obtained using::
 
-    py.test --cov openpyxl
+    py.test --cov fastpyxl
 
 
 Organisation
 ++++++++++++
 
-Tests should be preferably at package / module level e.g :code:`openpyxl/cell`. This
+Tests should be preferably at package / module level e.g :code:`fastpyxl/cell`. This
 makes testing and getting statistics for code under development easier::
 
-    py.test --cov openpyxl/cell openpyxl/cell
+    py.test --cov fastpyxl/cell fastpyxl/cell
 
 
 Checking XML
 ++++++++++++
 
-Use the :code:`openpyxl.tests.helper.compare_xml` function to compare
+Use the :code:`fastpyxl.tests.helper.compare_xml` function to compare
 generated and expected fragments of XML.
 
 
@@ -124,7 +124,7 @@ contain links to the specification and implementers' notes.
 File Support and Specifications
 -------------------------------
 
-The primary aim of openpyxl is to support reading and writing Microsoft Excel
+The primary aim of fastpyxl is to support reading and writing Microsoft Excel
 2010 files. These are zipped OOXML files that are specified by `ECMA 376
 <http://www.ecma-international.org/publications/standards/Ecma-376.htm>`_ and
 `ISO 29500 <http://standards.iso.org/ittf/PubliclyAvailableStandards/index.html>`_.
@@ -213,11 +213,11 @@ There is a tox profile for long-running memory benchmarks using the
 Pympler
 +++++++
 
-As openpyxl does not include any internal memory benchmarking tools, the
+As fastpyxl does not include any internal memory benchmarking tools, the
 python *pympler* package was used during the testing of styles to profile the
-memory usage in :code:`openpyxl.reader.excel.read_style_table()`::
+memory usage in :code:`fastpyxl.reader.excel.read_style_table()`::
 
-    # in openpyxl/reader/style.py
+    # in fastpyxl/reader/style.py
     from pympler import muppy, summary
 
     def read_style_table(xml_source):

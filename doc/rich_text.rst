@@ -17,8 +17,8 @@ the text which is to be formatted like this. The result is a
 
 .. :: doctest
 
->>> from openpyxl.cell.text import InlineFont
->>> from openpyxl.cell.rich_text import TextBlock, CellRichText
+>>> from fastpyxl.cell.text import InlineFont
+>>> from fastpyxl.cell.rich_text import TextBlock, CellRichText
 >>> rich_string1 = CellRichText(
 ...    'This is a test ',
 ...    TextBlock(InlineFont(b=True), 'xxx'),
@@ -55,7 +55,7 @@ object:
 
 .. ::
 
->>> from openpyxl.cell.text import Font
+>>> from fastpyxl.cell.text import Font
 >>> font = Font(name='Calibri',
 ...             size=11,
 ...             bold=False,
@@ -139,7 +139,7 @@ Rich Text objects can be assigned directly to cells
 
 ..
 
->>> from openpyxl import Workbook
+>>> from fastpyxl import Workbook
 >>> wb = Workbook()
 >>> ws = wb.active
 >>> ws['A1'] = rich_string1

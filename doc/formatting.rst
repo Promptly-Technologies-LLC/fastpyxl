@@ -6,16 +6,16 @@ Excel supports three different types of conditional formatting: builtins, standa
 .. note::
 
   The syntax for the different rules varies so much that it is not
-  possible for openpyxl to know whether a rule makes sense or not.
+  possible for fastpyxl to know whether a rule makes sense or not.
 
 
 The basic syntax for creating a formatting rule is:
 
 .. doctest
 
->>> from openpyxl.formatting import Rule
->>> from openpyxl.styles import Font, PatternFill, Border
->>> from openpyxl.styles.differential import DifferentialStyle
+>>> from fastpyxl.formatting import Rule
+>>> from fastpyxl.styles import Font, PatternFill, Border
+>>> from fastpyxl.styles.differential import DifferentialStyle
 >>> dxf = DifferentialStyle(font=Font(bold=True), fill=PatternFill(start_color='EE1111', end_color='EE1111'))
 >>> rule = Rule(type='cellIs', dxf=dxf, formula=["10"])
 
@@ -42,8 +42,8 @@ The full syntax for creating a ColorScale rule is:
 
 .. doctest
 
->>> from openpyxl.formatting.rule import ColorScale, FormatObject
->>> from openpyxl.styles import Color
+>>> from fastpyxl.formatting.rule import ColorScale, FormatObject
+>>> from fastpyxl.styles import Color
 >>> first = FormatObject(type='min')
 >>> last = FormatObject(type='max')
 >>> # colors match the format objects:
@@ -54,14 +54,14 @@ The full syntax for creating a ColorScale rule is:
 >>> colors.insert(1, Color('00AA00'))
 >>> cs3 = ColorScale(cfvo=[first, mid, last], color=colors)
 >>> # create a rule with the color scale
->>> from openpyxl.formatting.rule import Rule
+>>> from fastpyxl.formatting.rule import Rule
 >>> rule = Rule(type='colorScale', colorScale=cs3)
 
 There is a convenience function for creating ColorScale rules
 
 .. doctest
 
->>> from openpyxl.formatting.rule import ColorScaleRule
+>>> from fastpyxl.formatting.rule import ColorScaleRule
 >>> rule = ColorScaleRule(start_type='percentile', start_value=10, start_color='FFAA0000',
 ...                       mid_type='percentile', mid_value=50, mid_color='FF0000AA',
 ...                       end_type='percentile', end_value=90, end_color='FF00AA00')
@@ -76,45 +76,45 @@ The full syntax for creating an IconSet rule is:
 
 .. doctest
 
->>> from openpyxl.formatting.rule import IconSet, FormatObject
+>>> from fastpyxl.formatting.rule import IconSet, FormatObject
 >>> first = FormatObject(type='percent', val=0)
 >>> second = FormatObject(type='percent', val=33)
 >>> third = FormatObject(type='percent', val=67)
 >>> iconset = IconSet(iconSet='3TrafficLights1', cfvo=[first, second, third], showValue=None, percent=None, reverse=None)
 >>> # assign the icon set to a rule
->>> from openpyxl.formatting.rule import Rule
+>>> from fastpyxl.formatting.rule import Rule
 >>> rule = Rule(type='iconSet', iconSet=iconset)
 
 There is a convenience function for creating IconSet rules:
 
 .. doctest
 
->>> from openpyxl.formatting.rule import IconSetRule
+>>> from fastpyxl.formatting.rule import IconSetRule
 >>> rule = IconSetRule('5Arrows', 'percent', [10, 20, 30, 40, 50], showValue=None, percent=None, reverse=None)
 
 
 DataBar
 +++++++
 
-Currently, openpyxl supports the DataBars as defined in the original specification. Borders and directions were added in a later extension.
+Currently, fastpyxl supports the DataBars as defined in the original specification. Borders and directions were added in a later extension.
 
 The full syntax for creating a DataBar rule is:
 
 .. doctest
 
->>> from openpyxl.formatting.rule import DataBar, FormatObject
+>>> from fastpyxl.formatting.rule import DataBar, FormatObject
 >>> first = FormatObject(type='min')
 >>> second = FormatObject(type='max')
 >>> data_bar = DataBar(cfvo=[first, second], color="638EC6", showValue=None, minLength=None, maxLength=None)
 >>> # assign the data bar to a rule
->>> from openpyxl.formatting.rule import Rule
+>>> from fastpyxl.formatting.rule import Rule
 >>> rule = Rule(type='dataBar', dataBar=data_bar)
 
 There is a convenience function for creating DataBar rules:
 
 .. doctest
 
->>> from openpyxl.formatting.rule import DataBarRule
+>>> from fastpyxl.formatting.rule import DataBarRule
 >>> rule = DataBarRule(start_type='percentile', start_value=10, end_type='percentile', end_value='90',
 ...                    color="FF638EC6", showValue="None", minLength=None, maxLength=None)
 
@@ -132,10 +132,10 @@ The standard conditional formats are:
 
 .. doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.styles import Color, PatternFill, Font, Border
->>> from openpyxl.styles.differential import DifferentialStyle
->>> from openpyxl.formatting.rule import ColorScaleRule, CellIsRule, FormulaRule
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.styles import Color, PatternFill, Font, Border
+>>> from fastpyxl.styles.differential import DifferentialStyle
+>>> from fastpyxl.formatting.rule import ColorScaleRule, CellIsRule, FormulaRule
 >>>
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -196,7 +196,7 @@ Sometimes you want to apply a conditional format to more than one cell, say a ro
 
 >>> ws.append(['Software', 'Developer', 'Version'])
 >>> ws.append(['Excel', 'Microsoft', '2016'])
->>> ws.append(['openpyxl', 'Open source', '2.6'])
+>>> ws.append(['fastpyxl', 'Open source', '2.6'])
 >>> ws.append(['OpenOffice', 'Apache', '4.1.4'])
 >>> ws.append(['Word', 'Microsoft', '2010'])
 

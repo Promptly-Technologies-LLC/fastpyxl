@@ -1,9 +1,6 @@
-from openpyxl import Workbook
-from openpyxl.worksheet.filters import (
+from fastpyxl import Workbook
+from fastpyxl.worksheet.filters import (
     FilterColumn,
-    CustomFilter,
-    CustomFilters,
-    DateGroupItem,
     Filters,
     )
 

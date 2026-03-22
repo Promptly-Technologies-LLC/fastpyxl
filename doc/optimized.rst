@@ -6,13 +6,13 @@ Read-only mode
 --------------
 
 Sometimes, you will need to open or write extremely large XLSX files,
-and the common routines in openpyxl won't be able to handle that load.
+and the common routines in fastpyxl won't be able to handle that load.
 Fortunately, there are two modes that enable you to read and write unlimited
 amounts of data with (near) constant memory consumption.
 
-Introducing :class:`openpyxl.worksheet._read_only.ReadOnlyWorksheet`::
+Introducing :class:`fastpyxl.worksheet._read_only.ReadOnlyWorksheet`::
 
-    from openpyxl import load_workbook
+    from fastpyxl import load_workbook
     wb = load_workbook(filename='large_file.xlsx', read_only=True)
     ws = wb['big_data']
 
@@ -25,13 +25,13 @@ Introducing :class:`openpyxl.worksheet._read_only.ReadOnlyWorksheet`::
 
 .. warning::
 
-    * :class:`openpyxl.worksheet._read_only.ReadOnlyWorksheet` is read-only
+    * :class:`fastpyxl.worksheet._read_only.ReadOnlyWorksheet` is read-only
 
     * Unlike a normal workbook, a read-only workbook will use lazy loading.
       The workbook must be explicitly closed with the :func:`close()` method.
 
-Cells returned are not regular :class:`openpyxl.cell.cell.Cell` but
-:class:`openpyxl.cell._read_only.ReadOnlyCell`.
+Cells returned are not regular :class:`fastpyxl.cell.cell.Cell` but
+:class:`fastpyxl.cell._read_only.ReadOnlyCell`.
 
 
 Worksheet dimensions
@@ -51,13 +51,13 @@ attributes should allow you to work with the file::
 Write-only mode
 ---------------
 
-Here again, the regular :class:`openpyxl.worksheet.worksheet.Worksheet` has been replaced
-by a faster alternative, the :class:`openpyxl.worksheet._write_only.WriteOnlyWorksheet`.
+Here again, the regular :class:`fastpyxl.worksheet.worksheet.Worksheet` has been replaced
+by a faster alternative, the :class:`fastpyxl.worksheet._write_only.WriteOnlyWorksheet`.
 When you want to dump large amounts of data make sure you have `lxml` installed.
 
 .. :: doctest
 
->>> from openpyxl import Workbook
+>>> from fastpyxl import Workbook
 >>> wb = Workbook(write_only=True)
 >>> ws = wb.create_sheet()
 >>>
@@ -68,16 +68,16 @@ When you want to dump large amounts of data make sure you have `lxml` installed.
 >>> # save the file
 >>> wb.save('new_big_file.xlsx') # doctest: +SKIP
 
-If you want to have cells with styles or comments then use a :func:`openpyxl.cell.WriteOnlyCell`
+If you want to have cells with styles or comments then use a :func:`fastpyxl.cell.WriteOnlyCell`
 
 .. :: doctest
 
->>> from openpyxl import Workbook
+>>> from fastpyxl import Workbook
 >>> wb = Workbook(write_only = True)
 >>> ws = wb.create_sheet()
->>> from openpyxl.cell import WriteOnlyCell
->>> from openpyxl.comments import Comment
->>> from openpyxl.styles import Font
+>>> from fastpyxl.cell import WriteOnlyCell
+>>> from fastpyxl.comments import Comment
+>>> from fastpyxl.styles import Font
 >>> cell = WriteOnlyCell(ws, value="hello world")
 >>> cell.font = Font(name='Courier', size=36)
 >>> cell.comment = Comment(text="A comment", author="Author's Name")
@@ -105,7 +105,7 @@ anyway).
 
     * A write-only workbook can only be saved once. After
       that, every attempt to save the workbook or append() to an existing
-      worksheet will raise an :class:`openpyxl.utils.exceptions.WorkbookAlreadySaved`
+      worksheet will raise an :class:`fastpyxl.utils.exceptions.WorkbookAlreadySaved`
       exception.
 
     * Everything that appears in the file before the actual cell data must be created

@@ -1,24 +1,24 @@
 Working with Pandas and NumPy
 =============================
 
-openpyxl is able to work with the popular libraries `Pandas
+fastpyxl is able to work with the popular libraries `Pandas
 <http://pandas.pydata.org>`_ and `NumPy <http://numpy.org>`_
 
 
 NumPy Support
 -------------
 
-openpyxl has builtin support for the NumPy types float, integer and boolean.
+fastpyxl has builtin support for the NumPy types float, integer and boolean.
 DateTimes are supported using the Pandas' Timestamp type.
 
 
 Working with Pandas Dataframes
 ------------------------------
 
-The :func:`openpyxl.utils.dataframe.dataframe_to_rows` function provides a
+The :func:`fastpyxl.utils.dataframe.dataframe_to_rows` function provides a
 simple way to work with Pandas Dataframes::
 
-    from openpyxl.utils.dataframe import dataframe_to_rows
+    from fastpyxl.utils.dataframe import dataframe_to_rows
     wb = Workbook()
     ws = wb.active
 
@@ -41,11 +41,11 @@ To convert a dataframe into a worksheet highlighting the header and index::
     for cell in ws['A'] + ws[1]:
         cell.style = 'Pandas'
 
-    wb.save("pandas_openpyxl.xlsx")
+    wb.save("pandas_fastpyxl.xlsx")
 
 Alternatively, if you just want to convert the data you can use write-only mode::
 
-    from openpyxl.cell.cell import WriteOnlyCell
+    from fastpyxl.cell.cell import WriteOnlyCell
     wb = Workbook(write_only=True)
     ws = wb.create_sheet()
 
@@ -68,7 +68,7 @@ Alternatively, if you just want to convert the data you can use write-only mode:
         row[0] = cell
         ws.append(row)
 
-    wb.save("openpyxl_stream.xlsx")
+    wb.save("fastpyxl_stream.xlsx")
 
 
 This code will work just as well with a standard workbook.

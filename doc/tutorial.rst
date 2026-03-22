@@ -4,10 +4,10 @@ Tutorial
 Installation
 ------------
 
-Install openpyxl using pip. It is advisable to do this in a Python virtualenv
+Install fastpyxl using pip. It is advisable to do this in a Python virtualenv
 without system packages::
 
-    $ pip install openpyxl
+    $ pip install fastpyxl
 
 .. note::
 
@@ -18,7 +18,7 @@ without system packages::
 
 .. warning::
 
-    To be able to include images (jpeg, png, bmp,...) into an openpyxl file,
+    To be able to include images (jpeg, png, bmp,...) into an fastpyxl file,
     you will also need the "pillow" library that can be installed with::
 
     $ pip install pillow
@@ -35,16 +35,16 @@ This may be the case if bugs have been fixed but a release has not yet been
 made.
 
 .. parsed-literal::
-    $ pip install -e hg+https://foss.heptapod.net/openpyxl/openpyxl/@\ |version|\ #egg=openpyxl
+    $ pip install -e hg+https://foss.heptapod.net/fastpyxl/fastpyxl/@\ |version|\ #egg=fastpyxl
 
 
 Create a workbook
 -----------------
 
-There is no need to create a file on the filesystem to get started with openpyxl.
+There is no need to create a file on the filesystem to get started with fastpyxl.
 Just import the :class:`Workbook` class and start work::
 
-    >>> from openpyxl import Workbook
+    >>> from fastpyxl import Workbook
     >>> wb = Workbook()
 
 A workbook is always created with at least one worksheet. You can get it by
@@ -306,7 +306,7 @@ such as Pyramid, Flask or Django then you can simply provide a
 
 
     >>> from tempfile import NamedTemporaryFile
-    >>> from openpyxl import Workbook
+    >>> from fastpyxl import Workbook
     >>> wb = Workbook()
     >>> with NamedTemporaryFile() as tmp:
             wb.save(tmp.name)
@@ -346,9 +346,9 @@ such as Pyramid, Flask or Django then you can simply provide a
 Loading from a file
 -------------------
 
-You can use the :func:`openpyxl.load_workbook` to open an existing workbook::
+You can use the :func:`fastpyxl.load_workbook` to open an existing workbook::
 
-    >>> from openpyxl import load_workbook
+    >>> from fastpyxl import load_workbook
     >>> wb = load_workbook(filename = 'empty_book.xlsx')
     >>> sheet_ranges = wb['range names']
     >>> print(sheet_ranges['D18'].value)
@@ -376,7 +376,7 @@ You can use the :func:`openpyxl.load_workbook` to open an existing workbook::
 
 .. warning ::
 
-    openpyxl does currently not read all possible items in an Excel file so
+    fastpyxl does currently not read all possible items in an Excel file so
     shapes will be lost from existing files if they are opened and saved with
     the same name.
 
@@ -384,8 +384,8 @@ You can use the :func:`openpyxl.load_workbook` to open an existing workbook::
 Errors loading workbooks
 ------------------------
 
-Sometimes openpyxl will fail to open a workbook. This is usually because there is something wrong with the file.
-If this is the case then openpyxl will try and provide some more information. Openpyxl follows the OOXML specification closely and will reject files that do not because they are invalid. When this happens you can use the exception from openpyxl to inform the developers of whichever application or library produced the file. As the OOXML specification is publicly available it is important that developers follow it.
+Sometimes fastpyxl will fail to open a workbook. This is usually because there is something wrong with the file.
+If this is the case then fastpyxl will try and provide some more information. Fastpyxl follows the OOXML specification closely and will reject files that do not because they are invalid. When this happens you can use the exception from fastpyxl to inform the developers of whichever application or library produced the file. As the OOXML specification is publicly available it is important that developers follow it.
 
 You can find the spec by searching for ECMA-376, most of the implementation specifics are in Part 4.
 

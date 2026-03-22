@@ -28,7 +28,7 @@ Working with Tables
 ``ws.tables`` is a dictionary-like object of all the tables in a particular worksheet::
 
   >>> ws.tables
-  {"Table1",  <openpyxl.worksheet.table.Table object>}
+  {"Table1",  <fastpyxl.worksheet.table.Table object>}
 
 
 Get Table by name or range
@@ -103,7 +103,7 @@ possible to create tables with header rows without filters.
 Table as a Print Area
 ---------------------
 
-Excel can produce documents with the print area set to the table name. Openpyxl cannot,
+Excel can produce documents with the print area set to the table name. Fastpyxl cannot,
 however, resolve such dynamic defintions and will raise a warning when trying to do so.
 
 If you need to handle this you can extract the range of the table and define the print area as the
@@ -111,7 +111,7 @@ appropriate cell range.
 
 .. code::
 
-  >>> from openpyxl import load_workbook
+  >>> from fastpyxl import load_workbook
   >>> wb = load_workbook("QueryTable.xlsx")
   >>> ws = wb.active
   >>> table_range = ws.tables["InvoiceData"]

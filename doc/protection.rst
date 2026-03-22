@@ -9,7 +9,7 @@ Protection
     confused with file security. It is meant to make your workbook safe from unintentional
     modification, and cannot protect it from malicious modification."
 
-Openpyxl provides support for protecting a workbook and worksheet from modification. The Open XML
+Fastpyxl provides support for protecting a workbook and worksheet from modification. The Open XML
 "Legacy Password Hash Algorithm" is used to generate hashed password values unless another
 algorithm is explicitly configured.
 
@@ -18,7 +18,7 @@ Workbook Protection
 
 To prevent other users from viewing hidden worksheets, adding, moving, deleting, or hiding worksheets, and
 renaming worksheets, you can protect the structure of your workbook with a password. The password can be
-set using the :func:`openpyxl.workbook.protection.WorkbookProtection.workbookPassword` property ::
+set using the :func:`fastpyxl.workbook.protection.WorkbookProtection.workbookPassword` property ::
 
     >>> wb.security.workbookPassword = '...'
     >>> wb.security.lockStructure = True
@@ -26,11 +26,11 @@ set using the :func:`openpyxl.workbook.protection.WorkbookProtection.workbookPas
 
 Similarly removing change tracking and change history from a shared workbook can be prevented by setting
 another password. This password can be set using the
-:func:`openpyxl.workbook.protection.WorkbookProtection.revisionsPassword` property ::
+:func:`fastpyxl.workbook.protection.WorkbookProtection.revisionsPassword` property ::
 
     >>> wb.security.revisionsPassword = '...'
 
-Other properties on the :class:`openpyxl.workbook.protection.WorkbookProtection` object control exactly what
+Other properties on the :class:`fastpyxl.workbook.protection.WorkbookProtection` object control exactly what
 restrictions are in place, but these will only be enforced if the appropriate password is set.
 
 Specific setter functions are provided if you need to set the raw password value without using the
@@ -44,7 +44,7 @@ Worksheet Protection
 --------------------
 
 Various aspects of a worksheet can also be locked by setting attributes on the
-:class:`openpyxl.worksheet.protection.SheetProtection` object. Unlike workbook protection, sheet
+:class:`fastpyxl.worksheet.protection.SheetProtection` object. Unlike workbook protection, sheet
 protection may be enabled with or without using a password. Sheet protection is enabled using the
 :attr:`openpxyl.worksheet.protection.SheetProtection.sheet` attribute or calling `enable()` or `disable()`::
 

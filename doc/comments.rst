@@ -3,7 +3,7 @@ Comments
 
 .. warning::
 
-    Openpyxl currently supports the reading and writing of comment text only.
+    Fastpyxl currently supports the reading and writing of comment text only.
     Formatting information is lost. Comment dimensions are lost upon reading,
     but can be written. Comments are not currently supported if
     `read_only=True` is used.
@@ -16,8 +16,8 @@ Comments have a text attribute and an author attribute, which must both be set
 
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.comments import Comment
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.comments import Comment
 >>> wb = Workbook()
 >>> ws = wb.active
 >>> comment = ws["A1"].comment
@@ -27,12 +27,12 @@ Comments have a text attribute and an author attribute, which must both be set
 >>> comment.author
 'Comment Author'
 
-If you assign the same comment to multiple cells then openpyxl will automatically create copies
+If you assign the same comment to multiple cells then fastpyxl will automatically create copies
 
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.comments import Comment
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.comments import Comment
 >>> wb=Workbook()
 >>> ws=wb.active
 >>> comment = Comment("Text", "Author")
@@ -60,9 +60,9 @@ in pixels.
 
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.comments import Comment
->>> from openpyxl.utils import units
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.comments import Comment
+>>> from fastpyxl.utils import units
 >>>
 >>> wb=Workbook()
 >>> ws=wb.active
@@ -76,14 +76,14 @@ in pixels.
 >>> wb.save('commented_book.xlsx')
 
 
-If needed, ``openpyxl.utils.units`` contains helper functions for converting
+If needed, ``fastpyxl.utils.units`` contains helper functions for converting
 from other measurements such as mm or points to pixels:
 
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.comments import Comment
->>> from openpyxl.utils import units
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.comments import Comment
+>>> from fastpyxl.utils import units
 >>>
 >>> wb=Workbook()
 >>> ws=wb.active

@@ -9,8 +9,8 @@ Examples
 
 .. :: doctest
 
->>> from openpyxl import Workbook
->>> from openpyxl.worksheet.datavalidation import DataValidation
+>>> from fastpyxl import Workbook
+>>> from fastpyxl.worksheet.datavalidation import DataValidation
 >>>
 >>> # Create the workbook and worksheet we'll be working with
 >>> wb = Workbook()
@@ -102,7 +102,7 @@ Any string at most 15 characters:
 Cell range validation:
 ::
 
-    from openpyxl.utils import quote_sheetname
+    from fastpyxl.utils import quote_sheetname
     dv = DataValidation(type="list",
                         formula1="{0}!$B$1:$B$10".format(quote_sheetname(sheetname))
                         )

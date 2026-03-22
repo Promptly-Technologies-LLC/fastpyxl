@@ -1,5 +1,5 @@
-from openpyxl import Workbook
-from openpyxl.worksheet.table import Table, TableStyleInfo
+from fastpyxl import Workbook
+from fastpyxl.worksheet.table import Table, TableStyleInfo
 
 wb = Workbook()
 ws = wb.active

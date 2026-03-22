@@ -34,7 +34,7 @@ Volume can be added by combining the stock chart with a bar chart for the volume
   Due to a bug in Excel high-low lines will only be shown if at least one of
   the data series has some dummy values. This can be done with the following hack::
 
-    from openpyxl.chart.data_source import NumData, NumVal
+    from fastpyxl.chart.data_source import NumData, NumVal
     pts = [NumVal(idx=i) for i in range(len(data) - 1)]
     cache = NumData(pt=pts)
     c1.series[-1].val.numRef.numCache = cache

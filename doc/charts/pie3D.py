@@ -1,6 +1,6 @@
-from openpyxl import Workbook
+from fastpyxl import Workbook
 
-from openpyxl.chart import (
+from fastpyxl.chart import (
     PieChart3D,
     Reference
 )

@@ -25,12 +25,12 @@ The data we'll be entering on the sheet is below:
      - Green
      - 1204
 
-To start, let's load in openpyxl and create a new workbook. and get the active sheet.
+To start, let's load in fastpyxl and create a new workbook. and get the active sheet.
 We'll also enter our tree data.
 
 .. :: doctest exercise-1
 
->>> from openpyxl import Workbook
+>>> from fastpyxl import Workbook
 
 >>> wb = Workbook()
 >>> ws = wb.active
@@ -47,18 +47,18 @@ Now we should make our heading Bold to make it stand out a bit more, to do that 
 
 .. :: doctest exercise-1
 
->>> from openpyxl.styles import Font
+>>> from fastpyxl.styles import Font
 
 >>> ft = Font(bold=True)
 >>> for row in ws["A1:C1"]:
 ...     for cell in row:
 ...         cell.font = ft
 
-It's time to make some charts. First, we'll start by importing the appropriate packages from :class:`openpyxl.chart` then define some basic attributes
+It's time to make some charts. First, we'll start by importing the appropriate packages from :class:`fastpyxl.chart` then define some basic attributes
 
 .. :: doctest exercise-1
 
->>> from openpyxl.chart import BarChart, Series, Reference
+>>> from fastpyxl.chart import BarChart, Series, Reference
 
 >>> chart = BarChart()
 >>> chart.type = "col"

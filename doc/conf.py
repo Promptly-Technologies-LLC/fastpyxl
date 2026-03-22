@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# openpyxl documentation build configuration file, created by
+# fastpyxl documentation build configuration file, created by
 # sphinx-quickstart on Fri Sep 10 09:50:03 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -11,7 +11,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -22,24 +23,22 @@ up = os.path.dirname
 HERE = os.path.split(__file__)[0]
 sys.path.insert(0, os.path.abspath(os.path.join(up(HERE), '.')))
 
-import openpyxl
-import sphinx_rtd_theme
+import fastpyxl
 
 def AliasProxyGet(self, instance, cls):
     return getattr(cls, self.alias)
 
-from openpyxl.styles.numbers import NumberFormatDescriptor
+from fastpyxl.styles.numbers import NumberFormatDescriptor
 
 def NumberFormatGet(self, instance, cls):
     return self
 
-from openpyxl.styles.styleable import StyleDescriptor
 
 def StyleDescriptorGet(self, instance, cls):
     return self.key
 
 if os.environ.get("APIDOC") == "True":
-    from openpyxl.descriptors import Alias
+    from fastpyxl.descriptors import Alias
     Alias.__get__ = AliasProxyGet
     NumberFormatDescriptor.__get__ = NumberFormatGet
 
@@ -67,17 +66,17 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'openpyxl'
+project = u'fastpyxl'
 from datetime import date
 
-copyright = u'2010 - {0}, {1}'.format(date.today().year, openpyxl.__author__)
+copyright = u'2010 - {0}, {1}'.format(date.today().year, fastpyxl.__author__)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = openpyxl.__version__
+release = fastpyxl.__version__
 # The short X.Y version.
 version = ".".join(release.split(".")[:-1])
 
@@ -198,7 +197,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'openpyxldoc'
+htmlhelp_basename = 'fastpyxldoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -212,8 +211,8 @@ htmlhelp_basename = 'openpyxldoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'openpyxl.tex', u'openpyxl Documentation',
-   openpyxl.__author__, 'manual'),
+  ('index', 'fastpyxl.tex', u'fastpyxl Documentation',
+   fastpyxl.__author__, 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -245,8 +244,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'openpyxl', u'openpyxl Documentation',
-     [openpyxl.__author__], 1)
+    ('index', 'fastpyxl', u'fastpyxl Documentation',
+     [fastpyxl.__author__], 1)
 ]
 
 
@@ -280,34 +279,34 @@ def run_apidoc(_):
     cur_dir = os.path.abspath(os.path.dirname(__file__))
     output_path = os.path.join(cur_dir, 'api')
     shutil.rmtree(output_path, ignore_errors=True)
-    modules = os.path.dirname(openpyxl.__file__)
+    modules = os.path.dirname(fastpyxl.__file__)
     exclusions = [
-        '../openpyxl/cell/tests',
-        '../openpyxl/chart/tests',
-        '../openpyxl/chartsheet/tests',
-        '../openpyxl/comments/tests',
-        '../openpyxl/compat',
-        '../openpyxl/descriptors/tests',
-        '../openpyxl/descriptors/slots.py',
-        '../openpyxl/develop/',
-        '../openpyxl/drawing/tests',
-        '../openpyxl/formula/',
-        '../openpyxl/formatting/tests/',
-        '../openpyxl/worksheet/tests',
-        '../openpyxl/writer/tests/',
-        '../openpyxl/xml/tests',
-        '../openpyxl/conftest.py',
-        '../openpyxl/packaging/tests',
-        '../openpyxl/pivot/tests',
-        '../openpyxl/reader/tests',
-        '../openpyxl/styles/tests',
-        '../openpyxl/tests',
-        '../openpyxl/utils/tests',
-        '../openpyxl/utils/formulas.py',
-        '../openpyxl/workbook/tests',
-        '../openpyxl/workbook/external_link/tests',
-        '../openpyxl/writer/tests',
-        '../openpyxl/xml/tests',
+        '../fastpyxl/cell/tests',
+        '../fastpyxl/chart/tests',
+        '../fastpyxl/chartsheet/tests',
+        '../fastpyxl/comments/tests',
+        '../fastpyxl/compat',
+        '../fastpyxl/descriptors/tests',
+        '../fastpyxl/descriptors/slots.py',
+        '../fastpyxl/develop/',
+        '../fastpyxl/drawing/tests',
+        '../fastpyxl/formula/',
+        '../fastpyxl/formatting/tests/',
+        '../fastpyxl/worksheet/tests',
+        '../fastpyxl/writer/tests/',
+        '../fastpyxl/xml/tests',
+        '../fastpyxl/conftest.py',
+        '../fastpyxl/packaging/tests',
+        '../fastpyxl/pivot/tests',
+        '../fastpyxl/reader/tests',
+        '../fastpyxl/styles/tests',
+        '../fastpyxl/tests',
+        '../fastpyxl/utils/tests',
+        '../fastpyxl/utils/formulas.py',
+        '../fastpyxl/workbook/tests',
+        '../fastpyxl/workbook/external_link/tests',
+        '../fastpyxl/writer/tests',
+        '../fastpyxl/xml/tests',
     ]
     main(['-f', '-T', '-e', '-M', '-o', output_path, modules] + exclusions)
 

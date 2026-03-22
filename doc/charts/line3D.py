@@ -1,11 +1,10 @@
 from datetime import date
 
-from openpyxl import Workbook
-from openpyxl.chart import (
+from fastpyxl import Workbook
+from fastpyxl.chart import (
     LineChart3D,
     Reference,
 )
-from openpyxl.chart.axis import DateAxis
 
 wb = Workbook()
 ws = wb.active

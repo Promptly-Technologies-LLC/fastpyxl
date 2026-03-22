@@ -6,9 +6,9 @@ It's possible to filter single range of values in a worksheet by adding an autof
 
 .. note::
 
-  Filters and sorts can only be configured by openpyxl but will need to be applied in applications like Excel. This is because they actually rearrange, format and hide rows in the range.
+  Filters and sorts can only be configured by fastpyxl but will need to be applied in applications like Excel. This is because they actually rearrange, format and hide rows in the range.
 
-To add a filter you define a range and then add columns. You set the range over which the filter by setting the ``ref`` attribute. Filters are then applied to columns in the range using a zero-based index, eg. in a range from A1:H10, colId 1 refers to column B. Openpyxl does not check the validity of such assignments.
+To add a filter you define a range and then add columns. You set the range over which the filter by setting the ``ref`` attribute. Filters are then applied to columns in the range using a zero-based index, eg. in a range from A1:H10, colId 1 refers to column B. Fastpyxl does not check the validity of such assignments.
 
 .. literalinclude:: filters.py
 
@@ -23,7 +23,7 @@ Advanced filters
 
 The following predefined filters can be used: ``CustomFilter, DateGroupItem, DynamicFilter, ColorFilter, IconFilter and Top10`` ``ColorFilter, IconFilter and Top10`` all interact with conditional formats.
 
-The signature and structure of the different kinds of filter varies significantly. As such it makes sense to familiarise yourself with either the openpyxl source code or the OOXML specification.
+The signature and structure of the different kinds of filter varies significantly. As such it makes sense to familiarise yourself with either the fastpyxl source code or the OOXML specification.
 
 
 CustomFilter
@@ -33,7 +33,7 @@ CustomFilters can have one or two conditions which will operate either independe
 
 Filter values < 10 and > 90::
 
-  from openpyxl.worksheet.filters import CustomFilter, CustomFilters
+  from fastpyxl.worksheet.filters import CustomFilter, CustomFilters
   flt1 = CustomFilter(operator="lessThan", val=10)
   flt2 = CustomFilter(operator="greaterThan", val=90)
 
@@ -50,7 +50,7 @@ In addition, Excel has non-standardised functionality for pattern matching with 
 
 For example: for "begins with a", is actually ``a*``; for "ends with a", ``*a``; and for "contains a"",  ``*a*``. ``?`` can be used to represent a single character. In regular expressions ``*`` is called *greedy* and ``?`` *non-greedy*. Wildcards are escaped with the ``~`` (tilde) so that ``contains ~*``is serialised as ``~~~*``.
 
-To simplify creating filters in client code, Openpyxl provides three specialised filters: ``NumberFilter``; ``BlankFilter`` and ``StringFilter``. These filters are all used only when **creating** filters. For convenience, you can use the the ``CustomFilter.convert()`` method to convert from a CustomFilter to a more specific filter.
+To simplify creating filters in client code, Fastpyxl provides three specialised filters: ``NumberFilter``; ``BlankFilter`` and ``StringFilter``. These filters are all used only when **creating** filters. For convenience, you can use the the ``CustomFilter.convert()`` method to convert from a CustomFilter to a more specific filter.
 
 
 NumberFilters
@@ -58,7 +58,7 @@ NumberFilters
 
 NumericFilters differ from CustomFilters only in that they are explicitly numerical::
 
-  from openpyxl.worksheet.filters import NumberFilter, CustomerFilter
+  from fastpyxl.worksheet.filters import NumberFilter, CustomerFilter
   flt1 = CustomFilter(operator="lessThan", val=10)
   flt1.val == "10"
   flt2 = NumberFilter(operator="lessThan", val=10)
@@ -70,20 +70,20 @@ BlankFilters
 
 BlankFilters are used for excluding blanks and are not editable::
 
-  from openpyxl.worksheet.filters import BlankFilter
+  from fastpyxl.worksheet.filters import BlankFilter
   blank = BlankFilter()
 
 
 StringFilters
 +++++++++++++
 
-StringFilters have the folowing operators: ``contains`` ``startwith`` ``endswith`` and ``wildcard``. To apply the filter in the negative, set the exclude attribue to ``True``. Openpyxl handles escaping automatically::
+StringFilters have the folowing operators: ``contains`` ``startwith`` ``endswith`` and ``wildcard``. To apply the filter in the negative, set the exclude attribue to ``True``. Fastpyxl handles escaping automatically::
 
-  from openpyxl.worksheet.filters import StringFilter
+  from fastpyxl.worksheet.filters import StringFilter
   fil = StringFilter("contains", "xml", exclude=True)
 
 
-StringFilters with the wildcard operator are the same as CustomFilters. This allows for allows for more sophisticated uses of the wildcards such as ``c?n`` which would match the terms ``cancan`` and ``contains``, but not ``curtains``; or ``c*n`` which would match all terms. Openpyxl does **not** escape filters that use the wildcard operator.
+StringFilters with the wildcard operator are the same as CustomFilters. This allows for allows for more sophisticated uses of the wildcards such as ``c?n`` which would match the terms ``cancan`` and ``contains``, but not ``curtains``; or ``c*n`` which would match all terms. Fastpyxl does **not** escape filters that use the wildcard operator.
 
 .. note::
 
@@ -97,7 +97,7 @@ Date filters can be set to allow filtering by different datetime criteria such a
 
 To filter by the month of March::
 
-  from openpyxl.worksheet.filters import DateGroupItem
+  from fastpyxl.worksheet.filters import DateGroupItem
   df1 = DateGroupItem(month=3, dateTimeGrouping="month")
   col = FilterColumn(colId=1) # second column
   col.filters.dateGroupItem.append(df1)

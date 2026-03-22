@@ -4,13 +4,6 @@ import pytest
 # objects under test
 
 
-@pytest.fixture
-def Image():
-    """Image class"""
-    from fastpyxl.drawing import Image
-    return Image
-
-
 # utility fixtures
 
 @pytest.fixture

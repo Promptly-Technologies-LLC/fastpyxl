@@ -3,6 +3,7 @@
 import pytest
 
 import PIL
+import PIL.Image
 
 from fastpyxl.xml.functions import fromstring, tostring
 from fastpyxl.tests.helper import compare_xml

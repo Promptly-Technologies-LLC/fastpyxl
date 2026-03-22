@@ -65,11 +65,6 @@ def test_numpy_tostring():
     assert safe_string(bool_(True)) == "1"
 
 
-@pytest.mark.skipif("sys.version_info[0]>=3")
-def test_safe_repr():
-    from ..strings import safe_repr
-    s = u"D\xfcsseldorf"
-    assert safe_repr(s) == s.encode("ascii", "backslashreplace")
 
 
 from .. import deprecated

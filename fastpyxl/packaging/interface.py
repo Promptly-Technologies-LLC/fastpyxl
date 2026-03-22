@@ -1,6 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from abc import abstractproperty
+from abc import abstractmethod
 from fastpyxl.compat.abc import ABC
 
 
@@ -11,7 +11,8 @@ class ISerialisableFile(ABC):
     """
 
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def id(self):
         """
         Object id making it unique
@@ -19,7 +20,8 @@ class ISerialisableFile(ABC):
         pass
 
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def _path(self):
         """
         File path in the archive
@@ -27,7 +29,8 @@ class ISerialisableFile(ABC):
         pass
 
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def _namespace(self):
         """
         Qualified namespace when serialised
@@ -35,21 +38,24 @@ class ISerialisableFile(ABC):
         pass
 
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def _type(self):
         """
         The content type for the manifest
         """
 
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def _rel_type(self):
         """
         The content type for relationships
         """
 
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def _rel_id(self):
         """
         Links object with parent

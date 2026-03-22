@@ -66,6 +66,33 @@ ignore = ["E402", "E501", "E101"]
 "**/tests/*" = ["F811"]
 "doc/*" = ["F401"]
 
+[tool.ty.rules]
+# The codebase uses a custom descriptor system (Typed, Set, NoneSet, etc.)
+# that implements __set__/__get__ for runtime type coercion. ty sees the
+# descriptor type rather than the coerced value type, causing false positives.
+invalid-assignment = "ignore"
+unresolved-attribute = "ignore"
+unsupported-operator = "ignore"
+not-iterable = "ignore"
+invalid-argument-type = "ignore"
+not-subscriptable = "ignore"
+call-non-callable = "ignore"
+no-matching-overload = "ignore"
+index-out-of-bounds = "ignore"
+# Optional deps (lxml, defusedxml) and legacy pytest (py.path) lack type stubs
+unresolved-import = "ignore"
+# Intentional LSP violations: subclasses narrow to_tree() signatures
+invalid-method-override = "ignore"
+# Python 2 compat code wrapped in try/except
+unresolved-reference = "ignore"
+
+[tool.ty.environment]
+# Optional dependencies that may not be installed
+extra-paths = []
+
+[tool.ty.src]
+exclude = ["doc/"]
+
 [tool.pytest.ini_options]
 addopts = "--strict-markers --showlocals"
 norecursedirs = ["lib", "include", "fastpyxl/Issues", ".tox", "local"]

@@ -15,8 +15,3 @@ def datadir():
 # objects under test
 
 
-@pytest.fixture
-def FormatRule():
-    """Formatting rule class"""
-    from fastpyxl.formatting.rules import FormatRule
-    return FormatRule

@@ -2,13 +2,9 @@
 
 from array import array
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Bool,
-    Integer,
-    Sequence,
-)
+from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.descriptors.excel import ExtensionList
 from fastpyxl.utils.indexed_list import IndexedList
 
@@ -68,24 +64,18 @@ class CellStyle(Serialisable):
 
     tagname = "xf"
 
-    numFmtId = Integer()
-    fontId = Integer()
-    fillId = Integer()
-    borderId = Integer()
-    xfId = Integer(allow_none=True)
-    quotePrefix = Bool(allow_none=True)
-    pivotButton = Bool(allow_none=True)
-    applyNumberFormat = Bool(allow_none=True)
-    applyFont = Bool(allow_none=True)
-    applyFill = Bool(allow_none=True)
-    applyBorder = Bool(allow_none=True)
-    alignment = Typed(expected_type=Alignment, allow_none=True)
-    protection = Typed(expected_type=Protection, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    fontId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    fillId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    borderId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    xfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    quotePrefix: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    pivotButton: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    alignment: Alignment | None = Field.element(expected_type=Alignment, allow_none=True)
+    protection: Protection | None = Field.element(expected_type=Protection, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ('alignment', 'protection')
-    __attrs__ = ("numFmtId", "fontId", "fillId", "borderId",
-                 "applyAlignment", "applyProtection", "pivotButton", "quotePrefix", "xfId")
+    xml_order = ("alignment", "protection")
 
     def __init__(self,
                  numFmtId=0,
@@ -118,6 +108,7 @@ class CellStyle(Serialisable):
         self.applyBorder = applyBorder
         self.alignment = alignment
         self.protection = protection
+        self.extLst = extLst
 
 
     def to_array(self):
@@ -153,17 +144,29 @@ class CellStyle(Serialisable):
         return self.alignment is not None or None
 
 
+    def __iter__(self):
+        attrs = (
+            ("numFmtId", self.numFmtId),
+            ("fontId", self.fontId),
+            ("fillId", self.fillId),
+            ("borderId", self.borderId),
+            ("applyAlignment", self.applyAlignment),
+            ("applyProtection", self.applyProtection),
+            ("pivotButton", self.pivotButton),
+            ("quotePrefix", self.quotePrefix),
+            ("xfId", self.xfId),
+        )
+        for key, value in attrs:
+            if value is None:
+                continue
+            yield key, safe_string(value)
+
+
 class CellStyleList(Serialisable):
 
     tagname = "cellXfs"
 
-    __attrs__ = ("count",)
-
-    xf = Sequence(expected_type=CellStyle)
-    alignment = Sequence(expected_type=Alignment)
-    protection = Sequence(expected_type=Protection)
-
-    __elements__ = ('xf',)
+    xf: list[CellStyle] = Field.sequence(expected_type=CellStyle)
 
     def __init__(self,
                  count=None,
@@ -175,6 +178,10 @@ class CellStyleList(Serialisable):
     @property
     def count(self):
         return len(self.xf)
+
+
+    def __iter__(self):
+        yield "count", safe_string(self.count)
 
 
     def __getitem__(self, idx):

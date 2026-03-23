@@ -1,13 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-)
-from fastpyxl.descriptors.nested import (
-    NestedText,
-)
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 from fastpyxl.xml.constants import XPROPS_NS
 from fastpyxl import __version__
@@ -42,36 +36,36 @@ class ExtendedProperties(Serialisable):
 
     tagname = "Properties"
 
-    Template = NestedText(expected_type=str, allow_none=True)
-    Manager = NestedText(expected_type=str, allow_none=True)
-    Company = NestedText(expected_type=str, allow_none=True)
-    Pages = NestedText(expected_type=int, allow_none=True)
-    Words = NestedText(expected_type=int,allow_none=True)
-    Characters = NestedText(expected_type=int, allow_none=True)
-    PresentationFormat = NestedText(expected_type=str, allow_none=True)
-    Lines = NestedText(expected_type=int, allow_none=True)
-    Paragraphs = NestedText(expected_type=int, allow_none=True)
-    Slides = NestedText(expected_type=int, allow_none=True)
-    Notes = NestedText(expected_type=int, allow_none=True)
-    TotalTime = NestedText(expected_type=int, allow_none=True)
-    HiddenSlides = NestedText(expected_type=int, allow_none=True)
-    MMClips = NestedText(expected_type=int, allow_none=True)
-    ScaleCrop = NestedText(expected_type=bool, allow_none=True)
-    HeadingPairs = Typed(expected_type=VectorVariant, allow_none=True)
-    TitlesOfParts = Typed(expected_type=VectorLpstr, allow_none=True)
-    LinksUpToDate = NestedText(expected_type=bool, allow_none=True)
-    CharactersWithSpaces = NestedText(expected_type=int, allow_none=True)
-    SharedDoc = NestedText(expected_type=bool, allow_none=True)
-    HyperlinkBase = NestedText(expected_type=str, allow_none=True)
-    HLinks = Typed(expected_type=VectorVariant, allow_none=True)
-    HyperlinksChanged = NestedText(expected_type=bool, allow_none=True)
-    DigSig = Typed(expected_type=DigSigBlob, allow_none=True)
-    Application = NestedText(expected_type=str, allow_none=True)
-    AppVersion = NestedText(expected_type=str, allow_none=True)
-    DocSecurity = NestedText(expected_type=int, allow_none=True)
+    Template: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    Manager: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    Company: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    Pages: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    Words: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    Characters: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    PresentationFormat: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    Lines: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    Paragraphs: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    Slides: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    Notes: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    TotalTime: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    HiddenSlides: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    MMClips: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    ScaleCrop: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    HeadingPairs: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True)
+    TitlesOfParts: VectorLpstr | None = Field.element(expected_type=VectorLpstr, allow_none=True)
+    LinksUpToDate: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    CharactersWithSpaces: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    SharedDoc: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    HyperlinkBase: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    HLinks: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True)
+    HyperlinksChanged: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    DigSig: DigSigBlob | None = Field.element(expected_type=DigSigBlob, allow_none=True)
+    Application: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    AppVersion: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    DocSecurity: int | None = Field.nested_text(expected_type=int, allow_none=True)
 
-    __elements__ = ('Application', 'AppVersion', 'DocSecurity', 'ScaleCrop',
-                    'LinksUpToDate', 'SharedDoc', 'HyperlinksChanged')
+    xml_order = ('Application', 'AppVersion', 'DocSecurity', 'ScaleCrop',
+                 'LinksUpToDate', 'SharedDoc', 'HyperlinksChanged')
 
     def __init__(self,
                  Template=None,

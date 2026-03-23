@@ -1,7 +1,6 @@
 
-from fastpyxl.descriptors import (Bool, Integer, String)
-from fastpyxl.descriptors.excel import Base64Binary
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 from fastpyxl.worksheet.protection import (
     _Protected
@@ -11,14 +10,18 @@ from fastpyxl.worksheet.protection import (
 class ChartsheetProtection(Serialisable, _Protected):
     tagname = "sheetProtection"
 
-    algorithmName = String(allow_none=True)
-    hashValue = Base64Binary(allow_none=True)
-    saltValue = Base64Binary(allow_none=True)
-    spinCount = Integer(allow_none=True)
-    content = Bool(allow_none=True)
-    objects = Bool(allow_none=True)
+    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    content: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    objects: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __attrs__ = ("content", "objects", "password", "hashValue", "spinCount", "saltValue", "algorithmName")
+    def __iter__(self):
+        for key in ("content", "objects", "password", "hashValue", "spinCount", "saltValue", "algorithmName"):
+            value = getattr(self, key, None)
+            if value is not None:
+                yield key, str(int(value)) if isinstance(value, bool) else str(value)
 
     def __init__(self,
                  content=None,

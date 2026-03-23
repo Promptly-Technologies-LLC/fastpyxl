@@ -1,16 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Alias,
-    String,
-    Integer,
-    Bool,
-)
-from fastpyxl.descriptors.excel import (
-    HexBinary,
-    Base64Binary,
-)
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 from fastpyxl.utils.protection import hash_password
 
 
@@ -20,30 +11,24 @@ class WorkbookProtection(Serialisable):
 
     tagname = "workbookPr"
 
-    workbook_password = Alias("workbookPassword")
-    workbookPasswordCharacterSet = String(allow_none=True)
-    revision_password = Alias("revisionsPassword")
-    revisionsPasswordCharacterSet = String(allow_none=True)
-    lockStructure = Bool(allow_none=True)
-    lock_structure = Alias("lockStructure")
-    lockWindows = Bool(allow_none=True)
-    lock_windows = Alias("lockWindows")
-    lockRevision = Bool(allow_none=True)
-    lock_revision = Alias("lockRevision")
-    revisionsAlgorithmName = String(allow_none=True)
-    revisionsHashValue = Base64Binary(allow_none=True)
-    revisionsSaltValue = Base64Binary(allow_none=True)
-    revisionsSpinCount = Integer(allow_none=True)
-    workbookAlgorithmName = String(allow_none=True)
-    workbookHashValue = Base64Binary(allow_none=True)
-    workbookSaltValue = Base64Binary(allow_none=True)
-    workbookSpinCount = Integer(allow_none=True)
-
-    __attrs__ = ('workbookPassword', 'workbookPasswordCharacterSet', 'revisionsPassword',
-                 'revisionsPasswordCharacterSet', 'lockStructure', 'lockWindows', 'lockRevision',
-                 'revisionsAlgorithmName', 'revisionsHashValue', 'revisionsSaltValue',
-                 'revisionsSpinCount', 'workbookAlgorithmName', 'workbookHashValue',
-                 'workbookSaltValue', 'workbookSpinCount')
+    workbook_password = AliasField("workbookPassword")
+    workbookPasswordCharacterSet: str | None = Field.attribute(expected_type=str, allow_none=True)
+    revision_password = AliasField("revisionsPassword")
+    revisionsPasswordCharacterSet: str | None = Field.attribute(expected_type=str, allow_none=True)
+    lockStructure: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    lock_structure = AliasField("lockStructure")
+    lockWindows: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    lock_windows = AliasField("lockWindows")
+    lockRevision: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    lock_revision = AliasField("lockRevision")
+    revisionsAlgorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    revisionsHashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    revisionsSaltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    revisionsSpinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    workbookAlgorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    workbookHashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    workbookSaltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    workbookSpinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  workbookPassword=None,
@@ -130,13 +115,13 @@ class FileSharing(Serialisable):
 
     tagname = "fileSharing"
 
-    readOnlyRecommended = Bool(allow_none=True)
-    userName = String(allow_none=True)
-    reservationPassword = HexBinary(allow_none=True)
-    algorithmName = String(allow_none=True)
-    hashValue = Base64Binary(allow_none=True)
-    saltValue = Base64Binary(allow_none=True)
-    spinCount = Integer(allow_none=True)
+    readOnlyRecommended: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    userName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    reservationPassword: str | None = Field.attribute(expected_type=str, allow_none=True)
+    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  readOnlyRecommended=None,

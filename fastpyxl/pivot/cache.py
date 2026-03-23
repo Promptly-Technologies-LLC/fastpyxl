@@ -25,6 +25,8 @@ from fastpyxl.descriptors.sequence import (
 )
 from fastpyxl.xml.constants import SHEET_MAIN_NS
 from fastpyxl.xml.functions import tostring
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.packaging.relationship import (
     RelationshipList,
     Relationship,
@@ -329,18 +331,22 @@ class GroupMember(Serialisable):
         self.group = group
 
 
-class LevelGroup(Serialisable):
+class LevelGroup(TypedSerialisable):
 
     tagname = "group"
 
-    name = String()
-    uniqueName = String()
-    caption = String()
-    uniqueParent = String()
-    id = Integer()
-    groupMembers = NestedSequence(expected_type=GroupMember, count=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    uniqueParent: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True)
+    groupMembers: list[GroupMember] | None = Field.nested_sequence(
+        expected_type=GroupMember,
+        allow_none=True,
+        count=True,
+    )
 
-    __elements__ = ('groupMembers',)
+    xml_order = ("groupMembers",)
 
     def __init__(self,
                  name=None,

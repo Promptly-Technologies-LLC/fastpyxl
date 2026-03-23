@@ -3,14 +3,11 @@
 import re
 from fastpyxl.compat import safe_string
 from fastpyxl.descriptors import (
-    String,
-    Bool,
-    MinMax,
-    Integer,
     Typed,
 )
-from fastpyxl.descriptors.sequence import NestedSequence
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 # Default Color Index as per 18.8.27 of ECMA Part 4
 COLOR_INDEX = (
@@ -69,12 +66,20 @@ class Color(Serialisable):
 
     tagname = "color"
 
-    rgb = RGB()
-    indexed = Integer()
-    auto = Bool()
-    theme = Integer()
-    tint = MinMax(min=-1, max=1, expected_type=float)
-    type = String()
+    rgb: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _rgb_converter(v, "rgb"),
+    )
+    indexed: int | None = Field.attribute(expected_type=int, allow_none=True)
+    auto: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    theme: int | None = Field.attribute(expected_type=int, allow_none=True)
+    tint: float | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _tint_converter(v, "tint"),
+    )
+    type: str | None = Field.attribute(expected_type=str, allow_none=True)
 
 
     def __init__(self, rgb=BLACK, indexed=None, auto=None, theme=None, tint=0.0, index=None, type='rgb'):
@@ -138,7 +143,11 @@ class RgbColor(Serialisable):
 
     tagname = "rgbColor"
 
-    rgb = RGB()
+    rgb: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _rgb_converter(v, "rgb"),
+    )
 
     def __init__(self,
                  rgb=None,
@@ -150,10 +159,14 @@ class ColorList(Serialisable):
 
     tagname = "colors"
 
-    indexedColors = NestedSequence(expected_type=RgbColor)
-    mruColors = NestedSequence(expected_type=Color)
-
-    __elements__ = ('indexedColors', 'mruColors')
+    indexedColors: list[RgbColor] = Field.nested_sequence(
+        expected_type=RgbColor,
+        allow_none=True,
+    )
+    mruColors: list[Color] = Field.nested_sequence(
+        expected_type=Color,
+        allow_none=True,
+    )
 
     def __init__(self,
                  indexedColors=(),
@@ -170,3 +183,25 @@ class ColorList(Serialisable):
     @property
     def index(self):
         return [val.rgb for val in self.indexedColors]
+
+
+def _rgb_converter(value, field_name: str):
+    if value is None:
+        return None
+    if not isinstance(value, str) or aRGB_REGEX.match(value) is None:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    if len(value) == 6:
+        return "00" + value
+    return value
+
+
+def _tint_converter(value, field_name: str):
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except Exception as exc:  # pragma: no cover
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
+    if numeric < -1 or numeric > 1:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return numeric

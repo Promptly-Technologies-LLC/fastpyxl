@@ -1,11 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Typed,
-    Sequence,
-    Alias,
-)
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 from fastpyxl.styles import (
     Font,
     Fill,
@@ -20,14 +17,14 @@ class DifferentialStyle(Serialisable):
 
     tagname = "dxf"
 
-    __elements__ = ("font", "numFmt", "fill", "alignment", "border", "protection")
+    xml_order = ("font", "numFmt", "fill", "alignment", "border", "protection")
 
-    font = Typed(expected_type=Font, allow_none=True)
-    numFmt = Typed(expected_type=NumberFormat, allow_none=True)
-    fill = Typed(expected_type=Fill, allow_none=True)
-    alignment = Typed(expected_type=Alignment, allow_none=True)
-    border = Typed(expected_type=Border, allow_none=True)
-    protection = Typed(expected_type=Protection, allow_none=True)
+    font: Font | None = Field.element(expected_type=Font, allow_none=True)
+    numFmt: NumberFormat | None = Field.element(expected_type=NumberFormat, allow_none=True)
+    fill: Fill | None = Field.element(expected_type=Fill, allow_none=True)
+    alignment: Alignment | None = Field.element(expected_type=Alignment, allow_none=True)
+    border: Border | None = Field.element(expected_type=Border, allow_none=True)
+    protection: Protection | None = Field.element(expected_type=Protection, allow_none=True)
 
     def __init__(self,
                  font=None,
@@ -54,9 +51,8 @@ class DifferentialStyleList(Serialisable):
 
     tagname = "dxfs"
 
-    dxf = Sequence(expected_type=DifferentialStyle)
-    styles = Alias("dxf")
-    __attrs__ = ("count",)
+    dxf: list[DifferentialStyle] = Field.sequence(expected_type=DifferentialStyle)
+    styles: list[DifferentialStyle] = AliasField("dxf")
 
 
     def __init__(self, dxf=(), count=None):
@@ -93,3 +89,7 @@ class DifferentialStyleList(Serialisable):
     @property
     def count(self):
         return len(self.dxf)
+
+
+    def __iter__(self):
+        yield "count", safe_string(self.count)

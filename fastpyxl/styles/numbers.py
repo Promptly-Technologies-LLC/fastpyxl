@@ -4,10 +4,9 @@ import re
 
 from fastpyxl.descriptors import (
     String,
-    Sequence,
-    Integer,
 )
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 BUILTIN_FORMATS = {
@@ -165,8 +164,8 @@ class NumberFormatDescriptor(String):
 
 class NumberFormat(Serialisable):
 
-    numFmtId = Integer()
-    formatCode = String()
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    formatCode: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  numFmtId=None,
@@ -178,21 +177,23 @@ class NumberFormat(Serialisable):
 
 class NumberFormatList(Serialisable):
 
-    numFmt = Sequence(expected_type=NumberFormat)
-
-    __elements__ = ('numFmt',)
-    __attrs__ = ("count",)
+    numFmt: list[NumberFormat] = Field.sequence(expected_type=NumberFormat)
 
     def __init__(self,
                  count=None,
                  numFmt=(),
                 ):
+        del count
         self.numFmt = numFmt
 
 
     @property
     def count(self):
         return len(self.numFmt)
+
+
+    def __iter__(self):
+        yield "count", str(len(self.numFmt))
 
 
     def __getitem__(self, idx):

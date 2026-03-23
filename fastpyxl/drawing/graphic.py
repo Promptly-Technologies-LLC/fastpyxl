@@ -1,14 +1,9 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 from fastpyxl.xml.constants import CHART_NS, DRAWING_NS
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Bool,
-    String,
-    Alias,
-)
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from .picture import PictureFrame
 from .properties import (
@@ -22,13 +17,13 @@ from .xdr import XDRTransform2D
 
 class GraphicFrameLocking(Serialisable):
 
-    noGrp = Bool(allow_none=True)
-    noDrilldown = Bool(allow_none=True)
-    noSelect = Bool(allow_none=True)
-    noChangeAspect = Bool(allow_none=True)
-    noMove = Bool(allow_none=True)
-    noResize = Bool(allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noDrilldown: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
 
     def __init__(self,
                  noGrp=None,
@@ -52,8 +47,8 @@ class NonVisualGraphicFrameProperties(Serialisable):
 
     tagname = "cNvGraphicFramePr"
 
-    graphicFrameLocks = Typed(expected_type=GraphicFrameLocking, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    graphicFrameLocks: GraphicFrameLocking | None = Field.element(expected_type=GraphicFrameLocking, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
 
     def __init__(self,
                  graphicFrameLocks=None,
@@ -67,10 +62,13 @@ class NonVisualGraphicFrame(Serialisable):
 
     tagname = "nvGraphicFramePr"
 
-    cNvPr = Typed(expected_type=NonVisualDrawingProps)
-    cNvGraphicFramePr = Typed(expected_type=NonVisualGraphicFrameProperties)
+    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True)
+    cNvGraphicFramePr: NonVisualGraphicFrameProperties | None = Field.element(
+        expected_type=NonVisualGraphicFrameProperties,
+        allow_none=True,
+    )
 
-    __elements__ = ('cNvPr', 'cNvGraphicFramePr')
+    xml_order = ('cNvPr', 'cNvGraphicFramePr')
 
     def __init__(self,
                  cNvPr=None,
@@ -89,8 +87,8 @@ class GraphicData(Serialisable):
     tagname = "graphicData"
     namespace = DRAWING_NS
 
-    uri = String()
-    chart = Typed(expected_type=ChartRelation, allow_none=True)
+    uri: str | None = Field.attribute(expected_type=str, allow_none=True)
+    chart: ChartRelation | None = Field.element(expected_type=ChartRelation, allow_none=True)
 
 
     def __init__(self,
@@ -106,7 +104,7 @@ class GraphicObject(Serialisable):
     tagname = "graphic"
     namespace = DRAWING_NS
 
-    graphicData = Typed(expected_type=GraphicData)
+    graphicData: GraphicData | None = Field.element(expected_type=GraphicData, allow_none=True)
 
     def __init__(self,
                  graphicData=None,
@@ -120,13 +118,13 @@ class GraphicFrame(Serialisable):
 
     tagname = "graphicFrame"
 
-    nvGraphicFramePr = Typed(expected_type=NonVisualGraphicFrame)
-    xfrm = Typed(expected_type=XDRTransform2D)
-    graphic = Typed(expected_type=GraphicObject)
-    macro = String(allow_none=True)
-    fPublished = Bool(allow_none=True)
+    nvGraphicFramePr: NonVisualGraphicFrame | None = Field.element(expected_type=NonVisualGraphicFrame, allow_none=True)
+    xfrm: XDRTransform2D | None = Field.element(expected_type=XDRTransform2D, allow_none=True)
+    graphic: GraphicObject | None = Field.element(expected_type=GraphicObject, allow_none=True)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('nvGraphicFramePr', 'xfrm', 'graphic', 'macro', 'fPublished')
+    xml_order = ('nvGraphicFramePr', 'xfrm', 'graphic')
 
     def __init__(self,
                  nvGraphicFramePr=None,
@@ -150,13 +148,13 @@ class GraphicFrame(Serialisable):
 
 class GroupShape(Serialisable):
 
-    nvGrpSpPr = Typed(expected_type=NonVisualGroupShape)
-    nonVisualProperties = Alias("nvGrpSpPr")
-    grpSpPr = Typed(expected_type=GroupShapeProperties)
-    visualProperties = Alias("grpSpPr")
-    pic = Typed(expected_type=PictureFrame, allow_none=True)
+    nvGrpSpPr: NonVisualGroupShape | None = Field.element(expected_type=NonVisualGroupShape, allow_none=True)
+    nonVisualProperties = AliasField("nvGrpSpPr")
+    grpSpPr: GroupShapeProperties | None = Field.element(expected_type=GroupShapeProperties, allow_none=True)
+    visualProperties = AliasField("grpSpPr")
+    pic: PictureFrame | None = Field.element(expected_type=PictureFrame, allow_none=True)
 
-    __elements__ = ["nvGrpSpPr", "grpSpPr", "pic"]
+    xml_order = ("nvGrpSpPr", "grpSpPr", "pic")
 
     def __init__(self,
                  nvGrpSpPr=None,

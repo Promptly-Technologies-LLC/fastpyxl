@@ -16,6 +16,8 @@ from fastpyxl.descriptors.nested import (
     NestedText,
     NestedInteger,
 )
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class NumFmt(Serialisable):
@@ -46,11 +48,24 @@ class NumberValueDescriptor(NestedText):
         super().__set__(instance, value)
 
 
-class NumVal(Serialisable):
+def _convert_number_value(value):
+    if value is None:
+        return None
+    if value == "#N/A":
+        return "#N/A"
+    return float(value)
 
-    idx = Integer()
-    formatCode = NestedText(allow_none=True, expected_type=str)
-    v = NumberValueDescriptor()
+
+class NumVal(TypedSerialisable):
+    tagname = "pt"
+
+    idx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    formatCode: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    v: float | str | None = Field.nested_text(
+        expected_type=object,
+        allow_none=True,
+        converter=_convert_number_value,
+    )
 
     def __init__(self,
                  idx=None,

@@ -1,26 +1,29 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Bool,
-    Integer,
-    String,
-    Set,
-    Sequence
-)
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class WebPublishItem(Serialisable):
     tagname = "webPublishItem"
 
-    id = Integer()
-    divId = String()
-    sourceType = Set(values=(['sheet', 'printArea', 'autoFilter', 'range', 'chart', 'pivotTable', 'query', 'label']))
-    sourceRef = String()
-    sourceObject = String(allow_none=True)
-    destinationFile = String()
-    title = String(allow_none=True)
-    autoRepublish = Bool(allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True)
+    divId: str | None = Field.attribute(expected_type=str, allow_none=True)
+    sourceType: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(
+            v,
+            ("sheet", "printArea", "autoFilter", "range", "chart", "pivotTable", "query", "label"),
+            "sourceType",
+        ),
+    )
+    sourceRef: str | None = Field.attribute(expected_type=str, allow_none=True)
+    sourceObject: str | None = Field.attribute(expected_type=str, allow_none=True)
+    destinationFile: str | None = Field.attribute(expected_type=str, allow_none=True)
+    title: str | None = Field.attribute(expected_type=str, allow_none=True)
+    autoRepublish: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  id=None,
@@ -45,14 +48,29 @@ class WebPublishItem(Serialisable):
 class WebPublishItems(Serialisable):
     tagname = "WebPublishItems"
 
-    count = Integer(allow_none=True)
-    webPublishItem = Sequence(expected_type=WebPublishItem, )
-
-    __elements__ = ('webPublishItem',)
+    webPublishItem: list[WebPublishItem] = Field.sequence(expected_type=WebPublishItem)
+    xml_order = ("webPublishItem",)
 
     def __init__(self,
                  count=None,
                  webPublishItem=None,
                  ):
-        self.count = len(webPublishItem)
+        del count
         self.webPublishItem = webPublishItem
+
+
+    @property
+    def count(self):
+        return len(self.webPublishItem)
+
+
+    def __iter__(self):
+        yield "count", str(self.count)
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

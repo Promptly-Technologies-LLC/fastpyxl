@@ -1,17 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Bool,
-    NoneSet,
-    Sequence,
-    Alias,
-)
-from fastpyxl.descriptors.nested import (
-    NestedText,
-)
-from fastpyxl.descriptors.excel import Relation
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.packaging.relationship import (
     Relationship,
@@ -44,8 +35,8 @@ from .relation import ChartRelation
 
 class AnchorClientData(Serialisable):
 
-    fLocksWithSheet = Bool(allow_none=True)
-    fPrintsWithSheet = Bool(allow_none=True)
+    fLocksWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    fPrintsWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  fLocksWithSheet=None,
@@ -59,10 +50,10 @@ class AnchorMarker(Serialisable):
 
     tagname = "marker"
 
-    col = NestedText(expected_type=int)
-    colOff = NestedText(expected_type=int)
-    row = NestedText(expected_type=int)
-    rowOff = NestedText(expected_type=int)
+    col: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    colOff: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    row: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    rowOff: int | None = Field.nested_text(expected_type=int, allow_none=True)
 
     def __init__(self,
                  col=0,
@@ -79,20 +70,18 @@ class AnchorMarker(Serialisable):
 class _AnchorBase(Serialisable):
 
     #one of
-    sp = Typed(expected_type=Shape, allow_none=True)
-    shape = Alias("sp")
-    grpSp = Typed(expected_type=GroupShape, allow_none=True)
-    groupShape = Alias("grpSp")
-    graphicFrame = Typed(expected_type=GraphicFrame, allow_none=True)
-    cxnSp = Typed(expected_type=Shape, allow_none=True)
-    connectionShape = Alias("cxnSp")
-    pic = Typed(expected_type=PictureFrame, allow_none=True)
-    contentPart = Relation()
+    sp: Shape | None = Field.element(expected_type=Shape, allow_none=True)
+    shape = AliasField("sp")
+    grpSp: GroupShape | None = Field.element(expected_type=GroupShape, allow_none=True)
+    groupShape = AliasField("grpSp")
+    graphicFrame: GraphicFrame | None = Field.element(expected_type=GraphicFrame, allow_none=True)
+    cxnSp: Shape | None = Field.element(expected_type=Shape, allow_none=True)
+    connectionShape = AliasField("cxnSp")
+    pic: PictureFrame | None = Field.element(expected_type=PictureFrame, allow_none=True)
+    contentPart: str | None = Field.attribute(expected_type=str, allow_none=True)
+    clientData: AnchorClientData | None = Field.element(expected_type=AnchorClientData, allow_none=True)
 
-    clientData = Typed(expected_type=AnchorClientData)
-
-    __elements__ = ('sp', 'grpSp', 'graphicFrame',
-                    'cxnSp', 'pic', 'contentPart', 'clientData')
+    xml_order = ('sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
     def __init__(self,
                  clientData=None,
@@ -118,18 +107,10 @@ class AbsoluteAnchor(_AnchorBase):
 
     tagname = "absoluteAnchor"
 
-    pos = Typed(expected_type=XDRPoint2D)
-    ext = Typed(expected_type=XDRPositiveSize2D)
+    pos: XDRPoint2D | None = Field.element(expected_type=XDRPoint2D, allow_none=True)
+    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True)
 
-    sp = _AnchorBase.sp
-    grpSp = _AnchorBase.grpSp
-    graphicFrame = _AnchorBase.graphicFrame
-    cxnSp = _AnchorBase.cxnSp
-    pic = _AnchorBase.pic
-    contentPart = _AnchorBase.contentPart
-    clientData = _AnchorBase.clientData
-
-    __elements__ = ('pos', 'ext') + _AnchorBase.__elements__
+    xml_order = ('pos', 'ext', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
     def __init__(self,
                  pos=None,
@@ -137,10 +118,10 @@ class AbsoluteAnchor(_AnchorBase):
                  **kw
                 ):
         if pos is None:
-            pos = XDRPoint2D(0, 0)
+            pos = XDRPoint2D(x=0, y=0)
         self.pos = pos
         if ext is None:
-            ext = XDRPositiveSize2D(0, 0)
+            ext = XDRPositiveSize2D(cx=0, cy=0)
         self.ext = ext
         super().__init__(**kw)
 
@@ -149,18 +130,10 @@ class OneCellAnchor(_AnchorBase):
 
     tagname = "oneCellAnchor"
 
-    _from = Typed(expected_type=AnchorMarker)
-    ext = Typed(expected_type=XDRPositiveSize2D)
+    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True)
+    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True)
 
-    sp = _AnchorBase.sp
-    grpSp = _AnchorBase.grpSp
-    graphicFrame = _AnchorBase.graphicFrame
-    cxnSp = _AnchorBase.cxnSp
-    pic = _AnchorBase.pic
-    contentPart = _AnchorBase.contentPart
-    clientData = _AnchorBase.clientData
-
-    __elements__ = ('_from', 'ext') + _AnchorBase.__elements__
+    xml_order = ('_from', 'ext', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
 
     def __init__(self,
@@ -172,7 +145,7 @@ class OneCellAnchor(_AnchorBase):
             _from = AnchorMarker()
         self._from = _from
         if ext is None:
-            ext = XDRPositiveSize2D(0, 0)
+            ext = XDRPositiveSize2D(cx=0, cy=0)
         self.ext = ext
         super().__init__(**kw)
 
@@ -181,19 +154,15 @@ class TwoCellAnchor(_AnchorBase):
 
     tagname = "twoCellAnchor"
 
-    editAs = NoneSet(values=(['twoCell', 'oneCell', 'absolute']))
-    _from = Typed(expected_type=AnchorMarker)
-    to = Typed(expected_type=AnchorMarker)
+    editAs: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ('twoCell', 'oneCell', 'absolute'), "editAs"),
+    )
+    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True)
+    to: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True)
 
-    sp = _AnchorBase.sp
-    grpSp = _AnchorBase.grpSp
-    graphicFrame = _AnchorBase.graphicFrame
-    cxnSp = _AnchorBase.cxnSp
-    pic = _AnchorBase.pic
-    contentPart = _AnchorBase.contentPart
-    clientData = _AnchorBase.clientData
-
-    __elements__ = ('_from', 'to') + _AnchorBase.__elements__
+    xml_order = ('_from', 'to', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
     def __init__(self,
                  editAs=None,
@@ -239,11 +208,11 @@ class SpreadsheetDrawing(Serialisable):
     _path = PartName="/xl/drawings/drawing{0}.xml"
     _id = None
 
-    twoCellAnchor = Sequence(expected_type=TwoCellAnchor, allow_none=True)
-    oneCellAnchor = Sequence(expected_type=OneCellAnchor, allow_none=True)
-    absoluteAnchor = Sequence(expected_type=AbsoluteAnchor, allow_none=True)
+    twoCellAnchor: list[TwoCellAnchor] | None = Field.sequence(expected_type=TwoCellAnchor, allow_none=True)
+    oneCellAnchor: list[OneCellAnchor] | None = Field.sequence(expected_type=OneCellAnchor, allow_none=True)
+    absoluteAnchor: list[AbsoluteAnchor] | None = Field.sequence(expected_type=AbsoluteAnchor, allow_none=True)
 
-    __elements__ = ("twoCellAnchor", "oneCellAnchor", "absoluteAnchor")
+    xml_order = ("twoCellAnchor", "oneCellAnchor", "absoluteAnchor")
 
     def __init__(self,
                  twoCellAnchor=(),
@@ -378,3 +347,11 @@ class SpreadsheetDrawing(Serialisable):
                     rels.append(rel)
 
         return rels
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

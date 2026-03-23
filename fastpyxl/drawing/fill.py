@@ -1,33 +1,19 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Alias,
-    Bool,
-    Integer,
-    Set,
-    NoneSet,
-    Typed,
-    MinMax,
-)
-from fastpyxl.descriptors.excel import (
-    Relation,
-    Percentage,
-)
-from fastpyxl.descriptors.nested import NestedNoneSet, NestedValue
-from fastpyxl.descriptors.sequence import NestedSequence
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 from fastpyxl.xml.constants import DRAWING_NS
 
 from .colors import (
+    PRESET_COLORS,
     ColorChoice,
     HSLColor,
-    SystemColor,
-    SchemeColor,
-    PRESET_COLORS,
     RGBPercent,
+    SchemeColor,
+    SystemColor,
 )
-
 from .effect import (
     AlphaBiLevelEffect,
     AlphaCeilingEffect,
@@ -52,59 +38,72 @@ from .effect import (
 Fill elements from drawing main schema
 """
 
-class PatternFillProperties(Serialisable):
 
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
+
+
+def _range_converter(value, minimum: int, maximum: int, field_name: str):
+    if value is None:
+        return None
+    if not minimum <= value <= maximum:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
+
+
+class PatternFillProperties(Serialisable):
     tagname = "pattFill"
     namespace = DRAWING_NS
 
-    prst = NoneSet(values=(['pct5', 'pct10', 'pct20', 'pct25', 'pct30',
-                            'pct40', 'pct50', 'pct60', 'pct70', 'pct75', 'pct80', 'pct90', 'horz',
-                            'vert', 'ltHorz', 'ltVert', 'dkHorz', 'dkVert', 'narHorz', 'narVert',
-                            'dashHorz', 'dashVert', 'cross', 'dnDiag', 'upDiag', 'ltDnDiag',
-                            'ltUpDiag', 'dkDnDiag', 'dkUpDiag', 'wdDnDiag', 'wdUpDiag', 'dashDnDiag',
-                            'dashUpDiag', 'diagCross', 'smCheck', 'lgCheck', 'smGrid', 'lgGrid',
-                            'dotGrid', 'smConfetti', 'lgConfetti', 'horzBrick', 'diagBrick',
-                            'solidDmnd', 'openDmnd', 'dotDmnd', 'plaid', 'sphere', 'weave', 'divot',
-                            'shingle', 'wave', 'trellis', 'zigZag']))
-    preset = Alias("prst")
-    fgClr = Typed(expected_type=ColorChoice, allow_none=True)
-    foreground = Alias("fgClr")
-    bgClr = Typed(expected_type=ColorChoice, allow_none=True)
-    background = Alias("bgClr")
+    prst: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(
+            v,
+            (
+                "pct5", "pct10", "pct20", "pct25", "pct30", "pct40", "pct50", "pct60", "pct70",
+                "pct75", "pct80", "pct90", "horz", "vert", "ltHorz", "ltVert", "dkHorz", "dkVert",
+                "narHorz", "narVert", "dashHorz", "dashVert", "cross", "dnDiag", "upDiag", "ltDnDiag",
+                "ltUpDiag", "dkDnDiag", "dkUpDiag", "wdDnDiag", "wdUpDiag", "dashDnDiag", "dashUpDiag",
+                "diagCross", "smCheck", "lgCheck", "smGrid", "lgGrid", "dotGrid", "smConfetti",
+                "lgConfetti", "horzBrick", "diagBrick", "solidDmnd", "openDmnd", "dotDmnd", "plaid",
+                "sphere", "weave", "divot", "shingle", "wave", "trellis", "zigZag",
+            ),
+            "prst",
+        ),
+    )
+    preset = AliasField("prst")
+    fgClr: ColorChoice | None = Field.element(expected_type=ColorChoice, allow_none=True)
+    foreground = AliasField("fgClr")
+    bgClr: ColorChoice | None = Field.element(expected_type=ColorChoice, allow_none=True)
+    background = AliasField("bgClr")
 
-    __elements__ = ("fgClr", "bgClr")
+    xml_order = ("fgClr", "bgClr")
 
-    def __init__(self,
-                 prst=None,
-                 fgClr=None,
-                 bgClr=None,
-                ):
+    def __init__(self, prst=None, fgClr=None, bgClr=None):
         self.prst = prst
         self.fgClr = fgClr
         self.bgClr = bgClr
 
 
 class RelativeRect(Serialisable):
-
     tagname = "rect"
     namespace = DRAWING_NS
 
-    l = Percentage(allow_none=True)  # noqa: E741
-    left = Alias('l')
-    t = Percentage(allow_none=True)
-    top = Alias('t')
-    r = Percentage(allow_none=True)
-    right = Alias('r')
-    b = Percentage(allow_none=True)
-    bottom = Alias('b')
+    l: int | None = Field.attribute(expected_type=int, allow_none=True)  # noqa: E741
+    left = AliasField("l")
+    t: int | None = Field.attribute(expected_type=int, allow_none=True)
+    top = AliasField("t")
+    r: int | None = Field.attribute(expected_type=int, allow_none=True)
+    right = AliasField("r")
+    b: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bottom = AliasField("b")
 
-    def __init__(
-                 self,
-                 l=None,  # noqa: E741
-                 t=None,
-                 r=None,
-                 b=None,
-                ):
+    def __init__(self, l=None, t=None, r=None, b=None):  # noqa: E741
         self.l = l  # noqa: E741
         self.t = t
         self.r = r
@@ -112,49 +111,43 @@ class RelativeRect(Serialisable):
 
 
 class StretchInfoProperties(Serialisable):
-
     tagname = "stretch"
     namespace = DRAWING_NS
 
-    fillRect = Typed(expected_type=RelativeRect, allow_none=True)
+    fillRect: RelativeRect | None = Field.element(expected_type=RelativeRect, allow_none=True)
 
-    def __init__(self,
-                 fillRect=RelativeRect(),
-                ):
+    def __init__(self, fillRect=RelativeRect()):
         self.fillRect = fillRect
 
 
 class GradientStop(Serialisable):
-
     tagname = "gs"
     namespace = DRAWING_NS
 
-    pos = MinMax(min=0, max=100000, allow_none=True)
-    # Color Choice Group
-    scrgbClr = Typed(expected_type=RGBPercent, allow_none=True)
-    RGBPercent = Alias('scrgbClr')
-    srgbClr = NestedValue(expected_type=str, allow_none=True) # needs pattern and can have transform
-    RGB = Alias('srgbClr')
-    hslClr = Typed(expected_type=HSLColor, allow_none=True)
-    sysClr = Typed(expected_type=SystemColor, allow_none=True)
-    schemeClr = Typed(expected_type=SchemeColor, allow_none=True)
-    prstClr = NestedNoneSet(values=PRESET_COLORS)
+    pos: int | None = Field.attribute(
+        expected_type=int,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, 0, 100000, "pos"),
+    )
+    scrgbClr: RGBPercent | None = Field.element(expected_type=RGBPercent, allow_none=True)
+    RGBPercent = AliasField("scrgbClr")
+    srgbClr: str | None = Field.nested_value(expected_type=str, allow_none=True)
+    RGB = AliasField("srgbClr")
+    hslClr: HSLColor | None = Field.element(expected_type=HSLColor, allow_none=True)
+    sysClr: SystemColor | None = Field.element(expected_type=SystemColor, allow_none=True)
+    schemeClr: SchemeColor | None = Field.element(expected_type=SchemeColor, allow_none=True)
+    prstClr: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, PRESET_COLORS, "prstClr"),
+    )
 
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
+    xml_order = ("scrgbClr", "srgbClr", "hslClr", "sysClr", "schemeClr", "prstClr")
 
-    def __init__(self,
-                 pos=None,
-                 scrgbClr=None,
-                 srgbClr=None,
-                 hslClr=None,
-                 sysClr=None,
-                 schemeClr=None,
-                 prstClr=None,
-                ):
+    def __init__(self, pos=None, scrgbClr=None, srgbClr=None, hslClr=None, sysClr=None, schemeClr=None, prstClr=None):
         if pos is None:
             pos = 0
         self.pos = pos
-
         self.scrgbClr = scrgbClr
         self.srgbClr = srgbClr
         self.hslClr = hslClr
@@ -164,64 +157,55 @@ class GradientStop(Serialisable):
 
 
 class LinearShadeProperties(Serialisable):
-
     tagname = "lin"
     namespace = DRAWING_NS
 
-    ang = Integer()
-    scaled = Bool(allow_none=True)
+    ang: int | None = Field.attribute(expected_type=int, allow_none=True)
+    scaled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    def __init__(self,
-                 ang=None,
-                 scaled=None,
-                ):
+    def __init__(self, ang=None, scaled=None):
         self.ang = ang
         self.scaled = scaled
 
 
 class PathShadeProperties(Serialisable):
-
     tagname = "path"
     namespace = DRAWING_NS
 
-    path = Set(values=(['shape', 'circle', 'rect']))
-    fillToRect = Typed(expected_type=RelativeRect, allow_none=True)
+    path: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("shape", "circle", "rect"), "path"),
+    )
+    fillToRect: RelativeRect | None = Field.element(expected_type=RelativeRect, allow_none=True)
 
-    def __init__(self,
-                 path=None,
-                 fillToRect=None,
-                ):
+    def __init__(self, path=None, fillToRect=None):
         self.path = path
         self.fillToRect = fillToRect
 
 
 class GradientFillProperties(Serialisable):
-
     tagname = "gradFill"
     namespace = DRAWING_NS
 
-    flip = NoneSet(values=(['x', 'y', 'xy']))
-    rotWithShape = Bool(allow_none=True)
+    flip: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("x", "y", "xy"), "flip"),
+    )
+    rotWithShape: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    gsLst = NestedSequence(expected_type=GradientStop, count=False)
-    stop_list = Alias("gsLst")
+    gsLst: list[GradientStop] = Field.nested_sequence(expected_type=GradientStop, count=False)
+    stop_list = AliasField("gsLst")
 
-    lin = Typed(expected_type=LinearShadeProperties, allow_none=True)
-    linear = Alias("lin")
-    path = Typed(expected_type=PathShadeProperties, allow_none=True)
+    lin: LinearShadeProperties | None = Field.element(expected_type=LinearShadeProperties, allow_none=True)
+    linear = AliasField("lin")
+    path: PathShadeProperties | None = Field.element(expected_type=PathShadeProperties, allow_none=True)
+    tileRect: RelativeRect | None = Field.element(expected_type=RelativeRect, allow_none=True)
 
-    tileRect = Typed(expected_type=RelativeRect, allow_none=True)
+    xml_order = ("gsLst", "lin", "path", "tileRect")
 
-    __elements__ = ('gsLst', 'lin', 'path', 'tileRect')
-
-    def __init__(self,
-                 flip=None,
-                 rotWithShape=None,
-                 gsLst=(),
-                 lin=None,
-                 path=None,
-                 tileRect=None,
-                ):
+    def __init__(self, flip=None, rotWithShape=None, gsLst=(), lin=None, path=None, tileRect=None):
         self.flip = flip
         self.rotWithShape = rotWithShape
         self.gsLst = gsLst
@@ -231,29 +215,24 @@ class GradientFillProperties(Serialisable):
 
 
 class SolidColorFillProperties(Serialisable):
-
     tagname = "solidFill"
 
-    # uses element group EG_ColorChoice
-    scrgbClr = Typed(expected_type=RGBPercent, allow_none=True)
-    RGBPercent = Alias('scrgbClr')
-    srgbClr = NestedValue(expected_type=str, allow_none=True) # needs pattern and can have transform
-    RGB = Alias('srgbClr')
-    hslClr = Typed(expected_type=HSLColor, allow_none=True)
-    sysClr = Typed(expected_type=SystemColor, allow_none=True)
-    schemeClr = Typed(expected_type=SchemeColor, allow_none=True)
-    prstClr = NestedNoneSet(values=PRESET_COLORS)
+    scrgbClr: RGBPercent | None = Field.element(expected_type=RGBPercent, allow_none=True)
+    RGBPercent = AliasField("scrgbClr")
+    srgbClr: str | None = Field.nested_value(expected_type=str, allow_none=True)
+    RGB = AliasField("srgbClr")
+    hslClr: HSLColor | None = Field.element(expected_type=HSLColor, allow_none=True)
+    sysClr: SystemColor | None = Field.element(expected_type=SystemColor, allow_none=True)
+    schemeClr: SchemeColor | None = Field.element(expected_type=SchemeColor, allow_none=True)
+    prstClr: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, PRESET_COLORS, "prstClr"),
+    )
 
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
+    xml_order = ("scrgbClr", "srgbClr", "hslClr", "sysClr", "schemeClr", "prstClr")
 
-    def __init__(self,
-                 scrgbClr=None,
-                 srgbClr=None,
-                 hslClr=None,
-                 sysClr=None,
-                 schemeClr=None,
-                 prstClr=None,
-                ):
+    def __init__(self, scrgbClr=None, srgbClr=None, hslClr=None, sysClr=None, schemeClr=None, prstClr=None):
         self.scrgbClr = scrgbClr
         self.srgbClr = srgbClr
         self.hslClr = hslClr
@@ -263,81 +242,84 @@ class SolidColorFillProperties(Serialisable):
 
 
 class Blip(Serialisable):
-
     tagname = "blip"
     namespace = DRAWING_NS
 
-    # Using attribute groupAG_Blob
-    cstate = NoneSet(values=(['email', 'screen', 'print', 'hqprint']))
-    embed = Relation() # rId
-    link = Relation() # hyperlink
-    noGrp = Bool(allow_none=True)
-    noSelect = Bool(allow_none=True)
-    noRot = Bool(allow_none=True)
-    noChangeAspect = Bool(allow_none=True)
-    noMove = Bool(allow_none=True)
-    noResize = Bool(allow_none=True)
-    noEditPoints = Bool(allow_none=True)
-    noAdjustHandles = Bool(allow_none=True)
-    noChangeArrowheads = Bool(allow_none=True)
-    noChangeShapeType = Bool(allow_none=True)
-    # some elements are choice
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-    alphaBiLevel = Typed(expected_type=AlphaBiLevelEffect, allow_none=True)
-    alphaCeiling = Typed(expected_type=AlphaCeilingEffect, allow_none=True)
-    alphaFloor = Typed(expected_type=AlphaFloorEffect, allow_none=True)
-    alphaInv = Typed(expected_type=AlphaInverseEffect, allow_none=True)
-    alphaMod = Typed(expected_type=AlphaModulateEffect, allow_none=True)
-    alphaModFix = Typed(expected_type=AlphaModulateFixedEffect, allow_none=True)
-    alphaRepl = Typed(expected_type=AlphaReplaceEffect, allow_none=True)
-    biLevel = Typed(expected_type=BiLevelEffect, allow_none=True)
-    blur = Typed(expected_type=BlurEffect, allow_none=True)
-    clrChange = Typed(expected_type=ColorChangeEffect, allow_none=True)
-    clrRepl = Typed(expected_type=ColorReplaceEffect, allow_none=True)
-    duotone = Typed(expected_type=DuotoneEffect, allow_none=True)
-    fillOverlay = Typed(expected_type=FillOverlayEffect, allow_none=True)
-    grayscl = Typed(expected_type=GrayscaleEffect, allow_none=True)
-    hsl = Typed(expected_type=HSLEffect, allow_none=True)
-    lum = Typed(expected_type=LuminanceEffect, allow_none=True)
-    tint = Typed(expected_type=TintEffect, allow_none=True)
+    cstate: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("email", "screen", "print", "hqprint"), "cstate"),
+    )
+    embed: str | None = Field.attribute(expected_type=str, allow_none=True)
+    link: str | None = Field.attribute(expected_type=str, allow_none=True)
+    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noEditPoints: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noAdjustHandles: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeArrowheads: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeShapeType: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    alphaBiLevel: AlphaBiLevelEffect | None = Field.element(expected_type=AlphaBiLevelEffect, allow_none=True)
+    alphaCeiling: AlphaCeilingEffect | None = Field.element(expected_type=AlphaCeilingEffect, allow_none=True)
+    alphaFloor: AlphaFloorEffect | None = Field.element(expected_type=AlphaFloorEffect, allow_none=True)
+    alphaInv: AlphaInverseEffect | None = Field.element(expected_type=AlphaInverseEffect, allow_none=True)
+    alphaMod: AlphaModulateEffect | None = Field.element(expected_type=AlphaModulateEffect, allow_none=True)
+    alphaModFix: AlphaModulateFixedEffect | None = Field.element(expected_type=AlphaModulateFixedEffect, allow_none=True)
+    alphaRepl: AlphaReplaceEffect | None = Field.element(expected_type=AlphaReplaceEffect, allow_none=True)
+    biLevel: BiLevelEffect | None = Field.element(expected_type=BiLevelEffect, allow_none=True)
+    blur: BlurEffect | None = Field.element(expected_type=BlurEffect, allow_none=True)
+    clrChange: ColorChangeEffect | None = Field.element(expected_type=ColorChangeEffect, allow_none=True)
+    clrRepl: ColorReplaceEffect | None = Field.element(expected_type=ColorReplaceEffect, allow_none=True)
+    duotone: DuotoneEffect | None = Field.element(expected_type=DuotoneEffect, allow_none=True)
+    fillOverlay: FillOverlayEffect | None = Field.element(expected_type=FillOverlayEffect, allow_none=True)
+    grayscl: GrayscaleEffect | None = Field.element(expected_type=GrayscaleEffect, allow_none=True)
+    hsl: HSLEffect | None = Field.element(expected_type=HSLEffect, allow_none=True)
+    lum: LuminanceEffect | None = Field.element(expected_type=LuminanceEffect, allow_none=True)
+    tint: TintEffect | None = Field.element(expected_type=TintEffect, allow_none=True)
 
-    __elements__ = ('alphaBiLevel', 'alphaCeiling', 'alphaFloor', 'alphaInv',
-                    'alphaMod', 'alphaModFix', 'alphaRepl', 'biLevel', 'blur', 'clrChange',
-                    'clrRepl', 'duotone', 'fillOverlay', 'grayscl', 'hsl', 'lum', 'tint')
+    xml_order = (
+        "alphaBiLevel", "alphaCeiling", "alphaFloor", "alphaInv", "alphaMod", "alphaModFix", "alphaRepl",
+        "biLevel", "blur", "clrChange", "clrRepl", "duotone", "fillOverlay", "grayscl", "hsl", "lum", "tint",
+    )
 
-    def __init__(self,
-                 cstate=None,
-                 embed=None,
-                 link=None,
-                 noGrp=None,
-                 noSelect=None,
-                 noRot=None,
-                 noChangeAspect=None,
-                 noMove=None,
-                 noResize=None,
-                 noEditPoints=None,
-                 noAdjustHandles=None,
-                 noChangeArrowheads=None,
-                 noChangeShapeType=None,
-                 extLst=None,
-                 alphaBiLevel=None,
-                 alphaCeiling=None,
-                 alphaFloor=None,
-                 alphaInv=None,
-                 alphaMod=None,
-                 alphaModFix=None,
-                 alphaRepl=None,
-                 biLevel=None,
-                 blur=None,
-                 clrChange=None,
-                 clrRepl=None,
-                 duotone=None,
-                 fillOverlay=None,
-                 grayscl=None,
-                 hsl=None,
-                 lum=None,
-                 tint=None,
-                ):
+    def __init__(
+        self,
+        cstate=None,
+        embed=None,
+        link=None,
+        noGrp=None,
+        noSelect=None,
+        noRot=None,
+        noChangeAspect=None,
+        noMove=None,
+        noResize=None,
+        noEditPoints=None,
+        noAdjustHandles=None,
+        noChangeArrowheads=None,
+        noChangeShapeType=None,
+        extLst=None,
+        alphaBiLevel=None,
+        alphaCeiling=None,
+        alphaFloor=None,
+        alphaInv=None,
+        alphaMod=None,
+        alphaModFix=None,
+        alphaRepl=None,
+        biLevel=None,
+        blur=None,
+        clrChange=None,
+        clrRepl=None,
+        duotone=None,
+        fillOverlay=None,
+        grayscl=None,
+        hsl=None,
+        lum=None,
+        tint=None,
+    ):
         self.cstate = cstate
         self.embed = embed
         self.link = link
@@ -372,22 +354,22 @@ class Blip(Serialisable):
 
 
 class TileInfoProperties(Serialisable):
+    tx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    ty: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sy: int | None = Field.attribute(expected_type=int, allow_none=True)
+    flip: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("x", "y", "xy"), "flip"),
+    )
+    algn: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"), "algn"),
+    )
 
-    tx = Integer(allow_none=True)
-    ty = Integer(allow_none=True)
-    sx = Integer(allow_none=True)
-    sy = Integer(allow_none=True)
-    flip = NoneSet(values=(['x', 'y', 'xy']))
-    algn = Set(values=(['tl', 't', 'tr', 'l', 'ctr', 'r', 'bl', 'b', 'br']))
-
-    def __init__(self,
-                 tx=None,
-                 ty=None,
-                 sx=None,
-                 sy=None,
-                 flip=None,
-                 algn=None,
-                ):
+    def __init__(self, tx=None, ty=None, sx=None, sy=None, flip=None, algn=None):
         self.tx = tx
         self.ty = ty
         self.sx = sx
@@ -397,27 +379,19 @@ class TileInfoProperties(Serialisable):
 
 
 class BlipFillProperties(Serialisable):
-
     tagname = "blipFill"
 
-    dpi = Integer(allow_none=True)
-    rotWithShape = Bool(allow_none=True)
+    dpi: int | None = Field.attribute(expected_type=int, allow_none=True)
+    rotWithShape: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    blip = Typed(expected_type=Blip, allow_none=True)
-    srcRect = Typed(expected_type=RelativeRect, allow_none=True)
-    tile = Typed(expected_type=TileInfoProperties, allow_none=True)
-    stretch = Typed(expected_type=StretchInfoProperties, allow_none=True)
+    blip: Blip | None = Field.element(expected_type=Blip, allow_none=True)
+    srcRect: RelativeRect | None = Field.element(expected_type=RelativeRect, allow_none=True)
+    tile: TileInfoProperties | None = Field.element(expected_type=TileInfoProperties, allow_none=True)
+    stretch: StretchInfoProperties | None = Field.element(expected_type=StretchInfoProperties, allow_none=True)
 
-    __elements__ = ("blip", "srcRect", "tile", "stretch")
+    xml_order = ("blip", "srcRect", "tile", "stretch")
 
-    def __init__(self,
-                 dpi=None,
-                 rotWithShape=None,
-                 blip=None,
-                 tile=None,
-                 stretch=StretchInfoProperties(),
-                 srcRect=None,
-                ):
+    def __init__(self, dpi=None, rotWithShape=None, blip=None, tile=None, stretch=StretchInfoProperties(), srcRect=None):
         self.dpi = dpi
         self.rotWithShape = rotWithShape
         self.blip = blip

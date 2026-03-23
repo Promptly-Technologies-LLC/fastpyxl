@@ -6,8 +6,8 @@ File manifest
 from mimetypes import MimeTypes
 import os.path
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import String, Sequence
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.xml.functions import fromstring
 from fastpyxl.xml.constants import (
     ARC_CONTENT_TYPES,
@@ -35,8 +35,8 @@ class FileExtension(Serialisable):
 
     tagname = "Default"
 
-    Extension = String()
-    ContentType = String()
+    Extension: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ContentType: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self, Extension, ContentType):
         self.Extension = Extension
@@ -47,8 +47,8 @@ class Override(Serialisable):
 
     tagname = "Override"
 
-    PartName = String()
-    ContentType = String()
+    PartName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ContentType: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self, PartName, ContentType):
         self.PartName = PartName
@@ -72,11 +72,11 @@ class Manifest(Serialisable):
 
     tagname = "Types"
 
-    Default = Sequence(expected_type=FileExtension, unique=True)
-    Override = Sequence(expected_type=Override, unique=True)
+    Default: list[FileExtension] = Field.sequence(expected_type=FileExtension, default=list)
+    Override: list[Override] = Field.sequence(expected_type=Override, default=list)
     path = "[Content_Types].xml"
 
-    __elements__ = ("Default", "Override")
+    xml_order = ("Default", "Override")
 
     def __init__(self,
                  Default=(),
@@ -113,7 +113,7 @@ class Manifest(Serialisable):
         for ext, mime in self.extensions:
             if ext not in defaults:
                 mime = FileExtension(ext, mime)
-                self.Default.append(mime)
+                self._append_default_if_missing(mime)
         tree = super().to_tree()
         tree.set("xmlns", CONTYPES_NS)
         return tree
@@ -153,7 +153,7 @@ class Manifest(Serialisable):
         # needs a contract...
         """
         ct = Override(PartName=obj.path, ContentType=obj.mime_type)
-        self.Override.append(ct)
+        self._append_override_if_missing(ct)
 
 
     def _write(self, archive, workbook):
@@ -176,7 +176,7 @@ class Manifest(Serialisable):
                 continue
             mime = mimetypes.types_map[True][ext]
             fe = FileExtension(ext[1:], mime)
-            self.Default.append(fe)
+            self._append_default_if_missing(fe)
 
 
     def _write_vba(self, workbook):
@@ -191,4 +191,18 @@ class Manifest(Serialisable):
                 if override.PartName not in (ACTIVEX, CTRL, VBA):
                     continue
                 if override.PartName not in filenames:
-                    self.Override.append(override)
+                    self._append_override_if_missing(override)
+
+
+    def _append_default_if_missing(self, item: FileExtension):
+        for existing in self.Default:
+            if existing.Extension == item.Extension and existing.ContentType == item.ContentType:
+                return
+        self.Default.append(item)
+
+
+    def _append_override_if_missing(self, item: Override):
+        for existing in self.Override:
+            if existing.PartName == item.PartName and existing.ContentType == item.ContentType:
+                return
+        self.Override.append(item)

@@ -130,6 +130,8 @@ class _FieldFactory:
         default: Any = None,
         xml_name: str | None = None,
         namespace: str | None = None,
+        converter=None,
+        validator=None,
     ) -> _FieldSpec:
         return _FieldSpec(
             FieldInfo(
@@ -140,6 +142,8 @@ class _FieldFactory:
                 default=default,
                 xml_name=xml_name,
                 namespace=namespace,
+                converter=converter,
+                validator=validator,
             )
         )
 

@@ -3,17 +3,10 @@
 from collections import defaultdict
 import re
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Alias,
-    String,
-    Integer,
-    Bool,
-    Sequence,
-    Descriptor,
-)
 from fastpyxl.compat import safe_string
 from fastpyxl.formula import Tokenizer
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 from fastpyxl.utils.cell import SHEETRANGE_RE
 
 RESERVED = frozenset(["Print_Area", "Print_Titles", "Criteria",
@@ -28,23 +21,23 @@ class DefinedName(Serialisable):
 
     tagname = "definedName"
 
-    name = String() # unique per workbook/worksheet
-    comment = String(allow_none=True)
-    customMenu = String(allow_none=True)
-    description = String(allow_none=True)
-    help = String(allow_none=True)
-    statusBar = String(allow_none=True)
-    localSheetId = Integer(allow_none=True)
-    hidden = Bool(allow_none=True)
-    function = Bool(allow_none=True)
-    vbProcedure = Bool(allow_none=True)
-    xlm = Bool(allow_none=True)
-    functionGroupId = Integer(allow_none=True)
-    shortcutKey = String(allow_none=True)
-    publishToServer = Bool(allow_none=True)
-    workbookParameter = Bool(allow_none=True)
-    attr_text = Descriptor()
-    value = Alias("attr_text")
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)  # unique per workbook/worksheet
+    comment: str | None = Field.attribute(expected_type=str, allow_none=True)
+    customMenu: str | None = Field.attribute(expected_type=str, allow_none=True)
+    description: str | None = Field.attribute(expected_type=str, allow_none=True)
+    help: str | None = Field.attribute(expected_type=str, allow_none=True)
+    statusBar: str | None = Field.attribute(expected_type=str, allow_none=True)
+    localSheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    function: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    vbProcedure: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    xlm: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    functionGroupId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    shortcutKey: str | None = Field.attribute(expected_type=str, allow_none=True)
+    publishToServer: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    workbookParameter: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    attr_text: str | None = Field.attribute(expected_type=str, allow_none=True)
+    value = AliasField("attr_text")
 
 
     def __init__(self,
@@ -126,6 +119,17 @@ class DefinedName(Serialisable):
                 yield key, safe_string(v)
 
 
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        node = super().to_tree(tagname=tagname, idx=idx, namespace=namespace)
+        if self.attr_text is not None:
+            # Defined names store the formula/range expression as element text.
+            text = self.attr_text
+            if text.startswith("'") and "'!" in text:
+                text = text[1:].replace("'!", "!", 1)
+            node.text = text
+        return node
+
+
 class DefinedNameDict(dict):
 
     """
@@ -152,7 +156,7 @@ class DefinedNameList(Serialisable):
 
     tagname = "definedNames"
 
-    definedName = Sequence(expected_type=DefinedName)
+    definedName: list[DefinedName] = Field.sequence(expected_type=DefinedName)
 
 
     def __init__(self, definedName=()):

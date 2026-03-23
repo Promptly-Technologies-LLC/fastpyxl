@@ -17,6 +17,9 @@ from fastpyxl.descriptors.nested import (
 
 from fastpyxl.styles.colors import RGB
 from fastpyxl.xml.constants import DRAWING_NS
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
 
@@ -188,13 +191,21 @@ class SystemColor(Serialisable):
         self.invGamma = invGamma
 
 
-class HSLColor(Serialisable):
+class HSLColor(TypedSerialisable):
 
     tagname = "hslClr"
 
-    hue = Integer()
-    sat = MinMax(min=0, max=100)
-    lum = MinMax(min=0, max=100)
+    hue: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sat: float | int | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, field_name="sat", min_value=0, max_value=100),
+    )
+    lum: float | int | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, field_name="lum", min_value=0, max_value=100),
+    )
 
     #TODO add color transform options
 
@@ -209,13 +220,25 @@ class HSLColor(Serialisable):
 
 
 
-class RGBPercent(Serialisable):
+class RGBPercent(TypedSerialisable):
 
     tagname = "rgbClr"
 
-    r = MinMax(min=0, max=100)
-    g = MinMax(min=0, max=100)
-    b = MinMax(min=0, max=100)
+    r: float | int | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, field_name="r", min_value=0, max_value=100),
+    )
+    g: float | int | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, field_name="g", min_value=0, max_value=100),
+    )
+    b: float | int | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, field_name="b", min_value=0, max_value=100),
+    )
 
     #TODO add color transform options
 
@@ -333,21 +356,25 @@ class SchemeColor(Serialisable):
         self.invGamma = invGamma
         self.val = val
 
-class ColorChoice(Serialisable):
+class ColorChoice(TypedSerialisable):
 
     tagname = "colorChoice"
     namespace = DRAWING_NS
 
-    scrgbClr = Typed(expected_type=RGBPercent, allow_none=True)
-    RGBPercent = Alias('scrgbClr')
-    srgbClr = NestedValue(expected_type=str, allow_none=True) # needs pattern and can have transform
-    RGB = Alias('srgbClr')
-    hslClr = Typed(expected_type=HSLColor, allow_none=True)
-    sysClr = Typed(expected_type=SystemColor, allow_none=True)
-    schemeClr = Typed(expected_type=SchemeColor, allow_none=True)
-    prstClr = NestedNoneSet(values=PRESET_COLORS)
+    scrgbClr: RGBPercent | None = Field.element(expected_type=RGBPercent, allow_none=True)
+    RGBPercent = AliasField("scrgbClr")
+    srgbClr: str | None = Field.nested_value(expected_type=str, allow_none=True)
+    RGB = AliasField("srgbClr")
+    hslClr: HSLColor | None = Field.element(expected_type=HSLColor, allow_none=True)
+    sysClr: SystemColor | None = Field.element(expected_type=SystemColor, allow_none=True)
+    schemeClr: SchemeColor | None = Field.element(expected_type=SchemeColor, allow_none=True)
+    prstClr: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, PRESET_COLORS, "prstClr"),
+    )
 
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
+    xml_order = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
 
     def __init__(self,
                  scrgbClr=None,
@@ -432,3 +459,23 @@ class ColorChoiceDescriptor(Typed):
             if hasattr(self, "namespace") and value is not None:
                 value.namespace = self.namespace
         super().__set__(instance, value)
+
+
+def _range_converter(value, *, field_name: str, min_value: float, max_value: float):
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except Exception as exc:  # pragma: no cover
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
+    if numeric < min_value or numeric > max_value:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return numeric
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

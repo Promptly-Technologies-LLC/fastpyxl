@@ -3,12 +3,9 @@
 import posixpath
 from warnings import warn
 
-from fastpyxl.descriptors import (
-    String,
-    Alias,
-)
-from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.descriptors.container import ElementList
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.xml.constants import REL_NS, PKG_REL_NS
 from fastpyxl.xml.functions import (
@@ -21,12 +18,12 @@ class Relationship(Serialisable):
 
     tagname = "Relationship"
 
-    Type = String()
-    Target = String()
-    target = Alias("Target")
-    TargetMode = String(allow_none=True)
-    Id = String(allow_none=True)
-    id = Alias("Id")
+    Type: str | None = Field.attribute(expected_type=str, allow_none=True)
+    Target: str | None = Field.attribute(expected_type=str, allow_none=True)
+    target = AliasField("Target")
+    TargetMode: str | None = Field.attribute(expected_type=str, allow_none=True)
+    Id: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id = AliasField("Id")
 
 
     def __init__(self,

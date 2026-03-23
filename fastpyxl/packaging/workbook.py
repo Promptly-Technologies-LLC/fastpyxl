@@ -23,16 +23,19 @@ from fastpyxl.workbook.protection import WorkbookProtection, FileSharing
 from fastpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
 from fastpyxl.workbook.views import CustomWorkbookView, BookView
 from fastpyxl.workbook.web import WebPublishing, WebPublishObjectList
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 
-class FileRecoveryProperties(Serialisable):
+class FileRecoveryProperties(TypedSerialisable):
 
     tagname = "fileRecoveryPr"
 
-    autoRecover = Bool(allow_none=True)
-    crashSave = Bool(allow_none=True)
-    dataExtractLoad = Bool(allow_none=True)
-    repairLoad = Bool(allow_none=True)
+    autoRecover: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    crashSave: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dataExtractLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    repairLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  autoRecover=None,
@@ -46,7 +49,7 @@ class FileRecoveryProperties(Serialisable):
         self.repairLoad = repairLoad
 
 
-class ChildSheet(Serialisable):
+class ChildSheet(TypedSerialisable):
     """
     Represents a reference to a worksheet or chartsheet in workbook.xml
 
@@ -56,10 +59,14 @@ class ChildSheet(Serialisable):
 
     tagname = "sheet"
 
-    name = String()
-    sheetId = Integer()
-    state = NoneSet(values=(['visible', 'hidden', 'veryHidden']))
-    id = Relation()
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    state: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "state"),
+    )
+    id: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  name=None,
@@ -73,12 +80,12 @@ class ChildSheet(Serialisable):
         self.id = id
 
 
-class PivotCache(Serialisable):
+class PivotCache(TypedSerialisable):
 
     tagname = "pivotCache"
 
-    cacheId = Integer()
-    id = Relation()
+    cacheId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  cacheId=None,
@@ -183,3 +190,11 @@ class WorkbookPackage(Serialisable):
             if view.activeTab is not None:
                 return view.activeTab
         return 0
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

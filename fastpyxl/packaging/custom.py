@@ -6,19 +6,17 @@
 from warnings import warn
 
 from fastpyxl.descriptors import Strict
-from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.descriptors.sequence import Sequence
 from fastpyxl.descriptors import (
-    Alias,
     String,
     Integer,
     Float,
     DateTime,
     Bool,
 )
-from fastpyxl.descriptors.nested import (
-    NestedText,
-)
+from fastpyxl.descriptors.nested import NestedText
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.xml.constants import (
     CUSTPROPS_NS,
@@ -48,15 +46,15 @@ class _CustomDocumentProperty(Serialisable):
     tagname = "property"
     _typ = None
 
-    name = String(allow_none=True)
-    lpwstr = NestedText(expected_type=str, allow_none=True, namespace=VTYPES_NS)
-    i4 = NestedText(expected_type=int, allow_none=True, namespace=VTYPES_NS)
-    r8 = NestedText(expected_type=float, allow_none=True, namespace=VTYPES_NS)
-    filetime = NestedDateTime(allow_none=True, namespace=VTYPES_NS)
-    bool = NestedBoolText(expected_type=bool, allow_none=True, namespace=VTYPES_NS)
-    linkTarget = String(expected_type=str, allow_none=True)
-    fmtid = String()
-    pid = Integer()
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    lpwstr: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=VTYPES_NS)
+    i4: int | None = Field.nested_text(expected_type=int, allow_none=True, namespace=VTYPES_NS)
+    r8: float | None = Field.nested_text(expected_type=float, allow_none=True, namespace=VTYPES_NS)
+    filetime: object | None = Field.nested_text(expected_type=object, allow_none=True, namespace=VTYPES_NS, converter=lambda v: v)
+    bool = Field.nested_text(expected_type=bool, allow_none=True, namespace=VTYPES_NS)
+    linkTarget: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fmtid: str | None = Field.attribute(expected_type=str, allow_none=True)
+    pid: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  name=None,
@@ -105,8 +103,8 @@ class _CustomDocumentPropertyList(Serialisable):
 
     tagname = "Properties"
 
-    property = Sequence(expected_type=_CustomDocumentProperty, namespace=CUSTPROPS_NS)
-    customProps = Alias("property")
+    property: list[_CustomDocumentProperty] = Field.sequence(expected_type=_CustomDocumentProperty)
+    customProps = AliasField("property")
 
 
     def __init__(self, property=()):

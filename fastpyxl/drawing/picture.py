@@ -2,14 +2,9 @@
 
 from fastpyxl.xml.constants import DRAWING_NS
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Bool,
-    String,
-    Alias,
-)
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.chart.shapes import GraphicalProperties
 
@@ -24,20 +19,18 @@ class PictureLocking(Serialisable):
     namespace = DRAWING_NS
 
     # Using attribute group AG_Locking
-    noCrop = Bool(allow_none=True)
-    noGrp = Bool(allow_none=True)
-    noSelect = Bool(allow_none=True)
-    noRot = Bool(allow_none=True)
-    noChangeAspect = Bool(allow_none=True)
-    noMove = Bool(allow_none=True)
-    noResize = Bool(allow_none=True)
-    noEditPoints = Bool(allow_none=True)
-    noAdjustHandles = Bool(allow_none=True)
-    noChangeArrowheads = Bool(allow_none=True)
-    noChangeShapeType = Bool(allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-
-    __elements__ = ()
+    noCrop: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noEditPoints: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noAdjustHandles: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeArrowheads: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeShapeType: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
 
     def __init__(self,
                  noCrop=None,
@@ -64,17 +57,18 @@ class PictureLocking(Serialisable):
         self.noAdjustHandles = noAdjustHandles
         self.noChangeArrowheads = noChangeArrowheads
         self.noChangeShapeType = noChangeShapeType
+        self.extLst = extLst
 
 
 class NonVisualPictureProperties(Serialisable):
 
     tagname = "cNvPicPr"
 
-    preferRelativeResize = Bool(allow_none=True)
-    picLocks = Typed(expected_type=PictureLocking, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    preferRelativeResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    picLocks: PictureLocking | None = Field.element(expected_type=PictureLocking, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
 
-    __elements__ = ("picLocks",)
+    xml_order = ("picLocks",)
 
     def __init__(self,
                  preferRelativeResize=None,
@@ -83,16 +77,17 @@ class NonVisualPictureProperties(Serialisable):
                 ):
         self.preferRelativeResize = preferRelativeResize
         self.picLocks = picLocks
+        self.extLst = extLst
 
 
 class PictureNonVisual(Serialisable):
 
     tagname = "nvPicPr"
 
-    cNvPr = Typed(expected_type=NonVisualDrawingProps, )
-    cNvPicPr = Typed(expected_type=NonVisualPictureProperties, )
+    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True)
+    cNvPicPr: NonVisualPictureProperties | None = Field.element(expected_type=NonVisualPictureProperties, allow_none=True)
 
-    __elements__ = ("cNvPr", "cNvPicPr")
+    xml_order = ("cNvPr", "cNvPicPr")
 
     def __init__(self,
                  cNvPr=None,
@@ -112,15 +107,15 @@ class PictureFrame(Serialisable):
 
     tagname = "pic"
 
-    macro = String(allow_none=True)
-    fPublished = Bool(allow_none=True)
-    nvPicPr = Typed(expected_type=PictureNonVisual, )
-    blipFill = Typed(expected_type=BlipFillProperties, )
-    spPr = Typed(expected_type=GraphicalProperties, )
-    graphicalProperties = Alias('spPr')
-    style = Typed(expected_type=ShapeStyle, allow_none=True)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    nvPicPr: PictureNonVisual | None = Field.element(expected_type=PictureNonVisual, allow_none=True)
+    blipFill: BlipFillProperties | None = Field.element(expected_type=BlipFillProperties, allow_none=True)
+    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True)
+    graphicalProperties = AliasField('spPr')
+    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True)
 
-    __elements__ = ("nvPicPr", "blipFill", "spPr", "style")
+    xml_order = ("nvPicPr", "blipFill", "spPr", "style")
 
     def __init__(self,
                  macro=None,

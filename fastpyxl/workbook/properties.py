@@ -1,40 +1,41 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    String,
-    Float,
-    Integer,
-    Bool,
-    NoneSet,
-)
-
-from fastpyxl.descriptors.excel import Guid
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class WorkbookProperties(Serialisable):
 
     tagname = "workbookPr"
 
-    date1904 = Bool(allow_none=True)
-    dateCompatibility = Bool(allow_none=True)
-    showObjects = NoneSet(values=(['all', 'placeholders']))
-    showBorderUnselectedTables = Bool(allow_none=True)
-    filterPrivacy = Bool(allow_none=True)
-    promptedSolutions = Bool(allow_none=True)
-    showInkAnnotation = Bool(allow_none=True)
-    backupFile = Bool(allow_none=True)
-    saveExternalLinkValues = Bool(allow_none=True)
-    updateLinks = NoneSet(values=(['userSet', 'never', 'always']))
-    codeName = String(allow_none=True)
-    hidePivotFieldList = Bool(allow_none=True)
-    showPivotChartFilter = Bool(allow_none=True)
-    allowRefreshQuery = Bool(allow_none=True)
-    publishItems = Bool(allow_none=True)
-    checkCompatibility = Bool(allow_none=True)
-    autoCompressPictures = Bool(allow_none=True)
-    refreshAllConnections = Bool(allow_none=True)
-    defaultThemeVersion = Integer(allow_none=True)
+    date1904: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dateCompatibility: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showObjects: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("all", "placeholders"), "showObjects"),
+    )
+    showBorderUnselectedTables: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    filterPrivacy: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    promptedSolutions: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showInkAnnotation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    backupFile: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    saveExternalLinkValues: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    updateLinks: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("userSet", "never", "always"), "updateLinks"),
+    )
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    hidePivotFieldList: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showPivotChartFilter: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    allowRefreshQuery: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    publishItems: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    checkCompatibility: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoCompressPictures: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    refreshAllConnections: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    defaultThemeVersion: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  date1904=None,
@@ -82,19 +83,27 @@ class CalcProperties(Serialisable):
 
     tagname = "calcPr"
 
-    calcId = Integer()
-    calcMode = NoneSet(values=(['manual', 'auto', 'autoNoTable']))
-    fullCalcOnLoad = Bool(allow_none=True)
-    refMode = NoneSet(values=(['A1', 'R1C1']))
-    iterate = Bool(allow_none=True)
-    iterateCount = Integer(allow_none=True)
-    iterateDelta = Float(allow_none=True)
-    fullPrecision = Bool(allow_none=True)
-    calcCompleted = Bool(allow_none=True)
-    calcOnSave = Bool(allow_none=True)
-    concurrentCalc = Bool(allow_none=True)
-    concurrentManualCount = Integer(allow_none=True)
-    forceFullCalc = Bool(allow_none=True)
+    calcId: int | None = Field.attribute(expected_type=int, allow_none=True, default=124519)
+    calcMode: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("manual", "auto", "autoNoTable"), "calcMode"),
+    )
+    fullCalcOnLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    refMode: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("A1", "R1C1"), "refMode"),
+    )
+    iterate: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    iterateCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    iterateDelta: float | None = Field.attribute(expected_type=float, allow_none=True)
+    fullPrecision: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    calcCompleted: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    calcOnSave: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    concurrentCalc: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    concurrentManualCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    forceFullCalc: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  calcId=124519,
@@ -130,11 +139,11 @@ class FileVersion(Serialisable):
 
     tagname = "fileVersion"
 
-    appName = String(allow_none=True)
-    lastEdited = String(allow_none=True)
-    lowestEdited = String(allow_none=True)
-    rupBuild = String(allow_none=True)
-    codeName = Guid(allow_none=True)
+    appName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    lastEdited: str | None = Field.attribute(expected_type=str, allow_none=True)
+    lowestEdited: str | None = Field.attribute(expected_type=str, allow_none=True)
+    rupBuild: str | None = Field.attribute(expected_type=str, allow_none=True)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  appName=None,
@@ -148,3 +157,11 @@ class FileVersion(Serialisable):
         self.lowestEdited = lowestEdited
         self.rupBuild = rupBuild
         self.codeName = codeName
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

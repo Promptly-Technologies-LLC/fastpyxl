@@ -1,7 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import Bool
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class Protection(Serialisable):
@@ -9,8 +9,8 @@ class Protection(Serialisable):
 
     tagname = "protection"
 
-    locked = Bool()
-    hidden = Bool()
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self, locked=True, hidden=False):
         self.locked = locked

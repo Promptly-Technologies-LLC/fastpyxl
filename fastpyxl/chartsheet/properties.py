@@ -1,22 +1,17 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Bool,
-    String,
-    Typed
-)
-from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.styles import Color
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class ChartsheetProperties(Serialisable):
     tagname = "sheetPr"
 
-    published = Bool(allow_none=True)
-    codeName = String(allow_none=True)
-    tabColor = Typed(expected_type=Color, allow_none=True)
-
-    __elements__ = ('tabColor',)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    tabColor: Color | None = Field.element(expected_type=Color, allow_none=True)
+    xml_order = ("tabColor",)
 
     def __init__(self,
                  published=None,

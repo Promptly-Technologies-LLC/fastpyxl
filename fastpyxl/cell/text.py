@@ -15,8 +15,14 @@ from fastpyxl.descriptors import (
 from fastpyxl.descriptors.nested import (
     NestedString,
     NestedText,
+    NestedBool,
+    NestedNoneSet,
+    NestedMinMax,
+    NestedInteger,
+    NestedFloat,
 )
-from fastpyxl.styles.fonts import Font
+from fastpyxl.styles.colors import ColorDescriptor
+from fastpyxl.styles.fonts import _no_value
 
 
 class PhoneticProperties(Serialisable):
@@ -57,7 +63,7 @@ class PhoneticText(Serialisable):
         self.t = t
 
 
-class InlineFont(Font):
+class InlineFont(Serialisable):
 
     """
     Font for inline text because, yes what you need are different objects with the same elements but different constraints.
@@ -66,20 +72,28 @@ class InlineFont(Font):
     tagname = "RPrElt"
 
     rFont = NestedString(allow_none=True)
-    charset = Font.charset
-    family = Font.family
-    b =Font.b
-    i = Font.i
-    strike = Font.strike
-    outline = Font.outline
-    shadow = Font.shadow
-    condense = Font.condense
-    extend = Font.extend
-    color = Font.color
-    sz = Font.sz
-    u = Font.u
-    vertAlign = Font.vertAlign
-    scheme = Font.scheme
+
+    charset = NestedInteger(allow_none=True)
+    family = NestedMinMax(min=0, max=14, allow_none=True)
+    b = NestedBool(to_tree=_no_value)
+    i = NestedBool(to_tree=_no_value)
+    strike = NestedBool(allow_none=True)
+    outline = NestedBool(allow_none=True)
+    shadow = NestedBool(allow_none=True)
+    condense = NestedBool(allow_none=True)
+    extend = NestedBool(allow_none=True)
+    color = ColorDescriptor(allow_none=True)
+    sz = NestedFloat(allow_none=True)
+    u = NestedNoneSet(
+        values=(
+            "single",
+            "double",
+            "singleAccounting",
+            "doubleAccounting",
+        )
+    )
+    vertAlign = NestedNoneSet(values=("superscript", "subscript", "baseline"))
+    scheme = NestedNoneSet(values=("major", "minor"))
 
     __elements__ = ('rFont', 'charset', 'family', 'b', 'i', 'strike',
                     'outline', 'shadow', 'condense', 'extend', 'color', 'sz', 'u',

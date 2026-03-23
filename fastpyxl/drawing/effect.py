@@ -9,16 +9,19 @@ from fastpyxl.descriptors import (
     Integer,
     Float,
 )
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 from .colors import ColorChoice
 
 
-class TintEffect(Serialisable):
+class TintEffect(TypedSerialisable):
 
     tagname = "tint"
 
-    hue = Integer()
-    amt = Integer()
+    hue: int | None = Field.attribute(expected_type=int, allow_none=True)
+    amt: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  hue=0,
@@ -28,12 +31,12 @@ class TintEffect(Serialisable):
         self.amt = amt
 
 
-class LuminanceEffect(Serialisable):
+class LuminanceEffect(TypedSerialisable):
 
     tagname = "lum"
 
-    bright = Integer() #Pct ?
-    contrast = Integer() #Pct#
+    bright: int | None = Field.attribute(expected_type=int, allow_none=True)  # Pct?
+    contrast: int | None = Field.attribute(expected_type=int, allow_none=True)  # Pct#
 
     def __init__(self,
                  bright=0,
@@ -59,7 +62,7 @@ class HSLEffect(Serialisable):
         self.lum = lum
 
 
-class GrayscaleEffect(Serialisable):
+class GrayscaleEffect(TypedSerialisable):
 
     tagname = "grayscl"
 
@@ -86,11 +89,12 @@ class Color(Serialisable):
 
     pass
 
-class ColorChangeEffect(Serialisable):
+class ColorChangeEffect(TypedSerialisable):
 
-    useA = Bool(allow_none=True)
-    clrFrom = Typed(expected_type=Color, )
-    clrTo = Typed(expected_type=Color, )
+    useA: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    clrFrom: Color | None = Field.element(expected_type=Color, allow_none=True)
+    clrTo: Color | None = Field.element(expected_type=Color, allow_none=True)
+    xml_order = ("clrFrom", "clrTo")
 
     def __init__(self,
                  useA=None,
@@ -102,10 +106,10 @@ class ColorChangeEffect(Serialisable):
         self.clrTo = clrTo
 
 
-class BlurEffect(Serialisable):
+class BlurEffect(TypedSerialisable):
 
-    rad = Float()
-    grow = Bool(allow_none=True)
+    rad: float | None = Field.attribute(expected_type=float, allow_none=True)
+    grow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  rad=None,
@@ -115,9 +119,9 @@ class BlurEffect(Serialisable):
         self.grow = grow
 
 
-class BiLevelEffect(Serialisable):
+class BiLevelEffect(TypedSerialisable):
 
-    thresh = Integer()
+    thresh: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  thresh=None,
@@ -125,9 +129,9 @@ class BiLevelEffect(Serialisable):
         self.thresh = thresh
 
 
-class AlphaReplaceEffect(Serialisable):
+class AlphaReplaceEffect(TypedSerialisable):
 
-    a = Integer()
+    a: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  a=None,
@@ -135,9 +139,9 @@ class AlphaReplaceEffect(Serialisable):
         self.a = a
 
 
-class AlphaModulateFixedEffect(Serialisable):
+class AlphaModulateFixedEffect(TypedSerialisable):
 
-    amt = Integer()
+    amt: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  amt=None,
@@ -145,10 +149,14 @@ class AlphaModulateFixedEffect(Serialisable):
         self.amt = amt
 
 
-class EffectContainer(Serialisable):
+class EffectContainer(TypedSerialisable):
 
-    type = Set(values=(['sib', 'tree']))
-    name = String(allow_none=True)
+    type: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("sib", "tree"), "type"),
+    )
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  type=None,
@@ -158,9 +166,9 @@ class EffectContainer(Serialisable):
         self.name = name
 
 
-class AlphaModulateEffect(Serialisable):
+class AlphaModulateEffect(TypedSerialisable):
 
-    cont = Typed(expected_type=EffectContainer, )
+    cont: EffectContainer | None = Field.element(expected_type=EffectContainer, allow_none=True)
 
     def __init__(self,
                  cont=None,
@@ -180,9 +188,9 @@ class AlphaCeilingEffect(Serialisable):
 
     pass
 
-class AlphaBiLevelEffect(Serialisable):
+class AlphaBiLevelEffect(TypedSerialisable):
 
-    thresh = Integer()
+    thresh: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  thresh=None,
@@ -192,17 +200,7 @@ class AlphaBiLevelEffect(Serialisable):
 
 class GlowEffect(ColorChoice):
 
-    rad = Float()
-    # uses element group EG_ColorChoice
-    scrgbClr = ColorChoice.scrgbClr
-    srgbClr = ColorChoice.srgbClr
-    hslClr = ColorChoice.hslClr
-    sysClr = ColorChoice.sysClr
-    schemeClr = ColorChoice.schemeClr
-    prstClr = ColorChoice.prstClr
-
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
-
+    rad: float | None = Field.attribute(expected_type=float, allow_none=True)
     def __init__(self,
                  rad=None,
                  **kw
@@ -213,19 +211,9 @@ class GlowEffect(ColorChoice):
 
 class InnerShadowEffect(ColorChoice):
 
-    blurRad = Float()
-    dist = Float()
-    dir = Integer()
-    # uses element group EG_ColorChoice
-    scrgbClr = ColorChoice.scrgbClr
-    srgbClr = ColorChoice.srgbClr
-    hslClr = ColorChoice.hslClr
-    sysClr = ColorChoice.sysClr
-    schemeClr = ColorChoice.schemeClr
-    prstClr = ColorChoice.prstClr
-
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
-
+    blurRad: float | None = Field.attribute(expected_type=float, allow_none=True)
+    dist: float | None = Field.attribute(expected_type=float, allow_none=True)
+    dir: int | None = Field.attribute(expected_type=int, allow_none=True)
     def __init__(self,
                  blurRad=None,
                  dist=None,
@@ -242,25 +230,19 @@ class OuterShadow(ColorChoice):
 
     tagname = "outerShdw"
 
-    blurRad = Float(allow_none=True)
-    dist = Float(allow_none=True)
-    dir = Integer(allow_none=True)
-    sx = Integer(allow_none=True)
-    sy = Integer(allow_none=True)
-    kx = Integer(allow_none=True)
-    ky = Integer(allow_none=True)
-    algn = Set(values=['tl', 't', 'tr', 'l', 'ctr', 'r', 'bl', 'b', 'br'])
-    rotWithShape = Bool(allow_none=True)
-    # uses element group EG_ColorChoice
-    scrgbClr = ColorChoice.scrgbClr
-    srgbClr = ColorChoice.srgbClr
-    hslClr = ColorChoice.hslClr
-    sysClr = ColorChoice.sysClr
-    schemeClr = ColorChoice.schemeClr
-    prstClr = ColorChoice.prstClr
-
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
-
+    blurRad: float | None = Field.attribute(expected_type=float, allow_none=True)
+    dist: float | None = Field.attribute(expected_type=float, allow_none=True)
+    dir: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sy: int | None = Field.attribute(expected_type=int, allow_none=True)
+    kx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    ky: int | None = Field.attribute(expected_type=int, allow_none=True)
+    algn: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"), "algn"),
+    )
+    rotWithShape: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     def __init__(self,
                  blurRad=None,
                  dist=None,
@@ -287,21 +269,13 @@ class OuterShadow(ColorChoice):
 
 class PresetShadowEffect(ColorChoice):
 
-    prst = Set(values=(['shdw1', 'shdw2', 'shdw3', 'shdw4', 'shdw5', 'shdw6',
-                        'shdw7', 'shdw8', 'shdw9', 'shdw10', 'shdw11', 'shdw12', 'shdw13',
-                        'shdw14', 'shdw15', 'shdw16', 'shdw17', 'shdw18', 'shdw19', 'shdw20']))
-    dist = Float()
-    dir = Integer()
-    # uses element group EG_ColorChoice
-    scrgbClr = ColorChoice.scrgbClr
-    srgbClr = ColorChoice.srgbClr
-    hslClr = ColorChoice.hslClr
-    sysClr = ColorChoice.sysClr
-    schemeClr = ColorChoice.schemeClr
-    prstClr = ColorChoice.prstClr
-
-    __elements__ = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')
-
+    prst: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, tuple(f"shdw{i}" for i in range(1, 21)), "prst"),
+    )
+    dist: float | None = Field.attribute(expected_type=float, allow_none=True)
+    dir: int | None = Field.attribute(expected_type=int, allow_none=True)
     def __init__(self,
                  prst=None,
                  dist=None,
@@ -314,22 +288,26 @@ class PresetShadowEffect(ColorChoice):
         super().__init__(**kw)
 
 
-class ReflectionEffect(Serialisable):
+class ReflectionEffect(TypedSerialisable):
 
-    blurRad = Float()
-    stA = Integer()
-    stPos = Integer()
-    endA = Integer()
-    endPos = Integer()
-    dist = Float()
-    dir = Integer()
-    fadeDir = Integer()
-    sx = Integer()
-    sy = Integer()
-    kx = Integer()
-    ky = Integer()
-    algn = Set(values=(['tl', 't', 'tr', 'l', 'ctr', 'r', 'bl', 'b', 'br']))
-    rotWithShape = Bool(allow_none=True)
+    blurRad: float | None = Field.attribute(expected_type=float, allow_none=True)
+    stA: int | None = Field.attribute(expected_type=int, allow_none=True)
+    stPos: int | None = Field.attribute(expected_type=int, allow_none=True)
+    endA: int | None = Field.attribute(expected_type=int, allow_none=True)
+    endPos: int | None = Field.attribute(expected_type=int, allow_none=True)
+    dist: float | None = Field.attribute(expected_type=float, allow_none=True)
+    dir: int | None = Field.attribute(expected_type=int, allow_none=True)
+    fadeDir: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sy: int | None = Field.attribute(expected_type=int, allow_none=True)
+    kx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    ky: int | None = Field.attribute(expected_type=int, allow_none=True)
+    algn: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"), "algn"),
+    )
+    rotWithShape: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  blurRad=None,
@@ -363,9 +341,9 @@ class ReflectionEffect(Serialisable):
         self.rotWithShape = rotWithShape
 
 
-class SoftEdgesEffect(Serialisable):
+class SoftEdgesEffect(TypedSerialisable):
 
-    rad = Float()
+    rad: float | None = Field.attribute(expected_type=float, allow_none=True)
 
     def __init__(self,
                  rad=None,
@@ -373,19 +351,19 @@ class SoftEdgesEffect(Serialisable):
         self.rad = rad
 
 
-class EffectList(Serialisable):
+class EffectList(TypedSerialisable):
 
-    blur = Typed(expected_type=BlurEffect, allow_none=True)
-    fillOverlay = Typed(expected_type=FillOverlayEffect, allow_none=True)
-    glow = Typed(expected_type=GlowEffect, allow_none=True)
-    innerShdw = Typed(expected_type=InnerShadowEffect, allow_none=True)
-    outerShdw = Typed(expected_type=OuterShadow, allow_none=True)
-    prstShdw = Typed(expected_type=PresetShadowEffect, allow_none=True)
-    reflection = Typed(expected_type=ReflectionEffect, allow_none=True)
-    softEdge = Typed(expected_type=SoftEdgesEffect, allow_none=True)
+    blur: BlurEffect | None = Field.element(expected_type=BlurEffect, allow_none=True)
+    fillOverlay: FillOverlayEffect | None = Field.element(expected_type=FillOverlayEffect, allow_none=True)
+    glow: GlowEffect | None = Field.element(expected_type=GlowEffect, allow_none=True)
+    innerShdw: InnerShadowEffect | None = Field.element(expected_type=InnerShadowEffect, allow_none=True)
+    outerShdw: OuterShadow | None = Field.element(expected_type=OuterShadow, allow_none=True)
+    prstShdw: PresetShadowEffect | None = Field.element(expected_type=PresetShadowEffect, allow_none=True)
+    reflection: ReflectionEffect | None = Field.element(expected_type=ReflectionEffect, allow_none=True)
+    softEdge: SoftEdgesEffect | None = Field.element(expected_type=SoftEdgesEffect, allow_none=True)
 
-    __elements__ = ('blur', 'fillOverlay', 'glow', 'innerShdw', 'outerShdw',
-                    'prstShdw', 'reflection', 'softEdge')
+    xml_order = ('blur', 'fillOverlay', 'glow', 'innerShdw', 'outerShdw',
+                 'prstShdw', 'reflection', 'softEdge')
 
     def __init__(self,
                  blur=None,
@@ -405,3 +383,11 @@ class EffectList(Serialisable):
         self.prstShdw = prstShdw
         self.reflection = reflection
         self.softEdge = softEdge
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

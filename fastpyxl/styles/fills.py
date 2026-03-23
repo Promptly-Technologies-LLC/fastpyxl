@@ -1,18 +1,12 @@
 
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Float,
-    Set,
-    Alias,
-    NoneSet,
-    Sequence,
-    MinMax,
-)
-from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-from .colors import ColorDescriptor, Color
+from .colors import Color
 
 from fastpyxl.xml.functions import Element, localname
 
@@ -46,6 +40,36 @@ fills = (FILL_SOLID, FILL_PATTERN_DARKDOWN, FILL_PATTERN_DARKGRAY,
          FILL_PATTERN_MEDIUMGRAY)
 
 
+def _color_converter(value, field_name: str):
+    if value is None:
+        return None
+    if isinstance(value, Color):
+        return value
+    if isinstance(value, str):
+        return Color(rgb=value)
+    raise FieldValidationError(f"{field_name} rejected value {value!r}")
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
+
+
+def _range_converter(value, *, field_name: str, min_value: float, max_value: float):
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except Exception as exc:  # pragma: no cover
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
+    if numeric < min_value or numeric > max_value:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return numeric
+
+
 class Fill(Serialisable):
 
     """Base class"""
@@ -70,14 +94,24 @@ class PatternFill(Fill):
 
     tagname = "patternFill"
 
-    __elements__ = ('fgColor', 'bgColor')
-
-    patternType = NoneSet(values=fills)
-    fill_type = Alias("patternType")
-    fgColor = ColorDescriptor()
-    start_color = Alias("fgColor")
-    bgColor = ColorDescriptor()
-    end_color = Alias("bgColor")
+    patternType: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, fills, "patternType"),
+    )
+    fill_type: str | None = AliasField("patternType")
+    fgColor: Color | None = Field.element(
+        expected_type=Color,
+        allow_none=True,
+        converter=lambda v: _color_converter(v, "fgColor"),
+    )
+    start_color: Color | None = AliasField("fgColor")
+    bgColor: Color | None = Field.element(
+        expected_type=Color,
+        allow_none=True,
+        converter=lambda v: _color_converter(v, "bgColor"),
+    )
+    end_color: Color | None = AliasField("bgColor")
 
     def __init__(self, patternType=None, fgColor=Color(), bgColor=Color(),
                  fill_type=None, start_color=None, end_color=None):
@@ -121,8 +155,16 @@ class Stop(Serialisable):
 
     tagname = "stop"
 
-    position = MinMax(min=0, max=1)
-    color = ColorDescriptor()
+    position: float | None = Field.attribute(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _range_converter(v, field_name="position", min_value=0, max_value=1),
+    )
+    color: Color | None = Field.element(
+        expected_type=Color,
+        allow_none=True,
+        converter=lambda v: _color_converter(v, "color"),
+    )
 
     def __init__(self, color, position):
         self.position = position
@@ -157,15 +199,6 @@ def _assign_position(values):
     return values
 
 
-class StopList(Sequence):
-
-    expected_type = Stop
-
-    def __set__(self, obj, values):
-        values = _assign_position(values)
-        super().__set__(obj, values)
-
-
 class GradientFill(Fill):
     """Fill areas with gradient
 
@@ -187,14 +220,18 @@ class GradientFill(Fill):
 
     tagname = "gradientFill"
 
-    type = Set(values=('linear', 'path'))
-    fill_type = Alias("type")
-    degree = Float()
-    left = Float()
-    right = Float()
-    top = Float()
-    bottom = Float()
-    stop = StopList()
+    type: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("linear", "path"), "type"),
+    )
+    fill_type: str | None = AliasField("type")
+    degree: float | None = Field.attribute(expected_type=float, allow_none=True)
+    left: float | None = Field.attribute(expected_type=float, allow_none=True)
+    right: float | None = Field.attribute(expected_type=float, allow_none=True)
+    top: float | None = Field.attribute(expected_type=float, allow_none=True)
+    bottom: float | None = Field.attribute(expected_type=float, allow_none=True)
+    stop: list[Stop] = Field.sequence(expected_type=Stop)
 
 
     def __init__(self, type="linear", degree=0, left=0, right=0, top=0,
@@ -206,6 +243,12 @@ class GradientFill(Fill):
         self.bottom = bottom
         self.stop = stop
         self.type = type
+
+
+    def __setattr__(self, name, value):
+        if name == "stop" and value is not None:
+            value = _assign_position(value)
+        super().__setattr__(name, value)
 
 
     def __iter__(self):
@@ -220,3 +263,5 @@ class GradientFill(Fill):
         el = super().to_tree()
         parent.append(el)
         return parent
+
+

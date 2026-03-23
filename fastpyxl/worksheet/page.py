@@ -8,6 +8,8 @@ from fastpyxl.descriptors import (
     NoneSet,
     )
 from fastpyxl.descriptors.excel import UniversalMeasure, Relation
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class PrintPageSetup(Serialisable):
@@ -147,7 +149,7 @@ class PrintOptions(Serialisable):
         return bool(dict(self))
 
 
-class PageMargins(Serialisable):
+class PageMargins(TypedSerialisable):
     """
     Information about page margins for view/print layouts.
     Standard values (in inches)
@@ -157,12 +159,12 @@ class PageMargins(Serialisable):
     """
     tagname = "pageMargins"
 
-    left = Float()
-    right = Float()
-    top = Float()
-    bottom = Float()
-    header = Float()
-    footer = Float()
+    left: float | None = Field.attribute(expected_type=float, allow_none=True, default=0.75)
+    right: float | None = Field.attribute(expected_type=float, allow_none=True, default=0.75)
+    top: float | None = Field.attribute(expected_type=float, allow_none=True, default=1)
+    bottom: float | None = Field.attribute(expected_type=float, allow_none=True, default=1)
+    header: float | None = Field.attribute(expected_type=float, allow_none=True, default=0.5)
+    footer: float | None = Field.attribute(expected_type=float, allow_none=True, default=0.5)
 
     def __init__(self, left=0.75, right=0.75, top=1, bottom=1, header=0.5,
                  footer=0.5):

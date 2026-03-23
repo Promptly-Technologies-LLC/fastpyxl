@@ -1,17 +1,13 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Sequence,
-    String,
-    Integer,
-)
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 class FunctionGroup(Serialisable):
 
     tagname = "functionGroup"
 
-    name = String()
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  name=None,
@@ -23,10 +19,9 @@ class FunctionGroupList(Serialisable):
 
     tagname = "functionGroups"
 
-    builtInGroupCount = Integer(allow_none=True)
-    functionGroup = Sequence(expected_type=FunctionGroup, allow_none=True)
-
-    __elements__ = ('functionGroup',)
+    builtInGroupCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    functionGroup: list[FunctionGroup] | None = Field.sequence(expected_type=FunctionGroup, allow_none=True)
+    xml_order = ("functionGroup",)
 
     def __init__(self,
                  builtInGroupCount=16,

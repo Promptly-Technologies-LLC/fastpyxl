@@ -1,29 +1,32 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 from fastpyxl.xml.constants import DRAWING_NS
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Bool,
-    Integer,
-    String,
-    NoneSet,
-)
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 from .geometry import GroupTransform2D, Scene3D
 from .text import Hyperlink
 
 
-class GroupShapeProperties(Serialisable):
+class GroupShapeProperties(TypedSerialisable):
 
     tagname = "grpSpPr"
 
-    bwMode = NoneSet(values=(['clr', 'auto', 'gray', 'ltGray', 'invGray',
-                          'grayWhite', 'blackGray', 'blackWhite', 'black', 'white', 'hidden']))
-    xfrm = Typed(expected_type=GroupTransform2D, allow_none=True)
-    scene3d = Typed(expected_type=Scene3D, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    bwMode: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(
+            v,
+            ("clr", "auto", "gray", "ltGray", "invGray", "grayWhite", "blackGray", "blackWhite", "black", "white", "hidden"),
+            "bwMode",
+        ),
+    )
+    xfrm: GroupTransform2D | None = Field.element(expected_type=GroupTransform2D, allow_none=True)
+    scene3d: Scene3D | None = Field.element(expected_type=Scene3D, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    xml_order = ("xfrm", "scene3d", "extLst")
 
     def __init__(self,
                  bwMode=None,
@@ -37,26 +40,24 @@ class GroupShapeProperties(Serialisable):
         self.extLst = extLst
 
 
-class GroupLocking(Serialisable):
+class GroupLocking(TypedSerialisable):
 
     tagname = "grpSpLocks"
     namespace = DRAWING_NS
 
-    noGrp = Bool(allow_none=True)
-    noUngrp = Bool(allow_none=True)
-    noSelect = Bool(allow_none=True)
-    noRot = Bool(allow_none=True)
-    noChangeAspect = Bool(allow_none=True)
-    noMove = Bool(allow_none=True)
-    noResize = Bool(allow_none=True)
-    noChangeArrowheads = Bool(allow_none=True)
-    noEditPoints = Bool(allow_none=True)
-    noAdjustHandles = Bool(allow_none=True)
-    noChangeArrowheads = Bool(allow_none=True)
-    noChangeShapeType = Bool(allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-
-    __elements__ = ()
+    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noUngrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeArrowheads: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noEditPoints: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noAdjustHandles: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    noChangeShapeType: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    xml_order = ()
 
     def __init__(self,
                  noGrp=None,
@@ -85,31 +86,31 @@ class GroupLocking(Serialisable):
         self.noChangeShapeType = noChangeShapeType
 
 
-class NonVisualGroupDrawingShapeProps(Serialisable):
+class NonVisualGroupDrawingShapeProps(TypedSerialisable):
 
     tagname = "cNvGrpSpPr"
 
-    grpSpLocks = Typed(expected_type=GroupLocking, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-
-    __elements__ = ("grpSpLocks",)
+    grpSpLocks: GroupLocking | None = Field.element(expected_type=GroupLocking, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    xml_order = ("grpSpLocks", "extLst")
 
     def __init__(self,
                  grpSpLocks=None,
                  extLst=None,
                 ):
         self.grpSpLocks = grpSpLocks
+        self.extLst = extLst
 
 
-class NonVisualDrawingShapeProps(Serialisable):
+class NonVisualDrawingShapeProps(TypedSerialisable):
 
     tagname = "cNvSpPr"
 
-    spLocks = Typed(expected_type=GroupLocking, allow_none=True)
-    txBax = Bool(allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    spLocks: GroupLocking | None = Field.element(expected_type=GroupLocking, allow_none=True)
+    txBax: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
 
-    __elements__ = ("spLocks", "txBax")
+    xml_order = ("spLocks",)
 
     def __init__(self,
                  spLocks=None,
@@ -117,23 +118,23 @@ class NonVisualDrawingShapeProps(Serialisable):
                  extLst=None,
                 ):
         self.spLocks = spLocks
-        self.txBox = txBox
+        self.txBax = txBox
 
 
-class NonVisualDrawingProps(Serialisable):
+class NonVisualDrawingProps(TypedSerialisable):
 
     tagname = "cNvPr"
 
-    id = Integer()
-    name = String()
-    descr = String(allow_none=True)
-    hidden = Bool(allow_none=True)
-    title = String(allow_none=True)
-    hlinkClick = Typed(expected_type=Hyperlink, allow_none=True)
-    hlinkHover = Typed(expected_type=Hyperlink, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    descr: str | None = Field.attribute(expected_type=str, allow_none=True)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    title: str | None = Field.attribute(expected_type=str, allow_none=True)
+    hlinkClick: Hyperlink | None = Field.element(expected_type=Hyperlink, allow_none=True)
+    hlinkHover: Hyperlink | None = Field.element(expected_type=Hyperlink, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
 
-    __elements__ = ["hlinkClick", "hlinkHover"]
+    xml_order = ("hlinkClick", "hlinkHover", "extLst")
 
     def __init__(self,
                  id=None,
@@ -154,14 +155,17 @@ class NonVisualDrawingProps(Serialisable):
         self.hlinkHover = hlinkHover
         self.extLst = extLst
 
-class NonVisualGroupShape(Serialisable):
+class NonVisualGroupShape(TypedSerialisable):
 
     tagname = "nvGrpSpPr"
 
-    cNvPr = Typed(expected_type=NonVisualDrawingProps)
-    cNvGrpSpPr = Typed(expected_type=NonVisualGroupDrawingShapeProps)
+    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True)
+    cNvGrpSpPr: NonVisualGroupDrawingShapeProps | None = Field.element(
+        expected_type=NonVisualGroupDrawingShapeProps,
+        allow_none=True,
+    )
 
-    __elements__ = ("cNvPr", "cNvGrpSpPr")
+    xml_order = ("cNvPr", "cNvGrpSpPr")
 
     def __init__(self,
                  cNvPr=None,
@@ -169,4 +173,12 @@ class NonVisualGroupShape(Serialisable):
                 ):
         self.cNvPr = cNvPr
         self.cNvGrpSpPr = cNvGrpSpPr
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
 

@@ -1,25 +1,20 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Sequence,
-    String,
-    Integer,
-    Bool,
-    NoneSet,
-)
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class WebPublishObject(Serialisable):
 
     tagname = "webPublishingObject"
 
-    id = Integer()
-    divId = String()
-    sourceObject = String(allow_none=True)
-    destinationFile = String()
-    title = String(allow_none=True)
-    autoRepublish = Bool(allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True)
+    divId: str | None = Field.attribute(expected_type=str, allow_none=True)
+    sourceObject: str | None = Field.attribute(expected_type=str, allow_none=True)
+    destinationFile: str | None = Field.attribute(expected_type=str, allow_none=True)
+    title: str | None = Field.attribute(expected_type=str, allow_none=True)
+    autoRepublish: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  id=None,
@@ -41,14 +36,14 @@ class WebPublishObjectList(Serialisable):
 
     tagname ="webPublishingObjects"
 
-    webPublishObject = Sequence(expected_type=WebPublishObject)
-
-    __elements__ = ('webPublishObject',)
+    webPublishObject: list[WebPublishObject] = Field.sequence(expected_type=WebPublishObject)
+    xml_order = ('webPublishObject',)
 
     def __init__(self,
                  count=None,
                  webPublishObject=(),
                 ):
+        del count
         self.webPublishObject = webPublishObject
 
 
@@ -57,21 +52,32 @@ class WebPublishObjectList(Serialisable):
         return len(self.webPublishObject)
 
 
+    def __iter__(self):
+        yield "count", str(self.count)
+
+
 class WebPublishing(Serialisable):
 
     tagname = "webPublishing"
 
-    css = Bool(allow_none=True)
-    thicket = Bool(allow_none=True)
-    longFileNames = Bool(allow_none=True)
-    vml = Bool(allow_none=True)
-    allowPng = Bool(allow_none=True)
-    targetScreenSize = NoneSet(values=(['544x376', '640x480', '720x512', '800x600',
-                                    '1024x768', '1152x882', '1152x900', '1280x1024', '1600x1200',
-                                    '1800x1440', '1920x1200']))
-    dpi = Integer(allow_none=True)
-    codePage = Integer(allow_none=True)
-    characterSet = String(allow_none=True)
+    css: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    thicket: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    longFileNames: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    vml: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    allowPng: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    targetScreenSize: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(
+            v,
+            ("544x376", "640x480", "720x512", "800x600", "1024x768", "1152x882", "1152x900",
+             "1280x1024", "1600x1200", "1800x1440", "1920x1200"),
+            "targetScreenSize",
+        ),
+    )
+    dpi: int | None = Field.attribute(expected_type=int, allow_none=True)
+    codePage: int | None = Field.attribute(expected_type=int, allow_none=True)
+    characterSet: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  css=None,
@@ -93,3 +99,11 @@ class WebPublishing(Serialisable):
         self.dpi = dpi
         self.codePage = codePage
         self.characterSet = characterSet
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

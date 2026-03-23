@@ -1,20 +1,10 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 
-from fastpyxl.descriptors import (
-    Alias
-)
-from fastpyxl.descriptors.serialisable import Serialisable
-
-from fastpyxl.descriptors.nested import (
-    NestedBool,
-    NestedNoneSet,
-    NestedMinMax,
-    NestedString,
-    NestedInteger,
-    NestedFloat,
-)
-from .colors import ColorDescriptor, Color
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+from .colors import Color
 
 from fastpyxl.compat import safe_string
 from fastpyxl.xml.functions import Element
@@ -26,6 +16,62 @@ def _no_value(tagname, value, namespace=None):
         return Element(tagname, val=safe_string(value))
 
 
+def _validate_range(value, *, field_name: str, min_value: float, max_value: float):
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except Exception as exc:  # pragma: no cover
+        raise FieldValidationError(
+            f"{field_name} rejected value {value!r}"
+        ) from exc
+    if numeric < min_value or numeric > max_value:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return numeric
+
+
+def _color_converter(value):
+    if value is None:
+        return None
+    if isinstance(value, Color):
+        return value
+    if isinstance(value, str):
+        return Color(rgb=value)
+    raise FieldValidationError(f"color rejected value {value!r}")
+
+
+def _underline_converter(value):
+    if value is None or value == "none":
+        return None
+    allowed = {
+        "single",
+        "double",
+        "singleAccounting",
+        "doubleAccounting",
+    }
+    if value not in allowed:
+        raise FieldValidationError(f"u rejected value {value!r}")
+    return value
+
+
+def _vert_align_converter(value):
+    if value is None or value == "none":
+        return None
+    allowed = {"superscript", "subscript", "baseline"}
+    if value not in allowed:
+        raise FieldValidationError(f"vertAlign rejected value {value!r}")
+    return value
+
+
+def _scheme_converter(value):
+    if value is None or value == "none":
+        return None
+    allowed = {"major", "minor"}
+    if value not in allowed:
+        raise FieldValidationError(f"scheme rejected value {value!r}")
+    return value
+
+
 class Font(Serialisable):
     """Font options used in styles."""
 
@@ -34,33 +80,71 @@ class Font(Serialisable):
     UNDERLINE_SINGLE = 'single'
     UNDERLINE_SINGLE_ACCOUNTING = 'singleAccounting'
 
-    name = NestedString(allow_none=True)
-    charset = NestedInteger(allow_none=True)
-    family = NestedMinMax(min=0, max=14, allow_none=True)
-    sz = NestedFloat(allow_none=True)
-    size = Alias("sz")
-    b = NestedBool(to_tree=_no_value)
-    bold = Alias("b")
-    i = NestedBool(to_tree=_no_value)
-    italic = Alias("i")
-    strike = NestedBool(allow_none=True)
-    strikethrough = Alias("strike")
-    outline = NestedBool(allow_none=True)
-    shadow = NestedBool(allow_none=True)
-    condense = NestedBool(allow_none=True)
-    extend = NestedBool(allow_none=True)
-    u = NestedNoneSet(values=('single', 'double', 'singleAccounting',
-                             'doubleAccounting'))
-    underline = Alias("u")
-    vertAlign = NestedNoneSet(values=('superscript', 'subscript', 'baseline'))
-    color = ColorDescriptor(allow_none=True)
-    scheme = NestedNoneSet(values=("major", "minor"))
-
     tagname = "font"
 
-    __elements__ = ('name', 'charset', 'family', 'b', 'i', 'strike', 'outline',
-                  'shadow', 'condense', 'color', 'extend', 'sz', 'u', 'vertAlign',
-                  'scheme')
+    xml_order = (
+        "name",
+        "charset",
+        "family",
+        "b",
+        "i",
+        "strike",
+        "outline",
+        "shadow",
+        "condense",
+        "color",
+        "extend",
+        "sz",
+        "u",
+        "vertAlign",
+        "scheme",
+    )
+
+    name: str | None = Field.nested_value(expected_type=str, allow_none=True)
+    charset: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    family: float | None = Field.nested_value(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _validate_range(v, field_name="family", min_value=0, max_value=14),
+    )
+    sz: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    size: float | None = AliasField("sz")
+
+    b: bool | None = Field.nested_bool(renderer=_no_value)
+    bold: bool | None = AliasField("b")
+    i: bool | None = Field.nested_bool(renderer=_no_value)
+    italic: bool | None = AliasField("i")
+
+    strike: bool | None = Field.nested_bool(allow_none=True)
+    strikethrough: bool | None = AliasField("strike")
+    outline: bool | None = Field.nested_bool(allow_none=True)
+    shadow: bool | None = Field.nested_bool(allow_none=True)
+    condense: bool | None = Field.nested_bool(allow_none=True)
+
+    color: Color | None = Field.element(
+        expected_type=Color,
+        allow_none=True,
+        converter=_color_converter,
+    )
+    extend: bool | None = Field.nested_bool(allow_none=True)
+
+    u: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=_underline_converter,
+    )
+    underline: str | None = AliasField("u")
+
+    vertAlign: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=_vert_align_converter,
+    )
+    scheme: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=_scheme_converter,
+    )
 
 
     def __init__(self, name=None, sz=None, b=None, i=None, charset=None,
@@ -104,6 +188,17 @@ class Font(Serialisable):
         if underline is not None and underline.get('val') is None:
             underline.set("val", "single")
         return super().from_tree(node)
+
+    def __copy__(self):
+        cp = super().__copy__()
+        # `b` and `i` use a custom renderer that omits the element when falsey.
+        # During copy via XML round-trip that means `False` becomes `None` unless
+        # we explicitly preserve the semantic value here.
+        if self.b is False and cp.b is None:
+            cp.b = False
+        if self.i is False and cp.i is None:
+            cp.i = False
+        return cp
 
 
 DEFAULT_FONT = Font(name="Calibri", sz=11, family=2, b=False, i=False,

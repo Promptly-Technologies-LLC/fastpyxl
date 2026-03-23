@@ -18,15 +18,17 @@ from .line import LineProperties  # noqa: F401 -- re-exported
 
 from fastpyxl.styles.colors import Color
 from fastpyxl.xml.constants import DRAWING_NS
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 
-class Point2D(Serialisable):
+class Point2D(TypedSerialisable):
 
     tagname = "off"
     namespace = DRAWING_NS
 
-    x = Coordinate()
-    y = Coordinate()
+    x: str | int | float | None = Field.attribute(expected_type=object, allow_none=True)
+    y: str | int | float | None = Field.attribute(expected_type=object, allow_none=True)
 
     def __init__(self,
                  x=None,
@@ -36,7 +38,7 @@ class Point2D(Serialisable):
         self.y = y
 
 
-class PositiveSize2D(Serialisable):
+class PositiveSize2D(TypedSerialisable):
 
     tagname = "ext"
     namespace = DRAWING_NS
@@ -45,10 +47,10 @@ class PositiveSize2D(Serialisable):
     Dimensions in EMUs
     """
 
-    cx = Integer()
-    width = Alias('cx')
-    cy = Integer()
-    height = Alias('cy')
+    cx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    width = AliasField("cx")
+    cy: int | None = Field.attribute(expected_type=int, allow_none=True)
+    height = AliasField("cy")
 
     def __init__(self,
                  cx=None,
@@ -58,20 +60,20 @@ class PositiveSize2D(Serialisable):
         self.cy = cy
 
 
-class Transform2D(Serialisable):
+class Transform2D(TypedSerialisable):
 
     tagname = "xfrm"
     namespace = DRAWING_NS
 
-    rot = Integer(allow_none=True)
-    flipH = Bool(allow_none=True)
-    flipV = Bool(allow_none=True)
-    off = Typed(expected_type=Point2D, allow_none=True)
-    ext = Typed(expected_type=PositiveSize2D, allow_none=True)
-    chOff = Typed(expected_type=Point2D, allow_none=True)
-    chExt = Typed(expected_type=PositiveSize2D, allow_none=True)
+    rot: int | None = Field.attribute(expected_type=int, allow_none=True)
+    flipH: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    flipV: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    off: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
+    ext: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
+    chOff: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
+    chExt: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
 
-    __elements__ = ('off', 'ext', 'chOff', 'chExt')
+    xml_order = ("off", "ext", "chOff", "chExt")
 
     def __init__(self,
                  rot=None,
@@ -91,20 +93,20 @@ class Transform2D(Serialisable):
         self.chExt = chExt
 
 
-class GroupTransform2D(Serialisable):
+class GroupTransform2D(TypedSerialisable):
 
     tagname = "xfrm"
     namespace = DRAWING_NS
 
-    rot = Integer(allow_none=True)
-    flipH = Bool(allow_none=True)
-    flipV = Bool(allow_none=True)
-    off = Typed(expected_type=Point2D, allow_none=True)
-    ext = Typed(expected_type=PositiveSize2D, allow_none=True)
-    chOff = Typed(expected_type=Point2D, allow_none=True)
-    chExt = Typed(expected_type=PositiveSize2D, allow_none=True)
+    rot: int | None = Field.attribute(expected_type=int, allow_none=True)
+    flipH: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    flipV: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    off: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
+    ext: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
+    chOff: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
+    chExt: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
 
-    __elements__ = ("off", "ext", "chOff", "chExt")
+    xml_order = ("off", "ext", "chOff", "chExt")
 
     def __init__(self,
                  rot=0,

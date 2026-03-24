@@ -2,10 +2,9 @@
 
 import copy
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Sequence,
-)
+from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 from fastpyxl.cell.cell import MergedCell
 from fastpyxl.styles.borders import Border
@@ -16,16 +15,16 @@ from .cell_range import CellRange
 class MergeCell(CellRange):
 
     tagname = "mergeCell"
-    ref = CellRange.coord
-
-    __attrs__ = ("ref",)
-
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  ref=None,
                 ):
         super().__init__(ref)
+        self.ref = self.coord
 
+    def __iter__(self):
+        return super(CellRange, self).__iter__()
 
     def __copy__(self):
         return self.__class__(self.ref)
@@ -35,10 +34,7 @@ class MergeCells(Serialisable):
 
     tagname = "mergeCells"
 
-    mergeCell = Sequence(expected_type=MergeCell, )
-
-    __elements__ = ('mergeCell',)
-    __attrs__ = ('count',)
+    mergeCell: list[MergeCell] = Field.sequence(expected_type=MergeCell, xml_name="mergeCell")
 
     def __init__(self,
                  count=None,
@@ -46,6 +42,10 @@ class MergeCells(Serialisable):
                 ):
         self.mergeCell = mergeCell
 
+    def __iter__(self):
+        n = len(self.mergeCell)
+        if n:
+            yield "count", safe_string(n)
 
     @property
     def count(self):

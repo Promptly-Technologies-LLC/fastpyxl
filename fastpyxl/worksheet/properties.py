@@ -2,20 +2,30 @@
 
 """Worksheet Properties"""
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import String, Bool, Typed
-from fastpyxl.styles.colors import ColorDescriptor
+from fastpyxl.styles.colors import Color
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
+
+
+def _color_converter(value):
+    if value is None:
+        return None
+    if isinstance(value, Color):
+        return value
+    if isinstance(value, str):
+        return Color(rgb=value)
+    raise FieldValidationError(f"tabColor rejected value {value!r}")
 
 
 class Outline(Serialisable):
 
     tagname = "outlinePr"
 
-    applyStyles = Bool(allow_none=True)
-    summaryBelow = Bool(allow_none=True)
-    summaryRight = Bool(allow_none=True)
-    showOutlineSymbols = Bool(allow_none=True)
-
+    applyStyles: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    summaryBelow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    summaryRight: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showOutlineSymbols: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  applyStyles=None,
@@ -33,8 +43,8 @@ class PageSetupProperties(Serialisable):
 
     tagname = "pageSetUpPr"
 
-    autoPageBreaks = Bool(allow_none=True)
-    fitToPage = Bool(allow_none=True)
+    autoPageBreaks: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    fitToPage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self, autoPageBreaks=None, fitToPage=None):
         self.autoPageBreaks = autoPageBreaks
@@ -45,21 +55,20 @@ class WorksheetProperties(Serialisable):
 
     tagname = "sheetPr"
 
-    codeName = String(allow_none=True)
-    enableFormatConditionsCalculation = Bool(allow_none=True)
-    filterMode = Bool(allow_none=True)
-    published = Bool(allow_none=True)
-    syncHorizontal = Bool(allow_none=True)
-    syncRef = String(allow_none=True)
-    syncVertical = Bool(allow_none=True)
-    transitionEvaluation = Bool(allow_none=True)
-    transitionEntry = Bool(allow_none=True)
-    tabColor = ColorDescriptor(allow_none=True)
-    outlinePr = Typed(expected_type=Outline, allow_none=True)
-    pageSetUpPr = Typed(expected_type=PageSetupProperties, allow_none=True)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    enableFormatConditionsCalculation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    filterMode: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    syncHorizontal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    syncRef: str | None = Field.attribute(expected_type=str, allow_none=True)
+    syncVertical: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    transitionEvaluation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    transitionEntry: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    tabColor: Color | None = Field.element(expected_type=Color, allow_none=True, converter=_color_converter)
+    outlinePr: Outline | None = Field.element(expected_type=Outline, allow_none=True)
+    pageSetUpPr: PageSetupProperties | None = Field.element(expected_type=PageSetupProperties, allow_none=True)
 
-    __elements__ = ('tabColor', 'outlinePr', 'pageSetUpPr')
-
+    xml_order = ("tabColor", "outlinePr", "pageSetUpPr")
 
     def __init__(self,
                  codeName=None,
@@ -75,7 +84,6 @@ class WorksheetProperties(Serialisable):
                  outlinePr=None,
                  pageSetUpPr=None
                  ):
-        """ Attributes """
         self.codeName = codeName
         self.enableFormatConditionsCalculation = enableFormatConditionsCalculation
         self.filterMode = filterMode
@@ -85,7 +93,6 @@ class WorksheetProperties(Serialisable):
         self.syncVertical = syncVertical
         self.transitionEvaluation = transitionEvaluation
         self.transitionEntry = transitionEntry
-        """ Elements """
         self.tabColor = tabColor
         if outlinePr is None:
             self.outlinePr = Outline(summaryBelow=True, summaryRight=True)

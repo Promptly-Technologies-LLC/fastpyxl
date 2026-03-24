@@ -30,6 +30,7 @@ class _FieldFactory:
         hyphenated: bool = False,
         converter=None,
         validator=None,
+        serialize: bool = True,
     ) -> _FieldSpec:
         return _FieldSpec(
             FieldInfo(
@@ -43,6 +44,7 @@ class _FieldFactory:
                 hyphenated=hyphenated,
                 converter=converter,
                 validator=validator,
+                serialize=serialize,
             )
         )
 
@@ -54,6 +56,8 @@ class _FieldFactory:
         default: Any = None,
         xml_name: str | None = None,
         namespace: str | None = None,
+        value_attribute: str = "val",
+        serialize: bool = True,
         converter=None,
         parser=None,
         renderer=None,
@@ -67,6 +71,8 @@ class _FieldFactory:
                 default=default,
                 xml_name=xml_name,
                 namespace=namespace,
+                value_attribute=value_attribute,
+                serialize=serialize,
                 converter=converter,
                 parser=parser,
                 renderer=renderer,
@@ -132,6 +138,7 @@ class _FieldFactory:
         namespace: str | None = None,
         converter=None,
         validator=None,
+        serialize: bool = True,
     ) -> _FieldSpec:
         return _FieldSpec(
             FieldInfo(
@@ -144,6 +151,7 @@ class _FieldFactory:
                 namespace=namespace,
                 converter=converter,
                 validator=validator,
+                serialize=serialize,
             )
         )
 
@@ -156,6 +164,7 @@ class _FieldFactory:
         xml_name: str | None = None,
         namespace: str | None = None,
         container_factory=list,
+        primitive_attribute: str | None = None,
     ) -> _FieldSpec:
         return _FieldSpec(
             FieldInfo(
@@ -168,6 +177,7 @@ class _FieldFactory:
                 namespace=namespace,
                 container_factory=container_factory,
                 sequence_item_is_model=_FieldFactory._is_model_type(expected_type),
+                sequence_primitive_attribute=primitive_attribute,
             )
         )
 

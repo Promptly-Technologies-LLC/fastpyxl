@@ -1,7 +1,9 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from fastpyxl.compat import safe_string
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import AliasField, Field
+from fastpyxl.typed_serialisable.parse import normalize_attrib
 from fastpyxl.utils.protection import hash_password
 
 
@@ -65,6 +67,13 @@ class WorkbookProtection(Serialisable):
         self.workbookSaltValue = workbookSaltValue
         self.workbookSpinCount = workbookSpinCount
 
+    def __iter__(self):
+        yield from super().__iter__()
+        if self._workbook_password is not None:
+            yield "workbookPassword", safe_string(self._workbook_password)
+        if self._revisions_password is not None:
+            yield "revisionsPassword", safe_string(self._revisions_password)
+
     def set_workbook_password(self, value='', already_hashed=False):
         """Set a password on this workbook."""
         if not already_hashed:
@@ -100,11 +109,21 @@ class WorkbookProtection(Serialisable):
     @classmethod
     def from_tree(cls, node):
         """Don't hash passwords when deserialising from XML"""
-        self = super().from_tree(node)
-        if self.workbookPassword:
-            self.set_workbook_password(node.get('workbookPassword'), already_hashed=True)
-        if self.revisionsPassword:
-            self.set_revisions_password(node.get('revisionsPassword'), already_hashed=True)
+        attrib = dict(node.attrib)
+        for key, ns_key in cls.__namespaced__:
+            if ns_key in attrib:
+                attrib[key] = attrib.pop(ns_key)
+        attrib = normalize_attrib(attrib)
+        for xml_name, py_name in cls.__attribute_xml_name_map__.items():
+            if xml_name in attrib and py_name not in attrib:
+                attrib[py_name] = attrib.pop(xml_name)
+        wb_raw = attrib.pop("workbookPassword", None)
+        rev_raw = attrib.pop("revisionsPassword", None)
+        self = cls(**attrib)
+        if wb_raw is not None:
+            self.set_workbook_password(wb_raw, already_hashed=True)
+        if rev_raw is not None:
+            self.set_revisions_password(rev_raw, already_hashed=True)
         return self
 
 # Backwards compatibility

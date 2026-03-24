@@ -1,89 +1,90 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    String,
-    Sequence,
-    Bool,
-    NoneSet,
-    Set,
-    Integer,
-    Float,
-)
 from fastpyxl.descriptors.excel import ExtensionList
-from fastpyxl.styles.colors import Color, ColorDescriptor
+from fastpyxl.styles.colors import Color
 from fastpyxl.styles.differential import DifferentialStyle
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 from fastpyxl.utils.cell import COORD_RE
 
 
-class ValueDescriptor(Float):
-    """
-    Expected type depends upon type attribute of parent :-(
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
 
-    Most values should be numeric BUT they can also be cell references
-    """
 
-    def __set__(self, instance, value):
-        ref = None
-        if value is not None and isinstance(value, str):
-            ref = COORD_RE.match(value)
-        if instance.type == "formula" or ref:
-            self.expected_type = str
-        else:
-            self.expected_type = float
-        super().__set__(instance, value)
+def _color_converter(value):
+    if value is None:
+        return None
+    if isinstance(value, Color):
+        return value
+    if isinstance(value, str):
+        return Color(rgb=value)
+    raise FieldValidationError(f"color rejected value {value!r}")
 
 
 class FormatObject(Serialisable):
 
     tagname = "cfvo"
 
-    type = Set(values=(['num', 'percent', 'max', 'min', 'formula', 'percentile']))
-    val = ValueDescriptor(allow_none=True)
-    gte = Bool(allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    type: str | None = Field.attribute(
+        expected_type=str,
+        converter=lambda v: _enum_converter(v, ("num", "percent", "max", "min", "formula", "percentile"), "type"),
+    )
+    val: object | None = Field.attribute(expected_type=object, allow_none=True)
+    gte: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
 
-    __elements__ = ()
-
-    def __init__(self,
-                 type,
-                 val=None,
-                 gte=None,
-                 extLst=None,
-                ):
+    def __init__(self, type, val=None, gte=None, extLst=None):
         self.type = type
         self.val = val
         self.gte = gte
+        self.extLst = extLst
+
+    def __setattr__(self, name, value):
+        if name == "val" and value is not None:
+            ref = isinstance(value, str) and COORD_RE.match(value)
+            if getattr(self, "type", None) == "formula" or ref:
+                value = str(value)
+            else:
+                try:
+                    value = float(value)
+                except Exception as exc:
+                    raise TypeError(f"val rejected value {value!r}") from exc
+        super().__setattr__(name, value)
 
 
 class RuleType(Serialisable):
 
-    cfvo = Sequence(expected_type=FormatObject)
+    cfvo: list[FormatObject] = Field.sequence(expected_type=FormatObject, default=list)
 
 
 class IconSet(RuleType):
 
     tagname = "iconSet"
 
-    iconSet = NoneSet(values=(['3Arrows', '3ArrowsGray', '3Flags',
-                           '3TrafficLights1', '3TrafficLights2', '3Signs', '3Symbols', '3Symbols2',
-                           '4Arrows', '4ArrowsGray', '4RedToBlack', '4Rating', '4TrafficLights',
-                           '5Arrows', '5ArrowsGray', '5Rating', '5Quarters']))
-    showValue = Bool(allow_none=True)
-    percent = Bool(allow_none=True)
-    reverse = Bool(allow_none=True)
+    iconSet: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, (
+            '3Arrows', '3ArrowsGray', '3Flags',
+            '3TrafficLights1', '3TrafficLights2', '3Signs', '3Symbols', '3Symbols2',
+            '4Arrows', '4ArrowsGray', '4RedToBlack', '4Rating', '4TrafficLights',
+            '5Arrows', '5ArrowsGray', '5Rating', '5Quarters'
+        ), "iconSet"),
+    )
+    showValue: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    reverse: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ("cfvo",)
+    xml_order = ("cfvo",)
 
-    def __init__(self,
-                 iconSet=None,
-                 showValue=None,
-                 percent=None,
-                 reverse=None,
-                 cfvo=None,
-                ):
+    def __init__(self, iconSet=None, showValue=None, percent=None, reverse=None, cfvo=None):
         self.iconSet = iconSet
         self.showValue = showValue
         self.percent = percent
@@ -95,20 +96,14 @@ class DataBar(RuleType):
 
     tagname = "dataBar"
 
-    minLength = Integer(allow_none=True)
-    maxLength = Integer(allow_none=True)
-    showValue = Bool(allow_none=True)
-    color = ColorDescriptor()
+    minLength: int | None = Field.attribute(expected_type=int, allow_none=True)
+    maxLength: int | None = Field.attribute(expected_type=int, allow_none=True)
+    showValue: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    color: Color | None = Field.element(expected_type=Color, converter=_color_converter)
 
-    __elements__ = ('cfvo', 'color')
+    xml_order = ('cfvo', 'color')
 
-    def __init__(self,
-                 minLength=None,
-                 maxLength=None,
-                 showValue=None,
-                 cfvo=None,
-                 color=None,
-                ):
+    def __init__(self, minLength=None, maxLength=None, showValue=None, cfvo=None, color=None):
         self.minLength = minLength
         self.maxLength = maxLength
         self.showValue = showValue
@@ -120,14 +115,11 @@ class ColorScale(RuleType):
 
     tagname = "colorScale"
 
-    color = Sequence(expected_type=Color)
+    color: list[Color] = Field.sequence(expected_type=Color, default=list)
 
-    __elements__ = ('cfvo', 'color')
+    xml_order = ('cfvo', 'color')
 
-    def __init__(self,
-                 cfvo=None,
-                 color=None,
-                ):
+    def __init__(self, cfvo=None, color=None):
         self.cfvo = cfvo
         self.color = color
 
@@ -136,39 +128,51 @@ class Rule(Serialisable):
 
     tagname = "cfRule"
 
-    type = Set(values=(['expression', 'cellIs', 'colorScale', 'dataBar',
-                        'iconSet', 'top10', 'uniqueValues', 'duplicateValues', 'containsText',
-                        'notContainsText', 'beginsWith', 'endsWith', 'containsBlanks',
-                        'notContainsBlanks', 'containsErrors', 'notContainsErrors', 'timePeriod',
-                        'aboveAverage']))
-    dxfId = Integer(allow_none=True)
-    priority = Integer()
-    stopIfTrue = Bool(allow_none=True)
-    aboveAverage = Bool(allow_none=True)
-    percent = Bool(allow_none=True)
-    bottom = Bool(allow_none=True)
-    operator = NoneSet(values=(['lessThan', 'lessThanOrEqual', 'equal',
-                            'notEqual', 'greaterThanOrEqual', 'greaterThan', 'between', 'notBetween',
-                            'containsText', 'notContains', 'beginsWith', 'endsWith']))
-    text = String(allow_none=True)
-    timePeriod = NoneSet(values=(['today', 'yesterday', 'tomorrow', 'last7Days',
-                              'thisMonth', 'lastMonth', 'nextMonth', 'thisWeek', 'lastWeek',
-                              'nextWeek']))
-    rank = Integer(allow_none=True)
-    stdDev = Integer(allow_none=True)
-    equalAverage = Bool(allow_none=True)
-    formula = Sequence(expected_type=str)
-    colorScale = Typed(expected_type=ColorScale, allow_none=True)
-    dataBar = Typed(expected_type=DataBar, allow_none=True)
-    iconSet = Typed(expected_type=IconSet, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-    dxf = Typed(expected_type=DifferentialStyle, allow_none=True)
+    type: str | None = Field.attribute(
+        expected_type=str,
+        converter=lambda v: _enum_converter(v, (
+            'expression', 'cellIs', 'colorScale', 'dataBar',
+            'iconSet', 'top10', 'uniqueValues', 'duplicateValues', 'containsText',
+            'notContainsText', 'beginsWith', 'endsWith', 'containsBlanks',
+            'notContainsBlanks', 'containsErrors', 'notContainsErrors', 'timePeriod',
+            'aboveAverage'
+        ), 'type'),
+    )
+    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    priority: int | None = Field.attribute(expected_type=int, default=0)
+    stopIfTrue: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    aboveAverage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    bottom: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    operator: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, (
+            'lessThan', 'lessThanOrEqual', 'equal',
+            'notEqual', 'greaterThanOrEqual', 'greaterThan', 'between', 'notBetween',
+            'containsText', 'notContains', 'beginsWith', 'endsWith'
+        ), 'operator'),
+    )
+    text: str | None = Field.attribute(expected_type=str, allow_none=True)
+    timePeriod: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, (
+            'today', 'yesterday', 'tomorrow', 'last7Days',
+            'thisMonth', 'lastMonth', 'nextMonth', 'thisWeek', 'lastWeek', 'nextWeek'
+        ), 'timePeriod'),
+    )
+    rank: int | None = Field.attribute(expected_type=int, allow_none=True)
+    stdDev: int | None = Field.attribute(expected_type=int, allow_none=True)
+    equalAverage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    formula: list[str] = Field.sequence(expected_type=str, default=list)
+    colorScale: ColorScale | None = Field.element(expected_type=ColorScale, allow_none=True)
+    dataBar: DataBar | None = Field.element(expected_type=DataBar, allow_none=True)
+    iconSet: IconSet | None = Field.element(expected_type=IconSet, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    dxf: DifferentialStyle | None = Field.element(expected_type=DifferentialStyle, allow_none=True, serialize=False)
 
-    __elements__ = ('colorScale', 'dataBar', 'iconSet', 'formula')
-    __attrs__ = ('type', 'rank', 'priority', 'equalAverage', 'operator',
-                 'aboveAverage', 'dxfId', 'stdDev', 'stopIfTrue', 'timePeriod', 'text',
-                 'percent', 'bottom')
-
+    xml_order = ('colorScale', 'dataBar', 'iconSet', 'formula')
 
     def __init__(self,
                  type,
@@ -208,6 +212,7 @@ class Rule(Serialisable):
         self.colorScale = colorScale
         self.dataBar = dataBar
         self.iconSet = iconSet
+        self.extLst = extLst
         self.dxf = dxf
 
 

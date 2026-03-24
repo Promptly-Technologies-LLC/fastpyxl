@@ -36,6 +36,9 @@ class FieldInfo:
     alias_target: str | None = None
     parts: dict[str, Any] | None = None
     sequence_item_is_model: bool = False
+    value_attribute: str = "val"
+    sequence_primitive_attribute: str | None = None
+    serialize: bool = True
 
     @property
     def tag(self) -> str:

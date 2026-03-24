@@ -31,13 +31,27 @@ FILL_PATTERN_LIGHTUP = 'lightUp'
 FILL_PATTERN_LIGHTVERTICAL = 'lightVertical'
 FILL_PATTERN_MEDIUMGRAY = 'mediumGray'
 
-fills = (FILL_SOLID, FILL_PATTERN_DARKDOWN, FILL_PATTERN_DARKGRAY,
-         FILL_PATTERN_DARKGRID, FILL_PATTERN_DARKHORIZONTAL, FILL_PATTERN_DARKTRELLIS,
-         FILL_PATTERN_DARKUP, FILL_PATTERN_DARKVERTICAL, FILL_PATTERN_GRAY0625,
-         FILL_PATTERN_GRAY125, FILL_PATTERN_LIGHTDOWN, FILL_PATTERN_LIGHTGRAY,
-         FILL_PATTERN_LIGHTGRID, FILL_PATTERN_LIGHTHORIZONTAL,
-         FILL_PATTERN_LIGHTTRELLIS, FILL_PATTERN_LIGHTUP, FILL_PATTERN_LIGHTVERTICAL,
-         FILL_PATTERN_MEDIUMGRAY)
+fills = (
+    FILL_NONE,
+    FILL_SOLID,
+    FILL_PATTERN_DARKDOWN,
+    FILL_PATTERN_DARKGRAY,
+    FILL_PATTERN_DARKGRID,
+    FILL_PATTERN_DARKHORIZONTAL,
+    FILL_PATTERN_DARKTRELLIS,
+    FILL_PATTERN_DARKUP,
+    FILL_PATTERN_DARKVERTICAL,
+    FILL_PATTERN_GRAY0625,
+    FILL_PATTERN_GRAY125,
+    FILL_PATTERN_LIGHTDOWN,
+    FILL_PATTERN_LIGHTGRAY,
+    FILL_PATTERN_LIGHTGRID,
+    FILL_PATTERN_LIGHTHORIZONTAL,
+    FILL_PATTERN_LIGHTTRELLIS,
+    FILL_PATTERN_LIGHTUP,
+    FILL_PATTERN_LIGHTVERTICAL,
+    FILL_PATTERN_MEDIUMGRAY,
+)
 
 
 def _color_converter(value, field_name: str):
@@ -97,7 +111,7 @@ class PatternFill(Fill):
     patternType: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, fills, "patternType"),
+        converter=lambda v: None if v == "none" else _enum_converter(v, fills, "patternType"),
     )
     fill_type: str | None = AliasField("patternType")
     fgColor: Color | None = Field.element(

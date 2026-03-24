@@ -1,8 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from .data_source import NumDataSource, NumRef, AxDataSource
+from .data_source import NumDataSource, NumRef, AxDataSource, StrRef
 from .reference import Reference
-from .series import Series, XYSeries, SeriesLabel, StrRef
+from .series import Series, XYSeries, SeriesLabel
 
 
 def SeriesFactory(values, xvalues=None, zvalues=None, title=None, title_from_data=False):

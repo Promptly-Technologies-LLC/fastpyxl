@@ -1,33 +1,13 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+import re
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Alias,
-    Typed,
-    Set,
-    NoneSet,
-    Sequence,
-    String,
-    Bool,
-    MinMax,
-    Integer
-)
-from fastpyxl.descriptors.excel import (
-    HexBinary,
-    Coordinate,
-    Relation,
-)
-from fastpyxl.descriptors.nested import (
-    NestedInteger,
-    NestedText,
-    NestedValue,
-    EmptyTag
-)
-from fastpyxl.xml.constants import DRAWING_NS
+from fastpyxl.xml.constants import DRAWING_NS, REL_NS
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-
-from .colors import ColorChoiceDescriptor
+from .colors import ColorChoice
 from .effect import (
     EffectList,
     EffectContainer,
@@ -45,12 +25,186 @@ from .geometry import (
 )
 
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
-from fastpyxl.descriptors.nested import NestedBool
+
+
+def _none_set_member(v, allowed: frozenset[str], field_name: str) -> str | None:
+    if v is None:
+        return None
+    if v == "none":
+        return None
+    if v not in allowed:
+        raise FieldValidationError(f"{field_name} rejected value {v!r}")
+    return v
+
+
+def _defrpr_sz(v):
+    if v is None:
+        return None
+    iv = int(v)
+    if iv < 100 or iv > 400000:
+        raise FieldValidationError(f"sz rejected value {v!r}")
+    return iv
+
+
+def _solid_fill_choice(v):
+    if v is None:
+        return None
+    if isinstance(v, str):
+        return ColorChoice(srgbClr=v)
+    return v
+
+
+def _bu_blip_embed(v):
+    if v is None:
+        return None
+    if isinstance(v, Blip):
+        return v
+    return Blip(embed=v)
+
+
+_RE_DEFRPR_U = frozenset({
+    "words", "sng", "dbl", "heavy", "dotted", "dottedHeavy", "dash", "dashHeavy", "dashLong",
+    "dashLongHeavy", "dotDash", "dotDashHeavy", "dotDotDash", "dotDotDashHeavy", "wavy",
+    "wavyHeavy", "wavyDbl",
+})
+_RE_DEFRPR_STRIKE = frozenset({"noStrike", "sngStrike", "dblStrike"})
+_RE_DEFRPR_CAP = frozenset({"small", "all"})
+
+_RE_PPR_ALGN = frozenset({"l", "ctr", "r", "just", "justLow", "dist", "thaiDist"})
+_RE_PPR_FONT_ALGN = frozenset({"auto", "t", "ctr", "base", "b"})
+
+_RE_BODY_VERT_OVERFLOW = frozenset({"overflow", "ellipsis", "clip"})
+_RE_BODY_HORZ_OVERFLOW = frozenset({"overflow", "clip"})
+_RE_BODY_VERT = frozenset({
+    "horz", "vert", "vert270", "wordArtVert", "eaVert", "mongolianVert", "wordArtVertRtl",
+})
+_RE_BODY_WRAP = frozenset({"none", "square"})
+_RE_BODY_ANCHOR = frozenset({"t", "ctr", "b", "just", "dist"})
+
+_PANOSE_RE = re.compile(r"^[0-9a-fA-F]+$")
+
+_RE_TAB_STOP_ALGN = frozenset({"l", "ctr", "r", "dec"})
+
+_RE_AUTONUM_TYPES = frozenset({
+    "alphaLcParenBoth", "alphaUcParenBoth", "alphaLcParenR", "alphaUcParenR", "alphaLcPeriod",
+    "alphaUcPeriod", "arabicParenBoth", "arabicParenR", "arabicPeriod", "arabicPlain",
+    "romanLcParenBoth", "romanUcParenBoth", "romanLcParenR", "romanUcParenR", "romanLcPeriod",
+    "romanUcPeriod", "circleNumDbPlain", "circleNumWdBlackPlain", "circleNumWdWhitePlain",
+    "arabicDbPeriod", "arabicDbPlain", "ea1ChsPeriod", "ea1ChsPlain", "ea1ChtPeriod",
+    "ea1ChtPlain", "ea1JpnChsDbPeriod", "ea1JpnKorPlain", "ea1JpnKorPeriod", "arabic1Minus",
+    "arabic2Minus", "hebrew2Minus", "thaiAlphaPeriod", "thaiAlphaParenR", "thaiAlphaParenBoth",
+    "thaiNumPeriod", "thaiNumParenR", "thaiNumParenBoth", "hindiAlphaPeriod", "hindiNumPeriod",
+    "hindiNumParenR", "hindiAlpha1Period",
+})
+
+_RE_PRST_TEXT_SHAPE = frozenset({
+    "textNoShape", "textPlain", "textStop", "textTriangle", "textTriangleInverted", "textChevron",
+    "textChevronInverted", "textRingInside", "textRingOutside", "textArchUp", "textArchDown",
+    "textCircle", "textButton", "textArchUpPour", "textArchDownPour", "textCirclePour",
+    "textButtonPour", "textCurveUp", "textCurveDown", "textCanUp", "textCanDown", "textWave1",
+    "textWave2", "textDoubleWave1", "textWave4", "textInflate", "textDeflate", "textInflateBottom",
+    "textDeflateBottom", "textInflateTop", "textDeflateTop", "textDeflateInflate",
+    "textDeflateInflateDeflate", "textFadeRight", "textFadeLeft", "textFadeUp", "textFadeDown",
+    "textSlantUp", "textSlantDown", "textCascadeUp", "textCascadeDown",
+})
+
+
+def _font_panose(v):
+    if v is None:
+        return None
+    if not _PANOSE_RE.match(v):
+        raise FieldValidationError(f"panose rejected value {v!r}")
+    return v
+
+
+def _font_pitch_family(v):
+    if v is None:
+        return None
+    iv = int(v)
+    if iv < 0 or iv > 52:
+        raise FieldValidationError(f"pitchFamily rejected value {v!r}")
+    return iv
+
+
+def _enum_member(v, allowed: frozenset[str], field_name: str) -> str | None:
+    if v is None:
+        return None
+    if v not in allowed:
+        raise FieldValidationError(f"{field_name} rejected value {v!r}")
+    return v
+
+
+class _CharNoFill(Serialisable):
+    tagname = "noFill"
+    namespace = DRAWING_NS
+
+
+class _CharGrpFill(Serialisable):
+    tagname = "grpFill"
+    namespace = DRAWING_NS
+
+
+class _CharULnTx(Serialisable):
+    tagname = "uLnTx"
+    namespace = DRAWING_NS
+
+
+class _CharUFillTx(Serialisable):
+    tagname = "uFillTx"
+    namespace = DRAWING_NS
+
+
+class _CharUFill(Serialisable):
+    tagname = "uFill"
+    namespace = DRAWING_NS
+
+
+class _PPrBuClrTx(Serialisable):
+    tagname = "buClrTx"
+    namespace = DRAWING_NS
+
+
+class _PPrBuSzTx(Serialisable):
+    tagname = "buSzTx"
+    namespace = DRAWING_NS
+
+
+class _PPrBuFontTx(Serialisable):
+    tagname = "buFontTx"
+    namespace = DRAWING_NS
+
+
+class _PPrBuNone(Serialisable):
+    tagname = "buNone"
+    namespace = DRAWING_NS
+
+
+class _PPrBuAutoNum(Serialisable):
+    tagname = "buAutoNum"
+    namespace = DRAWING_NS
+
+
+class _BodyNoAutofit(Serialisable):
+    tagname = "noAutofit"
+    namespace = DRAWING_NS
+
+
+class _BodyNormAutofit(Serialisable):
+    tagname = "normAutofit"
+    namespace = DRAWING_NS
+
+
+class _BodySpAutoFit(Serialisable):
+    tagname = "spAutoFit"
+    namespace = DRAWING_NS
 
 
 class EmbeddedWAVAudioFile(Serialisable):
 
-    name = String(allow_none=True)
+    tagname = "snd"
+    namespace = DRAWING_NS
+
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  name=None,
@@ -63,18 +217,26 @@ class Hyperlink(Serialisable):
     tagname = "hlinkClick"
     namespace = DRAWING_NS
 
-    invalidUrl = String(allow_none=True)
-    action = String(allow_none=True)
-    tgtFrame = String(allow_none=True)
-    tooltip = String(allow_none=True)
-    history = Bool(allow_none=True)
-    highlightClick = Bool(allow_none=True)
-    endSnd = Bool(allow_none=True)
-    snd = Typed(expected_type=EmbeddedWAVAudioFile, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-    id = Relation(allow_none=True)
+    invalidUrl: str | None = Field.attribute(expected_type=str, allow_none=True)
+    action: str | None = Field.attribute(expected_type=str, allow_none=True)
+    tgtFrame: str | None = Field.attribute(expected_type=str, allow_none=True)
+    tooltip: str | None = Field.attribute(expected_type=str, allow_none=True)
+    history: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    highlightClick: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    endSnd: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    snd: EmbeddedWAVAudioFile | None = Field.element(expected_type=EmbeddedWAVAudioFile, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(
+        expected_type=OfficeArtExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
+    id: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        namespace=REL_NS,
+    )
 
-    __elements__ = ('snd',)
+    xml_order = ("snd",)
 
     def __init__(self,
                  invalidUrl=None,
@@ -96,6 +258,7 @@ class Hyperlink(Serialisable):
         self.highlightClick = highlightClick
         self.endSnd = endSnd
         self.snd = snd
+        self.extLst = extLst
         self.id = id
 
 
@@ -104,10 +267,18 @@ class Font(Serialisable):
     tagname = "latin"
     namespace = DRAWING_NS
 
-    typeface = String()
-    panose = HexBinary(allow_none=True)
-    pitchFamily = MinMax(min=0, max=52, allow_none=True)
-    charset = Integer(allow_none=True)
+    typeface: str | None = Field.attribute(expected_type=str, allow_none=True)
+    panose: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=_font_panose,
+    )
+    pitchFamily: int | None = Field.attribute(
+        expected_type=int,
+        allow_none=True,
+        converter=_font_pitch_family,
+    )
+    charset: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  typeface=None,
@@ -126,59 +297,83 @@ class CharacterProperties(Serialisable):
     tagname = "defRPr"
     namespace = DRAWING_NS
 
-    kumimoji = Bool(allow_none=True)
-    lang = String(allow_none=True)
-    altLang = String(allow_none=True)
-    sz = MinMax(allow_none=True, min=100, max=400000) # 100ths of a point
-    b = Bool(allow_none=True)
-    i = Bool(allow_none=True)
-    u = NoneSet(values=(['words', 'sng', 'dbl', 'heavy', 'dotted',
-                         'dottedHeavy', 'dash', 'dashHeavy', 'dashLong', 'dashLongHeavy',
-                         'dotDash', 'dotDashHeavy', 'dotDotDash', 'dotDotDashHeavy', 'wavy',
-                         'wavyHeavy', 'wavyDbl']))
-    strike = NoneSet(values=(['noStrike', 'sngStrike', 'dblStrike']))
-    kern = Integer(allow_none=True)
-    cap = NoneSet(values=(['small', 'all']))
-    spc = Integer(allow_none=True)
-    normalizeH = Bool(allow_none=True)
-    baseline = Integer(allow_none=True)
-    noProof = Bool(allow_none=True)
-    dirty = Bool(allow_none=True)
-    err = Bool(allow_none=True)
-    smtClean = Bool(allow_none=True)
-    smtId = Integer(allow_none=True)
-    bmk = String(allow_none=True)
-    ln = Typed(expected_type=LineProperties, allow_none=True)
-    highlight = Typed(expected_type=Color, allow_none=True)
-    latin = Typed(expected_type=Font, allow_none=True)
-    ea = Typed(expected_type=Font, allow_none=True)
-    cs = Typed(expected_type=Font, allow_none=True)
-    sym = Typed(expected_type=Font, allow_none=True)
-    hlinkClick = Typed(expected_type=Hyperlink, allow_none=True)
-    hlinkMouseOver = Typed(expected_type=Hyperlink, allow_none=True)
-    rtl = NestedBool(allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-    # uses element group EG_FillProperties
-    noFill = EmptyTag(namespace=DRAWING_NS)
-    solidFill = ColorChoiceDescriptor()
-    gradFill = Typed(expected_type=GradientFillProperties, allow_none=True)
-    blipFill = Typed(expected_type=BlipFillProperties, allow_none=True)
-    pattFill = Typed(expected_type=PatternFillProperties, allow_none=True)
-    grpFill = EmptyTag(namespace=DRAWING_NS)
-    # uses element group EG_EffectProperties
-    effectLst = Typed(expected_type=EffectList, allow_none=True)
-    effectDag = Typed(expected_type=EffectContainer, allow_none=True)
-    # uses element group EG_TextUnderlineLine
-    uLnTx = EmptyTag()
-    uLn = Typed(expected_type=LineProperties, allow_none=True)
-    # uses element group EG_TextUnderlineFill
-    uFillTx = EmptyTag()
-    uFill = EmptyTag()
+    kumimoji: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    lang: str | None = Field.attribute(expected_type=str, allow_none=True)
+    altLang: str | None = Field.attribute(expected_type=str, allow_none=True)
+    sz: int | None = Field.attribute(expected_type=int, allow_none=True, converter=_defrpr_sz)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    u: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_DEFRPR_U, "u"),
+    )
+    strike: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_DEFRPR_STRIKE, "strike"),
+    )
+    kern: int | None = Field.attribute(expected_type=int, allow_none=True)
+    cap: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_DEFRPR_CAP, "cap"),
+    )
+    spc: int | None = Field.attribute(expected_type=int, allow_none=True)
+    normalizeH: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    baseline: int | None = Field.attribute(expected_type=int, allow_none=True)
+    noProof: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dirty: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    err: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    smtClean: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    smtId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bmk: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ln: LineProperties | None = Field.element(expected_type=LineProperties, allow_none=True)
+    highlight: Color | None = Field.element(expected_type=Color, allow_none=True)
+    latin: Font | None = Field.element(expected_type=Font, allow_none=True)
+    ea: Font | None = Field.element(expected_type=Font, allow_none=True)
+    cs: Font | None = Field.element(expected_type=Font, allow_none=True)
+    sym: Font | None = Field.element(expected_type=Font, allow_none=True)
+    hlinkClick: Hyperlink | None = Field.element(expected_type=Hyperlink, allow_none=True)
+    hlinkMouseOver: Hyperlink | None = Field.element(expected_type=Hyperlink, allow_none=True)
+    rtl: bool | None = Field.nested_bool(allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(
+        expected_type=OfficeArtExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
+    noFill: _CharNoFill | None = Field.element(expected_type=_CharNoFill, allow_none=True)
+    solidFill: ColorChoice | None = Field.element(
+        expected_type=ColorChoice,
+        allow_none=True,
+        converter=_solid_fill_choice,
+    )
+    gradFill: GradientFillProperties | None = Field.element(
+        expected_type=GradientFillProperties,
+        allow_none=True,
+    )
+    blipFill: BlipFillProperties | None = Field.element(
+        expected_type=BlipFillProperties,
+        allow_none=True,
+    )
+    pattFill: PatternFillProperties | None = Field.element(
+        expected_type=PatternFillProperties,
+        allow_none=True,
+    )
+    grpFill: _CharGrpFill | None = Field.element(expected_type=_CharGrpFill, allow_none=True)
+    effectLst: EffectList | None = Field.element(expected_type=EffectList, allow_none=True)
+    effectDag: EffectContainer | None = Field.element(expected_type=EffectContainer, allow_none=True)
+    uLnTx: _CharULnTx | None = Field.element(expected_type=_CharULnTx, allow_none=True)
+    uLn: LineProperties | None = Field.element(expected_type=LineProperties, allow_none=True)
+    uFillTx: _CharUFillTx | None = Field.element(expected_type=_CharUFillTx, allow_none=True)
+    uFill: _CharUFill | None = Field.element(expected_type=_CharUFill, allow_none=True)
 
-    __elements__ = ('ln', 'noFill', 'solidFill', 'gradFill', 'blipFill',
-                    'pattFill', 'grpFill', 'effectLst', 'effectDag', 'highlight','uLnTx',
-                    'uLn', 'uFillTx', 'uFill', 'latin', 'ea', 'cs', 'sym', 'hlinkClick',
-                    'hlinkMouseOver', 'rtl', )
+    xml_order = (
+        "ln", "noFill", "solidFill", "gradFill", "blipFill",
+        "pattFill", "grpFill", "effectLst", "effectDag", "highlight", "uLnTx",
+        "uLn", "uFillTx", "uFill", "latin", "ea", "cs", "sym", "hlinkClick",
+        "hlinkMouseOver", "rtl",
+    )
 
     def __init__(self,
                  kumimoji=None,
@@ -251,24 +446,32 @@ class CharacterProperties(Serialisable):
         self.hlinkClick = hlinkClick
         self.hlinkMouseOver = hlinkMouseOver
         self.rtl = rtl
-        self.noFill = noFill
+        self.extLst = extLst
+        self.noFill = _CharNoFill() if noFill else None
         self.solidFill = solidFill
         self.gradFill = gradFill
         self.blipFill = blipFill
         self.pattFill = pattFill
-        self.grpFill = grpFill
+        self.grpFill = _CharGrpFill() if grpFill else None
         self.effectLst = effectLst
         self.effectDag = effectDag
-        self.uLnTx = uLnTx
+        self.uLnTx = _CharULnTx() if uLnTx else None
         self.uLn = uLn
-        self.uFillTx = uFillTx
-        self.uFill = uFill
+        self.uFillTx = _CharUFillTx() if uFillTx else None
+        self.uFill = _CharUFill() if uFill else None
 
 
 class TabStop(Serialisable):
 
-    pos = Typed(expected_type=Coordinate, allow_none=True)
-    algn = Typed(expected_type=Set(values=(['l', 'ctr', 'r', 'dec'])))
+    tagname = "tab"
+    namespace = DRAWING_NS
+
+    pos: int | None = Field.attribute(expected_type=int, allow_none=True)
+    algn: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_member(v, _RE_TAB_STOP_ALGN, "algn"),
+    )
 
     def __init__(self,
                  pos=None,
@@ -280,7 +483,10 @@ class TabStop(Serialisable):
 
 class TabStopList(Serialisable):
 
-    tab = Typed(expected_type=TabStop, allow_none=True)
+    tagname = "tabLst"
+    namespace = DRAWING_NS
+
+    tab: TabStop | None = Field.element(expected_type=TabStop, allow_none=True)
 
     def __init__(self,
                  tab=None,
@@ -290,10 +496,10 @@ class TabStopList(Serialisable):
 
 class Spacing(Serialisable):
 
-    spcPct = NestedInteger(allow_none=True)
-    spcPts = NestedInteger(allow_none=True)
+    spcPct: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    spcPts: int | None = Field.nested_value(expected_type=int, allow_none=True)
 
-    __elements__ = ('spcPct', 'spcPts')
+    xml_order = ("spcPct", "spcPts")
 
     def __init__(self,
                  spcPct=None,
@@ -305,19 +511,15 @@ class Spacing(Serialisable):
 
 class AutonumberBullet(Serialisable):
 
-    type = Set(values=(['alphaLcParenBoth', 'alphaUcParenBoth',
-                        'alphaLcParenR', 'alphaUcParenR', 'alphaLcPeriod', 'alphaUcPeriod',
-                        'arabicParenBoth', 'arabicParenR', 'arabicPeriod', 'arabicPlain',
-                        'romanLcParenBoth', 'romanUcParenBoth', 'romanLcParenR', 'romanUcParenR',
-                        'romanLcPeriod', 'romanUcPeriod', 'circleNumDbPlain',
-                        'circleNumWdBlackPlain', 'circleNumWdWhitePlain', 'arabicDbPeriod',
-                        'arabicDbPlain', 'ea1ChsPeriod', 'ea1ChsPlain', 'ea1ChtPeriod',
-                        'ea1ChtPlain', 'ea1JpnChsDbPeriod', 'ea1JpnKorPlain', 'ea1JpnKorPeriod',
-                        'arabic1Minus', 'arabic2Minus', 'hebrew2Minus', 'thaiAlphaPeriod',
-                        'thaiAlphaParenR', 'thaiAlphaParenBoth', 'thaiNumPeriod',
-                        'thaiNumParenR', 'thaiNumParenBoth', 'hindiAlphaPeriod',
-                        'hindiNumPeriod', 'hindiNumParenR', 'hindiAlpha1Period']))
-    startAt = Integer()
+    tagname = "buAutoNum"
+    namespace = DRAWING_NS
+
+    type: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_AUTONUM_TYPES, "type"),
+    )
+    startAt: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  type=None,
@@ -332,43 +534,62 @@ class ParagraphProperties(Serialisable):
     tagname = "pPr"
     namespace = DRAWING_NS
 
-    marL = Integer(allow_none=True)
-    marR = Integer(allow_none=True)
-    lvl = Integer(allow_none=True)
-    indent = Integer(allow_none=True)
-    algn = NoneSet(values=(['l', 'ctr', 'r', 'just', 'justLow', 'dist', 'thaiDist']))
-    defTabSz = Integer(allow_none=True)
-    rtl = Bool(allow_none=True)
-    eaLnBrk = Bool(allow_none=True)
-    fontAlgn = NoneSet(values=(['auto', 't', 'ctr', 'base', 'b']))
-    latinLnBrk = Bool(allow_none=True)
-    hangingPunct = Bool(allow_none=True)
+    marL: int | None = Field.attribute(expected_type=int, allow_none=True)
+    marR: int | None = Field.attribute(expected_type=int, allow_none=True)
+    lvl: int | None = Field.attribute(expected_type=int, allow_none=True)
+    indent: int | None = Field.attribute(expected_type=int, allow_none=True)
+    algn: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_PPR_ALGN, "algn"),
+    )
+    defTabSz: int | None = Field.attribute(expected_type=int, allow_none=True)
+    rtl: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    eaLnBrk: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    fontAlgn: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_PPR_FONT_ALGN, "fontAlgn"),
+    )
+    latinLnBrk: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    hangingPunct: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    # uses element group EG_TextBulletColor
-    # uses element group EG_TextBulletSize
-    # uses element group EG_TextBulletTypeface
-    # uses element group EG_TextBullet
-    lnSpc = Typed(expected_type=Spacing, allow_none=True)
-    spcBef = Typed(expected_type=Spacing, allow_none=True)
-    spcAft = Typed(expected_type=Spacing, allow_none=True)
-    tabLst = Typed(expected_type=TabStopList, allow_none=True)
-    defRPr = Typed(expected_type=CharacterProperties, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-    buClrTx = EmptyTag()
-    buClr = Typed(expected_type=Color, allow_none=True)
-    buSzTx = EmptyTag()
-    buSzPct = NestedInteger(allow_none=True)
-    buSzPts = NestedInteger(allow_none=True)
-    buFontTx = EmptyTag()
-    buFont = Typed(expected_type=Font, allow_none=True)
-    buNone = EmptyTag()
-    buAutoNum = EmptyTag()
-    buChar = NestedValue(expected_type=str, attribute="char", allow_none=True)
-    buBlip = NestedValue(expected_type=Blip, attribute="blip", allow_none=True)
+    lnSpc: Spacing | None = Field.element(expected_type=Spacing, allow_none=True)
+    spcBef: Spacing | None = Field.element(expected_type=Spacing, allow_none=True)
+    spcAft: Spacing | None = Field.element(expected_type=Spacing, allow_none=True)
+    tabLst: TabStopList | None = Field.element(expected_type=TabStopList, allow_none=True)
+    defRPr: CharacterProperties | None = Field.element(expected_type=CharacterProperties, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(
+        expected_type=OfficeArtExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
+    buClrTx: _PPrBuClrTx | None = Field.element(expected_type=_PPrBuClrTx, allow_none=True)
+    buClr: Color | None = Field.element(expected_type=Color, allow_none=True)
+    buSzTx: _PPrBuSzTx | None = Field.element(expected_type=_PPrBuSzTx, allow_none=True)
+    buSzPct: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    buSzPts: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    buFontTx: _PPrBuFontTx | None = Field.element(expected_type=_PPrBuFontTx, allow_none=True)
+    buFont: Font | None = Field.element(expected_type=Font, allow_none=True)
+    buNone: _PPrBuNone | None = Field.element(expected_type=_PPrBuNone, allow_none=True)
+    buAutoNum: _PPrBuAutoNum | None = Field.element(expected_type=_PPrBuAutoNum, allow_none=True)
+    buChar: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        value_attribute="char",
+    )
+    buBlip: Blip | None = Field.nested_value(
+        expected_type=Blip,
+        allow_none=True,
+        value_attribute="blip",
+        converter=_bu_blip_embed,
+    )
 
-    __elements__ = ('lnSpc', 'spcBef', 'spcAft', 'tabLst', 'defRPr',
-                    'buClrTx', 'buClr', 'buSzTx', 'buSzPct', 'buSzPts', 'buFontTx', 'buFont',
-                    'buNone', 'buAutoNum', 'buChar', 'buBlip')
+    xml_order = (
+        "lnSpc", "spcBef", "spcAft", "tabLst", "defRPr",
+        "buClrTx", "buClr", "buSzTx", "buSzPct", "buSzPts", "buFontTx", "buFont",
+        "buNone", "buAutoNum", "buChar", "buBlip",
+    )
 
     def __init__(self,
                  marL=None,
@@ -416,18 +637,18 @@ class ParagraphProperties(Serialisable):
         self.spcAft = spcAft
         self.tabLst = tabLst
         self.defRPr = defRPr
-        self.buClrTx = buClrTx
+        self.extLst = extLst
+        self.buClrTx = _PPrBuClrTx() if buClrTx else None
         self.buClr = buClr
-        self.buSzTx = buSzTx
+        self.buSzTx = _PPrBuSzTx() if buSzTx else None
         self.buSzPct = buSzPct
         self.buSzPts = buSzPts
-        self.buFontTx = buFontTx
+        self.buFontTx = _PPrBuFontTx() if buFontTx else None
         self.buFont = buFont
-        self.buNone = buNone
-        self.buAutoNum = buAutoNum
+        self.buNone = _PPrBuNone() if buNone else None
+        self.buAutoNum = _PPrBuAutoNum() if buAutoNum else None
         self.buChar = buChar
         self.buBlip = buBlip
-        self.defRPr = defRPr
 
 
 class ListStyle(Serialisable):
@@ -435,20 +656,26 @@ class ListStyle(Serialisable):
     tagname = "lstStyle"
     namespace = DRAWING_NS
 
-    defPPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl1pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl2pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl3pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl4pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl5pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl6pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl7pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl8pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    lvl9pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    defPPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl1pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl2pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl3pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl4pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl5pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl6pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl7pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl8pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    lvl9pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(
+        expected_type=OfficeArtExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
 
-    __elements__ = ("defPPr", "lvl1pPr", "lvl2pPr", "lvl3pPr", "lvl4pPr",
-                    "lvl5pPr", "lvl6pPr", "lvl7pPr", "lvl8pPr", "lvl9pPr")
+    xml_order = (
+        "defPPr", "lvl1pPr", "lvl2pPr", "lvl3pPr", "lvl4pPr",
+        "lvl5pPr", "lvl6pPr", "lvl7pPr", "lvl8pPr", "lvl9pPr",
+    )
 
     def __init__(self,
                  defPPr=None,
@@ -473,6 +700,7 @@ class ListStyle(Serialisable):
         self.lvl7pPr = lvl7pPr
         self.lvl8pPr = lvl8pPr
         self.lvl9pPr = lvl9pPr
+        self.extLst = extLst
 
 
 class RegularTextRun(Serialisable):
@@ -480,12 +708,12 @@ class RegularTextRun(Serialisable):
     tagname = "r"
     namespace = DRAWING_NS
 
-    rPr = Typed(expected_type=CharacterProperties, allow_none=True)
-    properties = Alias("rPr")
-    t = NestedText(expected_type=str)
-    value = Alias("t")
+    rPr: CharacterProperties | None = Field.element(expected_type=CharacterProperties, allow_none=True)
+    properties = AliasField("rPr")
+    t: str = Field.nested_text(expected_type=str)
+    value = AliasField("t")
 
-    __elements__ = ('rPr', 't')
+    xml_order = ("rPr", "t")
 
     def __init__(self,
                  rPr=None,
@@ -500,9 +728,7 @@ class LineBreak(Serialisable):
     tagname = "br"
     namespace = DRAWING_NS
 
-    rPr = Typed(expected_type=CharacterProperties, allow_none=True)
-
-    __elements__ = ('rPr',)
+    rPr: CharacterProperties | None = Field.element(expected_type=CharacterProperties, allow_none=True)
 
     def __init__(self,
                  rPr=None,
@@ -512,13 +738,13 @@ class LineBreak(Serialisable):
 
 class TextField(Serialisable):
 
-    id = String()
-    type = String(allow_none=True)
-    rPr = Typed(expected_type=CharacterProperties, allow_none=True)
-    pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    t = String(allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True)
+    type: str | None = Field.attribute(expected_type=str, allow_none=True)
+    rPr: CharacterProperties | None = Field.element(expected_type=CharacterProperties, allow_none=True)
+    pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    t: str | None = Field.attribute(expected_type=str, allow_none=True)
 
-    __elements__ = ('rPr', 'pPr')
+    xml_order = ("rPr", "pPr")
 
     def __init__(self,
                  id=None,
@@ -540,15 +766,15 @@ class Paragraph(Serialisable):
     namespace = DRAWING_NS
 
     # uses element group EG_TextRun
-    pPr = Typed(expected_type=ParagraphProperties, allow_none=True)
-    properties = Alias("pPr")
-    endParaRPr = Typed(expected_type=CharacterProperties, allow_none=True)
-    r = Sequence(expected_type=RegularTextRun)
-    text = Alias('r')
-    br = Typed(expected_type=LineBreak, allow_none=True)
-    fld = Typed(expected_type=TextField, allow_none=True)
+    pPr: ParagraphProperties | None = Field.element(expected_type=ParagraphProperties, allow_none=True)
+    properties = AliasField("pPr")
+    endParaRPr: CharacterProperties | None = Field.element(expected_type=CharacterProperties, allow_none=True)
+    r: list[RegularTextRun] = Field.sequence(expected_type=RegularTextRun)
+    text = AliasField("r")
+    br: LineBreak | None = Field.element(expected_type=LineBreak, allow_none=True)
+    fld: TextField | None = Field.element(expected_type=TextField, allow_none=True)
 
-    __elements__ = ('pPr', 'r', 'br', 'fld', 'endParaRPr')
+    xml_order = ("pPr", "r", "br", "fld", "endParaRPr")
 
     def __init__(self,
                  pPr=None,
@@ -568,8 +794,11 @@ class Paragraph(Serialisable):
 
 class GeomGuide(Serialisable):
 
-    name = String(())
-    fmla = String(())
+    tagname = "gd"
+    namespace = DRAWING_NS
+
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fmla: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  name=None,
@@ -581,7 +810,10 @@ class GeomGuide(Serialisable):
 
 class GeomGuideList(Serialisable):
 
-    gd = Sequence(expected_type=GeomGuide, allow_none=True)
+    tagname = "avLst"
+    namespace = DRAWING_NS
+
+    gd: list[GeomGuide] | None = Field.sequence(expected_type=GeomGuide, allow_none=True)
 
     def __init__(self,
                  gd=None,
@@ -591,20 +823,16 @@ class GeomGuideList(Serialisable):
 
 class PresetTextShape(Serialisable):
 
-    prst = Typed(expected_type=Set(values=(
-        ['textNoShape', 'textPlain','textStop', 'textTriangle', 'textTriangleInverted', 'textChevron',
-         'textChevronInverted', 'textRingInside', 'textRingOutside', 'textArchUp',
-         'textArchDown', 'textCircle', 'textButton', 'textArchUpPour',
-         'textArchDownPour', 'textCirclePour', 'textButtonPour', 'textCurveUp',
-         'textCurveDown', 'textCanUp', 'textCanDown', 'textWave1', 'textWave2',
-         'textDoubleWave1', 'textWave4', 'textInflate', 'textDeflate',
-         'textInflateBottom', 'textDeflateBottom', 'textInflateTop',
-         'textDeflateTop', 'textDeflateInflate', 'textDeflateInflateDeflate',
-         'textFadeRight', 'textFadeLeft', 'textFadeUp', 'textFadeDown',
-         'textSlantUp', 'textSlantDown', 'textCascadeUp', 'textCascadeDown'
-         ]
-    )))
-    avLst = Typed(expected_type=GeomGuideList, allow_none=True)
+    namespace = DRAWING_NS
+
+    prst: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_member(v, _RE_PRST_TEXT_SHAPE, "prst"),
+    )
+    avLst: GeomGuideList | None = Field.element(expected_type=GeomGuideList, allow_none=True)
+
+    xml_order = ("prst", "avLst")
 
     def __init__(self,
                  prst=None,
@@ -616,8 +844,11 @@ class PresetTextShape(Serialisable):
 
 class TextNormalAutofit(Serialisable):
 
-    fontScale = Integer()
-    lnSpcReduction = Integer()
+    tagname = "normAutofit"
+    namespace = DRAWING_NS
+
+    fontScale: int | None = Field.attribute(expected_type=int, allow_none=True)
+    lnSpcReduction: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  fontScale=None,
@@ -632,35 +863,63 @@ class RichTextProperties(Serialisable):
     tagname = "bodyPr"
     namespace = DRAWING_NS
 
-    rot = Integer(allow_none=True)
-    spcFirstLastPara = Bool(allow_none=True)
-    vertOverflow = NoneSet(values=(['overflow', 'ellipsis', 'clip']))
-    horzOverflow = NoneSet(values=(['overflow', 'clip']))
-    vert = NoneSet(values=(['horz', 'vert', 'vert270', 'wordArtVert',
-                            'eaVert', 'mongolianVert', 'wordArtVertRtl']))
-    wrap = NoneSet(values=(['none', 'square']))
-    lIns = Integer(allow_none=True)
-    tIns = Integer(allow_none=True)
-    rIns = Integer(allow_none=True)
-    bIns = Integer(allow_none=True)
-    numCol = Integer(allow_none=True)
-    spcCol = Integer(allow_none=True)
-    rtlCol = Bool(allow_none=True)
-    fromWordArt = Bool(allow_none=True)
-    anchor = NoneSet(values=(['t', 'ctr', 'b', 'just', 'dist']))
-    anchorCtr = Bool(allow_none=True)
-    forceAA = Bool(allow_none=True)
-    upright = Bool(allow_none=True)
-    compatLnSpc = Bool(allow_none=True)
-    prstTxWarp = Typed(expected_type=PresetTextShape, allow_none=True)
-    scene3d = Typed(expected_type=Scene3D, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
-    noAutofit = EmptyTag()
-    normAutofit = EmptyTag()
-    spAutoFit = EmptyTag()
-    flatTx = NestedInteger(attribute="z", allow_none=True)
+    rot: int | None = Field.attribute(expected_type=int, allow_none=True)
+    spcFirstLastPara: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    vertOverflow: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_BODY_VERT_OVERFLOW, "vertOverflow"),
+    )
+    horzOverflow: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_BODY_HORZ_OVERFLOW, "horzOverflow"),
+    )
+    vert: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_BODY_VERT, "vert"),
+    )
+    wrap: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_BODY_WRAP, "wrap"),
+    )
+    lIns: int | None = Field.attribute(expected_type=int, allow_none=True)
+    tIns: int | None = Field.attribute(expected_type=int, allow_none=True)
+    rIns: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bIns: int | None = Field.attribute(expected_type=int, allow_none=True)
+    numCol: int | None = Field.attribute(expected_type=int, allow_none=True)
+    spcCol: int | None = Field.attribute(expected_type=int, allow_none=True)
+    rtlCol: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    fromWordArt: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    anchor: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _none_set_member(v, _RE_BODY_ANCHOR, "anchor"),
+    )
+    anchorCtr: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    forceAA: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    upright: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    compatLnSpc: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    prstTxWarp: PresetTextShape | None = Field.element(expected_type=PresetTextShape, allow_none=True)
+    scene3d: Scene3D | None = Field.element(expected_type=Scene3D, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(
+        expected_type=OfficeArtExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
+    noAutofit: _BodyNoAutofit | None = Field.element(expected_type=_BodyNoAutofit, allow_none=True)
+    normAutofit: _BodyNormAutofit | None = Field.element(expected_type=_BodyNormAutofit, allow_none=True)
+    spAutoFit: _BodySpAutoFit | None = Field.element(expected_type=_BodySpAutoFit, allow_none=True)
+    flatTx: int | None = Field.nested_value(
+        expected_type=int,
+        allow_none=True,
+        value_attribute="z",
+        serialize=False,
+    )
 
-    __elements__ = ('prstTxWarp', 'scene3d', 'noAutofit', 'normAutofit', 'spAutoFit')
+    xml_order = ("prstTxWarp", "scene3d", "noAutofit", "normAutofit", "spAutoFit")
 
     def __init__(self,
                  rot=None,
@@ -711,7 +970,8 @@ class RichTextProperties(Serialisable):
         self.compatLnSpc = compatLnSpc
         self.prstTxWarp = prstTxWarp
         self.scene3d = scene3d
-        self.noAutofit = noAutofit
-        self.normAutofit = normAutofit
-        self.spAutoFit = spAutoFit
+        self.extLst = extLst
+        self.noAutofit = _BodyNoAutofit() if noAutofit else None
+        self.normAutofit = _BodyNormAutofit() if normAutofit else None
+        self.spAutoFit = _BodySpAutoFit() if spAutoFit else None
         self.flatTx = flatTx

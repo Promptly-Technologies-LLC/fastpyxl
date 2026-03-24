@@ -154,4 +154,6 @@ class TestAreaChart3D:
         """
         node = fromstring(src)
         chart = AreaChart3D.from_tree(node)
-        assert chart == AreaChart3D(gapDepth=150)
+        assert chart.grouping == "standard"
+        assert chart.gapDepth == 150
+        assert chart.axId == [10, 100]

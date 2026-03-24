@@ -18,7 +18,8 @@ from fastpyxl.descriptors import (
     String,
     Alias,
 )
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.styles.styleable import StyleableObject
 from fastpyxl.utils.bound_dictionary import BoundDictionary
 from fastpyxl.xml.functions import Element
@@ -257,15 +258,15 @@ class SheetFormatProperties(Serialisable):
 
     tagname = "sheetFormatPr"
 
-    baseColWidth = Integer(allow_none=True)
-    defaultColWidth = Float(allow_none=True)
-    defaultRowHeight = Float()
-    customHeight = Bool(allow_none=True)
-    zeroHeight = Bool(allow_none=True)
-    thickTop = Bool(allow_none=True)
-    thickBottom = Bool(allow_none=True)
-    outlineLevelRow = Integer(allow_none=True)
-    outlineLevelCol = Integer(allow_none=True)
+    baseColWidth: int | None = Field.attribute(expected_type=int, allow_none=True)
+    defaultColWidth: float | None = Field.attribute(expected_type=float, allow_none=True)
+    defaultRowHeight: float | None = Field.attribute(expected_type=float)
+    customHeight: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    zeroHeight: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    thickTop: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    thickBottom: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    outlineLevelRow: int | None = Field.attribute(expected_type=int, allow_none=True)
+    outlineLevelCol: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  baseColWidth=8, #according to spec
@@ -293,7 +294,7 @@ class SheetDimension(Serialisable):
 
     tagname = "dimension"
 
-    ref = String()
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self,
                  ref=None,

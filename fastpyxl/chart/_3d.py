@@ -1,95 +1,154 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import Typed, Alias
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors.nested import (
-    NestedBool,
-    NestedInteger,
-    NestedMinMax,
-)
+from __future__ import annotations
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+
 from fastpyxl.descriptors.excel import ExtensionList
+
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+
 from .marker import PictureOptions
 from .shapes import GraphicalProperties
 
 
-class View3D(Serialisable):
+def _view_rot_int(v, *, lo: int, hi: int, name: str):
+    if v is None:
+        return None
+    try:
+        n = int(v)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"{name} rejected value {v!r}") from exc
+    if n < lo or n > hi:
+        raise FieldValidationError(f"{name} rejected value {v!r}")
+    return n
 
+
+def _view_rot_float(v, *, lo: float, hi: float, name: str):
+    if v is None:
+        return None
+    try:
+        x = float(v)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"{name} rejected value {v!r}") from exc
+    if x < lo or x > hi:
+        raise FieldValidationError(f"{name} rejected value {v!r}")
+    return x
+
+
+class View3D(Serialisable):
     tagname = "view3D"
 
-    rotX = NestedMinMax(min=-90, max=90, allow_none=True)
-    x_rotation = Alias('rotX')
-    hPercent = NestedMinMax(min=5, max=500, allow_none=True)
-    height_percent = Alias('hPercent')
-    rotY = NestedInteger(min=-90, max=90, allow_none=True)
-    y_rotation = Alias('rotY')
-    depthPercent = NestedInteger(allow_none=True)
-    rAngAx = NestedBool(allow_none=True)
-    right_angle_axes = Alias('rAngAx')
-    perspective = NestedInteger(allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    rotX: float | None = Field.nested_value(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _view_rot_float(v, lo=-90, hi=90, name="rotX"),
+    )
+    x_rotation = AliasField("rotX")
+    hPercent: float | None = Field.nested_value(
+        expected_type=float,
+        allow_none=True,
+        converter=lambda v: _view_rot_float(v, lo=5, hi=500, name="hPercent"),
+    )
+    height_percent = AliasField("hPercent")
+    rotY: int | None = Field.nested_value(
+        expected_type=int,
+        allow_none=True,
+        converter=lambda v: _view_rot_int(v, lo=-90, hi=90, name="rotY"),
+    )
+    y_rotation = AliasField("rotY")
+    depthPercent: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    rAngAx: bool | None = Field.nested_bool(allow_none=True)
+    right_angle_axes = AliasField("rAngAx")
+    perspective: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
-    __elements__ = ('rotX', 'hPercent', 'rotY', 'depthPercent', 'rAngAx',
-                    'perspective',)
+    xml_order = ("rotX", "hPercent", "rotY", "depthPercent", "rAngAx", "perspective")
 
-    def __init__(self,
-                 rotX=15,
-                 hPercent=None,
-                 rotY=20,
-                 depthPercent=None,
-                 rAngAx=True,
-                 perspective=None,
-                 extLst=None,
-                ):
+    def __init__(
+        self,
+        rotX=15,
+        hPercent=None,
+        rotY=20,
+        depthPercent=None,
+        rAngAx=True,
+        perspective=None,
+        extLst=None,
+    ):
         self.rotX = rotX
         self.hPercent = hPercent
         self.rotY = rotY
         self.depthPercent = depthPercent
         self.rAngAx = rAngAx
         self.perspective = perspective
+        self.extLst = extLst
 
 
 class Surface(Serialisable):
-
     tagname = "surface"
 
-    thickness = NestedInteger(allow_none=True)
-    spPr = Typed(expected_type=GraphicalProperties, allow_none=True)
-    graphicalProperties = Alias('spPr')
-    pictureOptions = Typed(expected_type=PictureOptions, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    thickness: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    spPr: GraphicalProperties | None = Field.element(
+        expected_type=GraphicalProperties, allow_none=True
+    )
+    graphicalProperties = AliasField("spPr")
+    pictureOptions: PictureOptions | None = Field.element(
+        expected_type=PictureOptions, allow_none=True
+    )
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
-    __elements__ = ('thickness', 'spPr', 'pictureOptions',)
+    xml_order = ("thickness", "spPr", "pictureOptions")
 
-    def __init__(self,
-                 thickness=None,
-                 spPr=None,
-                 pictureOptions=None,
-                 extLst=None,
-                ):
+    def __init__(
+        self,
+        thickness=None,
+        spPr=None,
+        pictureOptions=None,
+        extLst=None,
+    ):
         self.thickness = thickness
         self.spPr = spPr
         self.pictureOptions = pictureOptions
+        self.extLst = extLst
+
+FIELD_VIEW3D = Field.element(expected_type=View3D, allow_none=True)
+FIELD_FLOOR = Field.element(expected_type=Surface, allow_none=True)
+FIELD_SIDE_WALL = Field.element(expected_type=Surface, allow_none=True)
+FIELD_BACK_WALL = Field.element(expected_type=Surface, allow_none=True)
+
+FIELD_VIEW3D_ON_CHART = Field.element(expected_type=View3D, allow_none=True, serialize=False)
+FIELD_FLOOR_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False)
+FIELD_SIDE_WALL_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False)
+FIELD_BACK_WALL_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False)
 
 
 class _3DBase(Serialisable):
-
     """
     Base class for 3D charts
     """
 
     tagname = "ChartBase"
 
-    view3D = Typed(expected_type=View3D, allow_none=True)
-    floor = Typed(expected_type=Surface, allow_none=True)
-    sideWall = Typed(expected_type=Surface, allow_none=True)
-    backWall = Typed(expected_type=Surface, allow_none=True)
+    view3D = FIELD_VIEW3D
+    floor = FIELD_FLOOR
+    sideWall = FIELD_SIDE_WALL
+    backWall = FIELD_BACK_WALL
 
-    def __init__(self,
-                 view3D=None,
-                 floor=None,
-                 sideWall=None,
-                 backWall=None,
-                 ):
+    xml_order = ("backWall", "floor", "sideWall", "view3D")
+
+    def __init__(
+        self,
+        view3D=None,
+        floor=None,
+        sideWall=None,
+        backWall=None,
+        **kw,
+    ):
         if view3D is None:
             view3D = View3D()
         self.view3D = view3D
@@ -102,4 +161,3 @@ class _3DBase(Serialisable):
         if backWall is None:
             backWall = Surface()
         self.backWall = backWall
-        super(_3DBase, self).__init__()

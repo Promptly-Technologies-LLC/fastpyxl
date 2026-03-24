@@ -1,19 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Alias,
-    Typed,
-    String,
-    Integer,
-    Bool,
-    NoneSet,
-)
-from fastpyxl.descriptors.excel import ExtensionList, Relation
-from fastpyxl.descriptors.sequence import NestedSequence
-from fastpyxl.descriptors.nested import NestedString
+from fastpyxl.descriptors.excel import ExtensionList
 
-from fastpyxl.xml.constants import SHEET_MAIN_NS
+from fastpyxl.xml.constants import REL_NS, SHEET_MAIN_NS
 
 from fastpyxl.workbook.defined_name import DefinedNameList
 from fastpyxl.workbook.external_reference import ExternalReference
@@ -23,12 +12,12 @@ from fastpyxl.workbook.protection import WorkbookProtection, FileSharing
 from fastpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
 from fastpyxl.workbook.views import CustomWorkbookView, BookView
 from fastpyxl.workbook.web import WebPublishing, WebPublishObjectList
-from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
-from fastpyxl.typed_serialisable.fields import Field
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 
-class FileRecoveryProperties(TypedSerialisable):
+class FileRecoveryProperties(Serialisable):
 
     tagname = "fileRecoveryPr"
 
@@ -49,7 +38,7 @@ class FileRecoveryProperties(TypedSerialisable):
         self.repairLoad = repairLoad
 
 
-class ChildSheet(TypedSerialisable):
+class ChildSheet(Serialisable):
     """
     Represents a reference to a worksheet or chartsheet in workbook.xml
 
@@ -66,7 +55,7 @@ class ChildSheet(TypedSerialisable):
         allow_none=True,
         converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "state"),
     )
-    id: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
 
     def __init__(self,
                  name=None,
@@ -80,12 +69,12 @@ class ChildSheet(TypedSerialisable):
         self.id = id
 
 
-class PivotCache(TypedSerialisable):
+class PivotCache(Serialisable):
 
     tagname = "pivotCache"
 
     cacheId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
 
     def __init__(self,
                  cacheId=None,
@@ -96,41 +85,74 @@ class PivotCache(TypedSerialisable):
 
 
 class WorkbookPackage(Serialisable):
-
     """
     Represent the workbook file in the archive
     """
 
     tagname = "workbook"
 
-    conformance = NoneSet(values=['strict', 'transitional'])
-    fileVersion = Typed(expected_type=FileVersion, allow_none=True)
-    fileSharing = Typed(expected_type=FileSharing, allow_none=True)
-    workbookPr = Typed(expected_type=WorkbookProperties, allow_none=True)
-    properties = Alias("workbookPr")
-    workbookProtection = Typed(expected_type=WorkbookProtection, allow_none=True)
-    bookViews = NestedSequence(expected_type=BookView)
-    sheets = NestedSequence(expected_type=ChildSheet)
-    functionGroups = Typed(expected_type=FunctionGroupList, allow_none=True)
-    externalReferences = NestedSequence(expected_type=ExternalReference)
-    definedNames = Typed(expected_type=DefinedNameList, allow_none=True)
-    calcPr = Typed(expected_type=CalcProperties, allow_none=True)
-    oleSize = NestedString(allow_none=True, attribute="ref")
-    customWorkbookViews = NestedSequence(expected_type=CustomWorkbookView)
-    pivotCaches = NestedSequence(expected_type=PivotCache, allow_none=True)
-    smartTagPr = Typed(expected_type=SmartTagProperties, allow_none=True)
-    smartTagTypes = Typed(expected_type=SmartTagList, allow_none=True)
-    webPublishing = Typed(expected_type=WebPublishing, allow_none=True)
-    fileRecoveryPr = Typed(expected_type=FileRecoveryProperties, allow_none=True)
-    webPublishObjects = Typed(expected_type=WebPublishObjectList, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-    Ignorable = NestedString(namespace="http://schemas.openxmlformats.org/markup-compatibility/2006", allow_none=True)
+    conformance: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("strict", "transitional"), "conformance"),
+    )
+    fileVersion: FileVersion | None = Field.element(expected_type=FileVersion, allow_none=True)
+    fileSharing: FileSharing | None = Field.element(expected_type=FileSharing, allow_none=True)
+    workbookPr: WorkbookProperties | None = Field.element(expected_type=WorkbookProperties, allow_none=True)
+    properties = AliasField("workbookPr")
+    workbookProtection: WorkbookProtection | None = Field.element(
+        expected_type=WorkbookProtection, allow_none=True
+    )
+    bookViews: list[BookView] = Field.nested_sequence(expected_type=BookView, default=list)
+    sheets: list[ChildSheet] = Field.nested_sequence(expected_type=ChildSheet, default=list)
+    functionGroups: FunctionGroupList | None = Field.element(expected_type=FunctionGroupList, allow_none=True)
+    externalReferences: list[ExternalReference] = Field.nested_sequence(
+        expected_type=ExternalReference, default=list
+    )
+    definedNames: DefinedNameList | None = Field.element(expected_type=DefinedNameList, allow_none=True)
+    calcPr: CalcProperties | None = Field.element(expected_type=CalcProperties, allow_none=True)
+    oleSize: str | None = Field.nested_value(expected_type=str, allow_none=True, value_attribute="ref")
+    customWorkbookViews: list[CustomWorkbookView] = Field.nested_sequence(
+        expected_type=CustomWorkbookView, default=list
+    )
+    pivotCaches: list[PivotCache] = Field.nested_sequence(expected_type=PivotCache, allow_none=True, default=list)
+    smartTagPr: SmartTagProperties | None = Field.element(expected_type=SmartTagProperties, allow_none=True)
+    smartTagTypes: SmartTagList | None = Field.element(expected_type=SmartTagList, allow_none=True)
+    webPublishing: WebPublishing | None = Field.element(expected_type=WebPublishing, allow_none=True)
+    fileRecoveryPr: FileRecoveryProperties | None = Field.element(
+        expected_type=FileRecoveryProperties, allow_none=True
+    )
+    webPublishObjects: WebPublishObjectList | None = Field.element(
+        expected_type=WebPublishObjectList, allow_none=True
+    )
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    Ignorable: str | None = Field.nested_value(
+        expected_type=str,
+        namespace="http://schemas.openxmlformats.org/markup-compatibility/2006",
+        allow_none=True,
+        serialize=False,
+    )
 
-    __elements__ = ('fileVersion', 'fileSharing', 'workbookPr',
-                    'workbookProtection', 'bookViews', 'sheets', 'functionGroups',
-                    'externalReferences', 'definedNames', 'calcPr', 'oleSize',
-                    'customWorkbookViews', 'pivotCaches', 'smartTagPr', 'smartTagTypes',
-                    'webPublishing', 'fileRecoveryPr', 'webPublishObjects')
+    xml_order = (
+        "fileVersion",
+        "fileSharing",
+        "workbookPr",
+        "workbookProtection",
+        "bookViews",
+        "sheets",
+        "functionGroups",
+        "externalReferences",
+        "definedNames",
+        "calcPr",
+        "oleSize",
+        "customWorkbookViews",
+        "pivotCaches",
+        "smartTagPr",
+        "smartTagTypes",
+        "webPublishing",
+        "fileRecoveryPr",
+        "webPublishObjects",
+    )
 
     def __init__(self,
                  conformance=None,
@@ -176,13 +198,13 @@ class WorkbookPackage(Serialisable):
         self.webPublishing = webPublishing
         self.fileRecoveryPr = fileRecoveryPr
         self.webPublishObjects = webPublishObjects
+        self.extLst = extLst
+        self.Ignorable = Ignorable
 
-
-    def to_tree(self):
-        tree = super().to_tree()
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        tree = super().to_tree(tagname, idx, namespace)
         tree.set("xmlns", SHEET_MAIN_NS)
         return tree
-
 
     @property
     def active(self):

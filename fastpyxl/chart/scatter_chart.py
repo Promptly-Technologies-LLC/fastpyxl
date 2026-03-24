@@ -1,15 +1,12 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Typed,
-    Sequence,
-    Alias
-)
+from __future__ import annotations
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+
 from fastpyxl.descriptors.excel import ExtensionList
-from fastpyxl.descriptors.nested import (
-    NestedNoneSet,
-    NestedBool,
-)
 
 from ._chart import ChartBase
 from .axis import NumericAxis, TextAxis
@@ -17,36 +14,51 @@ from .series import XYSeries
 from .label import DataLabelList
 
 
-class ScatterChart(ChartBase):
+def _scatter_style(v):
+    if v is None or v == "none":
+        return None
+    allowed = frozenset({"line", "lineMarker", "marker", "smooth", "smoothMarker"})
+    if v not in allowed:
+        raise FieldValidationError(f"scatterStyle rejected value {v!r}")
+    return v
 
+
+class ScatterChart(ChartBase):
     tagname = "scatterChart"
 
-    scatterStyle = NestedNoneSet(values=(['line', 'lineMarker', 'marker', 'smooth', 'smoothMarker']))
-    varyColors = NestedBool(allow_none=True)
-    ser = Sequence(expected_type=XYSeries, allow_none=True)
-    dLbls = Typed(expected_type=DataLabelList, allow_none=True)
-    dataLabels = Alias("dLbls")
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-
-    x_axis = Typed(expected_type=(NumericAxis, TextAxis))
-    y_axis = Typed(expected_type=NumericAxis)
+    scatterStyle: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=_scatter_style,
+    )
+    varyColors: bool | None = Field.nested_bool(allow_none=True)
+    ser: list[XYSeries] | None = Field.sequence(expected_type=XYSeries, allow_none=True)
+    dLbls: DataLabelList | None = Field.element(
+        expected_type=DataLabelList, allow_none=True
+    )
+    dataLabels = AliasField("dLbls")
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
     _series_type = "scatter"
 
-    __elements__ = ('scatterStyle', 'varyColors', 'ser', 'dLbls', 'axId',)
+    xml_order = ("scatterStyle", "varyColors", "ser", "dLbls", "axId")
 
-    def __init__(self,
-                 scatterStyle=None,
-                 varyColors=None,
-                 ser=(),
-                 dLbls=None,
-                 extLst=None,
-                 **kw
-                ):
+    def __init__(
+        self,
+        scatterStyle=None,
+        varyColors=None,
+        ser=(),
+        dLbls=None,
+        extLst=None,
+        **kw,
+    ):
         self.scatterStyle = scatterStyle
         self.varyColors = varyColors
-        self.ser = ser
+        self.ser = list(ser) if ser is not None else []
         self.dLbls = dLbls
+        self.extLst = extLst
         self.x_axis = NumericAxis(axId=10, crossAx=20)
         self.y_axis = NumericAxis(axId=20, crossAx=10)
         super().__init__(**kw)

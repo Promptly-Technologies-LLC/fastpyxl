@@ -7,14 +7,14 @@ from warnings import warn
 
 from fastpyxl.descriptors import (
     Alias,
-    Bool,
     Strict,
     String,
     Integer,
     MatchPattern,
     Typed,
 )
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 from fastpyxl.xml.functions import Element
@@ -215,18 +215,18 @@ class HeaderFooter(Serialisable):
 
     tagname = "headerFooter"
 
-    differentOddEven = Bool(allow_none=True)
-    differentFirst = Bool(allow_none=True)
-    scaleWithDoc = Bool(allow_none=True)
-    alignWithMargins = Bool(allow_none=True)
-    oddHeader = Typed(expected_type=HeaderFooterItem, allow_none=True)
-    oddFooter = Typed(expected_type=HeaderFooterItem, allow_none=True)
-    evenHeader = Typed(expected_type=HeaderFooterItem, allow_none=True)
-    evenFooter = Typed(expected_type=HeaderFooterItem, allow_none=True)
-    firstHeader = Typed(expected_type=HeaderFooterItem, allow_none=True)
-    firstFooter = Typed(expected_type=HeaderFooterItem, allow_none=True)
+    differentOddEven: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    differentFirst: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    scaleWithDoc: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    alignWithMargins: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    oddHeader: HeaderFooterItem | None = Field.element(expected_type=HeaderFooterItem, allow_none=True)
+    oddFooter: HeaderFooterItem | None = Field.element(expected_type=HeaderFooterItem, allow_none=True)
+    evenHeader: HeaderFooterItem | None = Field.element(expected_type=HeaderFooterItem, allow_none=True)
+    evenFooter: HeaderFooterItem | None = Field.element(expected_type=HeaderFooterItem, allow_none=True)
+    firstHeader: HeaderFooterItem | None = Field.element(expected_type=HeaderFooterItem, allow_none=True)
+    firstFooter: HeaderFooterItem | None = Field.element(expected_type=HeaderFooterItem, allow_none=True)
 
-    __elements__ = ("oddHeader", "oddFooter", "evenHeader", "evenFooter", "firstHeader", "firstFooter")
+    xml_order = ("oddHeader", "oddFooter", "evenHeader", "evenFooter", "firstHeader", "firstFooter")
 
     def __init__(self,
                  differentOddEven=None,

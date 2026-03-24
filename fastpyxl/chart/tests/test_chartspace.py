@@ -78,9 +78,9 @@ class TestExternalData:
 
     def test_ctor(self, ExternalData):
         data = ExternalData(id='rId1')
-        xml = tostring(data.to_tree())
+        xml = tostring(data.to_tree()).decode("utf-8")
         expected = """
-        <externalData id="rId1"/>
+        <externalData xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId1"/>
         """
         diff = compare_xml(xml, expected)
         assert diff is None, diff

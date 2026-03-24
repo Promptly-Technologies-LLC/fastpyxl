@@ -1,13 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    String,
-    Integer,
-    Bool,
-    Sequence,
-    Convertible,
-)
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
+
 from .cell_range import MultiCellRange
 
 
@@ -15,11 +10,11 @@ class InputCells(Serialisable):
 
     tagname = "inputCells"
 
-    r = String()
-    deleted = Bool(allow_none=True)
-    undone = Bool(allow_none=True)
-    val = String()
-    numFmtId = Integer(allow_none=True)
+    r: str | None = Field.attribute(expected_type=str, allow_none=True)
+    deleted: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    undone: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    val: str | None = Field.attribute(expected_type=str, allow_none=True)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  r=None,
@@ -39,15 +34,14 @@ class Scenario(Serialisable):
 
     tagname = "scenario"
 
-    inputCells = Sequence(expected_type=InputCells)
-    name = String()
-    locked = Bool(allow_none=True)
-    hidden = Bool(allow_none=True)
-    user = String(allow_none=True)
-    comment = String(allow_none=True)
+    inputCells: list[InputCells] = Field.sequence(expected_type=InputCells, default=list)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    user: str | None = Field.attribute(expected_type=str, allow_none=True)
+    comment: str | None = Field.attribute(expected_type=str, allow_none=True)
 
-    __elements__ = ('inputCells',)
-    __attrs__ = ('name', 'locked', 'hidden', 'user', 'comment', 'count')
+    xml_order = ("inputCells",)
 
     def __init__(self,
                  inputCells=(),
@@ -58,6 +52,7 @@ class Scenario(Serialisable):
                  user=None,
                  comment=None,
                 ):
+        del count
         self.inputCells = inputCells
         self.name = name
         self.locked = locked
@@ -65,22 +60,26 @@ class Scenario(Serialisable):
         self.user = user
         self.comment = comment
 
-
     @property
     def count(self):
         return len(self.inputCells)
+
+    def __iter__(self):
+        for k, v in super().__iter__():
+            yield k, v
+        yield "count", str(self.count)
 
 
 class ScenarioList(Serialisable):
 
     tagname = "scenarios"
 
-    scenario = Sequence(expected_type=Scenario)
-    current = Integer(allow_none=True)
-    show = Integer(allow_none=True)
-    sqref = Convertible(expected_type=MultiCellRange, allow_none=True)
+    scenario: list[Scenario] = Field.sequence(expected_type=Scenario, default=list)
+    current: int | None = Field.attribute(expected_type=int, allow_none=True)
+    show: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange, allow_none=True)
 
-    __elements__ = ('scenario',)
+    xml_order = ("scenario",)
 
     def __init__(self,
                  scenario=(),
@@ -93,13 +92,10 @@ class ScenarioList(Serialisable):
         self.show = show
         self.sqref = sqref
 
-
     def append(self, scenario):
-        s = self.scenario
+        s = list(self.scenario)
         s.append(scenario)
         self.scenario = s
 
-
     def __bool__(self):
         return bool(self.scenario)
-

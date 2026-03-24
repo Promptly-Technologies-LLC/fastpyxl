@@ -5,23 +5,30 @@ import pytest
 from fastpyxl.xml.functions import tostring
 from fastpyxl.tests.helper import compare_xml
 
+from .._chart import ChartBase as ChartBaseClass
 from ..chartspace import PlotArea
 from ..pivot import PivotSource, PivotFormat
 from ..series import Series
 
+ChartBaseClass._plot_xml_tag = "DummyChart"
+
 
 @pytest.fixture
 def ChartBase():
-    from .._chart import ChartBase
-    return ChartBase
+    return ChartBaseClass
 
 
 class TestChartBase:
 
     def test_ctor(self, ChartBase):
-        chart = ChartBase()
-        with pytest.raises(NotImplementedError):
-            tostring(chart.to_tree())
+        old = ChartBase._plot_xml_tag
+        ChartBase._plot_xml_tag = None
+        try:
+            chart = ChartBase()
+            with pytest.raises(NotImplementedError):
+                tostring(chart.to_tree())
+        finally:
+            ChartBase._plot_xml_tag = old
 
 
     def test_iadd(self, ChartBase):
@@ -93,7 +100,6 @@ class TestChartBase:
 
 
     def test_save_twice(self, ChartBase):
-        ChartBase.tagname = "DummyChart"
         chart = ChartBase()
         chart._write()
         chart._write()

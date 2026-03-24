@@ -1,32 +1,30 @@
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    String,
-    Sequence,
-)
-from fastpyxl.descriptors.excel import Relation
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
+
+from fastpyxl.xml.constants import REL_NS
 
 
 class Hyperlink(Serialisable):
 
     tagname = "hyperlink"
 
-    ref = String()
-    location = String(allow_none=True)
-    tooltip = String(allow_none=True)
-    display = String(allow_none=True)
-    id = Relation()
-    target = String(allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
+    location: str | None = Field.attribute(expected_type=str, allow_none=True)
+    tooltip: str | None = Field.attribute(expected_type=str, allow_none=True)
+    display: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: str | None = Field.attribute(
+        expected_type=str, allow_none=True, namespace=REL_NS
+    )
 
-    __attrs__ = ("ref", "location", "tooltip", "display", "id")
-
-    def __init__(self,
-                 ref=None,
-                 location=None,
-                 tooltip=None,
-                 display=None,
-                 id=None,
-                 target=None,
-                ):
+    def __init__(
+        self,
+        ref=None,
+        location=None,
+        tooltip=None,
+        display=None,
+        id=None,
+        target=None,
+    ):
         self.ref = ref
         self.location = location
         self.tooltip = tooltip
@@ -39,8 +37,7 @@ class HyperlinkList(Serialisable):
 
     tagname = "hyperlinks"
 
-    __expected_type = Hyperlink
-    hyperlink = Sequence(expected_type=__expected_type)
+    hyperlink: list[Hyperlink] = Field.sequence(expected_type=Hyperlink, default=list)
 
     def __init__(self, hyperlink=()):
         self.hyperlink = hyperlink

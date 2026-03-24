@@ -1,22 +1,13 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Descriptor,
-    Alias,
-    Typed,
-    Bool,
-    Integer,
-    NoneSet,
-    String,
-    Sequence,
-)
-from fastpyxl.descriptors.excel import ExtensionList, CellRange
-from fastpyxl.descriptors.sequence import NestedSequence
+from fastpyxl.descriptors.excel import ExtensionList
 from fastpyxl.xml.constants import SHEET_MAIN_NS, REL_NS
 from fastpyxl.xml.functions import tostring
 from fastpyxl.utils import range_boundaries
 from fastpyxl.utils.escape import escape, unescape
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 from .related import Related
 
@@ -38,23 +29,31 @@ PIVOTSTYLES = tuple(
 )
 
 
+def _enum(value, allowed, field_name):
+    if value is None:
+        return None
+    if value not in allowed:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
+
+
+def _table_name_converter(value):
+    if value is not None and " " in value:
+        raise FieldValidationError("displayName rejected value with spaces")
+    return value
+
+
 class TableStyleInfo(Serialisable):
 
     tagname = "tableStyleInfo"
 
-    name = String(allow_none=True)
-    showFirstColumn = Bool(allow_none=True)
-    showLastColumn = Bool(allow_none=True)
-    showRowStripes = Bool(allow_none=True)
-    showColumnStripes = Bool(allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    showFirstColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showLastColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showRowStripes: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showColumnStripes: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    def __init__(self,
-                 name=None,
-                 showFirstColumn=None,
-                 showLastColumn=None,
-                 showRowStripes=None,
-                 showColumnStripes=None,
-                ):
+    def __init__(self, name=None, showFirstColumn=None, showLastColumn=None, showRowStripes=None, showColumnStripes=None):
         self.name = name
         self.showFirstColumn = showFirstColumn
         self.showLastColumn = showLastColumn
@@ -66,89 +65,80 @@ class XMLColumnProps(Serialisable):
 
     tagname = "xmlColumnPr"
 
-    mapId = Integer()
-    xpath = String()
-    denormalized = Bool(allow_none=True)
-    xmlDataType = String()
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    mapId: int | None = Field.attribute(expected_type=int)
+    xpath: str | None = Field.attribute(expected_type=str)
+    denormalized: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    xmlDataType: str | None = Field.attribute(expected_type=str)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
 
-    __elements__ = ()
-
-    def __init__(self,
-                 mapId=None,
-                 xpath=None,
-                 denormalized=None,
-                 xmlDataType=None,
-                 extLst=None,
-                ):
+    def __init__(self, mapId=None, xpath=None, denormalized=None, xmlDataType=None, extLst=None):
         self.mapId = mapId
         self.xpath = xpath
         self.denormalized = denormalized
         self.xmlDataType = xmlDataType
+        self.extLst = extLst
 
 
 class TableFormula(Serialisable):
 
     tagname = "tableFormula"
 
-    ## Note formula is stored as the text value
+    array: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    array = Bool(allow_none=True)
-    attr_text = Descriptor()
-    text = Alias('attr_text')
-
-
-    def __init__(self,
-                 array=None,
-                 attr_text=None,
-                ):
+    def __init__(self, array=None, attr_text=None):
         self.array = array
         self.attr_text = attr_text
+
+    @property
+    def text(self):
+        return self.attr_text
+
+    @text.setter
+    def text(self, value):
+        self.attr_text = value
+
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        tree = super().to_tree(tagname, idx, namespace)
+        tree.text = self.attr_text
+        return tree
+
+    @classmethod
+    def from_tree(cls, node):
+        obj = super().from_tree(node)
+        obj.attr_text = node.text
+        return obj
 
 
 class TableColumn(Serialisable):
 
     tagname = "tableColumn"
 
-    id = Integer()
-    uniqueName = String(allow_none=True)
-    name = String()
-    totalsRowFunction = NoneSet(values=(['sum', 'min', 'max', 'average',
-                                         'count', 'countNums', 'stdDev', 'var', 'custom']))
-    totalsRowLabel = String(allow_none=True)
-    queryTableFieldId = Integer(allow_none=True)
-    headerRowDxfId = Integer(allow_none=True)
-    dataDxfId = Integer(allow_none=True)
-    totalsRowDxfId = Integer(allow_none=True)
-    headerRowCellStyle = String(allow_none=True)
-    dataCellStyle = String(allow_none=True)
-    totalsRowCellStyle = String(allow_none=True)
-    calculatedColumnFormula = Typed(expected_type=TableFormula, allow_none=True)
-    totalsRowFormula = Typed(expected_type=TableFormula, allow_none=True)
-    xmlColumnPr = Typed(expected_type=XMLColumnProps, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str)
+    totalsRowFunction: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum(v, ('sum', 'min', 'max', 'average', 'count', 'countNums', 'stdDev', 'var', 'custom'), 'totalsRowFunction')
+    )
+    totalsRowLabel: str | None = Field.attribute(expected_type=str, allow_none=True)
+    queryTableFieldId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    headerRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    dataDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    totalsRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    headerRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    dataCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    totalsRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    calculatedColumnFormula: TableFormula | None = Field.element(expected_type=TableFormula, allow_none=True)
+    totalsRowFormula: TableFormula | None = Field.element(expected_type=TableFormula, allow_none=True)
+    xmlColumnPr: XMLColumnProps | None = Field.element(expected_type=XMLColumnProps, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
 
-    __elements__ = ('calculatedColumnFormula', 'totalsRowFormula',
-                    'xmlColumnPr', 'extLst')
+    xml_order = ('calculatedColumnFormula', 'totalsRowFormula', 'xmlColumnPr', 'extLst')
 
-    def __init__(self,
-                 id=None,
-                 uniqueName=None,
-                 name=None,
-                 totalsRowFunction=None,
-                 totalsRowLabel=None,
-                 queryTableFieldId=None,
-                 headerRowDxfId=None,
-                 dataDxfId=None,
-                 totalsRowDxfId=None,
-                 headerRowCellStyle=None,
-                 dataCellStyle=None,
-                 totalsRowCellStyle=None,
-                 calculatedColumnFormula=None,
-                 totalsRowFormula=None,
-                 xmlColumnPr=None,
-                 extLst=None,
-                ):
+    def __init__(self, id=None, uniqueName=None, name=None, totalsRowFunction=None, totalsRowLabel=None, queryTableFieldId=None,
+                 headerRowDxfId=None, dataDxfId=None, totalsRowDxfId=None, headerRowCellStyle=None, dataCellStyle=None,
+                 totalsRowCellStyle=None, calculatedColumnFormula=None, totalsRowFormula=None, xmlColumnPr=None, extLst=None):
         self.id = id
         self.uniqueName = uniqueName
         self.name = name
@@ -166,13 +156,11 @@ class TableColumn(Serialisable):
         self.xmlColumnPr = xmlColumnPr
         self.extLst = extLst
 
-
     def __iter__(self):
         for k, v in super().__iter__():
             if k == 'name':
                 v = escape(v)
             yield k, v
-
 
     @classmethod
     def from_tree(cls, node):
@@ -181,16 +169,18 @@ class TableColumn(Serialisable):
         return self
 
 
-class TableNameDescriptor(String):
+class _TableColumnList(Serialisable):
+    tagname = "tableColumns"
 
-    """
-    Table names cannot have spaces in them
-    """
+    tableColumn: list[TableColumn] = Field.sequence(expected_type=TableColumn, default=list)
 
-    def __set__(self, instance, value):
-        if value is not None and " " in value:
-            raise ValueError("Table names cannot have spaces")
-        super().__set__(instance, value)
+    xml_order = ('tableColumn',)
+
+    def __init__(self, tableColumn=()):
+        self.tableColumn = tableColumn
+
+    def __iter__(self):
+        yield 'count', str(len(self.tableColumn))
 
 
 class Table(Serialisable):
@@ -202,36 +192,35 @@ class Table(Serialisable):
 
     tagname = "table"
 
-    id = Integer()
-    name = String(allow_none=True)
-    displayName = TableNameDescriptor()
-    comment = String(allow_none=True)
-    ref = CellRange()
-    tableType = NoneSet(values=(['worksheet', 'xml', 'queryTable']))
-    headerRowCount = Integer(allow_none=True)
-    insertRow = Bool(allow_none=True)
-    insertRowShift = Bool(allow_none=True)
-    totalsRowCount = Integer(allow_none=True)
-    totalsRowShown = Bool(allow_none=True)
-    published = Bool(allow_none=True)
-    headerRowDxfId = Integer(allow_none=True)
-    dataDxfId = Integer(allow_none=True)
-    totalsRowDxfId = Integer(allow_none=True)
-    headerRowBorderDxfId = Integer(allow_none=True)
-    tableBorderDxfId = Integer(allow_none=True)
-    totalsRowBorderDxfId = Integer(allow_none=True)
-    headerRowCellStyle = String(allow_none=True)
-    dataCellStyle = String(allow_none=True)
-    totalsRowCellStyle = String(allow_none=True)
-    connectionId = Integer(allow_none=True)
-    autoFilter = Typed(expected_type=AutoFilter, allow_none=True)
-    sortState = Typed(expected_type=SortState, allow_none=True)
-    tableColumns = NestedSequence(expected_type=TableColumn, count=True)
-    tableStyleInfo = Typed(expected_type=TableStyleInfo, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    displayName: str | None = Field.attribute(expected_type=str, converter=_table_name_converter)
+    comment: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str)
+    tableType: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('worksheet', 'xml', 'queryTable'), 'tableType'))
+    headerRowCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    insertRow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    insertRowShift: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    totalsRowCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    totalsRowShown: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    headerRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    dataDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    totalsRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    headerRowBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    tableBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    totalsRowBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    headerRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    dataCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    totalsRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    connectionId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    autoFilter: AutoFilter | None = Field.element(expected_type=AutoFilter, allow_none=True)
+    sortState: SortState | None = Field.element(expected_type=SortState, allow_none=True)
+    tableColumns: list[TableColumn] = Field.nested_sequence(expected_type=TableColumn, count=True, default=list)
+    tableStyleInfo: TableStyleInfo | None = Field.element(expected_type=TableStyleInfo, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
 
-    __elements__ = ('autoFilter', 'sortState', 'tableColumns',
-                    'tableStyleInfo')
+    xml_order = ('autoFilter', 'sortState', 'tableColumns', 'tableStyleInfo')
 
     def __init__(self,
                  id=1,
@@ -290,13 +279,12 @@ class Table(Serialisable):
         self.sortState = sortState
         self.tableColumns = tableColumns
         self.tableStyleInfo = tableStyleInfo
+        self.extLst = extLst
 
-
-    def to_tree(self):
-        tree = super().to_tree()
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        tree = super().to_tree(tagname, idx, namespace)
         tree.set("xmlns", SHEET_MAIN_NS)
         return tree
-
 
     @property
     def path(self):
@@ -305,14 +293,12 @@ class Table(Serialisable):
         """
         return "/xl" + self._path.format(self.id)
 
-
     def _write(self, archive):
         """
         Serialise to XML and write to archive
         """
         xml = self.to_tree()
         archive.writestr(self.path[1:], tostring(xml))
-
 
     def _initialise_columns(self):
         """
@@ -322,12 +308,12 @@ class Table(Serialisable):
         """
 
         min_col, min_row, max_col, max_row = range_boundaries(self.ref)
+        del min_row, max_row
         for idx in range(min_col, max_col+1):
             col = TableColumn(id=idx, name="Column{0}".format(idx))
             self.tableColumns.append(col)
         if self.headerRowCount and not self.autoFilter:
             self.autoFilter = AutoFilter(ref=self.ref)
-
 
     @property
     def column_names(self):
@@ -338,26 +324,23 @@ class TablePartList(Serialisable):
 
     tagname = "tableParts"
 
-    tablePart = Sequence(expected_type=Related)
+    tablePart: list[Related] = Field.sequence(expected_type=Related, default=list)
 
-    __elements__ = ('tablePart',)
-    __attrs__ = ('count',)
+    xml_order = ('tablePart',)
 
-    def __init__(self,
-                 count=None,
-                 tablePart=(),
-                ):
+    def __init__(self, count=None, tablePart=()):
+        del count
         self.tablePart = tablePart
-
 
     def append(self, part):
         self.tablePart.append(part)
-
 
     @property
     def count(self):
         return len(self.tablePart)
 
+    def __iter__(self):
+        yield 'count', str(self.count)
 
     def __bool__(self):
         return bool(self.tablePart)
@@ -365,12 +348,10 @@ class TablePartList(Serialisable):
 
 class TableList(dict):
 
-
     def add(self, table):
         if not isinstance(table, Table):
             raise TypeError("You can only add tables")
         self[table.name] = table
-
 
     def get(self, name=None, table_range=None):
         if name is not None:
@@ -378,7 +359,6 @@ class TableList(dict):
         for table in self.values():
             if table_range == table.ref:
                 return table
-
 
     def items(self):
         return [(name, table.ref) for name, table in super().items()]

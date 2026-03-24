@@ -1,15 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Bool,
-    String,
-    Alias,
-    Integer,
-)
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors.excel import (
-    Base64Binary,
-)
+from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 from fastpyxl.utils.protection import hash_password
 
 
@@ -42,35 +35,27 @@ class SheetProtection(Serialisable, _Protected):
 
     tagname = "sheetProtection"
 
-    sheet = Bool()
-    enabled = Alias('sheet')
-    objects = Bool()
-    scenarios = Bool()
-    formatCells = Bool()
-    formatColumns = Bool()
-    formatRows = Bool()
-    insertColumns = Bool()
-    insertRows = Bool()
-    insertHyperlinks = Bool()
-    deleteColumns = Bool()
-    deleteRows = Bool()
-    selectLockedCells = Bool()
-    selectUnlockedCells = Bool()
-    sort = Bool()
-    autoFilter = Bool()
-    pivotTables = Bool()
-    saltValue = Base64Binary(allow_none=True)
-    spinCount = Integer(allow_none=True)
-    algorithmName = String(allow_none=True)
-    hashValue = Base64Binary(allow_none=True)
-
-
-    __attrs__ = ('selectLockedCells', 'selectUnlockedCells', 'algorithmName',
-              'sheet', 'objects', 'insertRows', 'insertHyperlinks', 'autoFilter',
-              'scenarios', 'formatColumns', 'deleteColumns', 'insertColumns',
-              'pivotTables', 'deleteRows', 'formatCells', 'saltValue', 'formatRows',
-              'sort', 'spinCount', 'password', 'hashValue')
-
+    sheet: bool = Field.attribute(expected_type=bool, default=False)
+    enabled = AliasField('sheet')
+    objects: bool = Field.attribute(expected_type=bool, default=False)
+    scenarios: bool = Field.attribute(expected_type=bool, default=False)
+    formatCells: bool = Field.attribute(expected_type=bool, default=True)
+    formatColumns: bool = Field.attribute(expected_type=bool, default=True)
+    formatRows: bool = Field.attribute(expected_type=bool, default=True)
+    insertColumns: bool = Field.attribute(expected_type=bool, default=True)
+    insertRows: bool = Field.attribute(expected_type=bool, default=True)
+    insertHyperlinks: bool = Field.attribute(expected_type=bool, default=True)
+    deleteColumns: bool = Field.attribute(expected_type=bool, default=True)
+    deleteRows: bool = Field.attribute(expected_type=bool, default=True)
+    selectLockedCells: bool = Field.attribute(expected_type=bool, default=False)
+    selectUnlockedCells: bool = Field.attribute(expected_type=bool, default=False)
+    sort: bool = Field.attribute(expected_type=bool, default=True)
+    autoFilter: bool = Field.attribute(expected_type=bool, default=True)
+    pivotTables: bool = Field.attribute(expected_type=bool, default=True)
+    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
 
     def __init__(self, sheet=False, objects=False, scenarios=False,
                  formatCells=True, formatRows=True, formatColumns=True,
@@ -101,20 +86,32 @@ class SheetProtection(Serialisable, _Protected):
         self.spinCount = spinCount
         self.hashValue = hashValue
 
+    def __iter__(self):
+        ordered = (
+            'selectLockedCells', 'selectUnlockedCells', 'algorithmName',
+            'sheet', 'objects', 'insertRows', 'insertHyperlinks', 'autoFilter',
+            'scenarios', 'formatColumns', 'deleteColumns', 'insertColumns',
+            'pivotTables', 'deleteRows', 'formatCells', 'saltValue', 'formatRows',
+            'sort', 'spinCount', 'password', 'hashValue',
+        )
+        for key in ordered:
+            if key == 'password':
+                value = self.password
+            else:
+                value = getattr(self, key, None)
+            if value is None:
+                continue
+            yield key, safe_string(value)
 
     def set_password(self, value='', already_hashed=False):
         super().set_password(value, already_hashed)
         self.enable()
 
-
     def enable(self):
         self.sheet = True
-
 
     def disable(self):
         self.sheet = False
 
-
-    def  __bool__(self):
+    def __bool__(self):
         return self.sheet
-

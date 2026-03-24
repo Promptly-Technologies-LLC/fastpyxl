@@ -2,18 +2,15 @@
 
 from warnings import warn
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-)
-from fastpyxl.descriptors.sequence import NestedSequence
 from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.utils.indexed_list import IndexedList
 from fastpyxl.xml.constants import ARC_STYLE, SHEET_MAIN_NS
 from fastpyxl.xml.functions import fromstring
 
 from .builtins import styles
-from .colors import ColorList
+from .colors import ColorList, RgbColor
 from .differential import DifferentialStyle
 from .table import TableStyleList
 from .borders import Border
@@ -40,20 +37,20 @@ class Stylesheet(Serialisable):
 
     tagname = "styleSheet"
 
-    numFmts = Typed(expected_type=NumberFormatList)
-    fonts = NestedSequence(expected_type=Font, count=True)
-    fills = NestedSequence(expected_type=Fill, count=True)
-    borders = NestedSequence(expected_type=Border, count=True)
-    cellStyleXfs = Typed(expected_type=CellStyleList)
-    cellXfs = Typed(expected_type=CellStyleList)
-    cellStyles = Typed(expected_type=_NamedCellStyleList)
-    dxfs = NestedSequence(expected_type=DifferentialStyle, count=True)
-    tableStyles = Typed(expected_type=TableStyleList, allow_none=True)
-    colors = Typed(expected_type=ColorList, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    numFmts: NumberFormatList | None = Field.element(expected_type=NumberFormatList)
+    fonts: list[Font] = Field.nested_sequence(expected_type=Font, count=True, default=list)
+    fills: list[Fill] = Field.nested_sequence(expected_type=Fill, count=True, default=list)
+    borders: list[Border] = Field.nested_sequence(expected_type=Border, count=True, default=list)
+    cellStyleXfs: CellStyleList | None = Field.element(expected_type=CellStyleList)
+    cellXfs: CellStyleList | None = Field.element(expected_type=CellStyleList)
+    cellStyles: _NamedCellStyleList | None = Field.element(expected_type=_NamedCellStyleList)
+    dxfs: list[DifferentialStyle] = Field.nested_sequence(expected_type=DifferentialStyle, count=True, default=list)
+    tableStyles: TableStyleList | None = Field.element(expected_type=TableStyleList, allow_none=True)
+    colors: ColorList | None = Field.element(expected_type=ColorList, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
 
-    __elements__ = ('numFmts', 'fonts', 'fills', 'borders', 'cellStyleXfs',
-                    'cellXfs', 'cellStyles', 'dxfs', 'tableStyles', 'colors')
+    xml_order = ('numFmts', 'fonts', 'fills', 'borders', 'cellStyleXfs',
+                 'cellXfs', 'cellStyles', 'dxfs', 'tableStyles', 'colors')
 
     def __init__(self,
                  numFmts=None,
@@ -88,13 +85,13 @@ class Stylesheet(Serialisable):
         self.dxfs = dxfs
         self.tableStyles = tableStyles
         self.colors = colors
+        self.extLst = extLst
 
         self.cell_styles = self.cellXfs._to_array()
         self.alignments = self.cellXfs.alignments
         self.protections = self.cellXfs.prots
         self._normalise_numbers()
         self.named_styles = self._merge_named_styles()
-
 
     @classmethod
     def from_tree(cls, node):
@@ -103,7 +100,6 @@ class Stylesheet(Serialisable):
         for k in attrs:
             del node.attrib[k]
         return super().from_tree(node)
-
 
     def _merge_named_styles(self):
         """
@@ -114,7 +110,6 @@ class Stylesheet(Serialisable):
         from_ref = [self._expand_named_style(style_ref) for style_ref in style_refs]
 
         return NamedStyleList(from_ref)
-
 
     def _expand_named_style(self, style_ref):
         """
@@ -146,7 +141,6 @@ class Stylesheet(Serialisable):
 
         return named_style
 
-
     def _split_named_styles(self, wb):
         """
         Convert NamedStyle into separate CellStyle and Xf objects
@@ -156,11 +150,9 @@ class Stylesheet(Serialisable):
             self.cellStyles.cellStyle.append(style.as_name())
             self.cellStyleXfs.xf.append(style.as_xf())
 
-
     @property
     def custom_formats(self):
         return dict([(n.numFmtId, n.formatCode) for n in self.numFmts.numFmt])
-
 
     def _normalise_numbers(self):
         """
@@ -188,7 +180,6 @@ class Stylesheet(Serialisable):
                 timedelta_formats.add(idx)
         self.date_formats = date_formats
         self.timedelta_formats = timedelta_formats
-
 
     def to_tree(self, tagname=None, idx=None, namespace=None):
         tree = super().to_tree(tagname, idx, namespace)
@@ -246,7 +237,7 @@ def write_stylesheet(wb):
     stylesheet.fills = wb._fills
     stylesheet.borders = wb._borders
     stylesheet.dxfs = wb._differential_styles.styles
-    stylesheet.colors = ColorList(indexedColors=wb._colors)
+    stylesheet.colors = ColorList(indexedColors=[RgbColor(rgb=v) for v in wb._colors])
 
     from .numbers import NumberFormat
     fmts = []

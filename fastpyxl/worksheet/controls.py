@@ -1,15 +1,9 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Bool,
-    Integer,
-    String,
-    Sequence,
-)
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
+from fastpyxl.xml.constants import REL_NS
 
-from fastpyxl.descriptors.excel import Relation
 from .ole import ObjectAnchor
 
 
@@ -17,24 +11,24 @@ class ControlProperty(Serialisable):
 
     tagname = "controlPr"
 
-    anchor = Typed(expected_type=ObjectAnchor, )
-    locked = Bool(allow_none=True)
-    defaultSize = Bool(allow_none=True)
-    _print = Bool(allow_none=True)
-    disabled = Bool(allow_none=True)
-    recalcAlways = Bool(allow_none=True)
-    uiObject = Bool(allow_none=True)
-    autoFill = Bool(allow_none=True)
-    autoLine = Bool(allow_none=True)
-    autoPict = Bool(allow_none=True)
-    macro = String(allow_none=True)
-    altText = String(allow_none=True)
-    linkedCell = String(allow_none=True)
-    listFillRange = String(allow_none=True)
-    cf = String(allow_none=True)
-    id = Relation(allow_none=True)
+    anchor: ObjectAnchor | None = Field.element(expected_type=ObjectAnchor, allow_none=True)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    _print: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name="print")
+    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    recalcAlways: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoPict: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
+    altText: str | None = Field.attribute(expected_type=str, allow_none=True)
+    linkedCell: str | None = Field.attribute(expected_type=str, allow_none=True)
+    listFillRange: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cf: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
 
-    __elements__ = ('anchor',)
+    xml_order = ("anchor",)
 
     def __init__(self,
                  anchor=None,
@@ -76,11 +70,11 @@ class Control(Serialisable):
 
     tagname = "control"
 
-    controlPr = Typed(expected_type=ControlProperty, allow_none=True)
-    shapeId = Integer()
-    name = String(allow_none=True)
+    controlPr: ControlProperty | None = Field.element(expected_type=ControlProperty, allow_none=True)
+    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
 
-    __elements__ = ('controlPr',)
+    xml_order = ("controlPr",)
 
     def __init__(self,
                  controlPr=None,
@@ -96,12 +90,11 @@ class Controls(Serialisable):
 
     tagname = "controls"
 
-    control = Sequence(expected_type=Control)
+    control: list[Control] = Field.sequence(expected_type=Control, default=list)
 
-    __elements__ = ('control',)
+    xml_order = ("control",)
 
     def __init__(self,
                  control=(),
                 ):
         self.control = control
-

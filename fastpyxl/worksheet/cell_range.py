@@ -4,9 +4,10 @@ from copy import copy
 from operator import attrgetter
 
 from fastpyxl.descriptors import Strict
-from fastpyxl.descriptors import MinMax
 from fastpyxl.descriptors.sequence import UniqueSequence
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 
 from fastpyxl.utils import (
     range_boundaries,
@@ -14,6 +15,17 @@ from fastpyxl.utils import (
     get_column_letter,
     quote_sheetname,
 )
+
+
+def _int_range(name: str, min_v: int, max_v: int):
+    def _validate(value):
+        if value is None:
+            return
+        if value < min_v or value > max_v:
+            raise FieldValidationError(f"{name} rejected value {value!r}")
+
+    return _validate
+
 
 class CellRange(Serialisable):
     """
@@ -39,10 +51,27 @@ class CellRange(Serialisable):
 
     """
 
-    min_col = MinMax(min=1, max=18278, expected_type=int)
-    min_row = MinMax(min=1, max=1048576, expected_type=int)
-    max_col = MinMax(min=1, max=18278, expected_type=int)
-    max_row = MinMax(min=1, max=1048576, expected_type=int)
+    min_col: int = Field.attribute(
+        expected_type=int,
+        serialize=False,
+        validator=_int_range("min_col", 1, 18278),
+    )
+    min_row: int = Field.attribute(
+        expected_type=int,
+        serialize=False,
+        validator=_int_range("min_row", 1, 1048576),
+    )
+    max_col: int = Field.attribute(
+        expected_type=int,
+        serialize=False,
+        validator=_int_range("max_col", 1, 18278),
+    )
+    max_row: int = Field.attribute(
+        expected_type=int,
+        serialize=False,
+        validator=_int_range("max_row", 1, 1048576),
+    )
+    title: str | None = Field.attribute(expected_type=str, allow_none=True, serialize=False)
 
 
     def __init__(self, range_string=None, min_col=None, min_row=None,
@@ -345,9 +374,7 @@ class CellRange(Serialisable):
         """
         For use as a dictionary elsewhere in the library.
         """
-        for x in self.__attrs__:
-            if x == "title":
-                continue
+        for x in ("min_col", "min_row", "max_col", "max_row"):
             v = getattr(self, x)
             yield x, v
 

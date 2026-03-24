@@ -2,15 +2,9 @@
 
 from fastpyxl.compat import safe_string
 
-from fastpyxl.descriptors import (
-    Typed,
-    Integer,
-    Bool,
-    String,
-    Sequence,
-)
 from fastpyxl.descriptors.excel import ExtensionList
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 from .fills import PatternFill, Fill
 from .fonts import Font
@@ -34,18 +28,21 @@ class NamedStyle(Serialisable):
     Named and editable styles
     """
 
-    font = Typed(expected_type=Font)
-    fill = Typed(expected_type=Fill)
-    border = Typed(expected_type=Border)
-    alignment = Typed(expected_type=Alignment)
-    number_format = NumberFormatDescriptor()
-    protection = Typed(expected_type=Protection)
-    builtinId = Integer(allow_none=True)
-    hidden = Bool(allow_none=True)
-    name = String()
+    tagname = "namedStyle"
+
+    font: Font | None = Field.element(expected_type=Font)
+    fill: Fill | None = Field.element(expected_type=Fill)
+    border: Border | None = Field.element(expected_type=Border)
+    alignment: Alignment | None = Field.element(expected_type=Alignment)
+    number_format: str | None = Field.nested_text(expected_type=str, allow_none=True, xml_name="number_format")
+    protection: Protection | None = Field.element(expected_type=Protection)
+    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str)
     _wb = None
     _style = StyleArray()
 
+    xml_order = ("alignment", "border", "fill", "font", "number_format", "protection")
 
     def __init__(self,
                  name="Normal",
@@ -63,13 +60,14 @@ class NamedStyle(Serialisable):
         self.fill = fill or PatternFill()
         self.border = border or Border()
         self.alignment = alignment or Alignment()
+        if number_format is None:
+            number_format = "General"
         self.number_format = number_format
         self.protection = protection or Protection()
         self.builtinId = builtinId
         self.hidden = hidden
         self._wb = None
         self._style = StyleArray()
-
 
     def __setattr__(self, attr, value):
         super().__setattr__(attr, value)
@@ -78,13 +76,11 @@ class NamedStyle(Serialisable):
             ):
             self._recalculate()
 
-
     def __iter__(self):
         for key in ('name', 'builtinId', 'hidden', 'xfId'):
             value = getattr(self, key, None)
             if value is not None:
                 yield key, safe_string(value)
-
 
     def bind(self, wb):
         """
@@ -92,7 +88,6 @@ class NamedStyle(Serialisable):
         """
         self._wb = wb
         self._recalculate()
-
 
     def _recalculate(self):
         self._style.fontId =  self._wb._fonts.add(self.font)
@@ -108,11 +103,9 @@ class NamedStyle(Serialisable):
                   BUILTIN_FORMATS_MAX_SIZE)
         self._style.numFmtId = fmt
 
-
     def as_tuple(self):
         """Return a style array representing the current style"""
         return self._style
-
 
     def as_xf(self):
         """
@@ -127,7 +120,6 @@ class NamedStyle(Serialisable):
         if self.protection != Protection():
             xf.protection = self.protection
         return xf
-
 
     def as_name(self):
         """
@@ -162,16 +154,13 @@ class NamedStyleList(list):
             s._style.xfId = idx
         super().__init__(iterable)
 
-
     @property
     def names(self):
         return [s.name for s in self]
 
-
     def __getitem__(self, key):
         if isinstance(key, int):
             return super().__getitem__(key)
-
 
         for idx, name in enumerate(self.names):
             if name == key:
@@ -199,16 +188,13 @@ class _NamedCellStyle(Serialisable):
 
     tagname = "cellStyle"
 
-    name = String()
-    xfId = Integer()
-    builtinId = Integer(allow_none=True)
-    iLevel = Integer(allow_none=True)
-    hidden = Bool(allow_none=True)
-    customBuiltin = Bool(allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-
-    __elements__ = ()
-
+    name: str | None = Field.attribute(expected_type=str)
+    xfId: int | None = Field.attribute(expected_type=int)
+    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    iLevel: int | None = Field.attribute(expected_type=int, allow_none=True)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    customBuiltin: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
 
     def __init__(self,
                  name=None,
@@ -225,6 +211,7 @@ class _NamedCellStyle(Serialisable):
         self.iLevel = iLevel
         self.hidden = hidden
         self.customBuiltin = customBuiltin
+        self.extLst = extLst
 
 
 class _NamedCellStyleList(Serialisable):
@@ -236,21 +223,23 @@ class _NamedCellStyleList(Serialisable):
 
     tagname = "cellStyles"
 
-    cellStyle = Sequence(expected_type=_NamedCellStyle)
+    cellStyle: list[_NamedCellStyle] = Field.sequence(expected_type=_NamedCellStyle, default=list)
 
-    __attrs__ = ("count",)
+    xml_order = ("cellStyle",)
 
     def __init__(self,
                  count=None,
                  cellStyle=(),
                 ):
+        del count
         self.cellStyle = cellStyle
-
 
     @property
     def count(self):
         return len(self.cellStyle)
 
+    def __iter__(self):
+        yield "count", str(self.count)
 
     def remove_duplicates(self):
         """

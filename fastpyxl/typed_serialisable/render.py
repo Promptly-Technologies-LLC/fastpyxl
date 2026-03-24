@@ -10,10 +10,10 @@ def namespaced_tag(tag: str, namespace: str | None) -> str:
     return f"{{{namespace}}}{tag}"
 
 
-def nested_value_node(tag: str, value, namespace: str | None = None):
+def nested_value_node(tag: str, value, namespace: str | None = None, value_attribute: str = "val"):
     if value is None:
         return None
-    return Element(namespaced_tag(tag, namespace), {"val": safe_string(value)})
+    return Element(namespaced_tag(tag, namespace), {value_attribute: safe_string(value)})
 
 
 def nested_text_node(tag: str, value, namespace: str | None = None):

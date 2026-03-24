@@ -2,48 +2,40 @@
 
 from collections import OrderedDict
 
-from fastpyxl.descriptors import (
-    Bool,
-    Sequence,
-    Alias,
-    Convertible,
-)
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from .rule import Rule
 
 from fastpyxl.worksheet.cell_range import MultiCellRange
 
+
 class ConditionalFormatting(Serialisable):
 
     tagname = "conditionalFormatting"
 
-    sqref = Convertible(expected_type=MultiCellRange)
-    cells = Alias("sqref")
-    pivot = Bool(allow_none=True)
-    cfRule = Sequence(expected_type=Rule)
-    rules = Alias("cfRule")
-
+    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange)
+    cells = AliasField("sqref")
+    pivot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    cfRule: list[Rule] = Field.sequence(expected_type=Rule, default=list)
+    rules = AliasField("cfRule")
 
     def __init__(self, sqref=(), pivot=None, cfRule=(), extLst=None):
+        del extLst
         self.sqref = sqref
         self.pivot = pivot
         self.cfRule = cfRule
-
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
         return self.sqref == other.sqref
 
-
     def __hash__(self):
         return hash(self.sqref)
 
-
     def __repr__(self):
         return "<{cls} {cells}>".format(cls=self.__class__.__name__, cells=self.sqref)
-
 
     def __contains__(self, coord):
         """
@@ -55,11 +47,9 @@ class ConditionalFormatting(Serialisable):
 class ConditionalFormattingList:
     """Conditional formatting rules."""
 
-
     def __init__(self):
         self._cf_rules = OrderedDict()
         self.max_priority = 0
-
 
     def add(self, range_string, cfRule):
         """Add a rule such as ColorScaleRule, FormulaRule or CellIsRule
@@ -78,20 +68,16 @@ class ConditionalFormattingList:
 
         self._cf_rules.setdefault(cf, []).append(rule)
 
-
     def __bool__(self):
         return bool(self._cf_rules)
 
-
     def __len__(self):
         return len(self._cf_rules)
-
 
     def __iter__(self):
         for cf, rules in self._cf_rules.items():
             cf.rules = rules
             yield cf
-
 
     def __getitem__(self, key):
         """
@@ -101,11 +87,9 @@ class ConditionalFormattingList:
             key = ConditionalFormatting(sqref=key)
         return self._cf_rules[key]
 
-
     def __delitem__(self, key):
         key = ConditionalFormatting(sqref=key)
         del self._cf_rules[key]
-
 
     def __setitem__(self, key, rule):
         """

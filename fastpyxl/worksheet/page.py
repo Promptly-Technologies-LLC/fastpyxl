@@ -1,15 +1,9 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Float,
-    Bool,
-    Integer,
-    NoneSet,
-    )
-from fastpyxl.descriptors.excel import UniversalMeasure, Relation
-from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field
+from fastpyxl.xml.constants import REL_NS
 
 
 class PrintPageSetup(Serialisable):
@@ -17,26 +11,25 @@ class PrintPageSetup(Serialisable):
 
     tagname = "pageSetup"
 
-    orientation = NoneSet(values=("default", "portrait", "landscape"))
-    paperSize = Integer(allow_none=True)
-    scale = Integer(allow_none=True)
-    fitToHeight = Integer(allow_none=True)
-    fitToWidth = Integer(allow_none=True)
-    firstPageNumber = Integer(allow_none=True)
-    useFirstPageNumber = Bool(allow_none=True)
-    paperHeight = UniversalMeasure(allow_none=True)
-    paperWidth = UniversalMeasure(allow_none=True)
-    pageOrder = NoneSet(values=("downThenOver", "overThenDown"))
-    usePrinterDefaults = Bool(allow_none=True)
-    blackAndWhite = Bool(allow_none=True)
-    draft = Bool(allow_none=True)
-    cellComments = NoneSet(values=("asDisplayed", "atEnd"))
-    errors = NoneSet(values=("displayed", "blank", "dash", "NA"))
-    horizontalDpi = Integer(allow_none=True)
-    verticalDpi = Integer(allow_none=True)
-    copies = Integer(allow_none=True)
-    id = Relation()
-
+    orientation: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("default", "portrait", "landscape"), "orientation"))
+    paperSize: int | None = Field.attribute(expected_type=int, allow_none=True)
+    scale: int | None = Field.attribute(expected_type=int, allow_none=True)
+    fitToHeight: int | None = Field.attribute(expected_type=int, allow_none=True)
+    fitToWidth: int | None = Field.attribute(expected_type=int, allow_none=True)
+    firstPageNumber: int | None = Field.attribute(expected_type=int, allow_none=True)
+    useFirstPageNumber: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    paperHeight: str | None = Field.attribute(expected_type=str, allow_none=True)
+    paperWidth: str | None = Field.attribute(expected_type=str, allow_none=True)
+    pageOrder: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("downThenOver", "overThenDown"), "pageOrder"))
+    usePrinterDefaults: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    blackAndWhite: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    draft: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    cellComments: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("asDisplayed", "atEnd", "none"), "cellComments"))
+    errors: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("displayed", "blank", "dash", "NA"), "errors"))
+    horizontalDpi: int | None = Field.attribute(expected_type=int, allow_none=True)
+    verticalDpi: int | None = Field.attribute(expected_type=int, allow_none=True)
+    copies: int | None = Field.attribute(expected_type=int, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
 
     def __init__(self,
                  worksheet=None,
@@ -80,12 +73,8 @@ class PrintPageSetup(Serialisable):
         self.copies = copies
         self.id = id
 
-
     def __bool__(self):
         return bool(dict(self))
-
-
-
 
     @property
     def sheet_properties(self):
@@ -94,26 +83,21 @@ class PrintPageSetup(Serialisable):
         """
         return self._parent.sheet_properties.pageSetUpPr
 
-
     @property
     def fitToPage(self):
         return self.sheet_properties.fitToPage
-
 
     @fitToPage.setter
     def fitToPage(self, value):
         self.sheet_properties.fitToPage = value
 
-
     @property
     def autoPageBreaks(self):
         return self.sheet_properties.autoPageBreaks
 
-
     @autoPageBreaks.setter
     def autoPageBreaks(self, value):
         self.sheet_properties.autoPageBreaks = value
-
 
     @classmethod
     def from_tree(cls, node):
@@ -126,11 +110,11 @@ class PrintOptions(Serialisable):
     """ Worksheet print options """
 
     tagname = "printOptions"
-    horizontalCentered = Bool(allow_none=True)
-    verticalCentered = Bool(allow_none=True)
-    headings = Bool(allow_none=True)
-    gridLines = Bool(allow_none=True)
-    gridLinesSet = Bool(allow_none=True)
+    horizontalCentered: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    verticalCentered: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    headings: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    gridLines: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    gridLinesSet: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self, horizontalCentered=None,
                  verticalCentered=None,
@@ -149,7 +133,7 @@ class PrintOptions(Serialisable):
         return bool(dict(self))
 
 
-class PageMargins(TypedSerialisable):
+class PageMargins(Serialisable):
     """
     Information about page margins for view/print layouts.
     Standard values (in inches)
@@ -174,3 +158,11 @@ class PageMargins(TypedSerialisable):
         self.bottom = bottom
         self.header = header
         self.footer = footer
+
+
+def _enum(value, allowed, field_name):
+    if value is None:
+        return None
+    if value not in allowed:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

@@ -1,11 +1,9 @@
 # Copyright (c) 2010-2024 fastpyxl
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Alias,
-    Sequence,
-)
 
+from __future__ import annotations
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.drawing.text import (
     RichTextProperties,
@@ -17,7 +15,6 @@ from .data_source import StrRef
 
 
 class RichText(Serialisable):
-
     """
     From the specification: 21.2.2.216
 
@@ -26,30 +23,27 @@ class RichText(Serialisable):
 
     tagname = "rich"
 
-    bodyPr = Typed(expected_type=RichTextProperties)
-    properties = Alias("bodyPr")
-    lstStyle = Typed(expected_type=ListStyle, allow_none=True)
-    p = Sequence(expected_type=Paragraph)
-    paragraphs = Alias('p')
+    bodyPr: RichTextProperties | None = Field.element(
+        expected_type=RichTextProperties, allow_none=True
+    )
+    properties = AliasField("bodyPr")
+    lstStyle: ListStyle | None = Field.element(expected_type=ListStyle, allow_none=True)
+    p: list[Paragraph] | None = Field.sequence(expected_type=Paragraph, allow_none=True)
+    paragraphs = AliasField("p")
 
-    __elements__ = ("bodyPr", "lstStyle", "p")
+    xml_order = ("bodyPr", "lstStyle", "p")
 
-    def __init__(self,
-                 bodyPr=None,
-                 lstStyle=None,
-                 p=None,
-                ):
+    def __init__(self, bodyPr=None, lstStyle=None, p=None):
         if bodyPr is None:
             bodyPr = RichTextProperties()
         self.bodyPr = bodyPr
         self.lstStyle = lstStyle
         if p is None:
             p = [Paragraph()]
-        self.p = p
+        self.p = list(p)
 
 
 class Text(Serialisable):
-
     """
     The value can be either a cell reference or a text element
     If both are present then the reference will be used.
@@ -57,22 +51,19 @@ class Text(Serialisable):
 
     tagname = "tx"
 
-    strRef = Typed(expected_type=StrRef, allow_none=True)
-    rich = Typed(expected_type=RichText, allow_none=True)
+    strRef: StrRef | None = Field.element(expected_type=StrRef, allow_none=True)
+    rich: RichText | None = Field.element(expected_type=RichText, allow_none=True)
 
-    __elements__ = ("strRef", "rich")
+    xml_order = ("strRef", "rich")
 
-    def __init__(self,
-                 strRef=None,
-                 rich=None
-                 ):
+    def __init__(self, strRef=None, rich=None):
         self.strRef = strRef
         if rich is None:
             rich = RichText()
         self.rich = rich
 
-
     def to_tree(self, tagname=None, idx=None, namespace=None):
+        del idx, namespace
         if self.strRef and self.rich:
-            self.rich = None # can only have one
-        return super().to_tree(tagname, idx, namespace)
+            self.rich = None
+        return super().to_tree(tagname)

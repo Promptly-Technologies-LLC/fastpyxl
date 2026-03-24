@@ -114,7 +114,12 @@ class Alignment(Serialisable):
 
 
     def __iter__(self):
+        explicit_bool_attrs = ("wrapText", "shrinkToFit", "justifyLastLine")
         for attr in self.__attrs__:
             value = getattr(self, attr)
-            if value is not None and value != 0:
+            if value is None:
+                continue
+            if attr in explicit_bool_attrs:
+                yield attr, safe_string(value)
+            elif value != 0:
                 yield attr, safe_string(value)

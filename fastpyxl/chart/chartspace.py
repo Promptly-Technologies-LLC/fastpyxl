@@ -6,32 +6,28 @@ Enclosing chart object. The various chart types are actually child objects.
 Will probably need to call this indirectly
 """
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    String,
-    Alias,
-)
-from fastpyxl.descriptors.excel import (
-    ExtensionList,
-    Relation
-)
-from fastpyxl.descriptors.nested import (
-    NestedBool,
-    NestedNoneSet,
-    NestedString,
-    NestedMinMax,
-)
-from fastpyxl.descriptors.sequence import NestedSequence
-from fastpyxl.xml.constants import CHART_NS
+from __future__ import annotations
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+
+from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.xml.constants import CHART_NS, REL_NS
 
 from fastpyxl.drawing.colors import ColorMapping
 from .text import RichText
 from .shapes import GraphicalProperties
 from .legend import Legend
-from ._3d import _3DBase
+from ._3d import (
+    FIELD_BACK_WALL,
+    FIELD_FLOOR,
+    FIELD_SIDE_WALL,
+    FIELD_VIEW3D,
+    _3DBase,
+)
 from .plotarea import PlotArea
-from .title import Title
+from .title import Title, title_from_value
 from .pivot import (
     PivotFormat,
     PivotSource,
@@ -39,46 +35,91 @@ from .pivot import (
 from .print_settings import PrintSettings
 
 
-class ChartContainer(Serialisable):
+def _disp_blanks(v):
+    if v is None or v == "none":
+        return None
+    allowed = frozenset({"span", "gap", "zero"})
+    if v not in allowed:
+        raise FieldValidationError(f"dispBlanksAs rejected value {v!r}")
+    return v
 
+
+def _chart_style(v):
+    if v is None:
+        return None
+    try:
+        n = int(v)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"style rejected value {v!r}") from exc
+    if n < 1 or n > 48:
+        raise FieldValidationError(f"style rejected value {v!r}")
+    return n
+
+
+class ChartContainer(Serialisable):
     tagname = "chart"
 
-    title = Typed(expected_type=Title, allow_none=True)
-    autoTitleDeleted = NestedBool(allow_none=True)
-    pivotFmts = NestedSequence(expected_type=PivotFormat)
-    view3D = _3DBase.view3D
-    floor = _3DBase.floor
-    sideWall = _3DBase.sideWall
-    backWall = _3DBase.backWall
-    plotArea = Typed(expected_type=PlotArea, )
-    legend = Typed(expected_type=Legend, allow_none=True)
-    plotVisOnly = NestedBool()
-    dispBlanksAs = NestedNoneSet(values=(['span', 'gap', 'zero']))
-    showDLblsOverMax = NestedBool(allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    title: Title | None = Field.element(
+        expected_type=Title,
+        allow_none=True,
+        converter=title_from_value,
+    )
+    autoTitleDeleted: bool | None = Field.nested_bool(allow_none=True)
+    pivotFmts: list[PivotFormat] | None = Field.nested_sequence(
+        expected_type=PivotFormat,
+        allow_none=True,
+    )
+    view3D = FIELD_VIEW3D
+    floor = FIELD_FLOOR
+    sideWall = FIELD_SIDE_WALL
+    backWall = FIELD_BACK_WALL
+    plotArea: PlotArea | None = Field.element(expected_type=PlotArea, allow_none=True)
+    legend: Legend | None = Field.element(expected_type=Legend, allow_none=True)
+    plotVisOnly: bool | None = Field.nested_bool(allow_none=True, default=True)
+    dispBlanksAs: str | None = Field.nested_value(
+        expected_type=str,
+        allow_none=True,
+        converter=_disp_blanks,
+    )
+    showDLblsOverMax: bool | None = Field.nested_bool(allow_none=True)
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
-    __elements__ = ('title', 'autoTitleDeleted', 'pivotFmts', 'view3D',
-                    'floor', 'sideWall', 'backWall', 'plotArea', 'legend', 'plotVisOnly',
-                    'dispBlanksAs', 'showDLblsOverMax')
+    xml_order = (
+        "title",
+        "autoTitleDeleted",
+        "pivotFmts",
+        "view3D",
+        "floor",
+        "sideWall",
+        "backWall",
+        "plotArea",
+        "legend",
+        "plotVisOnly",
+        "dispBlanksAs",
+        "showDLblsOverMax",
+    )
 
-    def __init__(self,
-                 title=None,
-                 autoTitleDeleted=None,
-                 pivotFmts=(),
-                 view3D=None,
-                 floor=None,
-                 sideWall=None,
-                 backWall=None,
-                 plotArea=None,
-                 legend=None,
-                 plotVisOnly=True,
-                 dispBlanksAs="gap",
-                 showDLblsOverMax=None,
-                 extLst=None,
-                ):
-        self.title = title
+    def __init__(
+        self,
+        title=None,
+        autoTitleDeleted=None,
+        pivotFmts=(),
+        view3D=None,
+        floor=None,
+        sideWall=None,
+        backWall=None,
+        plotArea=None,
+        legend=None,
+        plotVisOnly=True,
+        dispBlanksAs="gap",
+        showDLblsOverMax=None,
+        extLst=None,
+    ):
+        self.title = title_from_value(title) if title is not None else None
         self.autoTitleDeleted = autoTitleDeleted
-        self.pivotFmts = pivotFmts
+        self.pivotFmts = list(pivotFmts) if pivotFmts is not None else []
         self.view3D = view3D
         self.floor = floor
         self.sideWall = sideWall
@@ -90,27 +131,34 @@ class ChartContainer(Serialisable):
         self.plotVisOnly = plotVisOnly
         self.dispBlanksAs = dispBlanksAs
         self.showDLblsOverMax = showDLblsOverMax
+        self.extLst = extLst
 
 
 class Protection(Serialisable):
-
     tagname = "protection"
 
-    chartObject = NestedBool(allow_none=True)
-    data = NestedBool(allow_none=True)
-    formatting = NestedBool(allow_none=True)
-    selection = NestedBool(allow_none=True)
-    userInterface = NestedBool(allow_none=True)
+    chartObject: bool | None = Field.nested_bool(allow_none=True)
+    data: bool | None = Field.nested_bool(allow_none=True)
+    formatting: bool | None = Field.nested_bool(allow_none=True)
+    selection: bool | None = Field.nested_bool(allow_none=True)
+    userInterface: bool | None = Field.nested_bool(allow_none=True)
 
-    __elements__ = ("chartObject", "data", "formatting", "selection", "userInterface")
+    xml_order = (
+        "chartObject",
+        "data",
+        "formatting",
+        "selection",
+        "userInterface",
+    )
 
-    def __init__(self,
-                 chartObject=None,
-                 data=None,
-                 formatting=None,
-                 selection=None,
-                 userInterface=None,
-                ):
+    def __init__(
+        self,
+        chartObject=None,
+        data=None,
+        formatting=None,
+        selection=None,
+        userInterface=None,
+    ):
         self.chartObject = chartObject
         self.data = data
         self.formatting = formatting
@@ -119,61 +167,95 @@ class Protection(Serialisable):
 
 
 class ExternalData(Serialisable):
-
     tagname = "externalData"
 
-    autoUpdate = NestedBool(allow_none=True)
-    id = String() # Needs namespace
+    autoUpdate: bool | None = Field.nested_bool(allow_none=True)
+    id: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        namespace=REL_NS,
+    )
 
-    def __init__(self,
-                 autoUpdate=None,
-                 id=None
-                ):
+    def __init__(self, autoUpdate=None, id=None):
         self.autoUpdate = autoUpdate
         self.id = id
 
 
 class ChartSpace(Serialisable):
-
     tagname = "chartSpace"
 
-    date1904 = NestedBool(allow_none=True)
-    lang = NestedString(allow_none=True)
-    roundedCorners = NestedBool(allow_none=True)
-    style = NestedMinMax(allow_none=True, min=1, max=48)
-    clrMapOvr = Typed(expected_type=ColorMapping, allow_none=True)
-    pivotSource = Typed(expected_type=PivotSource, allow_none=True)
-    protection = Typed(expected_type=Protection, allow_none=True)
-    chart = Typed(expected_type=ChartContainer)
-    spPr = Typed(expected_type=GraphicalProperties, allow_none=True)
-    graphical_properties = Alias("spPr")
-    txPr = Typed(expected_type=RichText, allow_none=True)
-    textProperties = Alias("txPr")
-    externalData = Typed(expected_type=ExternalData, allow_none=True)
-    printSettings = Typed(expected_type=PrintSettings, allow_none=True)
-    userShapes = Relation()
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    date1904: bool | None = Field.nested_bool(allow_none=True)
+    lang: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    roundedCorners: bool | None = Field.nested_bool(allow_none=True)
+    style: int | None = Field.nested_value(
+        expected_type=int,
+        allow_none=True,
+        converter=_chart_style,
+    )
+    clrMapOvr: ColorMapping | None = Field.element(
+        expected_type=ColorMapping, allow_none=True
+    )
+    pivotSource: PivotSource | None = Field.element(
+        expected_type=PivotSource, allow_none=True
+    )
+    protection: Protection | None = Field.element(
+        expected_type=Protection, allow_none=True
+    )
+    chart: ChartContainer | None = Field.element(expected_type=ChartContainer)
+    spPr: GraphicalProperties | None = Field.element(
+        expected_type=GraphicalProperties, allow_none=True
+    )
+    graphical_properties = AliasField("spPr")
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
+    textProperties = AliasField("txPr")
+    externalData: ExternalData | None = Field.element(
+        expected_type=ExternalData, allow_none=True
+    )
+    printSettings: PrintSettings | None = Field.element(
+        expected_type=PrintSettings, allow_none=True
+    )
+    userShapes: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        namespace=REL_NS,
+    )
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
-    __elements__ = ('date1904', 'lang', 'roundedCorners', 'style',
-                    'clrMapOvr', 'pivotSource', 'protection', 'chart', 'spPr', 'txPr',
-                    'externalData', 'printSettings', 'userShapes')
+    xml_order = (
+        "date1904",
+        "lang",
+        "roundedCorners",
+        "style",
+        "clrMapOvr",
+        "pivotSource",
+        "protection",
+        "chart",
+        "spPr",
+        "txPr",
+        "externalData",
+        "printSettings",
+        "userShapes",
+    )
 
-    def __init__(self,
-                 date1904=None,
-                 lang=None,
-                 roundedCorners=None,
-                 style=None,
-                 clrMapOvr=None,
-                 pivotSource=None,
-                 protection=None,
-                 chart=None,
-                 spPr=None,
-                 txPr=None,
-                 externalData=None,
-                 printSettings=None,
-                 userShapes=None,
-                 extLst=None,
-                ):
+    def __init__(
+        self,
+        date1904=None,
+        lang=None,
+        roundedCorners=None,
+        style=None,
+        clrMapOvr=None,
+        pivotSource=None,
+        protection=None,
+        chart=None,
+        spPr=None,
+        txPr=None,
+        externalData=None,
+        printSettings=None,
+        userShapes=None,
+        extLst=None,
+    ):
         self.date1904 = date1904
         self.lang = lang
         self.roundedCorners = roundedCorners
@@ -187,9 +269,10 @@ class ChartSpace(Serialisable):
         self.externalData = externalData
         self.printSettings = printSettings
         self.userShapes = userShapes
-
+        self.extLst = extLst
 
     def to_tree(self, tagname=None, idx=None, namespace=None):
+        del tagname, idx, namespace
         tree = super().to_tree()
         tree.set("xmlns", CHART_NS)
         return tree

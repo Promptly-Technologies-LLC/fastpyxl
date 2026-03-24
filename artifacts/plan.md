@@ -472,96 +472,98 @@ Use four deliberately different classes spanning four packages:
 
 Bulk migration starts only after the pilot passes.
 
-### Wave 4A: Foundation models
+**Phase 4 closeout (done):** Foundation, styles core, and the drawing *spine* are largely on `fastpyxl.typed_serialisable`. Some files are **hybrid** (typed and legacy `Serialisable` subclasses in the same module). A slice of work originally listed under Phase 5A (drawing composites) was completed while unblocking primitives and integration tests.
 
-Targets:
-- `fastpyxl/descriptors/excel.py`
-- `fastpyxl/packaging/*`
-- simple `workbook` models
-- simple `chartsheet` models
+### Wave 4A: Foundation models — status
 
-Reason:
-- low fan-out complexity
-- heavily reused by other models
+**Delivered**
 
-### Wave 4B: Styles core
+- `fastpyxl/packaging/` — typed migration for core document properties, relationships, manifest, extended/core metadata, custom property XML layer; hybrid where noted below.
+- `fastpyxl/workbook/` — simple workbook XML models (properties, views, protection, defined names, external link, smart tags, function groups, etc.) on typed `Serialisable`.
+- `fastpyxl/chartsheet/` — chartsheet-facing models migrated; **no** remaining `from fastpyxl.descriptors.serialisable import Serialisable` in `chartsheet/` as of Phase 4 closeout.
 
-Targets:
-- `styles/alignment.py`
-- `styles/protection.py`
-- `styles/numbers.py`
-- `styles/colors.py`
-- `styles/borders.py`
-- `styles/fills.py`
-- `styles/fonts.py`
-- `styles/table.py`
-- `styles/differential.py`
-- `styles/cell_style.py`
+**Still open (carry to Phase 5C or later)**
 
-Note: `styles/stylesheet.py` is deferred to Wave 5C because it depends on `workbook` and `formatting` models. Do not include it here.
+- `fastpyxl/packaging/workbook.py` — helper types (`ChildSheet`, `PivotCache`, `FileRecoveryProperties`, …) are typed; **`WorkbookPackage` remains legacy `Serialisable`** (root package type).
+- `fastpyxl/descriptors/excel.py` — still the home of **descriptor** helpers (`Relation`, etc.); not a “typed Serialisable migration” target in the same sense as leaf models. Revisit only if the plan later inlines or replaces these.
 
-Reason:
-- contained subsystem
-- exercises aliases, validators, nested children, and registry-adjacent behavior
+### Wave 4B: Styles core — status
 
-### Wave 4C: Drawing primitives
+**Delivered**
 
-Targets:
-- `drawing/geometry.py`
-- `drawing/colors.py`
-- `drawing/effect.py`
-- `drawing/fill.py`
-- `drawing/line.py`
-- `drawing/properties.py`
+- `styles/alignment.py`, `protection.py`, `numbers.py`, `colors.py`, `borders.py`, `fills.py`, `fonts.py`, `table.py`, `differential.py`, `cell_style.py` — migrated to typed fields.
 
-Reason:
-- large class count
-- feeds chart and worksheet rendering
-- mostly pure XML model work
+**Explicitly deferred (unchanged)**
 
-### Exit gate per wave
+- `styles/stylesheet.py` — still legacy; depends on workbook/formatting/cell integration (Phase 5C).
+- `styles/named_styles.py` — still legacy (Phase 5C / adjacent).
 
-- all module-level goldens pass
-- all package tests pass
-- no regression beyond benchmark threshold
-- every migrated module entered the wave with failing tests already in place
+### Wave 4C: Drawing primitives — status
+
+**Delivered (module-level typed migration)**
+
+- `drawing/fill.py`, `drawing/line.py`, `drawing/properties.py`, `drawing/relation.py`, `drawing/xdr.py` — on typed `Serialisable` (with `xml_order` / validators where needed).
+
+**Hybrid: high-value types typed, remainder still legacy `Serialisable` in-file**
+
+- `drawing/geometry.py` — **typed:** `Point2D`, `PositiveSize2D`, `Transform2D`, `GroupTransform2D`. **Still legacy:** 3D/path/preset geometry, `ShapeStyle`, `FontReference`, and related types (large tail). *Schedule: continue as Phase 5A/5B prep or a dedicated “drawing tail” pass.*
+- `drawing/colors.py` — **typed:** `HSLColor`, `RGBPercent`, `ColorChoice`. **Still legacy:** e.g. `Transform`, `SystemColor`, `SchemeColor`, `ColorMapping`, …
+- `drawing/effect.py` — **typed:** most effect list / shadow / blur stack used by charts and fills. **Still legacy:** e.g. `HSLEffect`, `FillOverlayEffect`, `DuotoneEffect`, `ColorReplaceEffect`, `Color`, several alpha helper effects.
+
+**Completed early (was Phase 5A on the old plan)**
+
+To avoid a compatibility layer and to fix class-level descriptor access, these were migrated during Phase 4:
+
+- `drawing/graphic.py`, `drawing/connector.py`, `drawing/picture.py`, `drawing/spreadsheet_drawing.py`
+
+### Phase 4 tests added
+
+- `typed_serialisable/tests/test_phase4_styles_core_migration.py`
+- `typed_serialisable/tests/test_phase4_foundation_models_migration.py`
+- `typed_serialisable/tests/test_phase4_drawing_primitives_migration.py`
+- (pilot / Phase 3 adjacent) `test_phase3_*`, `test_element_converter_support.py`
+
+### Exit gate per wave (Phase 4)
+
+- Targeted regression tests and smoke checks for migrated classes pass.
+- Full “all goldens / all package tests” remains the **Phase 5–6** bar until CI is run with pytest on the full tree.
+
+---
 
 ## Phase 5: Interior Model Waves
 
-These waves depend on migrated foundations.
+These waves depend on migrated foundations. **Several drawing composite files are already done;** the lists below are **what remains**, not the original aspirational targets.
 
-### Wave 5A: Drawing composites
+### Wave 5A: Drawing composites — remaining
 
-Targets:
-- `drawing/text.py`
-- `drawing/graphic.py`
-- `drawing/connector.py`
-- `drawing/picture.py`
-- `drawing/spreadsheet_drawing.py`
+**Delivered (Phase 5 closeout)**
+
+- `drawing/text.py` — fully on `fastpyxl.typed_serialisable.base.Serialisable` (no remaining legacy `Serialisable` subclasses in-file; `OfficeArtExtensionList` remains a legacy *referenced* type for interop). Chart `RichText` / `Text` continue to compose these models via legacy `Typed` fields.
+
+**Already completed (during Phase 4)**
+
+- `drawing/graphic.py`, `drawing/connector.py`, `drawing/picture.py`, `drawing/spreadsheet_drawing.py`, `drawing/relation.py`, `drawing/xdr.py` (coordinate with `drawing/text.py` when migrating rich text).
 
 ### Wave 5B: Chart models
 
-Targets:
-- `chart/*`
-- `chartsheet/*`
+**Delivered**
 
-Reason:
-- depends on drawing and style primitives
-- contains many aliases and ordered element groups
+- `chart/*` production modules use `fastpyxl.typed_serialisable.base.Serialisable` with `Field` / `AliasField`; legacy `ExtensionList` and related types from `fastpyxl.descriptors.excel` remain referenced where needed for interop.
+- Regression coverage: `fastpyxl/chart/tests/`, `fastpyxl/typed_serialisable/tests/test_phase5b_chart_migration.py`.
+
+**Chartsheet**
+
+- `chartsheet/*` — **migrated in Phase 4**; further chart-*sheet* work is mostly chart package integration, not duplicating chartsheet XML models.
 
 ### Wave 5C: Workbook / worksheet / comments / formatting / cell / stylesheet
 
-Targets:
-- `workbook/*`
-- `worksheet/*`
-- `comments/*`
-- `formatting/*`
-- `cell/*`
-- `styles/stylesheet.py` (deferred from Wave 4B due to `workbook`/`formatting` dependencies)
+**Delivered**
 
-Reason:
-- broad integration surface
-- must be done after styles and drawing foundations are stable
+- `worksheet/*` production modules (including previously hybrid `worksheet/page.py`) now use `fastpyxl.typed_serialisable.base.Serialisable` with `Field` / `AliasField`; non-model utility classes remain unchanged where appropriate.
+- `comments/*`, `formatting/*`, and `cell/text.py` migrated to typed `Serialisable`, including behavior-parity handling for value coercion, XML namespace attributes, and selective serialization (`serialize=False`) where needed.
+- `styles/named_styles.py` and `styles/stylesheet.py` migrated to typed `Serialisable` while preserving style binding and workbook integration behavior.
+- `packaging/workbook.py` `WorkbookPackage` and nested workbook models migrated to typed `Serialisable` with relationship namespace parity.
+- Regression coverage expanded with `typed_serialisable/tests/test_phase5c_workbook_worksheet_migration.py`, plus targeted suites across worksheet/styles/formatting/comments/cell.
 
 ### Exit gate per wave
 
@@ -574,9 +576,11 @@ Reason:
 
 Leave the hardest modules for last.
 
+**Note:** `pivot/cache.py` may already contain **pilot / partial** typed migrations (e.g. nested-sequence patterns); treat the file as **hybrid** until a full pass removes legacy `Serialisable` subclasses.
+
 ### Primary targets
 
-- `pivot/cache.py`
+- `pivot/cache.py` (complete any remaining legacy classes)
 - `pivot/table.py`
 - `pivot/record.py`
 - any remaining `MultiSequence` users

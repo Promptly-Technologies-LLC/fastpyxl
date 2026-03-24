@@ -4,17 +4,9 @@ from collections import defaultdict
 from itertools import chain
 from operator import itemgetter
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Bool,
-    NoneSet,
-    String,
-    Sequence,
-    Alias,
-    Integer,
-    Convertible,
-)
-from fastpyxl.descriptors.nested import NestedText
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.utils import (
     rows_from_range,
@@ -75,33 +67,47 @@ class DataValidation(Serialisable):
 
     tagname = "dataValidation"
 
-    sqref = Convertible(expected_type=MultiCellRange)
-    cells = Alias("sqref")
-    ranges = Alias("sqref")
+    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange)
+    cells = AliasField("sqref")
+    ranges = AliasField("sqref")
 
-    showDropDown = Bool(allow_none=True)
-    hide_drop_down = Alias('showDropDown')
-    showInputMessage = Bool(allow_none=True)
-    showErrorMessage = Bool(allow_none=True)
-    allowBlank = Bool(allow_none=True)
-    allow_blank = Alias('allowBlank')
+    showDropDown: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    hide_drop_down = AliasField('showDropDown')
+    showInputMessage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showErrorMessage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    allowBlank: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    allow_blank = AliasField('allowBlank')
 
-    errorTitle = String(allow_none = True)
-    error = String(allow_none = True)
-    promptTitle = String(allow_none = True)
-    prompt = String(allow_none = True)
-    formula1 = NestedText(allow_none=True, expected_type=str)
-    formula2 = NestedText(allow_none=True, expected_type=str)
+    errorTitle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    error: str | None = Field.attribute(expected_type=str, allow_none=True)
+    promptTitle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    prompt: str | None = Field.attribute(expected_type=str, allow_none=True)
+    formula1: str | None = Field.nested_text(allow_none=True, expected_type=str)
+    formula2: str | None = Field.nested_text(allow_none=True, expected_type=str)
 
-    type = NoneSet(values=("whole", "decimal", "list", "date", "time",
-                           "textLength", "custom"))
-    errorStyle = NoneSet(values=("stop", "warning", "information"))
-    imeMode = NoneSet(values=("noControl", "off", "on", "disabled",
-                              "hiragana", "fullKatakana", "halfKatakana", "fullAlpha","halfAlpha",
-                              "fullHangul", "halfHangul"))
-    operator = NoneSet(values=("between", "notBetween", "equal", "notEqual",
-                               "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"))
-    validation_type = Alias('type')
+    type: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("whole", "decimal", "list", "date", "time", "textLength", "custom"), "type"),
+    )
+    errorStyle: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("stop", "warning", "information"), "errorStyle"),
+    )
+    imeMode: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("noControl", "off", "on", "disabled", "hiragana", "fullKatakana", "halfKatakana", "fullAlpha", "halfAlpha", "fullHangul", "halfHangul"), "imeMode"),
+    )
+    operator: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"), "operator"),
+    )
+    validation_type = AliasField('type')
+
+    xml_order = ("formula1", "formula2")
 
     def __init__(self,
                  type=None,
@@ -139,13 +145,11 @@ class DataValidation(Serialisable):
         self.prompt = prompt
         self.errorTitle = errorTitle
 
-
     def add(self, cell):
         """Adds a cell or cell coordinate to this validator"""
         if hasattr(cell, "coordinate"):
             cell = cell.coordinate
         self.sqref += cell
-
 
     def __contains__(self, cell):
         if hasattr(cell, "coordinate"):
@@ -157,13 +161,10 @@ class DataValidationList(Serialisable):
 
     tagname = "dataValidations"
 
-    disablePrompts = Bool(allow_none=True)
-    xWindow = Integer(allow_none=True)
-    yWindow = Integer(allow_none=True)
-    dataValidation = Sequence(expected_type=DataValidation)
-
-    __elements__ = ('dataValidation',)
-    __attrs__ = ('disablePrompts', 'xWindow', 'yWindow', 'count')
+    disablePrompts: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
+    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
+    dataValidation: list[DataValidation] = Field.sequence(expected_type=DataValidation, default=list)
 
     def __init__(self,
                  disablePrompts=None,
@@ -172,31 +173,41 @@ class DataValidationList(Serialisable):
                  count=None,
                  dataValidation=(),
                 ):
+        del count
         self.disablePrompts = disablePrompts
         self.xWindow = xWindow
         self.yWindow = yWindow
         self.dataValidation = dataValidation
 
-
     @property
     def count(self):
         return len(self)
 
-
     def __len__(self):
         return len(self.dataValidation)
 
+    def __iter__(self):
+        for k, v in super().__iter__():
+            yield k, v
+        yield 'count', str(self.count)
 
     def append(self, dv):
         self.dataValidation.append(dv)
 
-
-    def to_tree(self, tagname=None):
+    def to_tree(self, tagname=None, idx=None, namespace=None):
         """
         Need to skip validations that have no cell ranges
         """
         ranges = self.dataValidation # copy
         self.dataValidation = [r for r in self.dataValidation if bool(r.sqref)]
-        xml = super().to_tree(tagname)
+        xml = super().to_tree(tagname, idx, namespace)
         self.dataValidation = ranges
         return xml
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

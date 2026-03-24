@@ -1,77 +1,92 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Integer,
-    String,
-    Set,
-    Bool,
-    Sequence,
-)
-
 from fastpyxl.drawing.spreadsheet_drawing import AnchorMarker
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.xml.constants import SHEET_DRAWING_NS
+
+
+def _enum_converter(value, allowed, field_name):
+    if value is None:
+        return None
+    if value not in allowed:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
 
 
 class ObjectAnchor(Serialisable):
 
     tagname = "anchor"
 
-    _from = Typed(expected_type=AnchorMarker, namespace=SHEET_DRAWING_NS)
-    to = Typed(expected_type=AnchorMarker, namespace=SHEET_DRAWING_NS)
-    moveWithCells = Bool(allow_none=True)
-    sizeWithCells = Bool(allow_none=True)
-    z_order = Integer(allow_none=True, hyphenated=True)
+    _from: AnchorMarker | None = Field.element(
+        expected_type=AnchorMarker, allow_none=True, xml_name="from", namespace=SHEET_DRAWING_NS
+    )
+    to: AnchorMarker | None = Field.element(
+        expected_type=AnchorMarker, allow_none=True, namespace=SHEET_DRAWING_NS
+    )
+    moveWithCells: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sizeWithCells: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    z_order: int | None = Field.attribute(expected_type=int, allow_none=True, hyphenated=True)
 
+    xml_order = ("_from", "to")
 
-    def __init__(self,
-                 _from=None,
-                 to=None,
-                 moveWithCells=False,
-                 sizeWithCells=False,
-                 z_order=None,
-                ):
+    def __init__(
+        self,
+        _from=None,
+        to=None,
+        moveWithCells=False,
+        sizeWithCells=False,
+        z_order=None,
+    ):
         self._from = _from
         self.to = to
         self.moveWithCells = moveWithCells
         self.sizeWithCells = sizeWithCells
         self.z_order = z_order
 
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        if self._from is not None:
+            self._from.namespace = SHEET_DRAWING_NS
+        if self.to is not None:
+            self.to.namespace = SHEET_DRAWING_NS
+        return super().to_tree(tagname, idx, namespace)
+
 
 class ObjectPr(Serialisable):
 
     tagname = "objectPr"
 
-    anchor = Typed(expected_type=ObjectAnchor, )
-    locked = Bool(allow_none=True)
-    defaultSize = Bool(allow_none=True)
-    _print = Bool(allow_none=True)
-    disabled = Bool(allow_none=True)
-    uiObject = Bool(allow_none=True)
-    autoFill = Bool(allow_none=True)
-    autoLine = Bool(allow_none=True)
-    autoPict = Bool(allow_none=True)
-    macro = String()
-    altText = String(allow_none=True)
-    dde = Bool(allow_none=True)
+    anchor: ObjectAnchor | None = Field.element(expected_type=ObjectAnchor, allow_none=True)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    _print: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name="print")
+    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoPict: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
+    altText: str | None = Field.attribute(expected_type=str, allow_none=True)
+    dde: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('anchor',)
+    xml_order = ("anchor",)
 
-    def __init__(self,
-                 anchor=None,
-                 locked=True,
-                 defaultSize=True,
-                 _print=True,
-                 disabled=False,
-                 uiObject=False,
-                 autoFill=True,
-                 autoLine=True,
-                 autoPict=True,
-                 macro=None,
-                 altText=None,
-                 dde=False,
-                ):
+    def __init__(
+        self,
+        anchor=None,
+        locked=True,
+        defaultSize=True,
+        _print=True,
+        disabled=False,
+        uiObject=False,
+        autoFill=True,
+        autoLine=True,
+        autoPict=True,
+        macro=None,
+        altText=None,
+        dde=False,
+    ):
         self.anchor = anchor
         self.locked = locked
         self.defaultSize = defaultSize
@@ -90,25 +105,34 @@ class OleObject(Serialisable):
 
     tagname = "oleObject"
 
-    objectPr = Typed(expected_type=ObjectPr, allow_none=True)
-    progId = String(allow_none=True)
-    dvAspect = Set(values=(['DVASPECT_CONTENT', 'DVASPECT_ICON']))
-    link = String(allow_none=True)
-    oleUpdate = Set(values=(['OLEUPDATE_ALWAYS', 'OLEUPDATE_ONCALL']))
-    autoLoad = Bool(allow_none=True)
-    shapeId = Integer()
+    objectPr: ObjectPr | None = Field.element(expected_type=ObjectPr, allow_none=True)
+    progId: str | None = Field.attribute(expected_type=str, allow_none=True)
+    dvAspect: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("DVASPECT_CONTENT", "DVASPECT_ICON"), "dvAspect"),
+    )
+    link: str | None = Field.attribute(expected_type=str, allow_none=True)
+    oleUpdate: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ("OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"), "oleUpdate"),
+    )
+    autoLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True)
 
-    __elements__ = ('objectPr',)
+    xml_order = ("objectPr",)
 
-    def __init__(self,
-                 objectPr=None,
-                 progId=None,
-                 dvAspect='DVASPECT_CONTENT',
-                 link=None,
-                 oleUpdate=None,
-                 autoLoad=False,
-                 shapeId=None,
-                ):
+    def __init__(
+        self,
+        objectPr=None,
+        progId=None,
+        dvAspect="DVASPECT_CONTENT",
+        link=None,
+        oleUpdate=None,
+        autoLoad=False,
+        shapeId=None,
+    ):
         self.objectPr = objectPr
         self.progId = progId
         self.dvAspect = dvAspect
@@ -122,12 +146,12 @@ class OleObjects(Serialisable):
 
     tagname = "oleObjects"
 
-    oleObject = Sequence(expected_type=OleObject)
+    oleObject: list[OleObject] = Field.sequence(expected_type=OleObject, default=list)
 
-    __elements__ = ('oleObject',)
+    xml_order = ("oleObject",)
 
-    def __init__(self,
-                 oleObject=(),
-                ):
+    def __init__(
+        self,
+        oleObject=(),
+    ):
         self.oleObject = oleObject
-

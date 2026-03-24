@@ -1,18 +1,13 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from __future__ import annotations
+
 from collections import OrderedDict
 from operator import attrgetter
 
-from fastpyxl.descriptors import (
-    Typed,
-    Integer,
-    Alias,
-    MinMax,
-    Bool,
-    Set,
-)
-from fastpyxl.descriptors.sequence import ValueSequence
-from fastpyxl.descriptors.serialisable import Serialisable
+from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from ._3d import _3DBase
 from .data_source import AxDataSource, NumRef
@@ -22,108 +17,144 @@ from .reference import Reference
 from .series_factory import SeriesFactory
 from .series import attribute_mapping
 from .shapes import GraphicalProperties
-from .title import TitleDescriptor
-
-class AxId(Serialisable):
-
-    val = Integer()
-
-    def __init__(self, val):
-        self.val = val
+from .title import title_from_value
 
 
 def PlotArea():
-    from .chartspace import PlotArea
+    from .plotarea import PlotArea
+
     return PlotArea()
 
 
 class ChartBase(Serialisable):
-
     """
     Base class for all charts
     """
 
-    legend = Typed(expected_type=Legend, allow_none=True)
-    layout = Typed(expected_type=Layout, allow_none=True)
-    roundedCorners = Bool(allow_none=True)
-    axId = ValueSequence(expected_type=int)
-    visible_cells_only = Bool(allow_none=True)
-    display_blanks = Set(values=['span', 'gap', 'zero'])
-    graphical_properties = Typed(expected_type=GraphicalProperties, allow_none=True)
+    _plot_xml_tag: str | None = None
+
+    display_blanks: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        default="gap",
+        xml_name="display_blanks",
+    )
+    visible_cells_only: bool | None = Field.attribute(
+        expected_type=bool,
+        allow_none=True,
+        default=True,
+        xml_name="visible_cells_only",
+    )
+
+    axId: list[int] | None = Field.sequence(
+        expected_type=int,
+        allow_none=True,
+        primitive_attribute="val",
+        default=list,
+    )
 
     _series_type = ""
-    ser = ()
-    series = Alias('ser')
-    title = TitleDescriptor()
-    anchor = "E15" # default anchor position
-    width = 15 # in cm, approx 5 rows
-    height = 7.5 # in cm, approx 14 rows
+    series = AliasField("ser")
+
+    anchor = "E15"
+    width = 15
+    height = 7.5
     _id = 1
     _path = "/xl/charts/chart{0}.xml"
-    style = MinMax(allow_none=True, min=1, max=48)
     mime_type = "application/vnd.openxmlformats-officedocument.drawingml.chart+xml"
-    graphical_properties = Typed(expected_type=GraphicalProperties, allow_none=True) # mapped to chartspace
-
-    __elements__ = ()
-
 
     def __init__(self, axId=(), **kw):
+        object.__init__(self)
         self._charts = [self]
-        self.title = None
+        self._title = None
         self.layout = None
         self.roundedCorners = None
         self.legend = Legend()
         self.graphical_properties = None
         self.style = None
         self.plot_area = PlotArea()
-        self.axId = axId
-        self.display_blanks = 'gap'
+        self.axId = list(axId)
         self.pivotSource = None
         self.pivotFormats = ()
-        self.visible_cells_only = True
         self.idx_base = 0
-        self.graphical_properties = None
-        super().__init__()
+        self.display_blanks = "gap"
+        self.visible_cells_only = True
+        for key, value in kw.items():
+            setattr(self, key, value)
+        if not hasattr(self, "ser"):
+            self.ser = []
+        if self._axes and not self.axId:
+            self.axId = list(self._axes.keys())
 
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, value):
+        self._title = title_from_value(value)
+
+    def __iter__(self):
+        for attr in self.__attrs__:
+            if type(self) is not ChartBase and attr in (
+                "display_blanks",
+                "visible_cells_only",
+            ):
+                continue
+            field = self.__fields__[attr]
+            value = getattr(self, attr)
+            if value is None:
+                continue
+            xml_attr = field.tag
+            if xml_attr.startswith("_"):
+                xml_attr = xml_attr[1:]
+            if field.hyphenated:
+                xml_attr = xml_attr.replace("_", "-")
+            if attr == "visible_cells_only":
+                yield xml_attr, "1" if value else "0"
+            else:
+                yield xml_attr, safe_string(value)
 
     def __hash__(self):
-        """
-        Just need to check for identity
-        """
         return id(self)
 
     def __iadd__(self, other):
-        """
-        Combine the chart with another one
-        """
         if not isinstance(other, ChartBase):
             raise TypeError("Only other charts can be added")
         self._charts.append(other)
         return self
 
-
-    def to_tree(self, namespace=None, tagname=None, idx=None):
-        self.axId = [id for id in self._axes]
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        del idx
+        self.axId = [i for i in self._axes]
         if self.ser is not None:
             for s in self.ser:
                 s.__elements__ = attribute_mapping[self._series_type]
-        return super().to_tree(tagname, idx)
-
+        resolved = tagname
+        if resolved is None:
+            cls = type(self)
+            own_tn = cls.__dict__.get("tagname")
+            if isinstance(own_tn, str):
+                resolved = own_tn
+            elif cls is ChartBase:
+                pt = getattr(ChartBase, "_plot_xml_tag", None)
+                if pt:
+                    resolved = pt
+                else:
+                    raise NotImplementedError
+            else:
+                resolved = self.tagname
+        return super(ChartBase, self).to_tree(resolved, None, namespace)
 
     def _reindex(self):
-        """
-        Normalise and rebase series: sort by order and then rebase order
-
-        """
-        # sort data series in order and rebase
         ds = sorted(self.series, key=attrgetter("order"))
         for idx, s in enumerate(ds):
             s.order = idx
         self.series = ds
 
-
     def _write(self):
         from .chartspace import ChartSpace, ChartContainer
+
         self.plot_area.layout = self.layout
 
         idx_base = self.idx_base
@@ -133,7 +164,10 @@ class ChartBase(Serialisable):
                 idx_base += len(chart.series)
         self.plot_area._charts = self._charts
 
-        container = ChartContainer(plotArea=self.plot_area, legend=self.legend, title=self.title)
+        chart = self._charts[-1]
+        container = ChartContainer(
+            plotArea=self.plot_area, legend=self.legend, title=self.title
+        )
         if isinstance(chart, _3DBase):
             container.view3D = chart.view3D
             container.floor = chart.floor
@@ -149,7 +183,6 @@ class ChartBase(Serialisable):
         cs.spPr = self.graphical_properties
         return cs.to_tree()
 
-
     @property
     def _axes(self):
         x = getattr(self, "x_axis", None)
@@ -157,28 +190,18 @@ class ChartBase(Serialisable):
         z = getattr(self, "z_axis", None)
         return OrderedDict([(axis.axId, axis) for axis in (x, y, z) if axis])
 
-
     def set_categories(self, labels):
-        """
-        Set the categories / x-axis values
-        """
         if not isinstance(labels, Reference):
             labels = Reference(range_string=labels)
         for s in self.ser:
             s.cat = AxDataSource(numRef=NumRef(f=labels))
 
-
     def add_data(self, data, from_rows=False, titles_from_data=False):
-        """
-        Add a range of data in a single pass.
-        The default is to treat each column as a data series.
-        """
         if not isinstance(data, Reference):
             data = Reference(range_string=data)
 
         if from_rows:
             values = data.rows
-
         else:
             values = data.cols
 
@@ -186,13 +209,10 @@ class ChartBase(Serialisable):
             series = SeriesFactory(ref, title_from_data=titles_from_data)
             self.series.append(series)
 
-
     def append(self, value):
-        """Append a data series to the chart"""
         series_list = self.series[:]
         series_list.append(value)
         self.series = series_list
-
 
     @property
     def path(self):

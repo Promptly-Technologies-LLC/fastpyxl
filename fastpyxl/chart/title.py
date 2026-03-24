@@ -1,13 +1,11 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Alias,
-)
+from __future__ import annotations
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.descriptors.excel import ExtensionList
-from fastpyxl.descriptors.nested import NestedBool
 
 from .text import Text, RichText
 from .layout import Layout
@@ -24,26 +22,31 @@ from fastpyxl.drawing.text import (
 class Title(Serialisable):
     tagname = "title"
 
-    tx = Typed(expected_type=Text, allow_none=True)
-    text = Alias('tx')
-    layout = Typed(expected_type=Layout, allow_none=True)
-    overlay = NestedBool(allow_none=True)
-    spPr = Typed(expected_type=GraphicalProperties, allow_none=True)
-    graphicalProperties = Alias('spPr')
-    txPr = Typed(expected_type=RichText, allow_none=True)
-    body = Alias('txPr')
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    tx: Text | None = Field.element(expected_type=Text, allow_none=True)
+    text = AliasField("tx")
+    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True)
+    overlay: bool | None = Field.nested_bool(allow_none=True)
+    spPr: GraphicalProperties | None = Field.element(
+        expected_type=GraphicalProperties, allow_none=True
+    )
+    graphicalProperties = AliasField("spPr")
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
+    body = AliasField("txPr")
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
-    __elements__ = ('tx', 'layout', 'overlay', 'spPr', 'txPr')
+    xml_order = ("tx", "layout", "overlay", "spPr", "txPr")
 
-    def __init__(self,
-                 tx=None,
-                 layout=None,
-                 overlay=None,
-                 spPr=None,
-                 txPr=None,
-                 extLst=None,
-                ):
+    def __init__(
+        self,
+        tx=None,
+        layout=None,
+        overlay=None,
+        spPr=None,
+        txPr=None,
+        extLst=None,
+    ):
         if tx is None:
             tx = Text()
         self.tx = tx
@@ -51,7 +54,7 @@ class Title(Serialisable):
         self.overlay = overlay
         self.spPr = spPr
         self.txPr = txPr
-
+        self.extLst = extLst
 
 
 def title_maker(text):
@@ -64,12 +67,9 @@ def title_maker(text):
     return title
 
 
-class TitleDescriptor(Typed):
-
-    expected_type = Title
-    allow_none = True
-
-    def __set__(self, instance, value):
-        if isinstance(value, str):
-            value = title_maker(value)
-        super().__set__(instance, value)
+def title_from_value(value):
+    if value is None:
+        return None
+    if isinstance(value, str):
+        return title_maker(value)
+    return value

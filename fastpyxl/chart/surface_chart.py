@@ -1,112 +1,97 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Alias,
-    Sequence,
-)
+from __future__ import annotations
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+
 from fastpyxl.descriptors.excel import ExtensionList
-from fastpyxl.descriptors.nested import (
-    NestedInteger,
-    NestedBool,
-)
 
 from ._chart import ChartBase
-from ._3d import _3DBase
+from ._3d import (
+    FIELD_BACK_WALL_ON_CHART,
+    FIELD_FLOOR_ON_CHART,
+    FIELD_SIDE_WALL_ON_CHART,
+    FIELD_VIEW3D_ON_CHART,
+    _3DBase,
+)
 from .axis import TextAxis, NumericAxis, SeriesAxis
 from .shapes import GraphicalProperties
 from .series import Series
 
 
 class BandFormat(Serialisable):
-
     tagname = "bandFmt"
 
-    idx = NestedInteger()
-    spPr = Typed(expected_type=GraphicalProperties, allow_none=True)
-    graphicalProperties = Alias("spPr")
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    spPr: GraphicalProperties | None = Field.element(
+        expected_type=GraphicalProperties, allow_none=True
+    )
+    graphicalProperties = AliasField("spPr")
 
-    __elements__ = ('idx', 'spPr')
+    xml_order = ("idx", "spPr")
 
-    def __init__(self,
-                 idx=0,
-                 spPr=None,
-                ):
+    def __init__(self, idx=0, spPr=None):
         self.idx = idx
         self.spPr = spPr
 
 
 class BandFormatList(Serialisable):
-
     tagname = "bandFmts"
 
-    bandFmt = Sequence(expected_type=BandFormat, allow_none=True)
+    bandFmt: list[BandFormat] | None = Field.sequence(
+        expected_type=BandFormat, allow_none=True
+    )
 
-    __elements__ = ('bandFmt',)
+    xml_order = ("bandFmt",)
 
-    def __init__(self,
-                 bandFmt=(),
-                ):
-        self.bandFmt = bandFmt
+    def __init__(self, bandFmt=()):
+        self.bandFmt = list(bandFmt) if bandFmt is not None else []
 
 
 class _SurfaceChartBase(ChartBase):
-
-    wireframe = NestedBool(allow_none=True)
-    ser = Sequence(expected_type=Series, allow_none=True)
-    bandFmts = Typed(expected_type=BandFormatList, allow_none=True)
+    wireframe: bool | None = Field.nested_bool(allow_none=True)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    bandFmts: BandFormatList | None = Field.element(
+        expected_type=BandFormatList, allow_none=True
+    )
 
     _series_type = "surface"
 
-    __elements__ = ('wireframe', 'ser', 'bandFmts')
+    xml_order = ("wireframe", "ser", "bandFmts")
 
-    def __init__(self,
-                 wireframe=None,
-                 ser=(),
-                 bandFmts=None,
-                 **kw
-                ):
+    def __init__(self, wireframe=None, ser=(), bandFmts=None, **kw):
         self.wireframe = wireframe
-        self.ser = ser
+        self.ser = list(ser) if ser is not None else []
         self.bandFmts = bandFmts
         super().__init__(**kw)
 
 
 class SurfaceChart3D(_SurfaceChartBase, _3DBase):
-
     tagname = "surface3DChart"
 
-    wireframe = _SurfaceChartBase.wireframe
-    ser = _SurfaceChartBase.ser
-    bandFmts = _SurfaceChartBase.bandFmts
+    view3D = FIELD_VIEW3D_ON_CHART
+    floor = FIELD_FLOOR_ON_CHART
+    sideWall = FIELD_SIDE_WALL_ON_CHART
+    backWall = FIELD_BACK_WALL_ON_CHART
 
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList, allow_none=True, serialize=False
+    )
 
-    x_axis = Typed(expected_type=TextAxis)
-    y_axis = Typed(expected_type=NumericAxis)
-    z_axis = Typed(expected_type=SeriesAxis)
+    xml_order = _SurfaceChartBase.xml_order + ("axId",)
 
-    __elements__ = _SurfaceChartBase.__elements__ + ('axId',)
-
-    def __init__(self, **kw):
+    def __init__(self, extLst=None, **kw):
+        self.extLst = extLst
         self.x_axis = TextAxis()
         self.y_axis = NumericAxis()
         self.z_axis = SeriesAxis()
-        super(SurfaceChart3D, self).__init__(**kw)
+        _SurfaceChartBase.__init__(self, **kw)
+        _3DBase.__init__(self)
 
 
 class SurfaceChart(SurfaceChart3D):
-
     tagname = "surfaceChart"
-
-    wireframe = _SurfaceChartBase.wireframe
-    ser = _SurfaceChartBase.ser
-    bandFmts = _SurfaceChartBase.bandFmts
-
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-
-    __elements__ = SurfaceChart3D.__elements__
 
     def __init__(self, **kw):
         super().__init__(**kw)

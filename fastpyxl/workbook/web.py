@@ -36,7 +36,10 @@ class WebPublishObjectList(Serialisable):
 
     tagname ="webPublishingObjects"
 
-    webPublishObject: list[WebPublishObject] = Field.sequence(expected_type=WebPublishObject)
+    webPublishObject: list[WebPublishObject] = Field.sequence(
+        expected_type=WebPublishObject,
+        xml_name="webPublishingObject",
+    )
     xml_order = ('webPublishObject',)
 
     def __init__(self,

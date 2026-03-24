@@ -48,7 +48,7 @@ class LineEndProperties(Serialisable):
 class DashStop(Serialisable):
 
     tagname = "ds"
-    namespace = DRAWING_NS
+    namespace = None
 
     d: int | None = Field.attribute(expected_type=int, allow_none=True)
     length = AliasField('d')
@@ -97,6 +97,14 @@ class _Miter(Serialisable):
         self.lim = lim
 
 
+def _line_no_fill_coerce(value):
+    if value is True:
+        return _NoFill()
+    if value in (False, None):
+        return None
+    return value
+
+
 def _enum_converter(value, allowed_values, field_name: str):
     if value is None:
         return None
@@ -132,7 +140,11 @@ class LineProperties(Serialisable):
         converter=lambda v: _enum_converter(v, ("ctr", "in"), "algn"),
     )
 
-    noFill: _NoFill | None = Field.element(expected_type=_NoFill, allow_none=True)
+    noFill: _NoFill | None = Field.element(
+        expected_type=_NoFill,
+        allow_none=True,
+        converter=_line_no_fill_coerce,
+    )
     solidFill: ColorChoice | None = Field.element(expected_type=ColorChoice, allow_none=True)
     gradFill: GradientFillProperties | None = Field.element(expected_type=GradientFillProperties, allow_none=True)
     pattFill: PatternFillProperties | None = Field.element(expected_type=PatternFillProperties, allow_none=True)
@@ -201,6 +213,10 @@ class LineProperties(Serialisable):
 def _range_converter(value, minimum: int, maximum: int, field_name: str):
     if value is None:
         return None
-    if not minimum <= value <= maximum:
+    try:
+        numeric = int(value)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
+    if not minimum <= numeric <= maximum:
         raise FieldValidationError(f"{field_name} rejected value {value!r}")
-    return value
+    return numeric

@@ -81,12 +81,15 @@ class MetaSerialisable(type):
             if field.namespace:
                 namespaced.append((field.name, namespaced_tag(field.tag, field.namespace)))
             if field.kind == "attribute":
-                attrs.append(field.name)
+                if field.serialize:
+                    attrs.append(field.name)
             elif field.kind in {"nested_value", "nested_text", "nested_bool"}:
-                nested.append(field.name)
-                elements.append(field.name)
+                if field.serialize:
+                    nested.append(field.name)
+                    elements.append(field.name)
             else:
-                elements.append(field.name)
+                if field.serialize:
+                    elements.append(field.name)
 
         cls.__attrs__ = tuple(attrs)
         cls.__nested__ = tuple(nested)
@@ -229,7 +232,7 @@ class Serialisable(metaclass=MetaSerialisable):
                 continue
 
             if field.kind == "nested_value":
-                obj = child.get("val")
+                obj = child.get(field.value_attribute)
             elif field.kind == "nested_text":
                 obj = child.text
             elif field.kind == "nested_bool":
@@ -239,6 +242,10 @@ class Serialisable(metaclass=MetaSerialisable):
             elif field.kind == "sequence":
                 if field.sequence_item_is_model:
                     obj = field.expected_type.from_tree(child)
+                elif field.sequence_primitive_attribute:
+                    obj = child.get(field.sequence_primitive_attribute)
+                    if obj is not None and not field.sequence_item_is_model:
+                        obj = _convert_scalar(field.expected_type, obj)
                 else:
                     obj = child.text
                 attrib.setdefault(field.name, [])
@@ -289,7 +296,9 @@ class Serialisable(metaclass=MetaSerialisable):
                 if field.renderer is not None:
                     node = field.renderer(tag, value, field.namespace or namespace)
                 else:
-                    node = nested_value_node(tag, value, field.namespace or namespace)
+                    node = nested_value_node(
+                        tag, value, field.namespace or namespace, field.value_attribute
+                    )
                 if node is not None:
                     root.append(node)
             elif field.kind == "nested_text":
@@ -308,16 +317,23 @@ class Serialisable(metaclass=MetaSerialisable):
                     root.append(node)
             elif field.kind == "element":
                 if value is not None:
-                    root.append(value.to_tree(tag))
+                    node = value.to_tree(tag)
+                    if node is not None:
+                        root.append(node)
             elif field.kind == "sequence":
                 if value is None:
                     continue
-                for item in value:
+                pattr = field.sequence_primitive_attribute
+                idx_base = getattr(self, "idx_base", 0)
+                for idx, item in enumerate(value, idx_base):
                     if supports_to_tree(item):
-                        root.append(item.to_tree(tag))
+                        root.append(item.to_tree(tag, idx))
                     else:
                         el = Element(namespaced_tag(tag, field.namespace or namespace))
-                        el.text = safe_string(item)
+                        if pattr is not None:
+                            el.set(pattr, safe_string(item))
+                        else:
+                            el.text = safe_string(item)
                         root.append(el)
             elif field.kind == "nested_sequence":
                 if not value:
@@ -361,7 +377,7 @@ class Serialisable(metaclass=MetaSerialisable):
     def __hash__(self):
         vals = []
         for attr in self.__attrs__ + self.__elements__:
-            v = getattr(self, attr)
+            v = getattr(self, attr, None)
             if isinstance(v, list):
                 v = tuple(v)
             vals.append(v)

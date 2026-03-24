@@ -353,3 +353,16 @@ class TestStyleMaterialization:
         assert wb2.active["A1"].font.name == "Courier"
         assert wb2.active["A1"].font.size == 11
 
+    def test_named_style_registration_deferred_until_save(self, Workbook):
+        from fastpyxl.styles import NamedStyle
+
+        wb = Workbook()
+        cell = wb.active["A1"]
+        before = len(wb._named_styles)
+        cell.style = NamedStyle(name="SaveDeferred")
+        assert len(wb._named_styles) == before
+
+        buf = BytesIO()
+        wb.save(buf)
+        assert any(ns.name == "SaveDeferred" for ns in wb._named_styles)
+

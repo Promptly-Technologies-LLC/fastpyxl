@@ -52,7 +52,7 @@ class ChartBase(Serialisable):
     )
 
     _series_type = ""
-    series = AliasField("ser")
+    series = AliasField("ser", default=None)
 
     anchor = "E15"
     width = 15

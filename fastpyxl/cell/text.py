@@ -102,16 +102,16 @@ class PhoneticProperties(Serialisable):
 
     tagname = "phoneticPr"
 
-    fontId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    fontId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     type: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_phonetic_type_converter,
+        converter=_phonetic_type_converter, default=None,
     )
     alignment: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_phonetic_alignment_converter,
+        converter=_phonetic_alignment_converter, default=None,
     )
 
     def __init__(
@@ -129,10 +129,10 @@ class PhoneticText(Serialisable):
 
     tagname = "rPh"
 
-    sb: int | None = Field.attribute(expected_type=int, allow_none=True)
-    eb: int | None = Field.attribute(expected_type=int, allow_none=True)
-    t: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    text: str | None = AliasField("t")
+    sb: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    eb: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    t: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    text: str | None = AliasField("t", default=None)
 
     def __init__(
         self,
@@ -170,40 +170,40 @@ class InlineFont(Serialisable):
         "scheme",
     )
 
-    rFont: str | None = Field.nested_value(expected_type=str, allow_none=True)
-    charset: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    rFont: str | None = Field.nested_value(expected_type=str, allow_none=True, default=None)
+    charset: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     family: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=_family_converter,
+        converter=_family_converter, default=None,
     )
-    b: bool | None = Field.nested_bool(renderer=_no_value)
-    i: bool | None = Field.nested_bool(renderer=_no_value)
-    strike: bool | None = Field.nested_bool(allow_none=True)
-    outline: bool | None = Field.nested_bool(allow_none=True)
-    shadow: bool | None = Field.nested_bool(allow_none=True)
-    condense: bool | None = Field.nested_bool(allow_none=True)
-    extend: bool | None = Field.nested_bool(allow_none=True)
+    b: bool | None = Field.nested_bool(renderer=_no_value, default=None)
+    i: bool | None = Field.nested_bool(renderer=_no_value, default=None)
+    strike: bool | None = Field.nested_bool(allow_none=True, default=None)
+    outline: bool | None = Field.nested_bool(allow_none=True, default=None)
+    shadow: bool | None = Field.nested_bool(allow_none=True, default=None)
+    condense: bool | None = Field.nested_bool(allow_none=True, default=None)
+    extend: bool | None = Field.nested_bool(allow_none=True, default=None)
     color: Color | None = Field.element(
         expected_type=Color,
         allow_none=True,
-        converter=_color_converter,
+        converter=_color_converter, default=None,
     )
-    sz: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    sz: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     u: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_underline_converter,
+        converter=_underline_converter, default=None,
     )
     vertAlign: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_vert_align_converter,
+        converter=_vert_align_converter, default=None,
     )
     scheme: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_scheme_converter,
+        converter=_scheme_converter, default=None,
     )
 
     def __init__(
@@ -252,10 +252,10 @@ class RichText(Serialisable):
 
     tagname = "RElt"
 
-    rPr: InlineFont | None = Field.element(expected_type=InlineFont, allow_none=True)
-    font: InlineFont | None = AliasField("rPr")
-    t: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    text: str | None = AliasField("t")
+    rPr: InlineFont | None = Field.element(expected_type=InlineFont, allow_none=True, default=None)
+    font: InlineFont | None = AliasField("rPr", default=None)
+    t: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    text: str | None = AliasField("t", default=None)
 
     xml_order = ("rPr", "t")
 
@@ -274,16 +274,16 @@ class Text(Serialisable):
 
     xml_order = ("t", "r", "rPh", "phoneticPr")
 
-    t: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    plain: str | None = AliasField("t")
+    t: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    plain: str | None = AliasField("t", default=None)
     r: list[RichText] = Field.sequence(expected_type=RichText, default=list)
-    formatted = AliasField("r")
+    formatted = AliasField("r", default=None)
     rPh: list[PhoneticText] = Field.sequence(expected_type=PhoneticText, default=list)
-    phonetic = AliasField("rPh")
+    phonetic = AliasField("rPh", default=None)
     phoneticPr: PhoneticProperties | None = Field.element(
-        expected_type=PhoneticProperties, allow_none=True
+        expected_type=PhoneticProperties, allow_none=True, default=None
     )
-    PhoneticProperties = AliasField("phoneticPr")
+    PhoneticProperties = AliasField("phoneticPr", default=None)
 
     def __init__(
         self,

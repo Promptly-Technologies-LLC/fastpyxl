@@ -14,8 +14,8 @@ from .geometry import ShapeStyle
 
 class Connection(Serialisable):
 
-    id: int | None = Field.attribute(expected_type=int, allow_none=True)
-    idx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    idx: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  id=None,
@@ -27,7 +27,7 @@ class Connection(Serialisable):
 
 class ConnectorLocking(Serialisable):
 
-    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  extLst=None,
@@ -37,10 +37,10 @@ class ConnectorLocking(Serialisable):
 
 class NonVisualConnectorProperties(Serialisable):
 
-    cxnSpLocks: ConnectorLocking | None = Field.element(expected_type=ConnectorLocking, allow_none=True)
-    stCxn: Connection | None = Field.element(expected_type=Connection, allow_none=True)
-    endCxn: Connection | None = Field.element(expected_type=Connection, allow_none=True)
-    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    cxnSpLocks: ConnectorLocking | None = Field.element(expected_type=ConnectorLocking, allow_none=True, default=None)
+    stCxn: Connection | None = Field.element(expected_type=Connection, allow_none=True, default=None)
+    endCxn: Connection | None = Field.element(expected_type=Connection, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  cxnSpLocks=None,
@@ -56,10 +56,10 @@ class NonVisualConnectorProperties(Serialisable):
 
 class ConnectorNonVisual(Serialisable):
 
-    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True)
+    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True, default=None)
     cNvCxnSpPr: NonVisualConnectorProperties | None = Field.element(
         expected_type=NonVisualConnectorProperties,
-        allow_none=True,
+        allow_none=True, default=None,
     )
 
     xml_order = ("cNvPr", "cNvCxnSpPr")
@@ -76,11 +76,11 @@ class ConnectorShape(Serialisable):
 
     tagname = "cxnSp"
 
-    nvCxnSpPr: ConnectorNonVisual | None = Field.element(expected_type=ConnectorNonVisual, allow_none=True)
-    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True)
-    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True)
-    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
-    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    nvCxnSpPr: ConnectorNonVisual | None = Field.element(expected_type=ConnectorNonVisual, allow_none=True, default=None)
+    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True, default=None)
+    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True, default=None)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("nvCxnSpPr", "spPr", "style")
 
@@ -102,8 +102,8 @@ class ShapeMeta(Serialisable):
 
     tagname = "nvSpPr"
 
-    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True)
-    cNvSpPr: NonVisualDrawingShapeProps | None = Field.element(expected_type=NonVisualDrawingShapeProps, allow_none=True)
+    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True, default=None)
+    cNvSpPr: NonVisualDrawingShapeProps | None = Field.element(expected_type=NonVisualDrawingShapeProps, allow_none=True, default=None)
 
     xml_order = ("cNvPr", "cNvSpPr")
 
@@ -114,16 +114,16 @@ class ShapeMeta(Serialisable):
 
 class Shape(Serialisable):
 
-    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
-    textlink: str | None = Field.attribute(expected_type=str, allow_none=True)
-    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    fLocksText: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    nvSpPr: ShapeMeta | None = Field.element(expected_type=ShapeMeta, allow_none=True)
-    meta = AliasField("nvSpPr")
-    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True)
-    graphicalProperties = AliasField("spPr")
-    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True)
-    txBody: RichText | None = Field.element(expected_type=RichText, allow_none=True)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    textlink: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    fLocksText: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    nvSpPr: ShapeMeta | None = Field.element(expected_type=ShapeMeta, allow_none=True, default=None)
+    meta = AliasField("nvSpPr", default=None)
+    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True, default=None)
+    graphicalProperties = AliasField("spPr", default=None)
+    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True, default=None)
+    txBody: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
 
     xml_order = ("nvSpPr", "spPr", "style", "txBody")
 

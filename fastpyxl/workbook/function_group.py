@@ -7,7 +7,7 @@ class FunctionGroup(Serialisable):
 
     tagname = "functionGroup"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  name=None,
@@ -19,8 +19,8 @@ class FunctionGroupList(Serialisable):
 
     tagname = "functionGroups"
 
-    builtInGroupCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    functionGroup: list[FunctionGroup] | None = Field.sequence(expected_type=FunctionGroup, allow_none=True)
+    builtInGroupCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    functionGroup: list[FunctionGroup] | None = Field.sequence(expected_type=FunctionGroup, allow_none=True, default=list)
     xml_order = ("functionGroup",)
 
     def __init__(self,

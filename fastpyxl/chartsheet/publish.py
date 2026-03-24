@@ -8,8 +8,8 @@ from fastpyxl.typed_serialisable.fields import Field
 class WebPublishItem(Serialisable):
     tagname = "webPublishItem"
 
-    id: int | None = Field.attribute(expected_type=int, allow_none=True)
-    divId: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    divId: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     sourceType: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
@@ -17,13 +17,13 @@ class WebPublishItem(Serialisable):
             v,
             ("sheet", "printArea", "autoFilter", "range", "chart", "pivotTable", "query", "label"),
             "sourceType",
-        ),
+        ), default=None,
     )
-    sourceRef: str | None = Field.attribute(expected_type=str, allow_none=True)
-    sourceObject: str | None = Field.attribute(expected_type=str, allow_none=True)
-    destinationFile: str | None = Field.attribute(expected_type=str, allow_none=True)
-    title: str | None = Field.attribute(expected_type=str, allow_none=True)
-    autoRepublish: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sourceRef: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    sourceObject: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    destinationFile: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    title: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    autoRepublish: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self,
                  id=None,
@@ -48,7 +48,7 @@ class WebPublishItem(Serialisable):
 class WebPublishItems(Serialisable):
     tagname = "WebPublishItems"
 
-    webPublishItem: list[WebPublishItem] = Field.sequence(expected_type=WebPublishItem)
+    webPublishItem: list[WebPublishItem] = Field.sequence(expected_type=WebPublishItem, default=list)
     xml_order = ("webPublishItem",)
 
     def __init__(self,

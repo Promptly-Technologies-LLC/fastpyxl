@@ -5,7 +5,7 @@ description = "A high-performance Python library to read/write Excel 2010 xlsx/x
 readme = "README.rst"
 license = "MIT"
 license-files = ["LICENCE.rst"]
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 authors = [
     { name = "See AUTHORS", email = "charlie.clark@clark-consulting.eu" },
 ]
@@ -15,9 +15,6 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -68,7 +65,7 @@ ignore = ["E402", "E501", "E101"]
 
 [tool.ty.rules]
 # Phase 8: enabled invalid-assignment, unresolved-attribute, invalid-argument-type,
-# unsupported-operator (via python-version=3.10), not-iterable, not-subscriptable,
+# unsupported-operator (via python-version), not-iterable, not-subscriptable,
 # call-non-callable, no-matching-overload, index-out-of-bounds.
 # Optional deps (lxml, defusedxml) and legacy pytest (py.path) lack type stubs
 unresolved-import = "ignore"
@@ -76,10 +73,9 @@ unresolved-import = "ignore"
 invalid-method-override = "ignore"
 # Python 2 compat code wrapped in try/except
 unresolved-reference = "ignore"
-
 [tool.ty.environment]
-# Use 3.10+ so PEP 604 unions (`int | None`) type-check; runtime still supports 3.8 via typing_extensions / __future__ where needed.
-python-version = "3.10"
+# Serialisable uses @dataclass_transform; under 3.11, ty enforces dataclass field order unless Field/AliasField calls pass explicit default=.
+python-version = "3.11"
 # Optional dependencies that may not be installed
 extra-paths = []
 

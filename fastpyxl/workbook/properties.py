@@ -9,33 +9,33 @@ class WorkbookProperties(Serialisable):
 
     tagname = "workbookPr"
 
-    date1904: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    dateCompatibility: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    date1904: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    dateCompatibility: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     showObjects: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("all", "placeholders"), "showObjects"),
+        converter=lambda v: _enum_converter(v, ("all", "placeholders"), "showObjects"), default=None,
     )
-    showBorderUnselectedTables: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    filterPrivacy: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    promptedSolutions: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showInkAnnotation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    backupFile: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    saveExternalLinkValues: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showBorderUnselectedTables: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    filterPrivacy: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    promptedSolutions: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showInkAnnotation: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    backupFile: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    saveExternalLinkValues: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     updateLinks: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("userSet", "never", "always"), "updateLinks"),
+        converter=lambda v: _enum_converter(v, ("userSet", "never", "always"), "updateLinks"), default=None,
     )
-    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    hidePivotFieldList: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showPivotChartFilter: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    allowRefreshQuery: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    publishItems: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    checkCompatibility: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoCompressPictures: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    refreshAllConnections: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    defaultThemeVersion: int | None = Field.attribute(expected_type=int, allow_none=True)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    hidePivotFieldList: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showPivotChartFilter: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    allowRefreshQuery: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    publishItems: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    checkCompatibility: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoCompressPictures: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    refreshAllConnections: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    defaultThemeVersion: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  date1904=None,
@@ -87,23 +87,23 @@ class CalcProperties(Serialisable):
     calcMode: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("manual", "auto", "autoNoTable"), "calcMode"),
+        converter=lambda v: _enum_converter(v, ("manual", "auto", "autoNoTable"), "calcMode"), default=None,
     )
-    fullCalcOnLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    fullCalcOnLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     refMode: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("A1", "R1C1"), "refMode"),
+        converter=lambda v: _enum_converter(v, ("A1", "R1C1"), "refMode"), default=None,
     )
-    iterate: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    iterateCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    iterateDelta: float | None = Field.attribute(expected_type=float, allow_none=True)
-    fullPrecision: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    calcCompleted: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    calcOnSave: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    concurrentCalc: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    concurrentManualCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    forceFullCalc: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    iterate: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    iterateCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    iterateDelta: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    fullPrecision: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    calcCompleted: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    calcOnSave: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    concurrentCalc: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    concurrentManualCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    forceFullCalc: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self,
                  calcId=124519,
@@ -139,11 +139,11 @@ class FileVersion(Serialisable):
 
     tagname = "fileVersion"
 
-    appName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    lastEdited: str | None = Field.attribute(expected_type=str, allow_none=True)
-    lowestEdited: str | None = Field.attribute(expected_type=str, allow_none=True)
-    rupBuild: str | None = Field.attribute(expected_type=str, allow_none=True)
-    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
+    appName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    lastEdited: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    lowestEdited: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    rupBuild: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  appName=None,

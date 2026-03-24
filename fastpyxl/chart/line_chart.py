@@ -34,15 +34,15 @@ class _LineChartBase(ChartBase):
     grouping: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_line_grouping,
+        converter=_line_grouping, default=None,
     )
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
-    dropLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
+    dataLabels = AliasField("dLbls", default=None)
+    dropLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
 
     xml_order = ("grouping", "varyColors", "ser", "dLbls", "dropLines")
 
@@ -68,12 +68,12 @@ class _LineChartBase(ChartBase):
 class LineChart(_LineChartBase):
     tagname = "lineChart"
 
-    hiLowLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
-    upDownBars: UpDownBars | None = Field.element(expected_type=UpDownBars, allow_none=True)
-    marker: bool | None = Field.nested_bool(allow_none=True)
-    smooth: bool | None = Field.nested_bool(allow_none=True)
+    hiLowLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
+    upDownBars: UpDownBars | None = Field.element(expected_type=UpDownBars, allow_none=True, default=None)
+    marker: bool | None = Field.nested_bool(allow_none=True, default=None)
+    smooth: bool | None = Field.nested_bool(allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _LineChartBase.xml_order + (
@@ -114,12 +114,12 @@ class LineChart3D(_LineChartBase, _3DBase):
     backWall = FIELD_BACK_WALL_ON_CHART
 
     gapDepth = NestedGapAmount
-    hiLowLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
-    upDownBars: UpDownBars | None = Field.element(expected_type=UpDownBars, allow_none=True)
-    marker: bool | None = Field.nested_bool(allow_none=True)
-    smooth: bool | None = Field.nested_bool(allow_none=True)
+    hiLowLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
+    upDownBars: UpDownBars | None = Field.element(expected_type=UpDownBars, allow_none=True, default=None)
+    marker: bool | None = Field.nested_bool(allow_none=True, default=None)
+    smooth: bool | None = Field.nested_bool(allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _LineChartBase.xml_order + (

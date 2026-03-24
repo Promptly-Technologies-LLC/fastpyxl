@@ -8,9 +8,9 @@ from fastpyxl.typed_serialisable.fields import Field
 class ChartsheetProperties(Serialisable):
     tagname = "sheetPr"
 
-    published: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    tabColor: Color | None = Field.element(expected_type=Color, allow_none=True)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    tabColor: Color | None = Field.element(expected_type=Color, allow_none=True, default=None)
     xml_order = ("tabColor",)
 
     def __init__(self,

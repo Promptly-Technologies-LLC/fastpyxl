@@ -9,7 +9,7 @@ class AuthorList(Serialisable):
     tagname = "authors"
 
     author: list[str] = Field.sequence(expected_type=str, default=list)
-    authors = AliasField("author")
+    authors = AliasField("author", default=None)
 
     def __init__(
         self,

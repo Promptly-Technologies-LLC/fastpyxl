@@ -21,10 +21,10 @@ class FileRecoveryProperties(Serialisable):
 
     tagname = "fileRecoveryPr"
 
-    autoRecover: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    crashSave: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    dataExtractLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    repairLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoRecover: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    crashSave: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    dataExtractLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    repairLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self,
                  autoRecover=None,
@@ -48,14 +48,14 @@ class ChildSheet(Serialisable):
 
     tagname = "sheet"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     state: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "state"),
+        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "state"), default=None,
     )
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     def __init__(self,
                  name=None,
@@ -73,8 +73,8 @@ class PivotCache(Serialisable):
 
     tagname = "pivotCache"
 
-    cacheId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    cacheId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     def __init__(self,
                  cacheId=None,
@@ -94,43 +94,43 @@ class WorkbookPackage(Serialisable):
     conformance: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("strict", "transitional"), "conformance"),
+        converter=lambda v: _enum_converter(v, ("strict", "transitional"), "conformance"), default=None,
     )
-    fileVersion: FileVersion | None = Field.element(expected_type=FileVersion, allow_none=True)
-    fileSharing: FileSharing | None = Field.element(expected_type=FileSharing, allow_none=True)
-    workbookPr: WorkbookProperties | None = Field.element(expected_type=WorkbookProperties, allow_none=True)
-    properties = AliasField("workbookPr")
+    fileVersion: FileVersion | None = Field.element(expected_type=FileVersion, allow_none=True, default=None)
+    fileSharing: FileSharing | None = Field.element(expected_type=FileSharing, allow_none=True, default=None)
+    workbookPr: WorkbookProperties | None = Field.element(expected_type=WorkbookProperties, allow_none=True, default=None)
+    properties = AliasField("workbookPr", default=None)
     workbookProtection: WorkbookProtection | None = Field.element(
-        expected_type=WorkbookProtection, allow_none=True
+        expected_type=WorkbookProtection, allow_none=True, default=None
     )
     bookViews: list[BookView] = Field.nested_sequence(expected_type=BookView, default=list)
     sheets: list[ChildSheet] = Field.nested_sequence(expected_type=ChildSheet, default=list)
-    functionGroups: FunctionGroupList | None = Field.element(expected_type=FunctionGroupList, allow_none=True)
+    functionGroups: FunctionGroupList | None = Field.element(expected_type=FunctionGroupList, allow_none=True, default=None)
     externalReferences: list[ExternalReference] = Field.nested_sequence(
         expected_type=ExternalReference, default=list
     )
-    definedNames: DefinedNameList | None = Field.element(expected_type=DefinedNameList, allow_none=True)
-    calcPr: CalcProperties | None = Field.element(expected_type=CalcProperties, allow_none=True)
-    oleSize: str | None = Field.nested_value(expected_type=str, allow_none=True, value_attribute="ref")
+    definedNames: DefinedNameList | None = Field.element(expected_type=DefinedNameList, allow_none=True, default=None)
+    calcPr: CalcProperties | None = Field.element(expected_type=CalcProperties, allow_none=True, default=None)
+    oleSize: str | None = Field.nested_value(expected_type=str, allow_none=True, value_attribute="ref", default=None)
     customWorkbookViews: list[CustomWorkbookView] = Field.nested_sequence(
         expected_type=CustomWorkbookView, default=list
     )
     pivotCaches: list[PivotCache] = Field.nested_sequence(expected_type=PivotCache, allow_none=True, default=list)
-    smartTagPr: SmartTagProperties | None = Field.element(expected_type=SmartTagProperties, allow_none=True)
-    smartTagTypes: SmartTagList | None = Field.element(expected_type=SmartTagList, allow_none=True)
-    webPublishing: WebPublishing | None = Field.element(expected_type=WebPublishing, allow_none=True)
+    smartTagPr: SmartTagProperties | None = Field.element(expected_type=SmartTagProperties, allow_none=True, default=None)
+    smartTagTypes: SmartTagList | None = Field.element(expected_type=SmartTagList, allow_none=True, default=None)
+    webPublishing: WebPublishing | None = Field.element(expected_type=WebPublishing, allow_none=True, default=None)
     fileRecoveryPr: FileRecoveryProperties | None = Field.element(
-        expected_type=FileRecoveryProperties, allow_none=True
+        expected_type=FileRecoveryProperties, allow_none=True, default=None
     )
     webPublishObjects: WebPublishObjectList | None = Field.element(
-        expected_type=WebPublishObjectList, allow_none=True
+        expected_type=WebPublishObjectList, allow_none=True, default=None
     )
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
     Ignorable: str | None = Field.nested_value(
         expected_type=str,
         namespace="http://schemas.openxmlformats.org/markup-compatibility/2006",
         allow_none=True,
-        serialize=False,
+        serialize=False, default=None,
     )
 
     xml_order = (

@@ -31,13 +31,13 @@ def _overlap(v):
 NestedGapAmount = Field.nested_value(
     expected_type=float,
     allow_none=True,
-    converter=_gap_amount,
+    converter=_gap_amount, default=None,
 )
 
 NestedOverlap = Field.nested_value(
     expected_type=float,
     allow_none=True,
-    converter=_overlap,
+    converter=_overlap, default=None,
 )
 
 

@@ -69,17 +69,17 @@ class Color(Serialisable):
     rgb: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _rgb_converter(v, "rgb"),
+        converter=lambda v: _rgb_converter(v, "rgb"), default=None,
     )
-    indexed: int | None = Field.attribute(expected_type=int, allow_none=True)
-    auto: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    theme: int | None = Field.attribute(expected_type=int, allow_none=True)
+    indexed: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    auto: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    theme: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     tint: float | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _tint_converter(v, "tint"),
+        converter=lambda v: _tint_converter(v, "tint"), default=None,
     )
-    type: str | None = Field.attribute(expected_type=str, allow_none=True)
+    type: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
 
     def __init__(self, rgb=BLACK, indexed=None, auto=None, theme=None, tint=0.0, index=None, type='rgb'):
@@ -150,7 +150,7 @@ class RgbColor(Serialisable):
     rgb: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _rgb_converter(v, "rgb"),
+        converter=lambda v: _rgb_converter(v, "rgb"), default=None,
     )
 
     def __init__(self,
@@ -165,11 +165,11 @@ class ColorList(Serialisable):
 
     indexedColors: list[RgbColor] = Field.nested_sequence(
         expected_type=RgbColor,
-        allow_none=True,
+        allow_none=True, default=list,
     )
     mruColors: list[Color] = Field.nested_sequence(
         expected_type=Color,
-        allow_none=True,
+        allow_none=True, default=list,
     )
 
     def __init__(self,

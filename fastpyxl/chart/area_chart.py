@@ -27,15 +27,15 @@ class _AreaChartBase(ChartBase):
     grouping: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_area_grouping,
+        converter=_area_grouping, default=None,
     )
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
-    dropLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
+    dataLabels = AliasField("dLbls", default=None)
+    dropLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
 
     _series_type = "area"
 
@@ -62,7 +62,7 @@ class AreaChart(_AreaChartBase):
     tagname = "areaChart"
 
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _AreaChartBase.xml_order + ("axId",)

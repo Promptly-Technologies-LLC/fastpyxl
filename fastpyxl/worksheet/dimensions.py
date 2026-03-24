@@ -261,15 +261,15 @@ class SheetFormatProperties(Serialisable):
 
     tagname = "sheetFormatPr"
 
-    baseColWidth: int | None = Field.attribute(expected_type=int, allow_none=True)
-    defaultColWidth: float | None = Field.attribute(expected_type=float, allow_none=True)
-    defaultRowHeight: float | None = Field.attribute(expected_type=float)
-    customHeight: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    zeroHeight: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    thickTop: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    thickBottom: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    outlineLevelRow: int | None = Field.attribute(expected_type=int, allow_none=True)
-    outlineLevelCol: int | None = Field.attribute(expected_type=int, allow_none=True)
+    baseColWidth: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    defaultColWidth: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    defaultRowHeight: float | None = Field.attribute(expected_type=float, default=None)
+    customHeight: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    zeroHeight: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    thickTop: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    thickBottom: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    outlineLevelRow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    outlineLevelCol: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  baseColWidth=8, #according to spec
@@ -297,7 +297,7 @@ class SheetDimension(Serialisable):
 
     tagname = "dimension"
 
-    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  ref=None,

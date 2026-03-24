@@ -23,19 +23,19 @@ def _none_or_enum(allowed: frozenset, field_name: str):
 class PictureOptions(Serialisable):
     tagname = "pictureOptions"
 
-    applyToFront: bool | None = Field.nested_bool(allow_none=True)
-    applyToSides: bool | None = Field.nested_bool(allow_none=True)
-    applyToEnd: bool | None = Field.nested_bool(allow_none=True)
+    applyToFront: bool | None = Field.nested_bool(allow_none=True, default=None)
+    applyToSides: bool | None = Field.nested_bool(allow_none=True, default=None)
+    applyToEnd: bool | None = Field.nested_bool(allow_none=True, default=None)
     pictureFormat: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
         converter=_none_or_enum(
             frozenset({"stretch", "stack", "stackScale"}),
             "pictureFormat",
-        ),
+        ), default=None,
     )
     pictureStackUnit: float | None = Field.nested_value(
-        expected_type=float, allow_none=True
+        expected_type=float, allow_none=True, default=None
     )
 
     xml_order = (

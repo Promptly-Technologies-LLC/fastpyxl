@@ -56,38 +56,38 @@ class Alignment(Serialisable):
     horizontal: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, horizontal_alignments, "horizontal"),
+        converter=lambda v: _enum_converter(v, horizontal_alignments, "horizontal"), default=None,
     )
     vertical: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, vertical_aligments, "vertical"),
+        converter=lambda v: _enum_converter(v, vertical_aligments, "vertical"), default=None,
     )
     textRotation: int | None = Field.attribute(
         expected_type=int,
         allow_none=True,
-        converter=_text_rotation_converter,
+        converter=_text_rotation_converter, default=None,
     )
-    text_rotation: int | None = AliasField("textRotation")
-    wrapText: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    wrap_text: bool | None = AliasField("wrapText")
-    shrinkToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    shrink_to_fit: bool | None = AliasField("shrinkToFit")
+    text_rotation: int | None = AliasField("textRotation", default=None)
+    wrapText: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    wrap_text: bool | None = AliasField("wrapText", default=None)
+    shrinkToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    shrink_to_fit: bool | None = AliasField("shrinkToFit", default=None)
     indent: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="indent", min_value=0, max_value=255),
+        converter=lambda v: _range_converter(v, field_name="indent", min_value=0, max_value=255), default=None,
     )
     relativeIndent: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="relativeIndent", min_value=-255, max_value=255),
+        converter=lambda v: _range_converter(v, field_name="relativeIndent", min_value=-255, max_value=255), default=None,
     )
-    justifyLastLine: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    justifyLastLine: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     readingOrder: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="readingOrder", min_value=0, max_value=None),
+        converter=lambda v: _range_converter(v, field_name="readingOrder", min_value=0, max_value=None), default=None,
     )
 
     def __init__(self, horizontal=None, vertical=None,

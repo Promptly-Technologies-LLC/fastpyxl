@@ -43,27 +43,27 @@ class View3D(Serialisable):
     rotX: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _view_rot_float(v, lo=-90, hi=90, name="rotX"),
+        converter=lambda v: _view_rot_float(v, lo=-90, hi=90, name="rotX"), default=None,
     )
-    x_rotation = AliasField("rotX")
+    x_rotation = AliasField("rotX", default=None)
     hPercent: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _view_rot_float(v, lo=5, hi=500, name="hPercent"),
+        converter=lambda v: _view_rot_float(v, lo=5, hi=500, name="hPercent"), default=None,
     )
-    height_percent = AliasField("hPercent")
+    height_percent = AliasField("hPercent", default=None)
     rotY: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _view_rot_int(v, lo=-90, hi=90, name="rotY"),
+        converter=lambda v: _view_rot_int(v, lo=-90, hi=90, name="rotY"), default=None,
     )
-    y_rotation = AliasField("rotY")
-    depthPercent: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    rAngAx: bool | None = Field.nested_bool(allow_none=True)
-    right_angle_axes = AliasField("rAngAx")
-    perspective: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    y_rotation = AliasField("rotY", default=None)
+    depthPercent: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    rAngAx: bool | None = Field.nested_bool(allow_none=True, default=None)
+    right_angle_axes = AliasField("rAngAx", default=None)
+    perspective: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("rotX", "hPercent", "rotY", "depthPercent", "rAngAx", "perspective")
@@ -90,16 +90,16 @@ class View3D(Serialisable):
 class Surface(Serialisable):
     tagname = "surface"
 
-    thickness: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    thickness: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
     pictureOptions: PictureOptions | None = Field.element(
-        expected_type=PictureOptions, allow_none=True
+        expected_type=PictureOptions, allow_none=True, default=None
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("thickness", "spPr", "pictureOptions")
@@ -116,15 +116,15 @@ class Surface(Serialisable):
         self.pictureOptions = pictureOptions
         self.extLst = extLst
 
-FIELD_VIEW3D = Field.element(expected_type=View3D, allow_none=True)
-FIELD_FLOOR = Field.element(expected_type=Surface, allow_none=True)
-FIELD_SIDE_WALL = Field.element(expected_type=Surface, allow_none=True)
-FIELD_BACK_WALL = Field.element(expected_type=Surface, allow_none=True)
+FIELD_VIEW3D = Field.element(expected_type=View3D, allow_none=True, default=None)
+FIELD_FLOOR = Field.element(expected_type=Surface, allow_none=True, default=None)
+FIELD_SIDE_WALL = Field.element(expected_type=Surface, allow_none=True, default=None)
+FIELD_BACK_WALL = Field.element(expected_type=Surface, allow_none=True, default=None)
 
-FIELD_VIEW3D_ON_CHART = Field.element(expected_type=View3D, allow_none=True, serialize=False)
-FIELD_FLOOR_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False)
-FIELD_SIDE_WALL_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False)
-FIELD_BACK_WALL_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False)
+FIELD_VIEW3D_ON_CHART = Field.element(expected_type=View3D, allow_none=True, serialize=False, default=None)
+FIELD_FLOOR_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False, default=None)
+FIELD_SIDE_WALL_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False, default=None)
+FIELD_BACK_WALL_ON_CHART = Field.element(expected_type=Surface, allow_none=True, serialize=False, default=None)
 
 
 class _3DBase(Serialisable):

@@ -8,12 +8,12 @@ class Hyperlink(Serialisable):
 
     tagname = "hyperlink"
 
-    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
-    location: str | None = Field.attribute(expected_type=str, allow_none=True)
-    tooltip: str | None = Field.attribute(expected_type=str, allow_none=True)
-    display: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    location: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    tooltip: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    display: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     id: str | None = Field.attribute(
-        expected_type=str, allow_none=True, namespace=REL_NS
+        expected_type=str, allow_none=True, namespace=REL_NS, default=None
     )
 
     def __init__(

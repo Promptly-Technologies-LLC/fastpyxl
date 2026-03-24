@@ -11,7 +11,7 @@ from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 class Child(Serialisable):
     tagname = "child"
-    value: int | None = Field.attribute(expected_type=int, allow_none=True)
+    value: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
 
 class LegacyChild(LegacySerialisable):
@@ -24,7 +24,7 @@ class LegacyChild(LegacySerialisable):
 
 class MixedNewParent(Serialisable):
     tagname = "mixedNewParent"
-    old_child: LegacyChild | None = Field.element(expected_type=LegacyChild, allow_none=True)
+    old_child: LegacyChild | None = Field.element(expected_type=LegacyChild, allow_none=True, default=None)
 
 
 class MixedLegacyParent(LegacySerialisable):
@@ -38,29 +38,29 @@ class MixedLegacyParent(LegacySerialisable):
 class MixedGraphNewParent(Serialisable):
     tagname = "mixedGraphNewParent"
     old_children: list[LegacyChild] = Field.sequence(expected_type=LegacyChild, default=list)
-    new_child: Child | None = Field.element(expected_type=Child, allow_none=True)
+    new_child: Child | None = Field.element(expected_type=Child, allow_none=True, default=None)
 
 
 class Demo(Serialisable):
     tagname = "demo"
 
-    attr_text: str | None = Field.attribute(expected_type=str, allow_none=True)
-    attr_id: int | None = Field.attribute(expected_type=int, allow_none=True, xml_name="id")
+    attr_text: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    attr_id: int | None = Field.attribute(expected_type=int, allow_none=True, xml_name="id", default=None)
     hyphen_name: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
         hyphenated=True,
-        xml_name="hyphen-name",
+        xml_name="hyphen-name", default=None,
     )
-    _class: str | None = Field.attribute(expected_type=str, allow_none=True, xml_name="class")
-    val_item: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    text_item: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    child: Child | None = Field.element(expected_type=Child, allow_none=True)
-    items: list[int] = Field.sequence(expected_type=int, default=list)
+    _class: str | None = Field.attribute(expected_type=str, allow_none=True, xml_name="class", default=None)
+    val_item: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    text_item: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    child: Child | None = Field.element(expected_type=Child, allow_none=True, default=None)
+    items: list[int | str] = Field.sequence(expected_type=int, default=list)
     nested_items: list[Child] = Field.nested_sequence(expected_type=Child, count=True, default=list)
-    flag: bool | None = Field.nested_bool(allow_none=True)
-    short: bool | None = Field.nested_bool(allow_none=True, renderer=lambda tag, value, ns=None: None if value is None else Element(tag))
-    alias_attr: int | None = AliasField("attr_id")
+    flag: bool | None = Field.nested_bool(allow_none=True, default=None)
+    short: bool | None = Field.nested_bool(allow_none=True, renderer=lambda tag, value, ns=None: None if value is None else Element(tag), default=None)
+    alias_attr: int | None = AliasField("attr_id", default=None)
 
 
 class NamespaceDemo(Serialisable):
@@ -69,18 +69,18 @@ class NamespaceDemo(Serialisable):
         expected_type=str,
         allow_none=True,
         xml_name="id",
-        namespace="urn:test-rel",
+        namespace="urn:test-rel", default=None,
     )
 
 
 class MultiA(Serialisable):
     tagname = "a"
-    value: int | None = Field.attribute(expected_type=int, allow_none=True)
+    value: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
 
 class MultiB(Serialisable):
     tagname = "b"
-    label: str | None = Field.attribute(expected_type=str, allow_none=True)
+    label: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
 
 class MultiDemo(Serialisable):
@@ -97,8 +97,8 @@ class MultiDemo(Serialisable):
 class OrderedDemo(Serialisable):
     tagname = "orderedDemo"
     xml_order = ("second", "first")
-    first: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    second: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    first: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    second: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
 
 
 def test_field_compilation_and_caches():

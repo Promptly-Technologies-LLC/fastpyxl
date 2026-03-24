@@ -22,18 +22,18 @@ from fastpyxl.drawing.text import (
 class Title(Serialisable):
     tagname = "title"
 
-    tx: Text | None = Field.element(expected_type=Text, allow_none=True)
-    text = AliasField("tx")
-    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True)
-    overlay: bool | None = Field.nested_bool(allow_none=True)
+    tx: Text | None = Field.element(expected_type=Text, allow_none=True, default=None)
+    text = AliasField("tx", default=None)
+    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True, default=None)
+    overlay: bool | None = Field.nested_bool(allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    body = AliasField("txPr")
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    body = AliasField("txPr", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("tx", "layout", "overlay", "spPr", "txPr")

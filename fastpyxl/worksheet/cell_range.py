@@ -55,24 +55,24 @@ class CellRange(Serialisable):
     min_col: int = Field.attribute(
         expected_type=int,
         serialize=False,
-        validator=_int_range("min_col", 1, 18278),
+        validator=_int_range("min_col", 1, 18278), default=None,
     )
     min_row: int = Field.attribute(
         expected_type=int,
         serialize=False,
-        validator=_int_range("min_row", 1, 1048576),
+        validator=_int_range("min_row", 1, 1048576), default=None,
     )
     max_col: int = Field.attribute(
         expected_type=int,
         serialize=False,
-        validator=_int_range("max_col", 1, 18278),
+        validator=_int_range("max_col", 1, 18278), default=None,
     )
     max_row: int = Field.attribute(
         expected_type=int,
         serialize=False,
-        validator=_int_range("max_row", 1, 1048576),
+        validator=_int_range("max_row", 1, 1048576), default=None,
     )
-    title: str | None = Field.attribute(expected_type=str, allow_none=True, serialize=False)
+    title: str | None = Field.attribute(expected_type=str, allow_none=True, serialize=False, default=None)
 
 
     def __init__(self, range_string=None, min_col=None, min_row=None,

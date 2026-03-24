@@ -111,21 +111,21 @@ class PatternFill(Fill):
     patternType: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: None if v == "none" else _enum_converter(v, fills, "patternType"),
+        converter=lambda v: None if v == "none" else _enum_converter(v, fills, "patternType"), default=None,
     )
-    fill_type: str | None = AliasField("patternType")
+    fill_type: str | None = AliasField("patternType", default=None)
     fgColor: Color | None = Field.element(
         expected_type=Color,
         allow_none=True,
-        converter=lambda v: _color_converter(v, "fgColor"),
+        converter=lambda v: _color_converter(v, "fgColor"), default=None,
     )
-    start_color: Color | None = AliasField("fgColor")
+    start_color: Color | None = AliasField("fgColor", default=None)
     bgColor: Color | None = Field.element(
         expected_type=Color,
         allow_none=True,
-        converter=lambda v: _color_converter(v, "bgColor"),
+        converter=lambda v: _color_converter(v, "bgColor"), default=None,
     )
-    end_color: Color | None = AliasField("bgColor")
+    end_color: Color | None = AliasField("bgColor", default=None)
 
     def __init__(self, patternType=None, fgColor=Color(), bgColor=Color(),
                  fill_type=None, start_color=None, end_color=None):
@@ -172,12 +172,12 @@ class Stop(Serialisable):
     position: float | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="position", min_value=0, max_value=1),
+        converter=lambda v: _range_converter(v, field_name="position", min_value=0, max_value=1), default=None,
     )
     color: Color | None = Field.element(
         expected_type=Color,
         allow_none=True,
-        converter=lambda v: _color_converter(v, "color"),
+        converter=lambda v: _color_converter(v, "color"), default=None,
     )
 
     def __init__(self, color, position):
@@ -239,15 +239,15 @@ class GradientFill(Fill):
     type: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("linear", "path"), "type"),
+        converter=lambda v: _enum_converter(v, ("linear", "path"), "type"), default=None,
     )
-    fill_type: str | None = AliasField("type")
-    degree: float | None = Field.attribute(expected_type=float, allow_none=True)
-    left: float | None = Field.attribute(expected_type=float, allow_none=True)
-    right: float | None = Field.attribute(expected_type=float, allow_none=True)
-    top: float | None = Field.attribute(expected_type=float, allow_none=True)
-    bottom: float | None = Field.attribute(expected_type=float, allow_none=True)
-    stop: list[Stop] = Field.sequence(expected_type=Stop)
+    fill_type: str | None = AliasField("type", default=None)
+    degree: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    left: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    right: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    top: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    bottom: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    stop: list[Stop] = Field.sequence(expected_type=Stop, default=list)
 
 
     def __init__(self, type="linear", degree=0, left=0, right=0, top=0,

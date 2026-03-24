@@ -34,11 +34,11 @@ class FormatObject(Serialisable):
 
     type: str | None = Field.attribute(
         expected_type=str,
-        converter=lambda v: _enum_converter(v, ("num", "percent", "max", "min", "formula", "percentile"), "type"),
+        converter=lambda v: _enum_converter(v, ("num", "percent", "max", "min", "formula", "percentile"), "type"), default=None,
     )
-    val: object | None = Field.attribute(expected_type=object, allow_none=True)
-    gte: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    val: object | None = Field.attribute(expected_type=object, allow_none=True, default=None)
+    gte: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     def __init__(self, type, val=None, gte=None, extLst=None):
         self.type = type
@@ -76,11 +76,11 @@ class IconSet(RuleType):
             '3TrafficLights1', '3TrafficLights2', '3Signs', '3Symbols', '3Symbols2',
             '4Arrows', '4ArrowsGray', '4RedToBlack', '4Rating', '4TrafficLights',
             '5Arrows', '5ArrowsGray', '5Rating', '5Quarters'
-        ), "iconSet"),
+        ), "iconSet"), default=None,
     )
-    showValue: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    reverse: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showValue: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    reverse: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("cfvo",)
 
@@ -96,10 +96,10 @@ class DataBar(RuleType):
 
     tagname = "dataBar"
 
-    minLength: int | None = Field.attribute(expected_type=int, allow_none=True)
-    maxLength: int | None = Field.attribute(expected_type=int, allow_none=True)
-    showValue: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    color: Color | None = Field.element(expected_type=Color, converter=_color_converter)
+    minLength: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    maxLength: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    showValue: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    color: Color | None = Field.element(expected_type=Color, converter=_color_converter, default=None)
 
     xml_order = ('cfvo', 'color')
 
@@ -136,14 +136,14 @@ class Rule(Serialisable):
             'notContainsText', 'beginsWith', 'endsWith', 'containsBlanks',
             'notContainsBlanks', 'containsErrors', 'notContainsErrors', 'timePeriod',
             'aboveAverage'
-        ), 'type'),
+        ), 'type'), default=None,
     )
-    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     priority: int | None = Field.attribute(expected_type=int, default=0)
-    stopIfTrue: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    aboveAverage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    bottom: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    stopIfTrue: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    aboveAverage: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    bottom: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     operator: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
@@ -151,26 +151,26 @@ class Rule(Serialisable):
             'lessThan', 'lessThanOrEqual', 'equal',
             'notEqual', 'greaterThanOrEqual', 'greaterThan', 'between', 'notBetween',
             'containsText', 'notContains', 'beginsWith', 'endsWith'
-        ), 'operator'),
+        ), 'operator'), default=None,
     )
-    text: str | None = Field.attribute(expected_type=str, allow_none=True)
+    text: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     timePeriod: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
         converter=lambda v: _enum_converter(v, (
             'today', 'yesterday', 'tomorrow', 'last7Days',
             'thisMonth', 'lastMonth', 'nextMonth', 'thisWeek', 'lastWeek', 'nextWeek'
-        ), 'timePeriod'),
+        ), 'timePeriod'), default=None,
     )
-    rank: int | None = Field.attribute(expected_type=int, allow_none=True)
-    stdDev: int | None = Field.attribute(expected_type=int, allow_none=True)
-    equalAverage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    rank: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    stdDev: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    equalAverage: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     formula: list[str] = Field.sequence(expected_type=str, default=list)
-    colorScale: ColorScale | None = Field.element(expected_type=ColorScale, allow_none=True)
-    dataBar: DataBar | None = Field.element(expected_type=DataBar, allow_none=True)
-    iconSet: IconSet | None = Field.element(expected_type=IconSet, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
-    dxf: DifferentialStyle | None = Field.element(expected_type=DifferentialStyle, allow_none=True, serialize=False)
+    colorScale: ColorScale | None = Field.element(expected_type=ColorScale, allow_none=True, default=None)
+    dataBar: DataBar | None = Field.element(expected_type=DataBar, allow_none=True, default=None)
+    iconSet: IconSet | None = Field.element(expected_type=IconSet, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
+    dxf: DifferentialStyle | None = Field.element(expected_type=DifferentialStyle, allow_none=True, serialize=False, default=None)
 
     xml_order = ('colorScale', 'dataBar', 'iconSet', 'formula')
 

@@ -85,41 +85,41 @@ class DocumentProperties(Serialisable):
     tagname = "coreProperties"
     namespace = COREPROPS_NS
 
-    category: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    contentStatus: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    keywords: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    lastModifiedBy: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    category: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    contentStatus: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    keywords: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    lastModifiedBy: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
     lastPrinted: datetime.datetime | None = Field.nested_text(
         expected_type=object,
         allow_none=True,
         converter=_datetime_converter,
-        renderer=_datetime_renderer,
+        renderer=_datetime_renderer, default=None,
     )
-    revision: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    version: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    last_modified_by = AliasField("lastModifiedBy")
+    revision: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    version: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    last_modified_by = AliasField("lastModifiedBy", default=None)
 
     # Dublin Core Properties
-    subject: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS)
-    title: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS)
-    creator: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS)
-    description: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS)
-    identifier: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS)
-    language: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS)
+    subject: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS, default=None)
+    title: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS, default=None)
+    creator: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS, default=None)
+    description: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS, default=None)
+    identifier: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS, default=None)
+    language: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=DCORE_NS, default=None)
     # Dublin Core Terms
     created: datetime.datetime | None = Field.nested_text(
         expected_type=object,
         allow_none=True,
         namespace=DCTERMS_NS,
         converter=_datetime_converter,
-        renderer=_qualified_datetime_renderer,
+        renderer=_qualified_datetime_renderer, default=None,
     )  # assumed UTC
     modified: datetime.datetime | None = Field.nested_text(
         expected_type=object,
         allow_none=True,
         namespace=DCTERMS_NS,
         converter=_datetime_converter,
-        renderer=_qualified_datetime_renderer,
+        renderer=_qualified_datetime_renderer, default=None,
     )  # assumed UTC
 
     xml_order = ("creator", "title", "description", "subject", "identifier",

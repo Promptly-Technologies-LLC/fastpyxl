@@ -43,20 +43,20 @@ class _BarChartBase(ChartBase):
     barDir: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_bar_dir,
+        converter=_bar_dir, default=None,
     )
-    type = AliasField("barDir")
+    type = AliasField("barDir", default=None)
     grouping: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_bar_grouping,
+        converter=_bar_grouping, default=None,
     )
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
+    dataLabels = AliasField("dLbls", default=None)
 
     xml_order = ("barDir", "grouping", "varyColors", "ser", "dLbls")
 
@@ -84,9 +84,9 @@ class BarChart(_BarChartBase):
 
     gapWidth = NestedGapAmount
     overlap = NestedOverlap
-    serLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
+    serLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _BarChartBase.xml_order + ("gapWidth", "overlap", "serLines", "axId")
@@ -124,11 +124,11 @@ class BarChart3D(_BarChartBase, _3DBase):
     shape: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_shape_converter,
+        converter=_shape_converter, default=None,
     )
-    serLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
+    serLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _BarChartBase.xml_order + (

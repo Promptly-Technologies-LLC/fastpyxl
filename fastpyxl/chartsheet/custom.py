@@ -14,17 +14,17 @@ from fastpyxl.worksheet.page import (
 class CustomChartsheetView(Serialisable):
     tagname = "customSheetView"
 
-    guid: str | None = Field.attribute(expected_type=str, allow_none=True)
-    scale: int | None = Field.attribute(expected_type=int, allow_none=True)
+    guid: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    scale: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     state: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "state"),
+        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "state"), default=None,
     )
-    zoomToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    pageMargins: PageMargins | None = Field.element(expected_type=PageMargins, allow_none=True)
-    pageSetup: PrintPageSetup | None = Field.element(expected_type=PrintPageSetup, allow_none=True)
-    headerFooter: HeaderFooter | None = Field.element(expected_type=HeaderFooter, allow_none=True)
+    zoomToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    pageMargins: PageMargins | None = Field.element(expected_type=PageMargins, allow_none=True, default=None)
+    pageSetup: PrintPageSetup | None = Field.element(expected_type=PrintPageSetup, allow_none=True, default=None)
+    headerFooter: HeaderFooter | None = Field.element(expected_type=HeaderFooter, allow_none=True, default=None)
 
     xml_order = ('pageMargins', 'pageSetup', 'headerFooter')
 
@@ -51,7 +51,7 @@ class CustomChartsheetViews(Serialisable):
 
     customSheetView: list[CustomChartsheetView] | None = Field.sequence(
         expected_type=CustomChartsheetView,
-        allow_none=True,
+        allow_none=True, default=list,
     )
     xml_order = ('customSheetView',)
 

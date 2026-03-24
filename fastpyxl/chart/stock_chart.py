@@ -16,16 +16,16 @@ from .series import Series
 class StockChart(ChartBase):
     tagname = "stockChart"
 
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
-    dropLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
-    hiLowLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
-    upDownBars: UpDownBars | None = Field.element(expected_type=UpDownBars, allow_none=True)
+    dataLabels = AliasField("dLbls", default=None)
+    dropLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
+    hiLowLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
+    upDownBars: UpDownBars | None = Field.element(expected_type=UpDownBars, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _series_type = "line"

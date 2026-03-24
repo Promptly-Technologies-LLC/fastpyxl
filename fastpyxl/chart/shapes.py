@@ -82,41 +82,41 @@ class GraphicalProperties(Serialisable):
     bwMode: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_bw_mode_converter,
+        converter=_bw_mode_converter, default=None,
     )
-    xfrm: Transform2D | None = Field.element(expected_type=Transform2D, allow_none=True)
-    transform = AliasField("xfrm")
+    xfrm: Transform2D | None = Field.element(expected_type=Transform2D, allow_none=True, default=None)
+    transform = AliasField("xfrm", default=None)
     custGeom: CustomGeometry2D | None = Field.element(
-        expected_type=CustomGeometry2D, allow_none=True, serialize=False
+        expected_type=CustomGeometry2D, allow_none=True, serialize=False, default=None
     )
     prstGeom: PresetGeometry2D | None = Field.element(
-        expected_type=PresetGeometry2D, allow_none=True
+        expected_type=PresetGeometry2D, allow_none=True, default=None
     )
 
     noFill: _NoFill | None = Field.element(
         expected_type=_NoFill,
         allow_none=True,
-        converter=_no_fill_converter,
+        converter=_no_fill_converter, default=None,
     )
     solidFill: ColorChoice | None = Field.element(
         expected_type=ColorChoice,
         allow_none=True,
-        converter=_solid_fill_converter,
+        converter=_solid_fill_converter, default=None,
     )
     gradFill: GradientFillProperties | None = Field.element(
-        expected_type=GradientFillProperties, allow_none=True
+        expected_type=GradientFillProperties, allow_none=True, default=None
     )
     pattFill: PatternFillProperties | None = Field.element(
-        expected_type=PatternFillProperties, allow_none=True
+        expected_type=PatternFillProperties, allow_none=True, default=None
     )
 
-    ln: LineProperties | None = Field.element(expected_type=LineProperties, allow_none=True)
-    line = AliasField("ln")
-    scene3d: Scene3D | None = Field.element(expected_type=Scene3D, allow_none=True)
-    sp3d: Shape3D | None = Field.element(expected_type=Shape3D, allow_none=True)
-    shape3D = AliasField("sp3d")
+    ln: LineProperties | None = Field.element(expected_type=LineProperties, allow_none=True, default=None)
+    line = AliasField("ln", default=None)
+    scene3d: Scene3D | None = Field.element(expected_type=Scene3D, allow_none=True, default=None)
+    sp3d: Shape3D | None = Field.element(expected_type=Shape3D, allow_none=True, default=None)
+    shape3D = AliasField("sp3d", default=None)
     extLst: OfficeArtExtensionList | None = Field.element(
-        expected_type=OfficeArtExtensionList, allow_none=True, serialize=False
+        expected_type=OfficeArtExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = (

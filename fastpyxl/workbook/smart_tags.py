@@ -8,9 +8,9 @@ class SmartTag(Serialisable):
 
     tagname = "smartTagType"
 
-    namespaceUri: str | None = Field.attribute(expected_type=str, allow_none=True)
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    url: str | None = Field.attribute(expected_type=str, allow_none=True)
+    namespaceUri: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    url: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  namespaceUri=None,
@@ -26,7 +26,7 @@ class SmartTagList(Serialisable):
 
     tagname = "smartTagTypes"
 
-    smartTagType: list[SmartTag] | None = Field.sequence(expected_type=SmartTag, allow_none=True)
+    smartTagType: list[SmartTag] | None = Field.sequence(expected_type=SmartTag, allow_none=True, default=list)
     xml_order = ('smartTagType',)
 
     def __init__(self,
@@ -39,11 +39,11 @@ class SmartTagProperties(Serialisable):
 
     tagname = "smartTagPr"
 
-    embed: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    embed: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     show: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("all", "noIndicator"), "show"),
+        converter=lambda v: _enum_converter(v, ("all", "noIndicator"), "show"), default=None,
     )
 
     def __init__(self,

@@ -23,11 +23,11 @@ from .series import Series
 class BandFormat(Serialisable):
     tagname = "bandFmt"
 
-    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
 
     xml_order = ("idx", "spPr")
 
@@ -40,7 +40,7 @@ class BandFormatList(Serialisable):
     tagname = "bandFmts"
 
     bandFmt: list[BandFormat] | None = Field.sequence(
-        expected_type=BandFormat, allow_none=True
+        expected_type=BandFormat, allow_none=True, default=list
     )
 
     xml_order = ("bandFmt",)
@@ -50,10 +50,10 @@ class BandFormatList(Serialisable):
 
 
 class _SurfaceChartBase(ChartBase):
-    wireframe: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    wireframe: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     bandFmts: BandFormatList | None = Field.element(
-        expected_type=BandFormatList, allow_none=True
+        expected_type=BandFormatList, allow_none=True, default=None
     )
 
     _series_type = "surface"
@@ -76,7 +76,7 @@ class SurfaceChart3D(_SurfaceChartBase, _3DBase):
     backWall = FIELD_BACK_WALL_ON_CHART
 
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _SurfaceChartBase.xml_order + ("axId",)

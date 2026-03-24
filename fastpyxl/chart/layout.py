@@ -40,52 +40,52 @@ class ManualLayout(Serialisable):
     layoutTarget: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set_converter(frozenset({"inner", "outer"}), "layoutTarget"),
+        converter=_none_set_converter(frozenset({"inner", "outer"}), "layoutTarget"), default=None,
     )
     xMode: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set_converter(frozenset({"edge", "factor"}), "xMode"),
+        converter=_none_set_converter(frozenset({"edge", "factor"}), "xMode"), default=None,
     )
     yMode: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set_converter(frozenset({"edge", "factor"}), "yMode"),
+        converter=_none_set_converter(frozenset({"edge", "factor"}), "yMode"), default=None,
     )
     wMode: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set_converter(frozenset({"edge", "factor"}), "wMode"),
+        converter=_none_set_converter(frozenset({"edge", "factor"}), "wMode"), default=None,
     )
     hMode: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set_converter(frozenset({"edge", "factor"}), "hMode"),
+        converter=_none_set_converter(frozenset({"edge", "factor"}), "hMode"), default=None,
     )
     x: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="x", min_v=-1, max_v=1),
+        converter=lambda v: _range_converter(v, field_name="x", min_v=-1, max_v=1), default=None,
     )
     y: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="y", min_v=-1, max_v=1),
+        converter=lambda v: _range_converter(v, field_name="y", min_v=-1, max_v=1), default=None,
     )
     w: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="w", min_v=0, max_v=1),
+        converter=lambda v: _range_converter(v, field_name="w", min_v=0, max_v=1), default=None,
     )
-    width = AliasField("w")
+    width = AliasField("w", default=None)
     h: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="h", min_v=0, max_v=1),
+        converter=lambda v: _range_converter(v, field_name="h", min_v=0, max_v=1), default=None,
     )
-    height = AliasField("h")
+    height = AliasField("h", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("layoutTarget", "xMode", "yMode", "wMode", "hMode", "x", "y", "w", "h")
@@ -119,10 +119,10 @@ class Layout(Serialisable):
     tagname = "layout"
 
     manualLayout: ManualLayout | None = Field.element(
-        expected_type=ManualLayout, allow_none=True
+        expected_type=ManualLayout, allow_none=True, default=None
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("manualLayout",)

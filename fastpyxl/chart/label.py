@@ -27,14 +27,14 @@ class _DataLabelBase(Serialisable):
     numFmt: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        value_attribute="formatCode",
+        value_attribute="formatCode", default=None,
     )
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    textProperties = AliasField("txPr")
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    textProperties = AliasField("txPr", default=None)
     dLblPos: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
@@ -53,19 +53,19 @@ class _DataLabelBase(Serialisable):
                 }
             ),
             "dLblPos",
-        ),
+        ), default=None,
     )
-    position = AliasField("dLblPos")
-    showLegendKey: bool | None = Field.nested_bool(allow_none=True)
-    showVal: bool | None = Field.nested_bool(allow_none=True)
-    showCatName: bool | None = Field.nested_bool(allow_none=True)
-    showSerName: bool | None = Field.nested_bool(allow_none=True)
-    showPercent: bool | None = Field.nested_bool(allow_none=True)
-    showBubbleSize: bool | None = Field.nested_bool(allow_none=True)
-    showLeaderLines: bool | None = Field.nested_bool(allow_none=True)
-    separator: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    position = AliasField("dLblPos", default=None)
+    showLegendKey: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showVal: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showCatName: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showSerName: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showPercent: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showBubbleSize: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showLeaderLines: bool | None = Field.nested_bool(allow_none=True, default=None)
+    separator: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _base_xml_order = (
@@ -117,7 +117,7 @@ class _DataLabelBase(Serialisable):
 class DataLabel(_DataLabelBase):
     tagname = "dLbl"
 
-    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
 
     xml_order = ("idx",) + _DataLabelBase._base_xml_order
 
@@ -129,8 +129,8 @@ class DataLabel(_DataLabelBase):
 class DataLabelList(_DataLabelBase):
     tagname = "dLbls"
 
-    dLbl: list[DataLabel] | None = Field.sequence(expected_type=DataLabel, allow_none=True)
-    delete: bool | None = Field.nested_bool(allow_none=True)
+    dLbl: list[DataLabel] | None = Field.sequence(expected_type=DataLabel, allow_none=True, default=list)
+    delete: bool | None = Field.nested_bool(allow_none=True, default=None)
 
     xml_order = ("delete", "dLbl") + _DataLabelBase._base_xml_order
 

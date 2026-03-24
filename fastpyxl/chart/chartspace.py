@@ -61,28 +61,28 @@ class ChartContainer(Serialisable):
     title: Title | None = Field.element(
         expected_type=Title,
         allow_none=True,
-        converter=title_from_value,
+        converter=title_from_value, default=None,
     )
-    autoTitleDeleted: bool | None = Field.nested_bool(allow_none=True)
+    autoTitleDeleted: bool | None = Field.nested_bool(allow_none=True, default=None)
     pivotFmts: list[PivotFormat] | None = Field.nested_sequence(
         expected_type=PivotFormat,
-        allow_none=True,
+        allow_none=True, default=list,
     )
     view3D = FIELD_VIEW3D
     floor = FIELD_FLOOR
     sideWall = FIELD_SIDE_WALL
     backWall = FIELD_BACK_WALL
-    plotArea: PlotArea | None = Field.element(expected_type=PlotArea, allow_none=True)
-    legend: Legend | None = Field.element(expected_type=Legend, allow_none=True)
+    plotArea: PlotArea | None = Field.element(expected_type=PlotArea, allow_none=True, default=None)
+    legend: Legend | None = Field.element(expected_type=Legend, allow_none=True, default=None)
     plotVisOnly: bool | None = Field.nested_bool(allow_none=True, default=True)
     dispBlanksAs: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_disp_blanks,
+        converter=_disp_blanks, default=None,
     )
-    showDLblsOverMax: bool | None = Field.nested_bool(allow_none=True)
+    showDLblsOverMax: bool | None = Field.nested_bool(allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = (
@@ -136,11 +136,11 @@ class ChartContainer(Serialisable):
 class Protection(Serialisable):
     tagname = "protection"
 
-    chartObject: bool | None = Field.nested_bool(allow_none=True)
-    data: bool | None = Field.nested_bool(allow_none=True)
-    formatting: bool | None = Field.nested_bool(allow_none=True)
-    selection: bool | None = Field.nested_bool(allow_none=True)
-    userInterface: bool | None = Field.nested_bool(allow_none=True)
+    chartObject: bool | None = Field.nested_bool(allow_none=True, default=None)
+    data: bool | None = Field.nested_bool(allow_none=True, default=None)
+    formatting: bool | None = Field.nested_bool(allow_none=True, default=None)
+    selection: bool | None = Field.nested_bool(allow_none=True, default=None)
+    userInterface: bool | None = Field.nested_bool(allow_none=True, default=None)
 
     xml_order = (
         "chartObject",
@@ -168,11 +168,11 @@ class Protection(Serialisable):
 class ExternalData(Serialisable):
     tagname = "externalData"
 
-    autoUpdate: bool | None = Field.nested_bool(allow_none=True)
+    autoUpdate: bool | None = Field.nested_bool(allow_none=True, default=None)
     id: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        namespace=REL_NS,
+        namespace=REL_NS, default=None,
     )
 
     def __init__(self, autoUpdate=None, id=None):
@@ -183,43 +183,43 @@ class ExternalData(Serialisable):
 class ChartSpace(Serialisable):
     tagname = "chartSpace"
 
-    date1904: bool | None = Field.nested_bool(allow_none=True)
-    lang: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    roundedCorners: bool | None = Field.nested_bool(allow_none=True)
+    date1904: bool | None = Field.nested_bool(allow_none=True, default=None)
+    lang: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    roundedCorners: bool | None = Field.nested_bool(allow_none=True, default=None)
     style: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=_chart_style,
+        converter=_chart_style, default=None,
     )
     clrMapOvr: ColorMapping | None = Field.element(
-        expected_type=ColorMapping, allow_none=True
+        expected_type=ColorMapping, allow_none=True, default=None
     )
     pivotSource: PivotSource | None = Field.element(
-        expected_type=PivotSource, allow_none=True
+        expected_type=PivotSource, allow_none=True, default=None
     )
     protection: Protection | None = Field.element(
-        expected_type=Protection, allow_none=True
+        expected_type=Protection, allow_none=True, default=None
     )
-    chart: ChartContainer | None = Field.element(expected_type=ChartContainer)
+    chart: ChartContainer | None = Field.element(expected_type=ChartContainer, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphical_properties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    textProperties = AliasField("txPr")
+    graphical_properties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    textProperties = AliasField("txPr", default=None)
     externalData: ExternalData | None = Field.element(
-        expected_type=ExternalData, allow_none=True
+        expected_type=ExternalData, allow_none=True, default=None
     )
     printSettings: PrintSettings | None = Field.element(
-        expected_type=PrintSettings, allow_none=True
+        expected_type=PrintSettings, allow_none=True, default=None
     )
     userShapes: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        namespace=REL_NS,
+        namespace=REL_NS, default=None,
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = (

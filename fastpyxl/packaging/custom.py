@@ -59,21 +59,21 @@ class _CustomDocumentProperty(Serialisable):
     tagname = "property"
     _typ = None
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    lpwstr: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=VTYPES_NS)
-    i4: int | None = Field.nested_text(expected_type=int, allow_none=True, namespace=VTYPES_NS)
-    r8: float | None = Field.nested_text(expected_type=float, allow_none=True, namespace=VTYPES_NS)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    lpwstr: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=VTYPES_NS, default=None)
+    i4: int | None = Field.nested_text(expected_type=int, allow_none=True, namespace=VTYPES_NS, default=None)
+    r8: float | None = Field.nested_text(expected_type=float, allow_none=True, namespace=VTYPES_NS, default=None)
     filetime: datetime.datetime | None = Field.nested_text(
         expected_type=datetime.datetime,
         allow_none=True,
         namespace=VTYPES_NS,
         converter=_datetime_converter,
-        renderer=_filetime_nested_renderer,
+        renderer=_filetime_nested_renderer, default=None,
     )
-    bool = Field.nested_text(expected_type=bool, allow_none=True, namespace=VTYPES_NS)
-    linkTarget: str | None = Field.attribute(expected_type=str, allow_none=True)
-    fmtid: str | None = Field.attribute(expected_type=str, allow_none=True)
-    pid: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bool = Field.nested_text(expected_type=bool, allow_none=True, namespace=VTYPES_NS, default=None)
+    linkTarget: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    fmtid: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    pid: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  name=None,
@@ -123,8 +123,8 @@ class _CustomDocumentPropertyList(Serialisable):
 
     tagname = "Properties"
 
-    property: list[_CustomDocumentProperty] = Field.sequence(expected_type=_CustomDocumentProperty)
-    customProps = AliasField("property")
+    property: list[_CustomDocumentProperty] = Field.sequence(expected_type=_CustomDocumentProperty, default=list)
+    customProps = AliasField("property", default=None)
 
 
     def __init__(self, property=()):

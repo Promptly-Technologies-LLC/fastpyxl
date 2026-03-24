@@ -9,18 +9,18 @@ from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 class AliasDemo(Serialisable):
     tagname = "aliasDemo"
-    source: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    alias: str | None = AliasField("source")
+    source: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    alias: str | None = AliasField("source", default=None)
 
 
 class SequenceDemo(Serialisable):
     tagname = "sequenceDemo"
-    value: list[int] = Field.sequence(expected_type=int, default=list)
+    value: list[int | str] = Field.sequence(expected_type=int, default=list)
 
 
 class SequenceChild(Serialisable):
     tagname = "member"
-    idx: int | None = Field.attribute(expected_type=int, allow_none=True)
+    idx: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
 
 class NestedSequenceDemo(Serialisable):
@@ -45,7 +45,7 @@ class NoneSetDemo(Serialisable):
     mode: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        validator=_validate_axis_mode,
+        validator=_validate_axis_mode, default=None,
     )
 
 
@@ -62,18 +62,18 @@ class NumberValueDemo(Serialisable):
     v: float | str | None = Field.nested_text(
         expected_type=object,
         allow_none=True,
-        converter=_convert_number_value,
+        converter=_convert_number_value, default=None,
     )
 
 
 class PartA(Serialisable):
     tagname = "a"
-    v: int | None = Field.attribute(expected_type=int, allow_none=True)
+    v: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
 
 class PartB(Serialisable):
     tagname = "b"
-    label: str | None = Field.attribute(expected_type=str, allow_none=True)
+    label: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
 
 class MultiSequenceDemo(Serialisable):
@@ -86,12 +86,12 @@ class MultiSequenceDemo(Serialisable):
 
 class FontModel(Serialisable):
     tagname = "font"
-    bold: bool | None = Field.nested_bool(allow_none=True)
+    bold: bool | None = Field.nested_bool(allow_none=True, default=None)
 
 
 class StyledCell(Serialisable):
     tagname = "cell"
-    font: FontModel | None = Field.element(expected_type=FontModel, allow_none=True)
+    font: FontModel | None = Field.element(expected_type=FontModel, allow_none=True, default=None)
 
 
 class WorkbookStyleRegistry:

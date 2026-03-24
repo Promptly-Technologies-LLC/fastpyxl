@@ -39,12 +39,12 @@ class Point2D(TypedSerialisable):
     x: int | None = Field.attribute(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _emu_coord(v, "x"),
+        converter=lambda v: _emu_coord(v, "x"), default=None,
     )
     y: int | None = Field.attribute(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _emu_coord(v, "y"),
+        converter=lambda v: _emu_coord(v, "y"), default=None,
     )
 
     def __init__(self,
@@ -64,10 +64,10 @@ class PositiveSize2D(TypedSerialisable):
     Dimensions in EMUs
     """
 
-    cx: int | None = Field.attribute(expected_type=int, allow_none=True)
-    width = AliasField("cx")
-    cy: int | None = Field.attribute(expected_type=int, allow_none=True)
-    height = AliasField("cy")
+    cx: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    width = AliasField("cx", default=None)
+    cy: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    height = AliasField("cy", default=None)
 
     def __init__(self,
                  cx=None,
@@ -82,13 +82,13 @@ class Transform2D(TypedSerialisable):
     tagname = "xfrm"
     namespace = DRAWING_NS
 
-    rot: int | None = Field.attribute(expected_type=int, allow_none=True)
-    flipH: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    flipV: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    off: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
-    ext: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
-    chOff: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
-    chExt: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
+    rot: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    flipH: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    flipV: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    off: Point2D | None = Field.element(expected_type=Point2D, allow_none=True, default=None)
+    ext: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True, default=None)
+    chOff: Point2D | None = Field.element(expected_type=Point2D, allow_none=True, default=None)
+    chExt: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True, default=None)
 
     xml_order = ("off", "ext", "chOff", "chExt")
 
@@ -115,13 +115,13 @@ class GroupTransform2D(TypedSerialisable):
     tagname = "xfrm"
     namespace = DRAWING_NS
 
-    rot: int | None = Field.attribute(expected_type=int, allow_none=True)
-    flipH: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    flipV: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    off: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
-    ext: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
-    chOff: Point2D | None = Field.element(expected_type=Point2D, allow_none=True)
-    chExt: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True)
+    rot: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    flipH: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    flipV: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    off: Point2D | None = Field.element(expected_type=Point2D, allow_none=True, default=None)
+    ext: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True, default=None)
+    chOff: Point2D | None = Field.element(expected_type=Point2D, allow_none=True, default=None)
+    chExt: PositiveSize2D | None = Field.element(expected_type=PositiveSize2D, allow_none=True, default=None)
 
     xml_order = ("off", "ext", "chOff", "chExt")
 

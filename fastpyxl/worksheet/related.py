@@ -7,7 +7,7 @@ from fastpyxl.xml.constants import REL_NS
 
 class Related(Serialisable):
 
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     def __init__(self, id=None):
         self.id = id

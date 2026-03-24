@@ -164,8 +164,8 @@ class NumberFormatDescriptor(String):
 
 class NumberFormat(Serialisable):
 
-    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    formatCode: str | None = Field.attribute(expected_type=str, allow_none=True)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    formatCode: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  numFmtId=None,
@@ -177,7 +177,7 @@ class NumberFormat(Serialisable):
 
 class NumberFormatList(Serialisable):
 
-    numFmt: list[NumberFormat] = Field.sequence(expected_type=NumberFormat)
+    numFmt: list[NumberFormat] = Field.sequence(expected_type=NumberFormat, default=list)
 
     def __init__(self,
                  count=None,

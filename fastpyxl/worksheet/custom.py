@@ -9,7 +9,7 @@ class CustomProperty(Serialisable):
 
     tagname = "customProperty"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(
         self,

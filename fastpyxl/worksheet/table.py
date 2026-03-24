@@ -47,11 +47,11 @@ class TableStyleInfo(Serialisable):
 
     tagname = "tableStyleInfo"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    showFirstColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showLastColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showRowStripes: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showColumnStripes: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    showFirstColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showLastColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showRowStripes: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showColumnStripes: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, name=None, showFirstColumn=None, showLastColumn=None, showRowStripes=None, showColumnStripes=None):
         self.name = name
@@ -65,11 +65,11 @@ class XMLColumnProps(Serialisable):
 
     tagname = "xmlColumnPr"
 
-    mapId: int | None = Field.attribute(expected_type=int)
-    xpath: str | None = Field.attribute(expected_type=str)
-    denormalized: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    xmlDataType: str | None = Field.attribute(expected_type=str)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    mapId: int | None = Field.attribute(expected_type=int, default=None)
+    xpath: str | None = Field.attribute(expected_type=str, default=None)
+    denormalized: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    xmlDataType: str | None = Field.attribute(expected_type=str, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     def __init__(self, mapId=None, xpath=None, denormalized=None, xmlDataType=None, extLst=None):
         self.mapId = mapId
@@ -83,7 +83,7 @@ class TableFormula(Serialisable):
 
     tagname = "tableFormula"
 
-    array: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    array: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, array=None, attr_text=None):
         self.array = array
@@ -113,26 +113,26 @@ class TableColumn(Serialisable):
 
     tagname = "tableColumn"
 
-    id: int | None = Field.attribute(expected_type=int)
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    name: str | None = Field.attribute(expected_type=str)
+    id: int | None = Field.attribute(expected_type=int, default=None)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, default=None)
     totalsRowFunction: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum(v, ('sum', 'min', 'max', 'average', 'count', 'countNums', 'stdDev', 'var', 'custom'), 'totalsRowFunction')
+        converter=lambda v: _enum(v, ('sum', 'min', 'max', 'average', 'count', 'countNums', 'stdDev', 'var', 'custom'), 'totalsRowFunction'), default=None
     )
-    totalsRowLabel: str | None = Field.attribute(expected_type=str, allow_none=True)
-    queryTableFieldId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    headerRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    dataDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    totalsRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    headerRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    dataCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    totalsRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    calculatedColumnFormula: TableFormula | None = Field.element(expected_type=TableFormula, allow_none=True)
-    totalsRowFormula: TableFormula | None = Field.element(expected_type=TableFormula, allow_none=True)
-    xmlColumnPr: XMLColumnProps | None = Field.element(expected_type=XMLColumnProps, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    totalsRowLabel: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    queryTableFieldId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    headerRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dataDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    totalsRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    headerRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    dataCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    totalsRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    calculatedColumnFormula: TableFormula | None = Field.element(expected_type=TableFormula, allow_none=True, default=None)
+    totalsRowFormula: TableFormula | None = Field.element(expected_type=TableFormula, allow_none=True, default=None)
+    xmlColumnPr: XMLColumnProps | None = Field.element(expected_type=XMLColumnProps, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ('calculatedColumnFormula', 'totalsRowFormula', 'xmlColumnPr', 'extLst')
 
@@ -192,33 +192,33 @@ class Table(Serialisable):
 
     tagname = "table"
 
-    id: int | None = Field.attribute(expected_type=int)
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    displayName: str | None = Field.attribute(expected_type=str, converter=_table_name_converter)
-    comment: str | None = Field.attribute(expected_type=str, allow_none=True)
-    ref: str | None = Field.attribute(expected_type=str)
-    tableType: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('worksheet', 'xml', 'queryTable'), 'tableType'))
-    headerRowCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    insertRow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    insertRowShift: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    totalsRowCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    totalsRowShown: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    published: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    headerRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    dataDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    totalsRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    headerRowBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    tableBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    totalsRowBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    headerRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    dataCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    totalsRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    connectionId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    autoFilter: AutoFilter | None = Field.element(expected_type=AutoFilter, allow_none=True)
-    sortState: SortState | None = Field.element(expected_type=SortState, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    displayName: str | None = Field.attribute(expected_type=str, converter=_table_name_converter, default=None)
+    comment: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    ref: str | None = Field.attribute(expected_type=str, default=None)
+    tableType: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('worksheet', 'xml', 'queryTable'), 'tableType'), default=None)
+    headerRowCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    insertRow: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    insertRowShift: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    totalsRowCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    totalsRowShown: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    headerRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dataDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    totalsRowDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    headerRowBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    tableBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    totalsRowBorderDxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    headerRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    dataCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    totalsRowCellStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    connectionId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    autoFilter: AutoFilter | None = Field.element(expected_type=AutoFilter, allow_none=True, default=None)
+    sortState: SortState | None = Field.element(expected_type=SortState, allow_none=True, default=None)
     tableColumns: list[TableColumn] = Field.nested_sequence(expected_type=TableColumn, count=True, default=list)
-    tableStyleInfo: TableStyleInfo | None = Field.element(expected_type=TableStyleInfo, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    tableStyleInfo: TableStyleInfo | None = Field.element(expected_type=TableStyleInfo, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ('autoFilter', 'sortState', 'tableColumns', 'tableStyleInfo')
 

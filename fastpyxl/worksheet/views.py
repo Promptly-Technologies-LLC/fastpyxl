@@ -15,18 +15,18 @@ def _enum_converter(value, allowed, field_name):
 
 
 class Pane(Serialisable):
-    xSplit: float | None = Field.attribute(expected_type=float, allow_none=True)
-    ySplit: float | None = Field.attribute(expected_type=float, allow_none=True)
-    topLeftCell: str | None = Field.attribute(expected_type=str, allow_none=True)
+    xSplit: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    ySplit: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    topLeftCell: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     activePane: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("bottomRight", "topRight", "bottomLeft", "topLeft"), "activePane"),
+        converter=lambda v: _enum_converter(v, ("bottomRight", "topRight", "bottomLeft", "topLeft"), "activePane"), default=None,
     )
     state: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("split", "frozen", "frozenSplit"), "state"),
+        converter=lambda v: _enum_converter(v, ("split", "frozen", "frozenSplit"), "state"), default=None,
     )
 
     def __init__(self, xSplit=None, ySplit=None, topLeftCell=None, activePane="topLeft", state="split"):
@@ -41,11 +41,11 @@ class Selection(Serialisable):
     pane: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("bottomRight", "topRight", "bottomLeft", "topLeft"), "pane"),
+        converter=lambda v: _enum_converter(v, ("bottomRight", "topRight", "bottomLeft", "topLeft"), "pane"), default=None,
     )
-    activeCell: str | None = Field.attribute(expected_type=str, allow_none=True)
-    activeCellId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    sqref: str | None = Field.attribute(expected_type=str, allow_none=True)
+    activeCell: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    activeCellId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    sqref: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self, pane=None, activeCell="A1", activeCellId=None, sqref="A1"):
         self.pane = pane
@@ -59,32 +59,32 @@ class SheetView(Serialisable):
 
     tagname = "sheetView"
 
-    windowProtection: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showFormulas: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showGridLines: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showRowColHeaders: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showZeros: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    rightToLeft: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    tabSelected: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showRuler: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showOutlineSymbols: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    defaultGridColor: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showWhiteSpace: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    windowProtection: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showFormulas: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showGridLines: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showRowColHeaders: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showZeros: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    rightToLeft: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    tabSelected: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showRuler: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showOutlineSymbols: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    defaultGridColor: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showWhiteSpace: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     view: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("normal", "pageBreakPreview", "pageLayout"), "view"),
+        converter=lambda v: _enum_converter(v, ("normal", "pageBreakPreview", "pageLayout"), "view"), default=None,
     )
-    topLeftCell: str | None = Field.attribute(expected_type=str, allow_none=True)
-    colorId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    zoomScale: int | None = Field.attribute(expected_type=int, allow_none=True)
-    zoomScaleNormal: int | None = Field.attribute(expected_type=int, allow_none=True)
-    zoomScaleSheetLayoutView: int | None = Field.attribute(expected_type=int, allow_none=True)
-    zoomScalePageLayoutView: int | None = Field.attribute(expected_type=int, allow_none=True)
-    zoomToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    workbookViewId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    topLeftCell: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    colorId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    zoomScale: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    zoomScaleNormal: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    zoomScaleSheetLayoutView: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    zoomScalePageLayoutView: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    zoomToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    workbookViewId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     selection: list[Selection] = Field.sequence(expected_type=Selection, default=list)
-    pane: Pane | None = Field.element(expected_type=Pane, allow_none=True)
+    pane: Pane | None = Field.element(expected_type=Pane, allow_none=True, default=None)
 
     xml_order = ("pane", "selection")
 
@@ -124,7 +124,7 @@ class SheetViewList(Serialisable):
     tagname = "sheetViews"
 
     sheetView: list[SheetView] = Field.sequence(expected_type=SheetView, default=list)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ("sheetView",)
 

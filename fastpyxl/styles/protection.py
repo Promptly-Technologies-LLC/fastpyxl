@@ -9,8 +9,8 @@ class Protection(Serialisable):
 
     tagname = "protection"
 
-    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, locked=True, hidden=False):
         self.locked = locked

@@ -54,19 +54,19 @@ class Marker(Serialisable):
         expected_type=str,
         allow_none=True,
         converter=_coerce_marker_symbol,
-        renderer=_explicit_none,
+        renderer=_explicit_none, default=None,
     )
     size: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=_marker_size,
+        converter=_marker_size, default=None,
     )
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("symbol", "size", "spPr")
@@ -89,20 +89,20 @@ class Marker(Serialisable):
 class DataPoint(Serialisable):
     tagname = "dPt"
 
-    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    invertIfNegative: bool | None = Field.nested_bool(allow_none=True)
-    marker: Marker | None = Field.element(expected_type=Marker, allow_none=True)
-    bubble3D: bool | None = Field.nested_bool(allow_none=True)
-    explosion: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    invertIfNegative: bool | None = Field.nested_bool(allow_none=True, default=None)
+    marker: Marker | None = Field.element(expected_type=Marker, allow_none=True, default=None)
+    bubble3D: bool | None = Field.nested_bool(allow_none=True, default=None)
+    explosion: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
     pictureOptions: PictureOptions | None = Field.element(
-        expected_type=PictureOptions, allow_none=True
+        expected_type=PictureOptions, allow_none=True, default=None
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = (

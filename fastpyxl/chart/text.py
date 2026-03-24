@@ -24,12 +24,12 @@ class RichText(Serialisable):
     tagname = "rich"
 
     bodyPr: RichTextProperties | None = Field.element(
-        expected_type=RichTextProperties, allow_none=True
+        expected_type=RichTextProperties, allow_none=True, default=None
     )
-    properties = AliasField("bodyPr")
-    lstStyle: ListStyle | None = Field.element(expected_type=ListStyle, allow_none=True)
-    p: list[Paragraph] | None = Field.sequence(expected_type=Paragraph, allow_none=True)
-    paragraphs = AliasField("p")
+    properties = AliasField("bodyPr", default=None)
+    lstStyle: ListStyle | None = Field.element(expected_type=ListStyle, allow_none=True, default=None)
+    p: list[Paragraph] | None = Field.sequence(expected_type=Paragraph, allow_none=True, default=list)
+    paragraphs = AliasField("p", default=None)
 
     xml_order = ("bodyPr", "lstStyle", "p")
 
@@ -51,8 +51,8 @@ class Text(Serialisable):
 
     tagname = "tx"
 
-    strRef: StrRef | None = Field.element(expected_type=StrRef, allow_none=True)
-    rich: RichText | None = Field.element(expected_type=RichText, allow_none=True)
+    strRef: StrRef | None = Field.element(expected_type=StrRef, allow_none=True, default=None)
+    rich: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
 
     xml_order = ("strRef", "rich")
 

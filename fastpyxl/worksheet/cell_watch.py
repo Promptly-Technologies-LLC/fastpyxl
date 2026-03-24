@@ -9,7 +9,7 @@ class CellWatch(Serialisable):
 
     tagname = "cellWatch"
 
-    r: str | None = Field.attribute(expected_type=str, allow_none=True)
+    r: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(
         self,

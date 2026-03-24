@@ -37,17 +37,17 @@ class Stylesheet(Serialisable):
 
     tagname = "styleSheet"
 
-    numFmts: NumberFormatList | None = Field.element(expected_type=NumberFormatList)
+    numFmts: NumberFormatList | None = Field.element(expected_type=NumberFormatList, default=None)
     fonts: list[Font] = Field.nested_sequence(expected_type=Font, count=True, default=list)
     fills: list[Fill] = Field.nested_sequence(expected_type=Fill, count=True, default=list)
     borders: list[Border] = Field.nested_sequence(expected_type=Border, count=True, default=list)
-    cellStyleXfs: CellStyleList | None = Field.element(expected_type=CellStyleList)
-    cellXfs: CellStyleList | None = Field.element(expected_type=CellStyleList)
-    cellStyles: _NamedCellStyleList | None = Field.element(expected_type=_NamedCellStyleList)
+    cellStyleXfs: CellStyleList | None = Field.element(expected_type=CellStyleList, default=None)
+    cellXfs: CellStyleList | None = Field.element(expected_type=CellStyleList, default=None)
+    cellStyles: _NamedCellStyleList | None = Field.element(expected_type=_NamedCellStyleList, default=None)
     dxfs: list[DifferentialStyle] = Field.nested_sequence(expected_type=DifferentialStyle, count=True, default=list)
-    tableStyles: TableStyleList | None = Field.element(expected_type=TableStyleList, allow_none=True)
-    colors: ColorList | None = Field.element(expected_type=ColorList, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    tableStyles: TableStyleList | None = Field.element(expected_type=TableStyleList, allow_none=True, default=None)
+    colors: ColorList | None = Field.element(expected_type=ColorList, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ('numFmts', 'fonts', 'fills', 'borders', 'cellStyleXfs',
                  'cellXfs', 'cellStyles', 'dxfs', 'tableStyles', 'colors')

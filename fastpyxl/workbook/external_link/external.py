@@ -18,14 +18,14 @@ from fastpyxl.xml.functions import fromstring
 
 class ExternalCell(Serialisable):
 
-    r: str | None = Field.attribute(expected_type=str, allow_none=True)
+    r: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     t: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("b", "d", "n", "e", "s", "str", "inlineStr"), "t"),
+        converter=lambda v: _enum_converter(v, ("b", "d", "n", "e", "s", "str", "inlineStr"), "t"), default=None,
     )
-    vm: int | None = Field.attribute(expected_type=int, allow_none=True)
-    v: str | None = Field.nested_text(expected_type=str, allow_none=True)
+    vm: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    v: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  r=None,
@@ -41,8 +41,8 @@ class ExternalCell(Serialisable):
 
 class ExternalRow(Serialisable):
 
-    r: int | None = Field.attribute(expected_type=int, allow_none=True)
-    cell: list[ExternalCell] = Field.sequence(expected_type=ExternalCell)
+    r: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    cell: list[ExternalCell] = Field.sequence(expected_type=ExternalCell, default=list)
     xml_order = ('cell',)
 
     def __init__(self,
@@ -55,9 +55,9 @@ class ExternalRow(Serialisable):
 
 class ExternalSheetData(Serialisable):
 
-    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    refreshError: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    row: list[ExternalRow] = Field.sequence(expected_type=ExternalRow)
+    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    refreshError: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    row: list[ExternalRow] = Field.sequence(expected_type=ExternalRow, default=list)
     xml_order = ('row',)
 
     def __init__(self,
@@ -72,7 +72,7 @@ class ExternalSheetData(Serialisable):
 
 class ExternalSheetDataSet(Serialisable):
 
-    sheetData: list[ExternalSheetData] | None = Field.sequence(expected_type=ExternalSheetData, allow_none=True)
+    sheetData: list[ExternalSheetData] | None = Field.sequence(expected_type=ExternalSheetData, allow_none=True, default=list)
     xml_order = ('sheetData',)
 
     def __init__(self,
@@ -83,7 +83,7 @@ class ExternalSheetDataSet(Serialisable):
 
 class ExternalSheetNames(Serialisable):
 
-    sheetName: list[str] = Field.sequence(expected_type=str, primitive_attribute="val")
+    sheetName: list[str] = Field.sequence(expected_type=str, primitive_attribute="val", default=list)
     xml_order = ('sheetName',)
 
     def __init__(self,
@@ -96,9 +96,9 @@ class ExternalDefinedName(Serialisable):
 
     tagname = "definedName"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    refersTo: str | None = Field.attribute(expected_type=str, allow_none=True)
-    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    refersTo: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    sheetId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  name=None,
@@ -114,10 +114,10 @@ class ExternalBook(Serialisable):
 
     tagname = "externalBook"
 
-    sheetNames: ExternalSheetNames | None = Field.element(expected_type=ExternalSheetNames, allow_none=True)
-    definedNames: list[ExternalDefinedName] = Field.nested_sequence(expected_type=ExternalDefinedName)
-    sheetDataSet: ExternalSheetDataSet | None = Field.element(expected_type=ExternalSheetDataSet, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    sheetNames: ExternalSheetNames | None = Field.element(expected_type=ExternalSheetNames, allow_none=True, default=None)
+    definedNames: list[ExternalDefinedName] = Field.nested_sequence(expected_type=ExternalDefinedName, default=list)
+    sheetDataSet: ExternalSheetDataSet | None = Field.element(expected_type=ExternalSheetDataSet, allow_none=True, default=None)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     xml_order = ('sheetNames', 'definedNames', 'sheetDataSet')
 
@@ -142,11 +142,11 @@ class ExternalLink(Serialisable):
     _rel_type = "externalLink"
     mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.externalLink+xml"
 
-    externalBook: ExternalBook | None = Field.element(expected_type=ExternalBook, allow_none=True)
+    externalBook: ExternalBook | None = Field.element(expected_type=ExternalBook, allow_none=True, default=None)
     file_link: Relationship | None = Field.element(
         expected_type=Relationship,
         allow_none=True,
-        serialize=False,
+        serialize=False, default=None,
     )
 
     xml_order = ('externalBook',)

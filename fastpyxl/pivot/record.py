@@ -32,7 +32,7 @@ class Record(Serialisable):
             "s": Text,
             "d": DateTimeField,
             "x": Index,
-        }
+        }, default=list
     )
 
 
@@ -58,8 +58,8 @@ class RecordList(Serialisable):
 
     tagname ="pivotCacheRecords"
 
-    r: list[Record] | None = Field.sequence(expected_type=Record, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    r: list[Record] | None = Field.sequence(expected_type=Record, allow_none=True, default=list)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("r",)
 

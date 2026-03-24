@@ -37,8 +37,8 @@ from .relation import ChartRelation
 
 class AnchorClientData(Serialisable):
 
-    fLocksWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    fPrintsWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    fLocksWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    fPrintsWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self,
                  fLocksWithSheet=None,
@@ -52,10 +52,10 @@ class AnchorMarker(Serialisable):
 
     tagname = "marker"
 
-    col: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    colOff: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    row: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    rowOff: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    col: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    colOff: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    row: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    rowOff: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  col=0,
@@ -72,16 +72,16 @@ class AnchorMarker(Serialisable):
 class _AnchorBase(Serialisable):
 
     #one of
-    sp: Shape | None = Field.element(expected_type=Shape, allow_none=True)
-    shape = AliasField("sp")
-    grpSp: GroupShape | None = Field.element(expected_type=GroupShape, allow_none=True)
-    groupShape = AliasField("grpSp")
-    graphicFrame: GraphicFrame | None = Field.element(expected_type=GraphicFrame, allow_none=True)
-    cxnSp: Shape | None = Field.element(expected_type=Shape, allow_none=True)
-    connectionShape = AliasField("cxnSp")
-    pic: PictureFrame | None = Field.element(expected_type=PictureFrame, allow_none=True)
-    contentPart: str | None = Field.attribute(expected_type=str, allow_none=True)
-    clientData: AnchorClientData | None = Field.element(expected_type=AnchorClientData, allow_none=True)
+    sp: Shape | None = Field.element(expected_type=Shape, allow_none=True, default=None)
+    shape = AliasField("sp", default=None)
+    grpSp: GroupShape | None = Field.element(expected_type=GroupShape, allow_none=True, default=None)
+    groupShape = AliasField("grpSp", default=None)
+    graphicFrame: GraphicFrame | None = Field.element(expected_type=GraphicFrame, allow_none=True, default=None)
+    cxnSp: Shape | None = Field.element(expected_type=Shape, allow_none=True, default=None)
+    connectionShape = AliasField("cxnSp", default=None)
+    pic: PictureFrame | None = Field.element(expected_type=PictureFrame, allow_none=True, default=None)
+    contentPart: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    clientData: AnchorClientData | None = Field.element(expected_type=AnchorClientData, allow_none=True, default=None)
 
     xml_order = ('sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
@@ -109,8 +109,8 @@ class AbsoluteAnchor(_AnchorBase):
 
     tagname = "absoluteAnchor"
 
-    pos: XDRPoint2D | None = Field.element(expected_type=XDRPoint2D, allow_none=True)
-    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True)
+    pos: XDRPoint2D | None = Field.element(expected_type=XDRPoint2D, allow_none=True, default=None)
+    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True, default=None)
 
     xml_order = ('pos', 'ext', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
@@ -132,8 +132,8 @@ class OneCellAnchor(_AnchorBase):
 
     tagname = "oneCellAnchor"
 
-    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True)
-    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True)
+    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True, default=None)
+    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True, default=None)
 
     xml_order = ('_from', 'ext', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
@@ -159,10 +159,10 @@ class TwoCellAnchor(_AnchorBase):
     editAs: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ('twoCell', 'oneCell', 'absolute'), "editAs"),
+        converter=lambda v: _enum_converter(v, ('twoCell', 'oneCell', 'absolute'), "editAs"), default=None,
     )
-    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True)
-    to: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True)
+    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True, default=None)
+    to: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True, default=None)
 
     xml_order = ('_from', 'to', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
 
@@ -214,9 +214,9 @@ class SpreadsheetDrawing(Serialisable):
     _path = PartName="/xl/drawings/drawing{0}.xml"
     _id = None
 
-    twoCellAnchor: list[TwoCellAnchor] | None = Field.sequence(expected_type=TwoCellAnchor, allow_none=True)
-    oneCellAnchor: list[OneCellAnchor] | None = Field.sequence(expected_type=OneCellAnchor, allow_none=True)
-    absoluteAnchor: list[AbsoluteAnchor] | None = Field.sequence(expected_type=AbsoluteAnchor, allow_none=True)
+    twoCellAnchor: list[TwoCellAnchor] | None = Field.sequence(expected_type=TwoCellAnchor, allow_none=True, default=list)
+    oneCellAnchor: list[OneCellAnchor] | None = Field.sequence(expected_type=OneCellAnchor, allow_none=True, default=list)
+    absoluteAnchor: list[AbsoluteAnchor] | None = Field.sequence(expected_type=AbsoluteAnchor, allow_none=True, default=list)
 
     xml_order = ("twoCellAnchor", "oneCellAnchor", "absoluteAnchor")
 

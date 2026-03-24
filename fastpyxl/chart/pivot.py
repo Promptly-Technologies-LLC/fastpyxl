@@ -17,10 +17,10 @@ from .text import RichText
 class PivotSource(Serialisable):
     tagname = "pivotSource"
 
-    name: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    fmtId: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    name: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    fmtId: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("name", "fmtId")
@@ -34,18 +34,18 @@ class PivotSource(Serialisable):
 class PivotFormat(Serialisable):
     tagname = "pivotFmt"
 
-    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    TextBody = AliasField("txPr")
-    marker: Marker | None = Field.element(expected_type=Marker, allow_none=True)
-    dLbl: DataLabel | None = Field.element(expected_type=DataLabel, allow_none=True)
-    DataLabel = AliasField("dLbl")
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    TextBody = AliasField("txPr", default=None)
+    marker: Marker | None = Field.element(expected_type=Marker, allow_none=True, default=None)
+    dLbl: DataLabel | None = Field.element(expected_type=DataLabel, allow_none=True, default=None)
+    DataLabel = AliasField("dLbl", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("idx", "spPr", "txPr", "marker", "dLbl")

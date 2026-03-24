@@ -34,17 +34,17 @@ from .axis import (
 class DataTable(Serialisable):
     tagname = "dTable"
 
-    showHorzBorder: bool | None = Field.nested_bool(allow_none=True)
-    showVertBorder: bool | None = Field.nested_bool(allow_none=True)
-    showOutline: bool | None = Field.nested_bool(allow_none=True)
-    showKeys: bool | None = Field.nested_bool(allow_none=True)
+    showHorzBorder: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showVertBorder: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showOutline: bool | None = Field.nested_bool(allow_none=True, default=None)
+    showKeys: bool | None = Field.nested_bool(allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("showHorzBorder", "showVertBorder", "showOutline", "showKeys", "spPr", "txPr")
@@ -101,14 +101,14 @@ _AX_ASSIGN = frozenset(_AX_PARTS)
 class PlotArea(Serialisable):
     tagname = "plotArea"
 
-    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True)
-    dTable: DataTable | None = Field.element(expected_type=DataTable, allow_none=True)
+    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True, default=None)
+    dTable: DataTable | None = Field.element(expected_type=DataTable, allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _charts: list | None = Field.multi_sequence(

@@ -58,31 +58,31 @@ class Properties(Serialisable):
 
     tagname = "commentPr"
 
-    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     _print: bool | None = Field.attribute(
-        expected_type=bool, allow_none=True, xml_name="print"
+        expected_type=bool, allow_none=True, xml_name="print", default=None
     )
-    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    altText: str | None = Field.attribute(expected_type=str, allow_none=True)
+    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    altText: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     textHAlign: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_h_align_converter,
+        converter=_h_align_converter, default=None,
     )
     textVAlign: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_v_align_converter,
+        converter=_v_align_converter, default=None,
     )
-    lockText: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    justLastX: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoScale: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    rowHidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    colHidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    lockText: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    justLastX: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoScale: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    rowHidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    colHidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(
         self,
@@ -125,14 +125,14 @@ class CommentRecord(Serialisable):
 
     tagname = "comment"
 
-    ref: str = Field.attribute(expected_type=str)
-    authorId: int = Field.attribute(expected_type=int)
+    ref: str = Field.attribute(expected_type=str, default=None)
+    authorId: int = Field.attribute(expected_type=int, default=None)
     guid: str | None = Field.attribute(
-        expected_type=str, allow_none=True, converter=_guid_converter
+        expected_type=str, allow_none=True, converter=_guid_converter, default=None
     )
-    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    text: Text = Field.element(expected_type=Text)
-    commentPr: Properties | None = Field.element(expected_type=Properties, allow_none=True)
+    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    text: Text = Field.element(expected_type=Text, default=None)
+    commentPr: Properties | None = Field.element(expected_type=Properties, allow_none=True, default=None)
 
     xml_order = ("text", "commentPr")
 
@@ -185,12 +185,12 @@ class CommentSheet(Serialisable):
 
     tagname = "comments"
 
-    authors: AuthorList = Field.element(expected_type=AuthorList)
+    authors: AuthorList = Field.element(expected_type=AuthorList, default=None)
     commentList: list[CommentRecord] = Field.nested_sequence(
-        expected_type=CommentRecord, count=False
+        expected_type=CommentRecord, count=False, default=list
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _id = None

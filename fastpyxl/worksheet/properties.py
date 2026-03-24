@@ -22,10 +22,10 @@ class Outline(Serialisable):
 
     tagname = "outlinePr"
 
-    applyStyles: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    summaryBelow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    summaryRight: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showOutlineSymbols: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    applyStyles: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    summaryBelow: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    summaryRight: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showOutlineSymbols: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self,
                  applyStyles=None,
@@ -43,8 +43,8 @@ class PageSetupProperties(Serialisable):
 
     tagname = "pageSetUpPr"
 
-    autoPageBreaks: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    fitToPage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoPageBreaks: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    fitToPage: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, autoPageBreaks=None, fitToPage=None):
         self.autoPageBreaks = autoPageBreaks
@@ -55,18 +55,18 @@ class WorksheetProperties(Serialisable):
 
     tagname = "sheetPr"
 
-    codeName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    enableFormatConditionsCalculation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    filterMode: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    published: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    syncHorizontal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    syncRef: str | None = Field.attribute(expected_type=str, allow_none=True)
-    syncVertical: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    transitionEvaluation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    transitionEntry: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    tabColor: Color | None = Field.element(expected_type=Color, allow_none=True, converter=_color_converter)
-    outlinePr: Outline | None = Field.element(expected_type=Outline, allow_none=True)
-    pageSetUpPr: PageSetupProperties | None = Field.element(expected_type=PageSetupProperties, allow_none=True)
+    codeName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    enableFormatConditionsCalculation: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    filterMode: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    syncHorizontal: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    syncRef: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    syncVertical: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    transitionEvaluation: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    transitionEntry: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    tabColor: Color | None = Field.element(expected_type=Color, allow_none=True, converter=_color_converter, default=None)
+    outlinePr: Outline | None = Field.element(expected_type=Outline, allow_none=True, default=None)
+    pageSetUpPr: PageSetupProperties | None = Field.element(expected_type=PageSetupProperties, allow_none=True, default=None)
 
     xml_order = ("tabColor", "outlinePr", "pageSetUpPr")
 

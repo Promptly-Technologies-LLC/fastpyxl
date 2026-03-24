@@ -34,7 +34,7 @@ class Side(Serialisable):
     color: Color | None = Field.element(
         expected_type=Color,
         allow_none=True,
-        converter=lambda v: _color_converter(v, "color"),
+        converter=lambda v: _color_converter(v, "color"), default=None,
     )
     style: str | None = Field.attribute(
         expected_type=str,
@@ -57,9 +57,9 @@ class Side(Serialisable):
                 "thin",
             ),
             "style",
-        ),
+        ), default=None,
     )
-    border_style: str | None = AliasField("style")
+    border_style: str | None = AliasField("style", default=None)
 
     def __init__(self, style=None, color=None, border_style=None):
         if border_style is not None:
@@ -86,19 +86,19 @@ class Border(Serialisable):
     )
 
     # child elements
-    start: Side | None = Field.element(expected_type=Side, allow_none=True)
-    end: Side | None = Field.element(expected_type=Side, allow_none=True)
-    left: Side | None = Field.element(expected_type=Side, allow_none=True)
-    right: Side | None = Field.element(expected_type=Side, allow_none=True)
-    top: Side | None = Field.element(expected_type=Side, allow_none=True)
-    bottom: Side | None = Field.element(expected_type=Side, allow_none=True)
-    diagonal: Side | None = Field.element(expected_type=Side, allow_none=True)
-    vertical: Side | None = Field.element(expected_type=Side, allow_none=True)
-    horizontal: Side | None = Field.element(expected_type=Side, allow_none=True)
+    start: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    end: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    left: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    right: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    top: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    bottom: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    diagonal: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    vertical: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
+    horizontal: Side | None = Field.element(expected_type=Side, allow_none=True, default=None)
     # attributes
-    outline: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    diagonalUp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    diagonalDown: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    outline: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    diagonalUp: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    diagonalDown: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, left=None, right=None, top=None,
                  bottom=None, diagonal=None, diagonal_direction=None,

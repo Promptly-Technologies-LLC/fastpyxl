@@ -8,11 +8,11 @@ class Break(Serialisable):
 
     tagname = "brk"
 
-    id: int | None = Field.attribute(expected_type=int, allow_none=True)
-    min: int | None = Field.attribute(expected_type=int, allow_none=True)
-    max: int | None = Field.attribute(expected_type=int, allow_none=True)
-    man: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    pt: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    min: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    max: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    man: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    pt: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(
         self,

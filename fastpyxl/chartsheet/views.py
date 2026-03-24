@@ -8,11 +8,11 @@ from fastpyxl.typed_serialisable.fields import Field
 class ChartsheetView(Serialisable):
     tagname = "sheetView"
 
-    tabSelected: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    zoomScale: int | None = Field.attribute(expected_type=int, allow_none=True)
+    tabSelected: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    zoomScale: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     workbookViewId: int | None = Field.attribute(expected_type=int, allow_none=True, default=0)
-    zoomToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    zoomToFit: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
     xml_order = ()
 
     def __init__(self,
@@ -32,8 +32,8 @@ class ChartsheetView(Serialisable):
 class ChartsheetViewList(Serialisable):
     tagname = "sheetViews"
 
-    sheetView: list[ChartsheetView] = Field.sequence(expected_type=ChartsheetView)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    sheetView: list[ChartsheetView] = Field.sequence(expected_type=ChartsheetView, default=list)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
     xml_order = ("sheetView", "extLst")
 
     def __init__(self,

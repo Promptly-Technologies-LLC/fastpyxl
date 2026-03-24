@@ -11,22 +11,22 @@ class ControlProperty(Serialisable):
 
     tagname = "controlPr"
 
-    anchor: ObjectAnchor | None = Field.element(expected_type=ObjectAnchor, allow_none=True)
-    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    _print: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name="print")
-    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    recalcAlways: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoPict: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
-    altText: str | None = Field.attribute(expected_type=str, allow_none=True)
-    linkedCell: str | None = Field.attribute(expected_type=str, allow_none=True)
-    listFillRange: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cf: str | None = Field.attribute(expected_type=str, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    anchor: ObjectAnchor | None = Field.element(expected_type=ObjectAnchor, allow_none=True, default=None)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    _print: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name="print", default=None)
+    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    recalcAlways: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoPict: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    altText: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    linkedCell: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    listFillRange: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cf: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     xml_order = ("anchor",)
 
@@ -70,9 +70,9 @@ class Control(Serialisable):
 
     tagname = "control"
 
-    controlPr: ControlProperty | None = Field.element(expected_type=ControlProperty, allow_none=True)
-    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    controlPr: ControlProperty | None = Field.element(expected_type=ControlProperty, allow_none=True, default=None)
+    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     xml_order = ("controlPr",)
 

@@ -64,16 +64,16 @@ class CellStyle(Serialisable):
 
     tagname = "xf"
 
-    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    fontId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    fillId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    borderId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    xfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    quotePrefix: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    pivotButton: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    alignment: Alignment | None = Field.element(expected_type=Alignment, allow_none=True)
-    protection: Protection | None = Field.element(expected_type=Protection, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    fontId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    fillId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    borderId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    xfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    quotePrefix: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    pivotButton: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    alignment: Alignment | None = Field.element(expected_type=Alignment, allow_none=True, default=None)
+    protection: Protection | None = Field.element(expected_type=Protection, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("alignment", "protection")
 
@@ -166,7 +166,7 @@ class CellStyleList(Serialisable):
 
     tagname = "cellXfs"
 
-    xf: list[CellStyle] = Field.sequence(expected_type=CellStyle)
+    xf: list[CellStyle] = Field.sequence(expected_type=CellStyle, default=list)
 
     def __init__(self,
                  count=None,

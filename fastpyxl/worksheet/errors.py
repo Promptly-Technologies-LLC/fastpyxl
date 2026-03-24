@@ -7,7 +7,7 @@ class Extension(Serialisable):
 
     tagname = "extension"
 
-    uri: str | None = Field.attribute(expected_type=str, allow_none=True)
+    uri: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(
         self,
@@ -33,16 +33,16 @@ class IgnoredError(Serialisable):
 
     tagname = "ignoredError"
 
-    sqref: str | None = Field.attribute(expected_type=str, allow_none=True)
-    evalError: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    twoDigitTextYear: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    numberStoredAsText: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    formula: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    formulaRange: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    unlockedFormula: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    emptyCellReference: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    listDataValidation: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    calculatedColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sqref: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    evalError: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    twoDigitTextYear: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    numberStoredAsText: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    formula: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    formulaRange: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    unlockedFormula: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    emptyCellReference: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    listDataValidation: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    calculatedColumn: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(
         self,
@@ -74,7 +74,7 @@ class IgnoredErrors(Serialisable):
     tagname = "ignoredErrors"
 
     ignoredError: list[IgnoredError] = Field.sequence(expected_type=IgnoredError, default=list)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("ignoredError", "extLst")
 

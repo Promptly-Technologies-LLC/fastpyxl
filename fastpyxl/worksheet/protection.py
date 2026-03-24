@@ -36,7 +36,7 @@ class SheetProtection(Serialisable, _Protected):
     tagname = "sheetProtection"
 
     sheet: bool = Field.attribute(expected_type=bool, default=False)
-    enabled = AliasField('sheet')
+    enabled = AliasField('sheet', default=None)
     objects: bool = Field.attribute(expected_type=bool, default=False)
     scenarios: bool = Field.attribute(expected_type=bool, default=False)
     formatCells: bool = Field.attribute(expected_type=bool, default=True)
@@ -52,10 +52,10 @@ class SheetProtection(Serialisable, _Protected):
     sort: bool = Field.attribute(expected_type=bool, default=True)
     autoFilter: bool = Field.attribute(expected_type=bool, default=True)
     pivotTables: bool = Field.attribute(expected_type=bool, default=True)
-    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
-    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
+    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self, sheet=False, objects=False, scenarios=False,
                  formatCells=True, formatRows=True, formatColumns=True,

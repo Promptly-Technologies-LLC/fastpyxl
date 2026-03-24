@@ -11,25 +11,25 @@ class PrintPageSetup(Serialisable):
 
     tagname = "pageSetup"
 
-    orientation: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("default", "portrait", "landscape"), "orientation"))
-    paperSize: int | None = Field.attribute(expected_type=int, allow_none=True)
-    scale: int | None = Field.attribute(expected_type=int, allow_none=True)
-    fitToHeight: int | None = Field.attribute(expected_type=int, allow_none=True)
-    fitToWidth: int | None = Field.attribute(expected_type=int, allow_none=True)
-    firstPageNumber: int | None = Field.attribute(expected_type=int, allow_none=True)
-    useFirstPageNumber: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    paperHeight: str | None = Field.attribute(expected_type=str, allow_none=True)
-    paperWidth: str | None = Field.attribute(expected_type=str, allow_none=True)
-    pageOrder: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("downThenOver", "overThenDown"), "pageOrder"))
-    usePrinterDefaults: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    blackAndWhite: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    draft: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    cellComments: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("asDisplayed", "atEnd", "none"), "cellComments"))
-    errors: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("displayed", "blank", "dash", "NA"), "errors"))
-    horizontalDpi: int | None = Field.attribute(expected_type=int, allow_none=True)
-    verticalDpi: int | None = Field.attribute(expected_type=int, allow_none=True)
-    copies: int | None = Field.attribute(expected_type=int, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    orientation: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("default", "portrait", "landscape"), "orientation"), default=None)
+    paperSize: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    scale: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    fitToHeight: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    fitToWidth: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    firstPageNumber: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    useFirstPageNumber: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    paperHeight: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    paperWidth: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    pageOrder: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("downThenOver", "overThenDown"), "pageOrder"), default=None)
+    usePrinterDefaults: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    blackAndWhite: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    draft: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    cellComments: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("asDisplayed", "atEnd", "none"), "cellComments"), default=None)
+    errors: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ("displayed", "blank", "dash", "NA"), "errors"), default=None)
+    horizontalDpi: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    verticalDpi: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    copies: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     def __init__(self,
                  worksheet=None,
@@ -112,11 +112,11 @@ class PrintOptions(Serialisable):
     """ Worksheet print options """
 
     tagname = "printOptions"
-    horizontalCentered: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    verticalCentered: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    headings: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    gridLines: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    gridLinesSet: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    horizontalCentered: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    verticalCentered: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    headings: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    gridLines: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    gridLinesSet: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, horizontalCentered=None,
                  verticalCentered=None,

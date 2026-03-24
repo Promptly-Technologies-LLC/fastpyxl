@@ -14,11 +14,11 @@ class ConditionalFormatting(Serialisable):
 
     tagname = "conditionalFormatting"
 
-    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange)
-    cells = AliasField("sqref")
-    pivot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange, default=None)
+    cells = AliasField("sqref", default=None)
+    pivot: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     cfRule: list[Rule] = Field.sequence(expected_type=Rule, default=list)
-    rules = AliasField("cfRule")
+    rules = AliasField("cfRule", default=None)
 
     def __init__(self, sqref=(), pivot=None, cfRule=(), extLst=None):
         del extLst

@@ -232,13 +232,20 @@ class _FieldFactory:
         )
 
 
-def AliasField(target: str, *, xml_name: str | None = None) -> Any:
+def AliasField(
+    target: str,
+    *,
+    xml_name: str | None = None,
+    default: Any = None,
+) -> Any:
     return _FieldSpec(
         FieldInfo(
             name="",
             kind="alias",
             alias_target=target,
             xml_name=xml_name,
+            default=default,
+            allow_none=True,
         )
     )
 

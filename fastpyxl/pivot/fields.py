@@ -12,7 +12,7 @@ class Index(Serialisable):
 
     tagname = "x"
 
-    v: int | None = Field.attribute(expected_type=int, allow_none=True)
+    v: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  v=0,
@@ -24,9 +24,9 @@ class Tuple(Serialisable):
 
     tagname = "tpl"
 
-    fld: int | None = Field.attribute(expected_type=int, allow_none=True)
-    hier: int | None = Field.attribute(expected_type=int, allow_none=True)
-    item: int | None = Field.attribute(expected_type=int, allow_none=False)
+    fld: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hier: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    item: int | None = Field.attribute(expected_type=int, allow_none=False, default=None)
 
     def __init__(self,
                  fld=None,
@@ -42,8 +42,8 @@ class TupleList(Serialisable):
 
     tagname = "tpls"
 
-    c: int | None = Field.attribute(expected_type=int, allow_none=True)
-    tpl: Tuple | None = Field.element(expected_type=Tuple, allow_none=True)
+    c: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    tpl: Tuple | None = Field.element(expected_type=Tuple, allow_none=True, default=None)
 
     xml_order = ("tpl",)
 
@@ -59,19 +59,19 @@ class Missing(Serialisable):
 
     tagname = "m"
 
-    tpls: list[TupleList] = Field.sequence(expected_type=TupleList)
-    x: list[Index] = Field.sequence(expected_type=Index)
-    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    c: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
-    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    tpls: list[TupleList] = Field.sequence(expected_type=TupleList, default=list)
+    x: list[Index] = Field.sequence(expected_type=Index, default=list)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("tpls", "x")
 
@@ -109,20 +109,20 @@ class Number(Serialisable):
 
     tagname = "n"
 
-    tpls: list[TupleList] = Field.sequence(expected_type=TupleList)
-    x: list[Index] = Field.sequence(expected_type=Index)
-    v: float | None = Field.attribute(expected_type=float, allow_none=False)
-    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    c: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
-    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    tpls: list[TupleList] = Field.sequence(expected_type=TupleList, default=list)
+    x: list[Index] = Field.sequence(expected_type=Index, default=list)
+    v: float | None = Field.attribute(expected_type=float, allow_none=False, default=None)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("tpls", "x")
 
@@ -162,20 +162,20 @@ class Error(Serialisable):
 
     tagname = "e"
 
-    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True)
-    x: list[Index] = Field.sequence(expected_type=Index)
-    v: str | None = Field.attribute(expected_type=str, allow_none=False)
-    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    c: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
-    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True, default=None)
+    x: list[Index] = Field.sequence(expected_type=Index, default=list)
+    v: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("tpls", "x")
 
@@ -215,12 +215,12 @@ class Boolean(Serialisable):
 
     tagname = "b"
 
-    x: list[Index] = Field.sequence(expected_type=Index)
+    x: list[Index] = Field.sequence(expected_type=Index, default=list)
     v: bool = Field.attribute(expected_type=bool, allow_none=False, default=False)
-    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    c: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     xml_order = ("x",)
 
@@ -260,20 +260,20 @@ class Text(Serialisable):
 
     tagname = "s"
 
-    tpls: list[TupleList] = Field.sequence(expected_type=TupleList)
-    x: list[Index] = Field.sequence(expected_type=Index)
-    v: str | None = Field.attribute(expected_type=str, allow_none=False)
-    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    c: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
-    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    tpls: list[TupleList] = Field.sequence(expected_type=TupleList, default=list)
+    x: list[Index] = Field.sequence(expected_type=Index, default=list)
+    v: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("tpls", "x")
 
@@ -313,16 +313,16 @@ class DateTimeField(Serialisable):
 
     tagname = "d"
 
-    x: list[Index] = Field.sequence(expected_type=Index)
+    x: list[Index] = Field.sequence(expected_type=Index, default=list)
     v: datetime | None = Field.attribute(
         expected_type=datetime,
         allow_none=False,
-        converter=_datetime_converter,
+        converter=_datetime_converter, default=None,
     )
-    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    c: str | None = Field.attribute(expected_type=str, allow_none=True)
-    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     xml_order = ("x",)
 

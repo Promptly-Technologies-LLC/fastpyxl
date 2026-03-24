@@ -65,45 +65,45 @@ class DataValidation(Serialisable):
 
     tagname = "dataValidation"
 
-    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange)
-    cells = AliasField("sqref")
-    ranges = AliasField("sqref")
+    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange, default=None)
+    cells = AliasField("sqref", default=None)
+    ranges = AliasField("sqref", default=None)
 
-    showDropDown: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    hide_drop_down = AliasField('showDropDown')
-    showInputMessage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showErrorMessage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    allowBlank: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    allow_blank = AliasField('allowBlank')
+    showDropDown: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    hide_drop_down = AliasField('showDropDown', default=None)
+    showInputMessage: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showErrorMessage: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    allowBlank: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    allow_blank = AliasField('allowBlank', default=None)
 
-    errorTitle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    error: str | None = Field.attribute(expected_type=str, allow_none=True)
-    promptTitle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    prompt: str | None = Field.attribute(expected_type=str, allow_none=True)
-    formula1: str | None = Field.nested_text(allow_none=True, expected_type=str)
-    formula2: str | None = Field.nested_text(allow_none=True, expected_type=str)
+    errorTitle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    error: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    promptTitle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    prompt: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    formula1: str | None = Field.nested_text(allow_none=True, expected_type=str, default=None)
+    formula2: str | None = Field.nested_text(allow_none=True, expected_type=str, default=None)
 
     type: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("whole", "decimal", "list", "date", "time", "textLength", "custom"), "type"),
+        converter=lambda v: _enum_converter(v, ("whole", "decimal", "list", "date", "time", "textLength", "custom"), "type"), default=None,
     )
     errorStyle: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("stop", "warning", "information"), "errorStyle"),
+        converter=lambda v: _enum_converter(v, ("stop", "warning", "information"), "errorStyle"), default=None,
     )
     imeMode: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("noControl", "off", "on", "disabled", "hiragana", "fullKatakana", "halfKatakana", "fullAlpha", "halfAlpha", "fullHangul", "halfHangul"), "imeMode"),
+        converter=lambda v: _enum_converter(v, ("noControl", "off", "on", "disabled", "hiragana", "fullKatakana", "halfKatakana", "fullAlpha", "halfAlpha", "fullHangul", "halfHangul"), "imeMode"), default=None,
     )
     operator: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"), "operator"),
+        converter=lambda v: _enum_converter(v, ("between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"), "operator"), default=None,
     )
-    validation_type = AliasField('type')
+    validation_type = AliasField('type', default=None)
 
     xml_order = ("formula1", "formula2")
 
@@ -160,9 +160,9 @@ class DataValidationList(Serialisable):
 
     tagname = "dataValidations"
 
-    disablePrompts: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
-    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
+    disablePrompts: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     dataValidation: list[DataValidation] = Field.sequence(expected_type=DataValidation, default=list)
 
     def __init__(self,

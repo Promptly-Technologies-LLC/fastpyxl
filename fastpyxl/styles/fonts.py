@@ -100,50 +100,50 @@ class Font(Serialisable):
         "scheme",
     )
 
-    name: str | None = Field.nested_value(expected_type=str, allow_none=True)
-    charset: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    name: str | None = Field.nested_value(expected_type=str, allow_none=True, default=None)
+    charset: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     family: float | None = Field.nested_value(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _validate_range(v, field_name="family", min_value=0, max_value=14),
+        converter=lambda v: _validate_range(v, field_name="family", min_value=0, max_value=14), default=None,
     )
-    sz: float | None = Field.nested_value(expected_type=float, allow_none=True)
-    size: float | None = AliasField("sz")
+    sz: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
+    size: float | None = AliasField("sz", default=None)
 
-    b: bool | None = Field.nested_bool(renderer=_no_value)
-    bold: bool | None = AliasField("b")
-    i: bool | None = Field.nested_bool(renderer=_no_value)
-    italic: bool | None = AliasField("i")
+    b: bool | None = Field.nested_bool(renderer=_no_value, default=None)
+    bold: bool | None = AliasField("b", default=None)
+    i: bool | None = Field.nested_bool(renderer=_no_value, default=None)
+    italic: bool | None = AliasField("i", default=None)
 
-    strike: bool | None = Field.nested_bool(allow_none=True)
-    strikethrough: bool | None = AliasField("strike")
-    outline: bool | None = Field.nested_bool(allow_none=True)
-    shadow: bool | None = Field.nested_bool(allow_none=True)
-    condense: bool | None = Field.nested_bool(allow_none=True)
+    strike: bool | None = Field.nested_bool(allow_none=True, default=None)
+    strikethrough: bool | None = AliasField("strike", default=None)
+    outline: bool | None = Field.nested_bool(allow_none=True, default=None)
+    shadow: bool | None = Field.nested_bool(allow_none=True, default=None)
+    condense: bool | None = Field.nested_bool(allow_none=True, default=None)
 
     color: Color | None = Field.element(
         expected_type=Color,
         allow_none=True,
-        converter=_color_converter,
+        converter=_color_converter, default=None,
     )
-    extend: bool | None = Field.nested_bool(allow_none=True)
+    extend: bool | None = Field.nested_bool(allow_none=True, default=None)
 
     u: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_underline_converter,
+        converter=_underline_converter, default=None,
     )
-    underline: str | None = AliasField("u")
+    underline: str | None = AliasField("u", default=None)
 
     vertAlign: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_vert_align_converter,
+        converter=_vert_align_converter, default=None,
     )
     scheme: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_scheme_converter,
+        converter=_scheme_converter, default=None,
     )
 
 

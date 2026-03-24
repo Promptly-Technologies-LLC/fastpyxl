@@ -132,9 +132,9 @@ attribute_mapping = {
 class SeriesLabel(Serialisable):
     tagname = "tx"
 
-    strRef: StrRef | None = Field.element(expected_type=StrRef, allow_none=True)
-    v: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    value = AliasField("v")
+    strRef: StrRef | None = Field.element(expected_type=StrRef, allow_none=True, default=None)
+    v: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    value = AliasField("v", default=None)
 
     xml_order = ("strRef", "v")
 
@@ -151,54 +151,54 @@ class Series(Serialisable):
 
     tagname = "ser"
 
-    _serialize_element_order: tuple[str, ...] | None = None
-
-    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    order: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    tx: SeriesLabel | None = Field.element(expected_type=SeriesLabel, allow_none=True)
-    title = AliasField("tx")
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    order: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    tx: SeriesLabel | None = Field.element(expected_type=SeriesLabel, allow_none=True, default=None)
+    title = AliasField("tx", default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
 
     pictureOptions: PictureOptions | None = Field.element(
-        expected_type=PictureOptions, allow_none=True
+        expected_type=PictureOptions, allow_none=True, default=None
     )
-    dPt: list[DataPoint] | None = Field.sequence(expected_type=DataPoint, allow_none=True)
-    data_points = AliasField("dPt")
+    dPt: list[DataPoint] | None = Field.sequence(expected_type=DataPoint, allow_none=True, default=list)
+    data_points = AliasField("dPt", default=None)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    labels = AliasField("dLbls")
-    trendline: Trendline | None = Field.element(expected_type=Trendline, allow_none=True)
-    errBars: ErrorBars | None = Field.element(expected_type=ErrorBars, allow_none=True)
-    cat: AxDataSource | None = Field.element(expected_type=AxDataSource, allow_none=True)
-    identifiers = AliasField("cat")
-    val: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True)
+    labels = AliasField("dLbls", default=None)
+    trendline: Trendline | None = Field.element(expected_type=Trendline, allow_none=True, default=None)
+    errBars: ErrorBars | None = Field.element(expected_type=ErrorBars, allow_none=True, default=None)
+    cat: AxDataSource | None = Field.element(expected_type=AxDataSource, allow_none=True, default=None)
+    identifiers = AliasField("cat", default=None)
+    val: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
-    invertIfNegative: bool | None = Field.nested_bool(allow_none=True)
+    invertIfNegative: bool | None = Field.nested_bool(allow_none=True, default=None)
     shape: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_shape_converter,
+        converter=_shape_converter, default=None,
     )
 
-    xVal: AxDataSource | None = Field.element(expected_type=AxDataSource, allow_none=True)
-    yVal: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True)
+    xVal: AxDataSource | None = Field.element(expected_type=AxDataSource, allow_none=True, default=None)
+    yVal: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True, default=None)
     bubbleSize: NumDataSource | None = Field.element(
-        expected_type=NumDataSource, allow_none=True
+        expected_type=NumDataSource, allow_none=True, default=None
     )
-    zVal = AliasField("bubbleSize")
-    bubble3D: bool | None = Field.nested_bool(allow_none=True)
+    zVal = AliasField("bubbleSize", default=None)
+    bubble3D: bool | None = Field.nested_bool(allow_none=True, default=None)
 
-    marker: Marker | None = Field.element(expected_type=Marker, allow_none=True)
-    smooth: bool | None = Field.nested_bool(allow_none=True)
+    marker: Marker | None = Field.element(expected_type=Marker, allow_none=True, default=None)
+    smooth: bool | None = Field.nested_bool(allow_none=True, default=None)
 
-    explosion: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    explosion: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+
+    _serialize_element_order: tuple[str, ...] | None = None
 
     def __init__(
         self,

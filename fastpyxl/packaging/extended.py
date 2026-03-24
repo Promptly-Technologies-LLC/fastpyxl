@@ -57,53 +57,53 @@ class ExtendedProperties(Serialisable):
 
     tagname = "Properties"
 
-    Template: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    Manager: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    Company: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    Pages: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    Words: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    Characters: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    PresentationFormat: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    Lines: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    Paragraphs: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    Slides: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    Notes: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    TotalTime: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    HiddenSlides: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    MMClips: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    Template: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    Manager: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    Company: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    Pages: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    Words: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    Characters: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    PresentationFormat: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    Lines: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    Paragraphs: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    Slides: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    Notes: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    TotalTime: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    HiddenSlides: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    MMClips: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
     ScaleCrop: bool | None = Field.nested_text(
         expected_type=bool,
         allow_none=True,
         converter=_invert_xml_bool,
-        renderer=_invert_xml_bool_renderer,
+        renderer=_invert_xml_bool_renderer, default=None,
     )
-    HeadingPairs: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True)
-    TitlesOfParts: VectorLpstr | None = Field.element(expected_type=VectorLpstr, allow_none=True)
+    HeadingPairs: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True, default=None)
+    TitlesOfParts: VectorLpstr | None = Field.element(expected_type=VectorLpstr, allow_none=True, default=None)
     LinksUpToDate: bool | None = Field.nested_text(
         expected_type=bool,
         allow_none=True,
         converter=_invert_xml_bool,
-        renderer=_invert_xml_bool_renderer,
+        renderer=_invert_xml_bool_renderer, default=None,
     )
-    CharactersWithSpaces: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    CharactersWithSpaces: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
     SharedDoc: bool | None = Field.nested_text(
         expected_type=bool,
         allow_none=True,
         converter=_invert_xml_bool,
-        renderer=_invert_xml_bool_renderer,
+        renderer=_invert_xml_bool_renderer, default=None,
     )
-    HyperlinkBase: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    HLinks: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True)
+    HyperlinkBase: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    HLinks: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True, default=None)
     HyperlinksChanged: bool | None = Field.nested_text(
         expected_type=bool,
         allow_none=True,
         converter=_invert_xml_bool,
-        renderer=_invert_xml_bool_renderer,
+        renderer=_invert_xml_bool_renderer, default=None,
     )
-    DigSig: DigSigBlob | None = Field.element(expected_type=DigSigBlob, allow_none=True)
-    Application: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    AppVersion: str | None = Field.nested_text(expected_type=str, allow_none=True)
-    DocSecurity: int | None = Field.nested_text(expected_type=int, allow_none=True)
+    DigSig: DigSigBlob | None = Field.element(expected_type=DigSigBlob, allow_none=True, default=None)
+    Application: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    AppVersion: str | None = Field.nested_text(expected_type=str, allow_none=True, default=None)
+    DocSecurity: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
 
     xml_order = ('Application', 'AppVersion', 'DocSecurity', 'ScaleCrop',
                  'LinksUpToDate', 'SharedDoc', 'HyperlinksChanged')

@@ -27,17 +27,17 @@ class RadarChart(ChartBase):
     radarStyle: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_radar_style,
+        converter=_radar_style, default=None,
     )
-    type = AliasField("radarStyle")
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    type = AliasField("radarStyle", default=None)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
+    dataLabels = AliasField("dLbls", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _series_type = "radar"

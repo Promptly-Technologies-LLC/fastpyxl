@@ -19,18 +19,18 @@ class PictureLocking(Serialisable):
     namespace = DRAWING_NS
 
     # Using attribute group AG_Locking
-    noCrop: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noEditPoints: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noAdjustHandles: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noChangeArrowheads: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    noChangeShapeType: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    noCrop: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noEditPoints: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noAdjustHandles: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noChangeArrowheads: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noChangeShapeType: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  noCrop=None,
@@ -64,9 +64,9 @@ class NonVisualPictureProperties(Serialisable):
 
     tagname = "cNvPicPr"
 
-    preferRelativeResize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    picLocks: PictureLocking | None = Field.element(expected_type=PictureLocking, allow_none=True)
-    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    preferRelativeResize: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    picLocks: PictureLocking | None = Field.element(expected_type=PictureLocking, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     xml_order = ("picLocks",)
 
@@ -84,8 +84,8 @@ class PictureNonVisual(Serialisable):
 
     tagname = "nvPicPr"
 
-    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True)
-    cNvPicPr: NonVisualPictureProperties | None = Field.element(expected_type=NonVisualPictureProperties, allow_none=True)
+    cNvPr: NonVisualDrawingProps | None = Field.element(expected_type=NonVisualDrawingProps, allow_none=True, default=None)
+    cNvPicPr: NonVisualPictureProperties | None = Field.element(expected_type=NonVisualPictureProperties, allow_none=True, default=None)
 
     xml_order = ("cNvPr", "cNvPicPr")
 
@@ -107,13 +107,13 @@ class PictureFrame(Serialisable):
 
     tagname = "pic"
 
-    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
-    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    nvPicPr: PictureNonVisual | None = Field.element(expected_type=PictureNonVisual, allow_none=True)
-    blipFill: BlipFillProperties | None = Field.element(expected_type=BlipFillProperties, allow_none=True)
-    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True)
-    graphicalProperties = AliasField('spPr')
-    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    fPublished: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    nvPicPr: PictureNonVisual | None = Field.element(expected_type=PictureNonVisual, allow_none=True, default=None)
+    blipFill: BlipFillProperties | None = Field.element(expected_type=BlipFillProperties, allow_none=True, default=None)
+    spPr: GraphicalProperties | None = Field.element(expected_type=GraphicalProperties, allow_none=True, default=None)
+    graphicalProperties = AliasField('spPr', default=None)
+    style: ShapeStyle | None = Field.element(expected_type=ShapeStyle, allow_none=True, default=None)
 
     xml_order = ("nvPicPr", "blipFill", "spPr", "style")
 

@@ -19,12 +19,12 @@ class DifferentialStyle(Serialisable):
 
     xml_order = ("font", "numFmt", "fill", "alignment", "border", "protection")
 
-    font: Font | None = Field.element(expected_type=Font, allow_none=True)
-    numFmt: NumberFormat | None = Field.element(expected_type=NumberFormat, allow_none=True)
-    fill: Fill | None = Field.element(expected_type=Fill, allow_none=True)
-    alignment: Alignment | None = Field.element(expected_type=Alignment, allow_none=True)
-    border: Border | None = Field.element(expected_type=Border, allow_none=True)
-    protection: Protection | None = Field.element(expected_type=Protection, allow_none=True)
+    font: Font | None = Field.element(expected_type=Font, allow_none=True, default=None)
+    numFmt: NumberFormat | None = Field.element(expected_type=NumberFormat, allow_none=True, default=None)
+    fill: Fill | None = Field.element(expected_type=Fill, allow_none=True, default=None)
+    alignment: Alignment | None = Field.element(expected_type=Alignment, allow_none=True, default=None)
+    border: Border | None = Field.element(expected_type=Border, allow_none=True, default=None)
+    protection: Protection | None = Field.element(expected_type=Protection, allow_none=True, default=None)
 
     def __init__(self,
                  font=None,
@@ -51,8 +51,8 @@ class DifferentialStyleList(Serialisable):
 
     tagname = "dxfs"
 
-    dxf: list[DifferentialStyle] = Field.sequence(expected_type=DifferentialStyle)
-    styles: list[DifferentialStyle] = AliasField("dxf")
+    dxf: list[DifferentialStyle] = Field.sequence(expected_type=DifferentialStyle, default=list)
+    styles: list[DifferentialStyle] = AliasField("dxf", default=None)
 
 
     def __init__(self, dxf=(), count=None):

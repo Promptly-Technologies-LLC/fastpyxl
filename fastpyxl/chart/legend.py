@@ -15,11 +15,11 @@ from .text import RichText
 class LegendEntry(Serialisable):
     tagname = "legendEntry"
 
-    idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    delete: bool | None = Field.nested_bool()
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
+    idx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    delete: bool | None = Field.nested_bool(default=False)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("idx", "delete", "txPr")
@@ -37,22 +37,22 @@ class Legend(Serialisable):
     legendPos: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _legend_pos(v),
+        converter=lambda v: _legend_pos(v), default=None,
     )
-    position = AliasField("legendPos")
+    position = AliasField("legendPos", default=None)
     legendEntry: list[LegendEntry] | None = Field.sequence(
-        expected_type=LegendEntry, allow_none=True
+        expected_type=LegendEntry, allow_none=True, default=list
     )
-    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True)
-    overlay: bool | None = Field.nested_bool(allow_none=True)
+    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True, default=None)
+    overlay: bool | None = Field.nested_bool(allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    textProperties = AliasField("txPr")
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    textProperties = AliasField("txPr", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("legendPos", "legendEntry", "layout", "overlay", "spPr", "txPr")

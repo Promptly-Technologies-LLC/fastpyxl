@@ -18,12 +18,12 @@ class Relationship(Serialisable):
 
     tagname = "Relationship"
 
-    Type: str | None = Field.attribute(expected_type=str, allow_none=True)
-    Target: str | None = Field.attribute(expected_type=str, allow_none=True)
-    target = AliasField("Target")
-    TargetMode: str | None = Field.attribute(expected_type=str, allow_none=True)
-    Id: str | None = Field.attribute(expected_type=str, allow_none=True)
-    id = AliasField("Id")
+    Type: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    Target: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    target = AliasField("Target", default=None)
+    TargetMode: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    Id: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    id = AliasField("Id", default=None)
 
 
     def __init__(self,

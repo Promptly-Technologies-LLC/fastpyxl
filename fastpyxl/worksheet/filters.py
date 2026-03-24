@@ -21,18 +21,18 @@ class SortCondition(Serialisable):
 
     tagname = "sortCondition"
 
-    descending: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    sortBy: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('value', 'cellColor', 'fontColor', 'icon'), 'sortBy'))
-    ref: str | None = Field.attribute(expected_type=str, converter=lambda v: v.upper() if isinstance(v, str) else v)
-    customList: str | None = Field.attribute(expected_type=str, allow_none=True)
-    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    descending: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    sortBy: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('value', 'cellColor', 'fontColor', 'icon'), 'sortBy'), default=None)
+    ref: str | None = Field.attribute(expected_type=str, converter=lambda v: v.upper() if isinstance(v, str) else v, default=None)
+    customList: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     iconSet: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, (
         '3Arrows', '3ArrowsGray', '3Flags',
         '3TrafficLights1', '3TrafficLights2', '3Signs', '3Symbols', '3Symbols2',
         '4Arrows', '4ArrowsGray', '4RedToBlack', '4Rating', '4TrafficLights',
         '5Arrows', '5ArrowsGray', '5Rating', '5Quarters'
-    ), 'iconSet'))
-    iconId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    ), 'iconSet'), default=None)
+    iconId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self, ref=None, descending=None, sortBy=None, customList=None, dxfId=None, iconSet=None, iconId=None):
         self.descending = descending
@@ -48,12 +48,12 @@ class SortState(Serialisable):
 
     tagname = "sortState"
 
-    columnSort: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    caseSensitive: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    sortMethod: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('stroke', 'pinYin'), 'sortMethod'))
-    ref: str | None = Field.attribute(expected_type=str, converter=lambda v: v.upper() if isinstance(v, str) else v)
+    columnSort: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    caseSensitive: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    sortMethod: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, ('stroke', 'pinYin'), 'sortMethod'), default=None)
+    ref: str | None = Field.attribute(expected_type=str, converter=lambda v: v.upper() if isinstance(v, str) else v, default=None)
     sortCondition: list[SortCondition] = Field.sequence(expected_type=SortCondition, allow_none=True, default=list)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ('sortCondition',)
 
@@ -78,8 +78,8 @@ class IconFilter(Serialisable):
         '3TrafficLights1', '3TrafficLights2', '3Signs', '3Symbols', '3Symbols2',
         '4Arrows', '4ArrowsGray', '4RedToBlack', '4Rating', '4TrafficLights',
         '5Arrows', '5ArrowsGray', '5Rating', '5Quarters'
-    ), 'iconSet'))
-    iconId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    ), 'iconSet'), default=None)
+    iconId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self, iconSet=None, iconId=None):
         self.iconSet = iconSet
@@ -90,8 +90,8 @@ class ColorFilter(Serialisable):
 
     tagname = "colorFilter"
 
-    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    cellColor: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    cellColor: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self, dxfId=None, cellColor=None):
         self.dxfId = dxfId
@@ -108,11 +108,11 @@ class DynamicFilter(Serialisable):
         'thisMonth', 'lastMonth', 'nextQuarter', 'thisQuarter', 'lastQuarter',
         'nextYear', 'thisYear', 'lastYear', 'yearToDate', 'Q1', 'Q2', 'Q3', 'Q4',
         'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'
-    ), 'type'))
-    val: float | None = Field.attribute(expected_type=float, allow_none=True)
-    valIso: str | None = Field.attribute(expected_type=str, allow_none=True)
-    maxVal: float | None = Field.attribute(expected_type=float, allow_none=True)
-    maxValIso: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ), 'type'), default=None)
+    val: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    valIso: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    maxVal: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    maxValIso: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self, type=None, val=None, valIso=None, maxVal=None, maxValIso=None):
         self.type = type
@@ -126,8 +126,8 @@ class CustomFilter(Serialisable):
 
     tagname = "customFilter"
 
-    val: str | None = Field.attribute(expected_type=str)
-    operator: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('equal', 'lessThan', 'lessThanOrEqual', 'notEqual', 'greaterThanOrEqual', 'greaterThan'), 'operator'))
+    val: str | None = Field.attribute(expected_type=str, default=None)
+    operator: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('equal', 'lessThan', 'lessThanOrEqual', 'notEqual', 'greaterThanOrEqual', 'greaterThan'), 'operator'), default=None)
 
     def __init__(self, operator="equal", val=None):
         self.operator = operator
@@ -179,8 +179,8 @@ class BlankFilter(CustomFilter):
 
 class NumberFilter(CustomFilter):
 
-    operator: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('equal', 'lessThan', 'lessThanOrEqual', 'notEqual', 'greaterThanOrEqual', 'greaterThan'), 'operator'))
-    val: float | None = Field.attribute(expected_type=float)
+    operator: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('equal', 'lessThan', 'lessThanOrEqual', 'notEqual', 'greaterThanOrEqual', 'greaterThan'), 'operator'), default=None)
+    val: float | None = Field.attribute(expected_type=float, default=None)
 
     def __init__(self, operator="equal", val=None):
         self.operator = operator
@@ -197,8 +197,8 @@ string_format_mapping = {
 
 class StringFilter(CustomFilter):
 
-    operator: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('contains', 'startswith', 'endswith', 'wildcard'), 'operator'))
-    val: str | None = Field.attribute(expected_type=str)
+    operator: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('contains', 'startswith', 'endswith', 'wildcard'), 'operator'), default=None)
+    val: str | None = Field.attribute(expected_type=str, default=None)
     exclude: bool | None = Field.attribute(expected_type=bool, default=False)
 
     def __init__(self, operator="contains", val=None, exclude=False):
@@ -252,7 +252,7 @@ class CustomFilters(Serialisable):
 
     tagname = "customFilters"
 
-    _and: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name='and')
+    _and: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name='and', default=None)
     customFilter: list[CustomFilter] = Field.sequence(expected_type=CustomFilter, default=list) # min 1, max 2
 
     xml_order = ('customFilter',)
@@ -266,10 +266,10 @@ class Top10(Serialisable):
 
     tagname = "top10"
 
-    top: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    val: float | None = Field.attribute(expected_type=float)
-    filterVal: float | None = Field.attribute(expected_type=float, allow_none=True)
+    top: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    percent: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    val: float | None = Field.attribute(expected_type=float, default=None)
+    filterVal: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
 
     def __init__(self, top=None, percent=None, val=None, filterVal=None):
         self.top = top
@@ -282,13 +282,13 @@ class DateGroupItem(Serialisable):
 
     tagname = "dateGroupItem"
 
-    year: int | None = Field.attribute(expected_type=int)
-    month: int | None = Field.attribute(expected_type=int, allow_none=True)
-    day: int | None = Field.attribute(expected_type=int, allow_none=True)
-    hour: int | None = Field.attribute(expected_type=int, allow_none=True)
-    minute: int | None = Field.attribute(expected_type=int, allow_none=True)
-    second: int | None = Field.attribute(expected_type=int, allow_none=True)
-    dateTimeGrouping: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('year', 'month', 'day', 'hour', 'minute', 'second'), 'dateTimeGrouping'))
+    year: int | None = Field.attribute(expected_type=int, default=None)
+    month: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    day: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hour: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    minute: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    second: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dateTimeGrouping: str | None = Field.attribute(expected_type=str, converter=lambda v: _enum(v, ('year', 'month', 'day', 'hour', 'minute', 'second'), 'dateTimeGrouping'), default=None)
 
     def __init__(self, year=None, month=None, day=None, hour=None, minute=None, second=None, dateTimeGrouping=None):
         self.year = year
@@ -304,11 +304,11 @@ class Filters(Serialisable):
 
     tagname = "filters"
 
-    blank: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    blank: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     calendarType: str | None = Field.attribute(expected_type=str, allow_none=True, converter=lambda v: _enum(v, (
         "gregorian","gregorianUs","gregorianMeFrench","gregorianArabic", "hijri","hebrew",
         "taiwan","japan", "thai","korea", "saka","gregorianXlitEnglish","gregorianXlitFrench"
-    ), 'calendarType'))
+    ), 'calendarType'), default=None)
     filter: list[str] = Field.sequence(expected_type=str, primitive_attribute='val', default=list)
     dateGroupItem: list[DateGroupItem] = Field.sequence(expected_type=DateGroupItem, allow_none=True, default=list)
 
@@ -325,18 +325,18 @@ class FilterColumn(Serialisable):
 
     tagname = "filterColumn"
 
-    colId: int | None = Field.attribute(expected_type=int)
-    col_id = AliasField('colId')
-    hiddenButton: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showButton: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    colId: int | None = Field.attribute(expected_type=int, default=None)
+    col_id = AliasField('colId', default=None)
+    hiddenButton: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showButton: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     # some elements are choice
-    filters: Filters | None = Field.element(expected_type=Filters, allow_none=True)
-    top10: Top10 | None = Field.element(expected_type=Top10, allow_none=True)
-    customFilters: CustomFilters | None = Field.element(expected_type=CustomFilters, allow_none=True)
-    dynamicFilter: DynamicFilter | None = Field.element(expected_type=DynamicFilter, allow_none=True)
-    colorFilter: ColorFilter | None = Field.element(expected_type=ColorFilter, allow_none=True)
-    iconFilter: IconFilter | None = Field.element(expected_type=IconFilter, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    filters: Filters | None = Field.element(expected_type=Filters, allow_none=True, default=None)
+    top10: Top10 | None = Field.element(expected_type=Top10, allow_none=True, default=None)
+    customFilters: CustomFilters | None = Field.element(expected_type=CustomFilters, allow_none=True, default=None)
+    dynamicFilter: DynamicFilter | None = Field.element(expected_type=DynamicFilter, allow_none=True, default=None)
+    colorFilter: ColorFilter | None = Field.element(expected_type=ColorFilter, allow_none=True, default=None)
+    iconFilter: IconFilter | None = Field.element(expected_type=IconFilter, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ('filters', 'top10', 'customFilters', 'dynamicFilter',
                  'colorFilter', 'iconFilter')
@@ -375,10 +375,10 @@ class AutoFilter(Serialisable):
 
     tagname = "autoFilter"
 
-    ref: str | None = Field.attribute(expected_type=str, converter=lambda v: v.upper() if isinstance(v, str) else v)
+    ref: str | None = Field.attribute(expected_type=str, converter=lambda v: v.upper() if isinstance(v, str) else v, default=None)
     filterColumn: list[FilterColumn] = Field.sequence(expected_type=FilterColumn, allow_none=True, default=list)
-    sortState: SortState | None = Field.element(expected_type=SortState, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    sortState: SortState | None = Field.element(expected_type=SortState, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     xml_order = ('filterColumn', 'sortState')
 

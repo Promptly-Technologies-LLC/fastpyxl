@@ -35,8 +35,8 @@ class FileExtension(Serialisable):
 
     tagname = "Default"
 
-    Extension: str | None = Field.attribute(expected_type=str, allow_none=True)
-    ContentType: str | None = Field.attribute(expected_type=str, allow_none=True)
+    Extension: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    ContentType: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self, Extension, ContentType):
         self.Extension = Extension
@@ -47,12 +47,15 @@ class Override(Serialisable):
 
     tagname = "Override"
 
-    PartName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    ContentType: str | None = Field.attribute(expected_type=str, allow_none=True)
+    PartName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    ContentType: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self, PartName, ContentType):
         self.PartName = PartName
         self.ContentType = ContentType
+
+
+ContentTypeOverride = Override
 
 
 DEFAULT_TYPES = [
@@ -212,7 +215,7 @@ class Manifest(Serialisable):
         self.Default.append(item)
 
 
-    def _append_override_if_missing(self, item: Override):
+    def _append_override_if_missing(self, item: ContentTypeOverride):
         for existing in self.Override:
             if existing.PartName == item.PartName and existing.ContentType == item.ContentType:
                 return

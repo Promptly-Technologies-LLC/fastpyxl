@@ -15,10 +15,10 @@ class UpDownBars(Serialisable):
     tagname = "upbars"
 
     gapWidth = NestedGapAmount
-    upBars: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
-    downBars: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
+    upBars: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
+    downBars: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("gapWidth", "upBars", "downBars")

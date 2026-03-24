@@ -15,7 +15,7 @@ from .cell_range import CellRange
 class MergeCell(CellRange):
 
     tagname = "mergeCell"
-    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  ref=None,
@@ -34,7 +34,7 @@ class MergeCells(Serialisable):
 
     tagname = "mergeCells"
 
-    mergeCell: list[MergeCell] = Field.sequence(expected_type=MergeCell, xml_name="mergeCell")
+    mergeCell: list[MergeCell] = Field.sequence(expected_type=MergeCell, xml_name="mergeCell", default=list)
 
     def __init__(self,
                  count=None,

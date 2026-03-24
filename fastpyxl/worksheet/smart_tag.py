@@ -7,8 +7,8 @@ class CellSmartTagPr(Serialisable):
 
     tagname = "cellSmartTagPr"
 
-    key: str | None = Field.attribute(expected_type=str, allow_none=True)
-    val: str | None = Field.attribute(expected_type=str, allow_none=True)
+    key: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    val: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(
         self,
@@ -26,9 +26,9 @@ class CellSmartTag(Serialisable):
     cellSmartTagPr: list[CellSmartTagPr] = Field.sequence(
         expected_type=CellSmartTagPr, default=list
     )
-    type: int | None = Field.attribute(expected_type=int, allow_none=True)
-    deleted: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    xmlBased: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    type: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    deleted: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    xmlBased: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("cellSmartTagPr",)
 
@@ -52,7 +52,7 @@ class CellSmartTags(Serialisable):
     cellSmartTag: list[CellSmartTag] = Field.sequence(
         expected_type=CellSmartTag, default=list
     )
-    r: str | None = Field.attribute(expected_type=str, allow_none=True)
+    r: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     xml_order = ("cellSmartTag",)
 

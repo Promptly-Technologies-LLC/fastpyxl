@@ -34,19 +34,19 @@ class Chartsheet(_WorkbookChild, Serialisable):
     _path = "/xl/chartsheets/sheet{0}.xml"
     mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.chartsheet+xml"
 
-    sheetPr: ChartsheetProperties | None = Field.element(expected_type=ChartsheetProperties, allow_none=True)
-    sheetViews: ChartsheetViewList | None = Field.element(expected_type=ChartsheetViewList, allow_none=True)
-    sheetProtection: ChartsheetProtection | None = Field.element(expected_type=ChartsheetProtection, allow_none=True)
-    customSheetViews: CustomChartsheetViews | None = Field.element(expected_type=CustomChartsheetViews, allow_none=True)
-    pageMargins: PageMargins | None = Field.element(expected_type=PageMargins, allow_none=True)
-    pageSetup: PrintPageSetup | None = Field.element(expected_type=PrintPageSetup, allow_none=True)
-    drawing: Drawing | None = Field.element(expected_type=Drawing, allow_none=True)
-    drawingHF: DrawingHF | None = Field.element(expected_type=DrawingHF, allow_none=True)
-    picture: SheetBackgroundPicture | None = Field.element(expected_type=SheetBackgroundPicture, allow_none=True)
-    webPublishItems: WebPublishItems | None = Field.element(expected_type=WebPublishItems, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
-    headerFooter: HeaderFooter | None = Field.element(expected_type=HeaderFooter, allow_none=True)
-    HeaderFooter = AliasField('headerFooter')
+    sheetPr: ChartsheetProperties | None = Field.element(expected_type=ChartsheetProperties, allow_none=True, default=None)
+    sheetViews: ChartsheetViewList | None = Field.element(expected_type=ChartsheetViewList, allow_none=True, default=None)
+    sheetProtection: ChartsheetProtection | None = Field.element(expected_type=ChartsheetProtection, allow_none=True, default=None)
+    customSheetViews: CustomChartsheetViews | None = Field.element(expected_type=CustomChartsheetViews, allow_none=True, default=None)
+    pageMargins: PageMargins | None = Field.element(expected_type=PageMargins, allow_none=True, default=None)
+    pageSetup: PrintPageSetup | None = Field.element(expected_type=PrintPageSetup, allow_none=True, default=None)
+    drawing: Drawing | None = Field.element(expected_type=Drawing, allow_none=True, default=None)
+    drawingHF: DrawingHF | None = Field.element(expected_type=DrawingHF, allow_none=True, default=None)
+    picture: SheetBackgroundPicture | None = Field.element(expected_type=SheetBackgroundPicture, allow_none=True, default=None)
+    webPublishItems: WebPublishItems | None = Field.element(expected_type=WebPublishItems, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
+    headerFooter: HeaderFooter | None = Field.element(expected_type=HeaderFooter, allow_none=True, default=None)
+    HeaderFooter = AliasField('headerFooter', default=None)
 
     xml_order = (
         'sheetPr', 'sheetViews', 'sheetProtection', 'customSheetViews',

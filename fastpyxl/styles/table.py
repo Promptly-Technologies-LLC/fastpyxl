@@ -14,10 +14,10 @@ class TableStyleElement(Serialisable):
     type: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, _TABLE_STYLE_ELEMENT_TYPES, "type"),
+        converter=lambda v: _enum_converter(v, _TABLE_STYLE_ELEMENT_TYPES, "type"), default=None,
     )
-    size: int | None = Field.attribute(expected_type=int, allow_none=True)
-    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    size: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  type=None,
@@ -33,13 +33,13 @@ class TableStyle(Serialisable):
 
     tagname = "tableStyle"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    pivot: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    table: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    count: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    pivot: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    table: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    count: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     tableStyleElement: list[TableStyleElement] | None = Field.sequence(
         expected_type=TableStyleElement,
-        allow_none=True,
+        allow_none=True, default=list,
     )
 
     def __init__(self,
@@ -60,9 +60,9 @@ class TableStyleList(Serialisable):
 
     tagname = "tableStyles"
 
-    defaultTableStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    defaultPivotStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
-    tableStyle: list[TableStyle] | None = Field.sequence(expected_type=TableStyle, allow_none=True)
+    defaultTableStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    defaultPivotStyle: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    tableStyle: list[TableStyle] | None = Field.sequence(expected_type=TableStyle, allow_none=True, default=list)
 
     def __init__(self,
                  count=None,

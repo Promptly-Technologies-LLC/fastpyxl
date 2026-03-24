@@ -64,9 +64,9 @@ class ChartLines(Serialisable):
     tagname = "chartLines"
 
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
 
     def __init__(self, spPr=None):
         self.spPr = spPr
@@ -75,16 +75,16 @@ class ChartLines(Serialisable):
 class Scaling(Serialisable):
     tagname = "scaling"
 
-    logBase: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    logBase: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     orientation: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_nested_set_only(frozenset({"maxMin", "minMax"}), "orientation"),
+        converter=_nested_set_only(frozenset({"maxMin", "minMax"}), "orientation"), default=None,
     )
-    max: float | None = Field.nested_value(expected_type=float, allow_none=True)
-    min: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    max: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
+    min: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("logBase", "orientation", "max", "min")
@@ -105,64 +105,64 @@ class Scaling(Serialisable):
 
 
 class _BaseAxis(Serialisable):
-    axId: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    scaling: Scaling | None = Field.element(expected_type=Scaling, allow_none=True)
-    delete: bool | None = Field.nested_bool(allow_none=True)
+    axId: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    scaling: Scaling | None = Field.element(expected_type=Scaling, allow_none=True, default=None)
+    delete: bool | None = Field.nested_bool(allow_none=True, default=None)
     axPos: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_nested_set_only(frozenset({"b", "l", "r", "t"}), "axPos"),
+        converter=_nested_set_only(frozenset({"b", "l", "r", "t"}), "axPos"), default=None,
     )
     majorGridlines: ChartLines | None = Field.element(
-        expected_type=ChartLines, allow_none=True
+        expected_type=ChartLines, allow_none=True, default=None
     )
     minorGridlines: ChartLines | None = Field.element(
-        expected_type=ChartLines, allow_none=True
+        expected_type=ChartLines, allow_none=True, default=None
     )
     title: Title | None = Field.element(
         expected_type=Title,
         allow_none=True,
-        converter=title_from_value,
+        converter=title_from_value, default=None,
     )
     numFmt: NumFmt | None = Field.element(
         expected_type=NumFmt,
         allow_none=True,
-        converter=num_fmt_from_value,
+        converter=num_fmt_from_value, default=None,
     )
-    number_format = AliasField("numFmt")
+    number_format = AliasField("numFmt", default=None)
     majorTickMark: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
         converter=_coerce_tick_mark,
-        renderer=_explicit_none,
+        renderer=_explicit_none, default=None,
     )
     minorTickMark: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
         converter=_coerce_tick_mark,
-        renderer=_explicit_none,
+        renderer=_explicit_none, default=None,
     )
     tickLblPos: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"high", "low", "nextTo"}), "tickLblPos"),
+        converter=_none_set(frozenset({"high", "low", "nextTo"}), "tickLblPos"), default=None,
     )
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    textProperties = AliasField("txPr")
-    crossAx: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    textProperties = AliasField("txPr", default=None)
+    crossAx: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     crosses: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
         converter=_none_set(
             frozenset({"autoZero", "max", "min"}),
             "crosses",
-        ),
+        ), default=None,
     )
-    crossesAt: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    crossesAt: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
 
     xml_order = (
         "axId",
@@ -225,15 +225,15 @@ class _BaseAxis(Serialisable):
 class DisplayUnitsLabel(Serialisable):
     tagname = "dispUnitsLbl"
 
-    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True)
-    tx: Text | None = Field.element(expected_type=Text, allow_none=True)
-    text = AliasField("tx")
+    layout: Layout | None = Field.element(expected_type=Layout, allow_none=True, default=None)
+    tx: Text | None = Field.element(expected_type=Text, allow_none=True, default=None)
+    text = AliasField("tx", default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
-    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True)
-    textPropertes = AliasField("txPr")
+    graphicalProperties = AliasField("spPr", default=None)
+    txPr: RichText | None = Field.element(expected_type=RichText, allow_none=True, default=None)
+    textPropertes = AliasField("txPr", default=None)
 
     xml_order = ("layout", "tx", "spPr", "txPr")
 
@@ -253,7 +253,7 @@ class DisplayUnitsLabel(Serialisable):
 class DisplayUnitsLabelList(Serialisable):
     tagname = "dispUnits"
 
-    custUnit: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    custUnit: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     builtInUnit: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
@@ -272,13 +272,13 @@ class DisplayUnitsLabelList(Serialisable):
                 }
             ),
             "builtInUnit",
-        ),
+        ), default=None,
     )
     dispUnitsLbl: DisplayUnitsLabel | None = Field.element(
-        expected_type=DisplayUnitsLabel, allow_none=True
+        expected_type=DisplayUnitsLabel, allow_none=True, default=None
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = ("custUnit", "builtInUnit", "dispUnitsLbl")
@@ -302,15 +302,15 @@ class NumericAxis(_BaseAxis):
     crossBetween: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"between", "midCat"}), "crossBetween"),
+        converter=_none_set(frozenset({"between", "midCat"}), "crossBetween"), default=None,
     )
-    majorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True)
-    minorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    majorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
+    minorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     dispUnits: DisplayUnitsLabelList | None = Field.element(
-        expected_type=DisplayUnitsLabelList, allow_none=True
+        expected_type=DisplayUnitsLabelList, allow_none=True, default=None
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _BaseAxis.xml_order + (
@@ -351,24 +351,24 @@ class NumericAxis(_BaseAxis):
 class TextAxis(_BaseAxis):
     tagname = "catAx"
 
-    auto: bool | None = Field.nested_bool(allow_none=True)
+    auto: bool | None = Field.nested_bool(allow_none=True, default=None)
     lblAlgn: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"ctr", "l", "r"}), "lblAlgn"),
+        converter=_none_set(frozenset({"ctr", "l", "r"}), "lblAlgn"), default=None,
     )
     lblOffset: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
         converter=lambda v: _chart_lbl_offset_minmax(
             v, field_name="lblOffset", min_v=0, max_v=1000
-        ),
+        ), default=None,
     )
-    tickLblSkip: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    tickMarkSkip: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    noMultiLvlLbl: bool | None = Field.nested_bool(allow_none=True)
+    tickLblSkip: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    tickMarkSkip: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    noMultiLvlLbl: bool | None = Field.nested_bool(allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _BaseAxis.xml_order + (
@@ -406,24 +406,24 @@ class TextAxis(_BaseAxis):
 class DateAxis(TextAxis):
     tagname = "dateAx"
 
-    lblOffset: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lblOffset: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
 
     baseTimeUnit: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"days", "months", "years"}), "baseTimeUnit"),
+        converter=_none_set(frozenset({"days", "months", "years"}), "baseTimeUnit"), default=None,
     )
-    majorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    majorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     majorTimeUnit: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"days", "months", "years"}), "majorTimeUnit"),
+        converter=_none_set(frozenset({"days", "months", "years"}), "majorTimeUnit"), default=None,
     )
-    minorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    minorUnit: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     minorTimeUnit: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"days", "months", "years"}), "minorTimeUnit"),
+        converter=_none_set(frozenset({"days", "months", "years"}), "minorTimeUnit"), default=None,
     )
 
     xml_order = (
@@ -477,10 +477,10 @@ class DateAxis(TextAxis):
 class SeriesAxis(_BaseAxis):
     tagname = "serAx"
 
-    tickLblSkip: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    tickMarkSkip: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    tickLblSkip: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    tickMarkSkip: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _BaseAxis.xml_order + ("tickLblSkip", "tickMarkSkip")

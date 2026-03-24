@@ -34,11 +34,11 @@ def test_field_element_accepts_converter_and_converts_before_render_and_parse():
 
     class Parent(TypedSerialisable):
         tagname = "parent"
-        thing: LegacyThing | None = Field.element(
+        thing: LegacyThing | str | int | None = Field.element(
             expected_type=LegacyThing,
             allow_none=True,
             converter=convert,
-            xml_name="thing",
+            xml_name="thing", default=None,
         )
 
     obj = Parent(thing="5")

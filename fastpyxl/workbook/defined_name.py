@@ -21,23 +21,23 @@ class DefinedName(Serialisable):
 
     tagname = "definedName"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)  # unique per workbook/worksheet
-    comment: str | None = Field.attribute(expected_type=str, allow_none=True)
-    customMenu: str | None = Field.attribute(expected_type=str, allow_none=True)
-    description: str | None = Field.attribute(expected_type=str, allow_none=True)
-    help: str | None = Field.attribute(expected_type=str, allow_none=True)
-    statusBar: str | None = Field.attribute(expected_type=str, allow_none=True)
-    localSheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    function: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    vbProcedure: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    xlm: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    functionGroupId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    shortcutKey: str | None = Field.attribute(expected_type=str, allow_none=True)
-    publishToServer: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    workbookParameter: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    attr_text: str | None = Field.attribute(expected_type=str, allow_none=True)
-    value = AliasField("attr_text")
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)  # unique per workbook/worksheet
+    comment: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    customMenu: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    description: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    help: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    statusBar: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    localSheetId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    function: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    vbProcedure: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    xlm: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    functionGroupId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    shortcutKey: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    publishToServer: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    workbookParameter: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    attr_text: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    value = AliasField("attr_text", default=None)
 
 
     def __init__(self,
@@ -163,7 +163,7 @@ class DefinedNameList(Serialisable):
 
     tagname = "definedNames"
 
-    definedName: list[DefinedName] = Field.sequence(expected_type=DefinedName)
+    definedName: list[DefinedName] = Field.sequence(expected_type=DefinedName, default=list)
 
 
     def __init__(self, definedName=()):

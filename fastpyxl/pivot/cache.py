@@ -41,8 +41,8 @@ class MeasureDimensionMap(TypedSerialisable):
 
     tagname = "map"
 
-    measureGroup: int | None = Field.attribute(expected_type=int, allow_none=True)
-    dimension: int | None = Field.attribute(expected_type=int, allow_none=True)
+    measureGroup: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dimension: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  measureGroup=None,
@@ -56,8 +56,8 @@ class MeasureGroup(TypedSerialisable):
 
     tagname = "measureGroup"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=False)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=False)
+    name: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
 
     def __init__(self,
                  name=None,
@@ -71,10 +71,10 @@ class PivotDimension(TypedSerialisable):
 
     tagname = "dimension"
 
-    measure: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    name: str | None = Field.attribute(expected_type=str, allow_none=False)
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=False)
+    measure: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
 
     def __init__(self,
                  measure=None,
@@ -92,14 +92,14 @@ class CalculatedMember(TypedSerialisable):
 
     tagname = "calculatedMember"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=False)
-    mdx: str | None = Field.attribute(expected_type=str, allow_none=False)
-    memberName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    hierarchy: str | None = Field.attribute(expected_type=str, allow_none=True)
-    parent: str | None = Field.attribute(expected_type=str, allow_none=True)
-    solveOrder: int | None = Field.attribute(expected_type=int, allow_none=True)
-    set: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    mdx: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    memberName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    hierarchy: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    parent: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    solveOrder: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    set: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ()
 
@@ -127,10 +127,10 @@ class CalculatedItem(TypedSerialisable):
 
     tagname = "calculatedItem"
 
-    field: int | None = Field.attribute(expected_type=int, allow_none=True)
-    formula: str | None = Field.attribute(expected_type=str, allow_none=False)
-    pivotArea: PivotArea | None = Field.element(expected_type=PivotArea, allow_none=False)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    field: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    formula: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    pivotArea: PivotArea | None = Field.element(expected_type=PivotArea, allow_none=False, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("pivotArea", "extLst")
 
@@ -150,8 +150,8 @@ class ServerFormat(TypedSerialisable):
 
     tagname = "serverFormat"
 
-    culture: str | None = Field.attribute(expected_type=str, allow_none=True)
-    format: str | None = Field.attribute(expected_type=str, allow_none=True)
+    culture: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    format: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  culture=None,
@@ -165,8 +165,8 @@ class Query(TypedSerialisable):
 
     tagname = "query"
 
-    mdx: str | None = Field.attribute(expected_type=str, allow_none=False)
-    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True)
+    mdx: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True, default=None)
 
     xml_order = ("tpls",)
 
@@ -182,13 +182,13 @@ class OLAPSet(TypedSerialisable):
 
     tagname = "set"
 
-    count: int | None = Field.attribute(expected_type=int, allow_none=False)
-    maxRank: int | None = Field.attribute(expected_type=int, allow_none=False)
-    setDefinition: str | None = Field.attribute(expected_type=str, allow_none=False)
-    sortType: str | None = Field.attribute(expected_type=str, allow_none=True)
-    queryFailed: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True)
-    sortByTuple: TupleList | None = Field.element(expected_type=TupleList, allow_none=True)
+    count: int | None = Field.attribute(expected_type=int, allow_none=False, default=None)
+    maxRank: int | None = Field.attribute(expected_type=int, allow_none=False, default=None)
+    setDefinition: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    sortType: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    queryFailed: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True, default=None)
+    sortByTuple: TupleList | None = Field.element(expected_type=TupleList, allow_none=True, default=None)
 
     xml_order = ("tpls", "sortByTuple")
 
@@ -215,12 +215,12 @@ class PCDSDTCEntries(TypedSerialisable):
 
     tagname = "entries"
 
-    count: int | None = Field.attribute(expected_type=int, allow_none=True)
+    count: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     # elements are choice
-    m: Missing | None = Field.element(expected_type=Missing, allow_none=True)
-    n: Number | None = Field.element(expected_type=Number, allow_none=True)
-    e: Error | None = Field.element(expected_type=Error, allow_none=True)
-    s: Text | None = Field.element(expected_type=Text, allow_none=True)
+    m: Missing | None = Field.element(expected_type=Missing, allow_none=True, default=None)
+    n: Number | None = Field.element(expected_type=Number, allow_none=True, default=None)
+    e: Error | None = Field.element(expected_type=Error, allow_none=True, default=None)
+    s: Text | None = Field.element(expected_type=Text, allow_none=True, default=None)
 
     xml_order = ("m", "n", "e", "s")
 
@@ -242,11 +242,11 @@ class TupleCache(TypedSerialisable):
 
     tagname = "tupleCache"
 
-    entries: PCDSDTCEntries | None = Field.element(expected_type=PCDSDTCEntries, allow_none=True)
-    sets: list[OLAPSet] = Field.nested_sequence(expected_type=OLAPSet, count=True)
-    queryCache: list[Query] = Field.nested_sequence(expected_type=Query, count=True)
-    serverFormats: list[ServerFormat] = Field.nested_sequence(expected_type=ServerFormat, count=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    entries: PCDSDTCEntries | None = Field.element(expected_type=PCDSDTCEntries, allow_none=True, default=None)
+    sets: list[OLAPSet] = Field.nested_sequence(expected_type=OLAPSet, count=True, default=list)
+    queryCache: list[Query] = Field.nested_sequence(expected_type=Query, count=True, default=list)
+    serverFormats: list[ServerFormat] = Field.nested_sequence(expected_type=ServerFormat, count=True, default=list)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("entries", "sets", "queryCache", "serverFormats", "extLst")
 
@@ -268,17 +268,17 @@ class OLAPKPI(TypedSerialisable):
 
     tagname = "kpi"
 
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=True)
-    displayFolder: str | None = Field.attribute(expected_type=str, allow_none=True)
-    measureGroup: str | None = Field.attribute(expected_type=str, allow_none=True)
-    parent: str | None = Field.attribute(expected_type=str, allow_none=True)
-    value: str | None = Field.attribute(expected_type=str, allow_none=False)
-    goal: str | None = Field.attribute(expected_type=str, allow_none=True)
-    status: str | None = Field.attribute(expected_type=str, allow_none=True)
-    trend: str | None = Field.attribute(expected_type=str, allow_none=True)
-    weight: str | None = Field.attribute(expected_type=str, allow_none=True)
-    time: str | None = Field.attribute(expected_type=str, allow_none=True)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    displayFolder: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    measureGroup: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    parent: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    value: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    goal: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    status: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    trend: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    weight: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    time: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  uniqueName=None,
@@ -310,8 +310,8 @@ class GroupMember(TypedSerialisable):
 
     tagname = "groupMember"
 
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False)
-    group: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    group: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
 
     def __init__(self,
                  uniqueName=None,
@@ -325,15 +325,15 @@ class LevelGroup(TypedSerialisable):
 
     tagname = "group"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=True)
-    uniqueParent: str | None = Field.attribute(expected_type=str, allow_none=True)
-    id: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    uniqueParent: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     groupMembers: list[GroupMember] | None = Field.nested_sequence(
         expected_type=GroupMember,
         allow_none=True,
-        count=True,
+        count=True, default=list,
     )
 
     xml_order = ("groupMembers",)
@@ -358,12 +358,12 @@ class GroupLevel(TypedSerialisable):
 
     tagname = "groupLevel"
 
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=False)
-    user: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    customRollUp: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    groups: list[LevelGroup] = Field.nested_sequence(expected_type=LevelGroup, count=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    user: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    customRollUp: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    groups: list[LevelGroup] = Field.nested_sequence(expected_type=LevelGroup, count=True, default=list)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("groups", "extLst")
 
@@ -387,7 +387,7 @@ class FieldUsage(TypedSerialisable):
 
     tagname = "fieldUsage"
 
-    x: int | None = Field.attribute(expected_type=int, allow_none=False)
+    x: int | None = Field.attribute(expected_type=int, allow_none=False, default=None)
 
     def __init__(self,
                  x=None,
@@ -399,31 +399,31 @@ class CacheHierarchy(TypedSerialisable):
 
     tagname = "cacheHierarchy"
 
-    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=True)
-    measure: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    set: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    parentSet: int | None = Field.attribute(expected_type=int, allow_none=True)
-    iconSet: int | None = Field.attribute(expected_type=int, allow_none=False)
-    attribute: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    time: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    keyAttribute: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    defaultMemberUniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    allUniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    allCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
-    dimensionUniqueName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    displayFolder: str | None = Field.attribute(expected_type=str, allow_none=True)
-    measureGroup: str | None = Field.attribute(expected_type=str, allow_none=True)
-    measures: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    count: int | None = Field.attribute(expected_type=int, allow_none=False)
-    oneField: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    memberValueDatatype: int | None = Field.attribute(expected_type=int, allow_none=True)
-    unbalanced: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    unbalancedGroup: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=False)
-    fieldsUsage: list[FieldUsage] = Field.nested_sequence(expected_type=FieldUsage, count=True)
-    groupLevels: list[GroupLevel] = Field.nested_sequence(expected_type=GroupLevel, count=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    uniqueName: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    measure: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    set: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    parentSet: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    iconSet: int | None = Field.attribute(expected_type=int, allow_none=False, default=None)
+    attribute: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    time: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    keyAttribute: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    defaultMemberUniqueName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    allUniqueName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    allCaption: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    dimensionUniqueName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    displayFolder: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    measureGroup: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    measures: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    count: int | None = Field.attribute(expected_type=int, allow_none=False, default=None)
+    oneField: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    memberValueDatatype: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    unbalanced: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    unbalancedGroup: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=False, default=None)
+    fieldsUsage: list[FieldUsage] = Field.nested_sequence(expected_type=FieldUsage, count=True, default=list)
+    groupLevels: list[GroupLevel] = Field.nested_sequence(expected_type=GroupLevel, count=True, default=list)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("fieldsUsage", "groupLevels")
 
@@ -485,12 +485,12 @@ class GroupItems(TypedSerialisable):
 
     tagname = "groupItems"
 
-    m: list[Missing] = Field.sequence(expected_type=Missing)
-    n: list[Number] = Field.sequence(expected_type=Number)
-    b: list[Boolean] = Field.sequence(expected_type=Boolean)
-    e: list[Error] = Field.sequence(expected_type=Error)
-    s: list[Text] = Field.sequence(expected_type=Text)
-    d: list[DateTimeField] = Field.sequence(expected_type=DateTimeField)
+    m: list[Missing] = Field.sequence(expected_type=Missing, default=list)
+    n: list[Number] = Field.sequence(expected_type=Number, default=list)
+    b: list[Boolean] = Field.sequence(expected_type=Boolean, default=list)
+    e: list[Error] = Field.sequence(expected_type=Error, default=list)
+    s: list[Text] = Field.sequence(expected_type=Text, default=list)
+    d: list[DateTimeField] = Field.sequence(expected_type=DateTimeField, default=list)
 
     xml_order = ("m", "n", "b", "e", "s", "d")
 
@@ -524,14 +524,14 @@ class RangePr(TypedSerialisable):
 
     tagname = "rangePr"
 
-    autoStart: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoEnd: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    groupBy: str | None = Field.attribute(expected_type=str, allow_none=False)
-    startNum: float | None = Field.attribute(expected_type=float, allow_none=True)
-    endNum: float | None = Field.attribute(expected_type=float, allow_none=True)
-    startDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, converter=_coerce_iso_datetime)
-    endDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, converter=_coerce_iso_datetime)
-    groupInterval: float | None = Field.attribute(expected_type=float, allow_none=True)
+    autoStart: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoEnd: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    groupBy: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    startNum: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    endNum: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    startDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, converter=_coerce_iso_datetime, default=None)
+    endDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, converter=_coerce_iso_datetime, default=None)
+    groupInterval: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
 
     def __init__(self,
                  autoStart=True,
@@ -557,11 +557,11 @@ class FieldGroup(TypedSerialisable):
 
     tagname = "fieldGroup"
 
-    par: int | None = Field.attribute(expected_type=int, allow_none=True)
-    base: int | None = Field.attribute(expected_type=int, allow_none=True)
-    rangePr: RangePr | None = Field.element(expected_type=RangePr, allow_none=True)
-    discretePr: list[Any] = Field.nested_sequence(expected_type=NestedInteger, count=True)
-    groupItems: GroupItems | None = Field.element(expected_type=GroupItems, allow_none=True)
+    par: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    base: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    rangePr: RangePr | None = Field.element(expected_type=RangePr, allow_none=True, default=None)
+    discretePr: list[Any] = Field.nested_sequence(expected_type=NestedInteger, count=True, default=list)
+    groupItems: GroupItems | None = Field.element(expected_type=GroupItems, allow_none=True, default=None)
 
     xml_order = ("rangePr", "discretePr", "groupItems")
 
@@ -591,22 +591,22 @@ class SharedItems(TypedSerialisable):
             "e": Error,
             "s": Text,
             "d": DateTimeField,
-        }
+        }, default=list
     )
     # attributes are optional and must be derived from associated cache records
-    containsSemiMixedTypes: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsNonDate: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsDate: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsString: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsBlank: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsMixedTypes: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsNumber: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    containsInteger: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    minValue: float | None = Field.attribute(expected_type=float, allow_none=True)
-    maxValue: float | None = Field.attribute(expected_type=float, allow_none=True)
-    minDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True)
-    maxDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True)
-    longText: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    containsSemiMixedTypes: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsNonDate: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsDate: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsString: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsBlank: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsMixedTypes: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsNumber: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    containsInteger: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    minValue: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    maxValue: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    minDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, default=None)
+    maxDate: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, default=None)
+    longText: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ()
 
@@ -656,23 +656,23 @@ class CacheField(TypedSerialisable):
 
     tagname = "cacheField"
 
-    sharedItems: SharedItems | None = Field.element(expected_type=SharedItems, allow_none=True)
-    fieldGroup: FieldGroup | None = Field.element(expected_type=FieldGroup, allow_none=True)
-    mpMap: Any = Field.element(expected_type=NestedInteger, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
-    name: str | None = Field.attribute(expected_type=str, allow_none=False)
-    caption: str | None = Field.attribute(expected_type=str, allow_none=True)
-    propertyName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    serverField: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    uniqueList: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    formula: str | None = Field.attribute(expected_type=str, allow_none=True)
-    sqlType: int | None = Field.attribute(expected_type=int, allow_none=True)
-    hierarchy: int | None = Field.attribute(expected_type=int, allow_none=True)
-    level: int | None = Field.attribute(expected_type=int, allow_none=True)
-    databaseField: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    mappingCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    memberPropertyField: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sharedItems: SharedItems | None = Field.element(expected_type=SharedItems, allow_none=True, default=None)
+    fieldGroup: FieldGroup | None = Field.element(expected_type=FieldGroup, allow_none=True, default=None)
+    mpMap: Any = Field.element(expected_type=NestedInteger, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    caption: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    propertyName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    serverField: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    uniqueList: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    formula: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    sqlType: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hierarchy: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    level: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    databaseField: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    mappingCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    memberPropertyField: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("sharedItems", "fieldGroup", "mpMap")
 
@@ -718,13 +718,13 @@ class RangeSet(TypedSerialisable):
 
     tagname = "rangeSet"
 
-    i1: int | None = Field.attribute(expected_type=int, allow_none=True)
-    i2: int | None = Field.attribute(expected_type=int, allow_none=True)
-    i3: int | None = Field.attribute(expected_type=int, allow_none=True)
-    i4: int | None = Field.attribute(expected_type=int, allow_none=True)
-    ref: str | None = Field.attribute(expected_type=str, allow_none=False)
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    sheet: str | None = Field.attribute(expected_type=str, allow_none=True)
+    i1: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    i2: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    i3: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    i4: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    sheet: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  i1=None,
@@ -748,7 +748,7 @@ class PageItem(TypedSerialisable):
 
     tagname = "pageItem"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=False)
+    name: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
 
     def __init__(self,
                  name=None,
@@ -760,9 +760,9 @@ class Consolidation(TypedSerialisable):
 
     tagname = "consolidation"
 
-    autoPage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    pages: list[PageItem] = Field.nested_sequence(expected_type=PageItem, count=True)
-    rangeSets: list[RangeSet] = Field.nested_sequence(expected_type=RangeSet, count=True)
+    autoPage: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    pages: list[PageItem] = Field.nested_sequence(expected_type=PageItem, count=True, default=list)
+    rangeSets: list[RangeSet] = Field.nested_sequence(expected_type=RangeSet, count=True, default=list)
 
     xml_order = ("pages", "rangeSets")
 
@@ -780,9 +780,9 @@ class WorksheetSource(TypedSerialisable):
 
     tagname = "worksheetSource"
 
-    ref: str | None = Field.attribute(expected_type=str, allow_none=True)
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    sheet: str | None = Field.attribute(expected_type=str, allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    sheet: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  ref=None,
@@ -798,12 +798,12 @@ class CacheSource(TypedSerialisable):
 
     tagname = "cacheSource"
 
-    type: str | None = Field.attribute(expected_type=str, allow_none=False)
-    connectionId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    type: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
+    connectionId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     # some elements are choice
-    worksheetSource: WorksheetSource | None = Field.element(expected_type=WorksheetSource, allow_none=True)
-    consolidation: Consolidation | None = Field.element(expected_type=Consolidation, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    worksheetSource: WorksheetSource | None = Field.element(expected_type=WorksheetSource, allow_none=True, default=None)
+    consolidation: Consolidation | None = Field.element(expected_type=Consolidation, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ("worksheetSource", "consolidation")
 
@@ -831,35 +831,35 @@ class CacheDefinition(TypedSerialisable):
 
     tagname = "pivotCacheDefinition"
 
-    invalid: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    saveData: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    refreshOnLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    optimizeMemory: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    enableRefresh: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    refreshedBy: str | None = Field.attribute(expected_type=str, allow_none=True)
-    refreshedDate: float | None = Field.attribute(expected_type=float, allow_none=True)
-    refreshedDateIso: datetime | None = Field.attribute(expected_type=datetime, allow_none=True)
-    backgroundQuery: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    missingItemsLimit: int | None = Field.attribute(expected_type=int, allow_none=True)
-    createdVersion: int | None = Field.attribute(expected_type=int, allow_none=True)
-    refreshedVersion: int | None = Field.attribute(expected_type=int, allow_none=True)
-    minRefreshableVersion: int | None = Field.attribute(expected_type=int, allow_none=True)
-    recordCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    upgradeOnRefresh: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    supportSubquery: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    supportAdvancedDrill: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    cacheSource: CacheSource | None = Field.element(expected_type=CacheSource, allow_none=False)
-    cacheFields: list[CacheField] = Field.nested_sequence(expected_type=CacheField, count=True)
-    cacheHierarchies: list[CacheHierarchy] = Field.nested_sequence(expected_type=CacheHierarchy, allow_none=True)
-    kpis: list[OLAPKPI] = Field.nested_sequence(expected_type=OLAPKPI, count=True)
-    tupleCache: TupleCache | None = Field.element(expected_type=TupleCache, allow_none=True)
-    calculatedItems: list[CalculatedItem] = Field.nested_sequence(expected_type=CalculatedItem, count=True)
-    calculatedMembers: list[CalculatedMember] = Field.nested_sequence(expected_type=CalculatedMember, count=True)
-    dimensions: list[PivotDimension] = Field.nested_sequence(expected_type=PivotDimension, allow_none=True)
-    measureGroups: list[MeasureGroup] = Field.nested_sequence(expected_type=MeasureGroup, count=True)
-    maps: list[MeasureDimensionMap] = Field.nested_sequence(expected_type=MeasureDimensionMap, count=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    invalid: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    saveData: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    refreshOnLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    optimizeMemory: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    enableRefresh: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    refreshedBy: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    refreshedDate: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    refreshedDateIso: datetime | None = Field.attribute(expected_type=datetime, allow_none=True, default=None)
+    backgroundQuery: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    missingItemsLimit: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    createdVersion: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    refreshedVersion: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    minRefreshableVersion: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    recordCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    upgradeOnRefresh: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    supportSubquery: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    supportAdvancedDrill: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    cacheSource: CacheSource | None = Field.element(expected_type=CacheSource, allow_none=False, default=None)
+    cacheFields: list[CacheField] = Field.nested_sequence(expected_type=CacheField, count=True, default=list)
+    cacheHierarchies: list[CacheHierarchy] = Field.nested_sequence(expected_type=CacheHierarchy, allow_none=True, default=list)
+    kpis: list[OLAPKPI] = Field.nested_sequence(expected_type=OLAPKPI, count=True, default=list)
+    tupleCache: TupleCache | None = Field.element(expected_type=TupleCache, allow_none=True, default=None)
+    calculatedItems: list[CalculatedItem] = Field.nested_sequence(expected_type=CalculatedItem, count=True, default=list)
+    calculatedMembers: list[CalculatedMember] = Field.nested_sequence(expected_type=CalculatedMember, count=True, default=list)
+    dimensions: list[PivotDimension] = Field.nested_sequence(expected_type=PivotDimension, allow_none=True, default=list)
+    measureGroups: list[MeasureGroup] = Field.nested_sequence(expected_type=MeasureGroup, count=True, default=list)
+    maps: list[MeasureDimensionMap] = Field.nested_sequence(expected_type=MeasureDimensionMap, count=True, default=list)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS, default=None)
 
     xml_order = (
         "cacheSource",

@@ -40,34 +40,34 @@ class ErrorBars(Serialisable):
     errDir: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_none_set(frozenset({"x", "y"}), "errDir"),
+        converter=_none_set(frozenset({"x", "y"}), "errDir"), default=None,
     )
-    direction = AliasField("errDir")
+    direction = AliasField("errDir", default=None)
     errBarType: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_req_set(frozenset({"both", "minus", "plus"}), "errBarType"),
+        converter=_req_set(frozenset({"both", "minus", "plus"}), "errBarType"), default=None,
     )
-    style = AliasField("errBarType")
+    style = AliasField("errBarType", default=None)
     errValType: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
         converter=_req_set(
             frozenset({"cust", "fixedVal", "percentage", "stdDev", "stdErr"}),
             "errValType",
-        ),
+        ), default=None,
     )
-    size = AliasField("errValType")
-    noEndCap: bool | None = Field.nested_bool(allow_none=True)
-    plus: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True)
-    minus: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True)
-    val: float | None = Field.nested_value(expected_type=float, allow_none=True)
+    size = AliasField("errValType", default=None)
+    noEndCap: bool | None = Field.nested_bool(allow_none=True, default=None)
+    plus: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True, default=None)
+    minus: NumDataSource | None = Field.element(expected_type=NumDataSource, allow_none=True, default=None)
+    val: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
     spPr: GraphicalProperties | None = Field.element(
-        expected_type=GraphicalProperties, allow_none=True
+        expected_type=GraphicalProperties, allow_none=True, default=None
     )
-    graphicalProperties = AliasField("spPr")
+    graphicalProperties = AliasField("spPr", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = (

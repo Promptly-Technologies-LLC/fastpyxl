@@ -29,15 +29,15 @@ class NamedStyle(Serialisable):
 
     tagname = "namedStyle"
 
-    font: Font | None = Field.element(expected_type=Font)
-    fill: Fill | None = Field.element(expected_type=Fill)
-    border: Border | None = Field.element(expected_type=Border)
-    alignment: Alignment | None = Field.element(expected_type=Alignment)
-    number_format: str | None = Field.nested_text(expected_type=str, allow_none=True, xml_name="number_format")
-    protection: Protection | None = Field.element(expected_type=Protection)
-    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    name: str | None = Field.attribute(expected_type=str)
+    font: Font | None = Field.element(expected_type=Font, default=None)
+    fill: Fill | None = Field.element(expected_type=Fill, default=None)
+    border: Border | None = Field.element(expected_type=Border, default=None)
+    alignment: Alignment | None = Field.element(expected_type=Alignment, default=None)
+    number_format: str | None = Field.nested_text(expected_type=str, allow_none=True, xml_name="number_format", default=None)
+    protection: Protection | None = Field.element(expected_type=Protection, default=None)
+    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, default=None)
     _wb = None
     _style = StyleArray()
 
@@ -190,13 +190,13 @@ class _NamedCellStyle(Serialisable):
 
     tagname = "cellStyle"
 
-    name: str | None = Field.attribute(expected_type=str)
-    xfId: int | None = Field.attribute(expected_type=int)
-    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    iLevel: int | None = Field.attribute(expected_type=int, allow_none=True)
-    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    customBuiltin: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False)
+    name: str | None = Field.attribute(expected_type=str, default=None)
+    xfId: int | None = Field.attribute(expected_type=int, default=None)
+    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    iLevel: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    customBuiltin: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
 
     def __init__(self,
                  name=None,

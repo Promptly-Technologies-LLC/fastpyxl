@@ -15,21 +15,21 @@ class BookView(Serialisable):
     visibility: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "visibility"),
+        converter=lambda v: _enum_converter(v, ("visible", "hidden", "veryHidden"), "visibility"), default=None,
     )
-    minimized: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showHorizontalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showVerticalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showSheetTabs: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
-    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
-    windowWidth: int | None = Field.attribute(expected_type=int, allow_none=True)
-    windowHeight: int | None = Field.attribute(expected_type=int, allow_none=True)
-    tabRatio: int | None = Field.attribute(expected_type=int, allow_none=True)
-    firstSheet: int | None = Field.attribute(expected_type=int, allow_none=True)
-    activeTab: int | None = Field.attribute(expected_type=int, allow_none=True)
-    autoFilterDateGrouping: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    minimized: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showHorizontalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showVerticalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showSheetTabs: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    windowWidth: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    windowHeight: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    tabRatio: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    firstSheet: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    activeTab: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    autoFilterDateGrouping: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ()
 
@@ -69,39 +69,39 @@ class CustomWorkbookView(Serialisable):
 
     tagname = "customWorkbookView"
 
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    guid: str | None = Field.attribute(expected_type=str, allow_none=True)
-    autoUpdate: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    mergeInterval: int | None = Field.attribute(expected_type=int, allow_none=True)
-    changesSavedWin: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    onlySync: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    personalView: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    includePrintSettings: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    includeHiddenRowCol: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    maximized: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    minimized: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showHorizontalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showVerticalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showSheetTabs: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
-    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True)
-    windowWidth: int | None = Field.attribute(expected_type=int, allow_none=True)
-    windowHeight: int | None = Field.attribute(expected_type=int, allow_none=True)
-    tabRatio: int | None = Field.attribute(expected_type=int, allow_none=True)
-    activeSheetId: int | None = Field.attribute(expected_type=int, allow_none=True)
-    showFormulaBar: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    showStatusbar: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    guid: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    autoUpdate: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    mergeInterval: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    changesSavedWin: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    onlySync: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    personalView: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    includePrintSettings: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    includeHiddenRowCol: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    maximized: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    minimized: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showHorizontalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showVerticalScroll: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showSheetTabs: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    xWindow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    yWindow: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    windowWidth: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    windowHeight: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    tabRatio: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    activeSheetId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    showFormulaBar: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    showStatusbar: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     showComments: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("commNone", "commIndicator", "commIndAndComment"), "showComments"),
+        converter=lambda v: _enum_converter(v, ("commNone", "commIndicator", "commIndAndComment"), "showComments"), default=None,
     )
     showObjects: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("all", "placeholders"), "showObjects"),
+        converter=lambda v: _enum_converter(v, ("all", "placeholders"), "showObjects"), default=None,
     )
-    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
 
     xml_order = ()
 

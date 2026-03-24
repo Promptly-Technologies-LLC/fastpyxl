@@ -12,8 +12,8 @@ class _OrderProbe(Serialisable):
     tagname = "probe"
 
     xml_order = ("b", "a")
-    a: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    b: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    a: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    b: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
 
 
 def test_default_element_names_follow_class_elements():

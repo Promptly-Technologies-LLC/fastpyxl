@@ -28,16 +28,16 @@ class ScatterChart(ChartBase):
     scatterStyle: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_scatter_style,
+        converter=_scatter_style, default=None,
     )
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[XYSeries] | None = Field.sequence(expected_type=XYSeries, allow_none=True)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[XYSeries] | None = Field.sequence(expected_type=XYSeries, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
+    dataLabels = AliasField("dLbls", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _series_type = "scatter"

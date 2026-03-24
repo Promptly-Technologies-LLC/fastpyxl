@@ -22,17 +22,17 @@ class LineEndProperties(Serialisable):
     type: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("none", "triangle", "stealth", "diamond", "oval", "arrow"), "type"),
+        converter=lambda v: _enum_converter(v, ("none", "triangle", "stealth", "diamond", "oval", "arrow"), "type"), default=None,
     )
     w: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("sm", "med", "lg"), "w"),
+        converter=lambda v: _enum_converter(v, ("sm", "med", "lg"), "w"), default=None,
     )
     len: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("sm", "med", "lg"), "len"),
+        converter=lambda v: _enum_converter(v, ("sm", "med", "lg"), "len"), default=None,
     )
 
     def __init__(self,
@@ -50,10 +50,10 @@ class DashStop(Serialisable):
     tagname = "ds"
     namespace = DRAWING_NS
 
-    d: int | None = Field.attribute(expected_type=int, allow_none=True)
-    length = AliasField('d')
-    sp: int | None = Field.attribute(expected_type=int, allow_none=True)
-    space = AliasField('sp')
+    d: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    length = AliasField('d', default=None)
+    sp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    space = AliasField('sp', default=None)
 
     def __init__(self,
                  d=0,
@@ -68,7 +68,7 @@ class DashStopList(Serialisable):
     tagname = "custDash"
     namespace = DRAWING_NS
 
-    ds: list[DashStop] | None = Field.sequence(expected_type=DashStop, allow_none=True)
+    ds: list[DashStop] | None = Field.sequence(expected_type=DashStop, allow_none=True, default=list)
 
     def __init__(self,
                  ds=None,
@@ -94,7 +94,7 @@ class _Bevel(Serialisable):
 class _Miter(Serialisable):
     tagname = "miter"
     namespace = DRAWING_NS
-    lim: int | None = Field.attribute(expected_type=int, allow_none=True)
+    lim: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self, lim=None):
         self.lim = lim
@@ -134,35 +134,35 @@ class LineProperties(Serialisable):
     w: int | None = Field.attribute(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _range_converter(v, 0, 20116800, "w"),
+        converter=lambda v: _range_converter(v, 0, 20116800, "w"), default=None,
     )  # EMU
-    width = AliasField('w')
+    width = AliasField('w', default=None)
     cap: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("rnd", "sq", "flat"), "cap"),
+        converter=lambda v: _enum_converter(v, ("rnd", "sq", "flat"), "cap"), default=None,
     )
     cmpd: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("sng", "dbl", "thickThin", "thinThick", "tri"), "cmpd"),
+        converter=lambda v: _enum_converter(v, ("sng", "dbl", "thickThin", "thinThick", "tri"), "cmpd"), default=None,
     )
     algn: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("ctr", "in"), "algn"),
+        converter=lambda v: _enum_converter(v, ("ctr", "in"), "algn"), default=None,
     )
 
     noFill: _NoFill | None = Field.element(
         expected_type=_NoFill,
         allow_none=True,
-        converter=_line_no_fill_coerce,
+        converter=_line_no_fill_coerce, default=None,
     )
     solidFill: ColorChoice | None = Field.element(
-        expected_type=ColorChoice, allow_none=True, converter=_solid_fill_coerce
+        expected_type=ColorChoice, allow_none=True, converter=_solid_fill_coerce, default=None
     )
-    gradFill: GradientFillProperties | None = Field.element(expected_type=GradientFillProperties, allow_none=True)
-    pattFill: PatternFillProperties | None = Field.element(expected_type=PatternFillProperties, allow_none=True)
+    gradFill: GradientFillProperties | None = Field.element(expected_type=GradientFillProperties, allow_none=True, default=None)
+    pattFill: PatternFillProperties | None = Field.element(expected_type=PatternFillProperties, allow_none=True, default=None)
 
     prstDash: str | None = Field.nested_value(
         expected_type=str,
@@ -171,19 +171,19 @@ class LineProperties(Serialisable):
             v,
             ("solid", "dot", "dash", "lgDash", "dashDot", "lgDashDot", "lgDashDotDot", "sysDash", "sysDot", "sysDashDot", "sysDashDotDot"),
             "prstDash",
-        ),
+        ), default=None,
     )
-    dashStyle = AliasField('prstDash')
+    dashStyle = AliasField('prstDash', default=None)
 
-    custDash: DashStopList | None = Field.element(expected_type=DashStopList, allow_none=True)
+    custDash: DashStopList | None = Field.element(expected_type=DashStopList, allow_none=True, default=None)
 
-    round: _Round | None = Field.element(expected_type=_Round, allow_none=True)
-    bevel: _Bevel | None = Field.element(expected_type=_Bevel, allow_none=True)
-    miter: _Miter | None = Field.element(expected_type=_Miter, allow_none=True)
+    round: _Round | None = Field.element(expected_type=_Round, allow_none=True, default=None)
+    bevel: _Bevel | None = Field.element(expected_type=_Bevel, allow_none=True, default=None)
+    miter: _Miter | None = Field.element(expected_type=_Miter, allow_none=True, default=None)
 
-    headEnd: LineEndProperties | None = Field.element(expected_type=LineEndProperties, allow_none=True)
-    tailEnd: LineEndProperties | None = Field.element(expected_type=LineEndProperties, allow_none=True)
-    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True)
+    headEnd: LineEndProperties | None = Field.element(expected_type=LineEndProperties, allow_none=True, default=None)
+    tailEnd: LineEndProperties | None = Field.element(expected_type=LineEndProperties, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     xml_order = ('noFill', 'solidFill', 'gradFill', 'pattFill', 'prstDash', 'custDash', 'round', 'bevel', 'miter', 'headEnd', 'tailEnd')
 

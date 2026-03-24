@@ -35,26 +35,26 @@ def _size_represents(v):
 class BubbleChart(ChartBase):
     tagname = "bubbleChart"
 
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[XYSeries] | None = Field.sequence(expected_type=XYSeries, allow_none=True)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[XYSeries] | None = Field.sequence(expected_type=XYSeries, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
-    bubble3D: bool | None = Field.nested_bool(allow_none=True)
+    dataLabels = AliasField("dLbls", default=None)
+    bubble3D: bool | None = Field.nested_bool(allow_none=True, default=None)
     bubbleScale: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=_bubble_scale,
+        converter=_bubble_scale, default=None,
     )
-    showNegBubbles: bool | None = Field.nested_bool(allow_none=True)
+    showNegBubbles: bool | None = Field.nested_bool(allow_none=True, default=None)
     sizeRepresents: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_size_represents,
+        converter=_size_represents, default=None,
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     _series_type = "bubble"

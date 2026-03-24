@@ -44,12 +44,12 @@ def _split_type(v):
 
 
 class _PieChartBase(ChartBase):
-    varyColors: bool | None = Field.nested_bool(allow_none=True)
-    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True)
+    varyColors: bool | None = Field.nested_bool(allow_none=True, default=None)
+    ser: list[Series] | None = Field.sequence(expected_type=Series, allow_none=True, default=list)
     dLbls: DataLabelList | None = Field.element(
-        expected_type=DataLabelList, allow_none=True
+        expected_type=DataLabelList, allow_none=True, default=None
     )
-    dataLabels = AliasField("dLbls")
+    dataLabels = AliasField("dLbls", default=None)
 
     _series_type = "pie"
 
@@ -68,10 +68,10 @@ class PieChart(_PieChartBase):
     firstSliceAng: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _bounded_int(v, 0, 360, "firstSliceAng"),
+        converter=lambda v: _bounded_int(v, 0, 360, "firstSliceAng"), default=None,
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _PieChartBase.xml_order + ("firstSliceAng",)
@@ -86,7 +86,7 @@ class PieChart3D(_PieChartBase):
     tagname = "pie3DChart"
 
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _PieChartBase.xml_order
@@ -102,15 +102,15 @@ class DoughnutChart(_PieChartBase):
     firstSliceAng: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _bounded_int(v, 0, 360, "firstSliceAng"),
+        converter=lambda v: _bounded_int(v, 0, 360, "firstSliceAng"), default=None,
     )
     holeSize: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _bounded_int(v, 1, 90, "holeSize"),
+        converter=lambda v: _bounded_int(v, 1, 90, "holeSize"), default=None,
     )
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _PieChartBase.xml_order + ("firstSliceAng", "holeSize")
@@ -128,7 +128,7 @@ class CustomSplit(Serialisable):
     secondPiePt: list[int] | None = Field.sequence(
         expected_type=int,
         allow_none=True,
-        primitive_attribute="val",
+        primitive_attribute="val", default=list,
     )
 
     xml_order = ("secondPiePt",)
@@ -151,26 +151,26 @@ class ProjectedPieChart(_PieChartBase):
     ofPieType: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_of_pie_type,
+        converter=_of_pie_type, default=None,
     )
-    type = AliasField("ofPieType")
+    type = AliasField("ofPieType", default=None)
     gapWidth = NestedGapAmount
     splitType: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=_split_type,
+        converter=_split_type, default=None,
     )
-    splitPos: float | None = Field.nested_value(expected_type=float, allow_none=True)
-    custSplit: CustomSplit | None = Field.element(expected_type=CustomSplit, allow_none=True)
+    splitPos: float | None = Field.nested_value(expected_type=float, allow_none=True, default=None)
+    custSplit: CustomSplit | None = Field.element(expected_type=CustomSplit, allow_none=True, default=None)
     secondPieSize: int | None = Field.nested_value(
         expected_type=int,
         allow_none=True,
-        converter=lambda v: _bounded_int(v, 5, 200, "secondPieSize"),
+        converter=lambda v: _bounded_int(v, 5, 200, "secondPieSize"), default=None,
     )
-    serLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True)
-    join_lines = AliasField("serLines")
+    serLines: ChartLines | None = Field.element(expected_type=ChartLines, allow_none=True, default=None)
+    join_lines = AliasField("serLines", default=None)
     extLst: ExtensionList | None = Field.element(
-        expected_type=ExtensionList, allow_none=True, serialize=False
+        expected_type=ExtensionList, allow_none=True, serialize=False, default=None
     )
 
     xml_order = _PieChartBase.xml_order + (

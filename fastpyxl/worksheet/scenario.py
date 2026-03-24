@@ -10,11 +10,11 @@ class InputCells(Serialisable):
 
     tagname = "inputCells"
 
-    r: str | None = Field.attribute(expected_type=str, allow_none=True)
-    deleted: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    undone: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    val: str | None = Field.attribute(expected_type=str, allow_none=True)
-    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    r: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    deleted: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    undone: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    val: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  r=None,
@@ -35,11 +35,11 @@ class Scenario(Serialisable):
     tagname = "scenario"
 
     inputCells: list[InputCells] = Field.sequence(expected_type=InputCells, default=list)
-    name: str | None = Field.attribute(expected_type=str, allow_none=True)
-    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    user: str | None = Field.attribute(expected_type=str, allow_none=True)
-    comment: str | None = Field.attribute(expected_type=str, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    user: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    comment: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     xml_order = ("inputCells",)
 
@@ -75,9 +75,9 @@ class ScenarioList(Serialisable):
     tagname = "scenarios"
 
     scenario: list[Scenario] = Field.sequence(expected_type=Scenario, default=list)
-    current: int | None = Field.attribute(expected_type=int, allow_none=True)
-    show: int | None = Field.attribute(expected_type=int, allow_none=True)
-    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange, allow_none=True)
+    current: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    show: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    sqref: MultiCellRange | None = Field.attribute(expected_type=MultiCellRange, allow_none=True, default=None)
 
     xml_order = ("scenario",)
 

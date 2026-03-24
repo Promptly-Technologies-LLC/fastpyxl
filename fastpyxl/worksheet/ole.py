@@ -20,14 +20,14 @@ class ObjectAnchor(Serialisable):
     tagname = "anchor"
 
     _from: AnchorMarker | None = Field.element(
-        expected_type=AnchorMarker, allow_none=True, xml_name="from", namespace=SHEET_DRAWING_NS
+        expected_type=AnchorMarker, allow_none=True, xml_name="from", namespace=SHEET_DRAWING_NS, default=None
     )
     to: AnchorMarker | None = Field.element(
-        expected_type=AnchorMarker, allow_none=True, namespace=SHEET_DRAWING_NS
+        expected_type=AnchorMarker, allow_none=True, namespace=SHEET_DRAWING_NS, default=None
     )
-    moveWithCells: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    sizeWithCells: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    z_order: int | None = Field.attribute(expected_type=int, allow_none=True, hyphenated=True)
+    moveWithCells: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    sizeWithCells: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    z_order: int | None = Field.attribute(expected_type=int, allow_none=True, hyphenated=True, default=None)
 
     xml_order = ("_from", "to")
 
@@ -57,18 +57,18 @@ class ObjectPr(Serialisable):
 
     tagname = "objectPr"
 
-    anchor: ObjectAnchor | None = Field.element(expected_type=ObjectAnchor, allow_none=True)
-    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    _print: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name="print")
-    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    autoPict: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    macro: str | None = Field.attribute(expected_type=str, allow_none=True)
-    altText: str | None = Field.attribute(expected_type=str, allow_none=True)
-    dde: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    anchor: ObjectAnchor | None = Field.element(expected_type=ObjectAnchor, allow_none=True, default=None)
+    locked: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    defaultSize: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    _print: bool | None = Field.attribute(expected_type=bool, allow_none=True, xml_name="print", default=None)
+    disabled: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    uiObject: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoFill: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoLine: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    autoPict: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    macro: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    altText: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    dde: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     xml_order = ("anchor",)
 
@@ -105,21 +105,21 @@ class OleObject(Serialisable):
 
     tagname = "oleObject"
 
-    objectPr: ObjectPr | None = Field.element(expected_type=ObjectPr, allow_none=True)
-    progId: str | None = Field.attribute(expected_type=str, allow_none=True)
+    objectPr: ObjectPr | None = Field.element(expected_type=ObjectPr, allow_none=True, default=None)
+    progId: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     dvAspect: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("DVASPECT_CONTENT", "DVASPECT_ICON"), "dvAspect"),
+        converter=lambda v: _enum_converter(v, ("DVASPECT_CONTENT", "DVASPECT_ICON"), "dvAspect"), default=None,
     )
-    link: str | None = Field.attribute(expected_type=str, allow_none=True)
+    link: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     oleUpdate: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, ("OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"), "oleUpdate"),
+        converter=lambda v: _enum_converter(v, ("OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"), "oleUpdate"), default=None,
     )
-    autoLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    autoLoad: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    shapeId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     xml_order = ("objectPr",)
 

@@ -17,13 +17,13 @@ class PageMargins(Serialisable):
     tagname = "pageMargins"
 
     l: float | None = Field.attribute(expected_type=float, default=0.75)  # noqa: E741
-    left = AliasField("l")
+    left = AliasField("l", default=None)
     r: float | None = Field.attribute(expected_type=float, default=0.75)
-    right = AliasField("r")
+    right = AliasField("r", default=None)
     t: float | None = Field.attribute(expected_type=float, default=1)
-    top = AliasField("t")
+    top = AliasField("t", default=None)
     b: float | None = Field.attribute(expected_type=float, default=1)
-    bottom = AliasField("b")
+    bottom = AliasField("b", default=None)
     header: float | None = Field.attribute(expected_type=float, default=0.5)
     footer: float | None = Field.attribute(expected_type=float, default=0.5)
 
@@ -40,13 +40,13 @@ class PrintSettings(Serialisable):
     tagname = "printSettings"
 
     headerFooter: HeaderFooter | None = Field.element(
-        expected_type=HeaderFooter, allow_none=True
+        expected_type=HeaderFooter, allow_none=True, default=None
     )
     pageMargins: PageMargins | None = Field.element(
-        expected_type=PageMargins, allow_none=True
+        expected_type=PageMargins, allow_none=True, default=None
     )
     pageSetup: PrintPageSetup | None = Field.element(
-        expected_type=PrintPageSetup, allow_none=True
+        expected_type=PrintPageSetup, allow_none=True, default=None
     )
 
     xml_order = ("headerFooter", "pageMargins", "pageSetup")

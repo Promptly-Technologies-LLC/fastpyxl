@@ -10,12 +10,12 @@ from fastpyxl.worksheet.protection import (
 class ChartsheetProtection(Serialisable, _Protected):
     tagname = "sheetProtection"
 
-    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True)
-    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True)
-    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True)
-    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True)
-    content: bool | None = Field.attribute(expected_type=bool, allow_none=True)
-    objects: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    content: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    objects: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __iter__(self):
         for key in ("content", "objects", "password", "hashValue", "spinCount", "saltValue", "algorithmName"):

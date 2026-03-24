@@ -144,34 +144,34 @@ class SystemColor(TypedSerialisable):
     tagname = "sysClr"
     namespace = DRAWING_NS
 
-    tint: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    shade: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    comp: Transform | None = Field.element(expected_type=Transform, allow_none=True)
-    inv: Transform | None = Field.element(expected_type=Transform, allow_none=True)
-    gray: Transform | None = Field.element(expected_type=Transform, allow_none=True)
-    alpha: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    alphaOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    alphaMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    hue: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    hueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    hueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    sat: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    satOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    satMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    lum: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    lumOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    lumMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    red: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    redOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    redMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    green: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    greenOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    greenMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    blue: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    blueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    blueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    gamma: Transform | None = Field.element(expected_type=Transform, allow_none=True)
-    invGamma: Transform | None = Field.element(expected_type=Transform, allow_none=True)
+    tint: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    shade: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    comp: Transform | None = Field.element(expected_type=Transform, allow_none=True, default=None)
+    inv: Transform | None = Field.element(expected_type=Transform, allow_none=True, default=None)
+    gray: Transform | None = Field.element(expected_type=Transform, allow_none=True, default=None)
+    alpha: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    alphaOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    alphaMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    hue: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    hueOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    hueMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    sat: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    satOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    satMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    lum: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    lumOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    lumMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    red: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    redOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    redMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    green: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    greenOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    greenMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    blue: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    blueOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    blueMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    gamma: Transform | None = Field.element(expected_type=Transform, allow_none=True, default=None)
+    invGamma: Transform | None = Field.element(expected_type=Transform, allow_none=True, default=None)
 
     val: str | None = Field.attribute(
         expected_type=str,
@@ -182,7 +182,7 @@ class SystemColor(TypedSerialisable):
     lastClr: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_system_last_clr,
+        converter=_system_last_clr, default=None,
     )
 
     xml_order = (
@@ -284,16 +284,16 @@ class HSLColor(TypedSerialisable):
 
     tagname = "hslClr"
 
-    hue: int | None = Field.attribute(expected_type=int, allow_none=True)
+    hue: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     sat: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="sat", min_value=0, max_value=100),
+        converter=lambda v: _range_converter(v, field_name="sat", min_value=0, max_value=100), default=None,
     )
     lum: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="lum", min_value=0, max_value=100),
+        converter=lambda v: _range_converter(v, field_name="lum", min_value=0, max_value=100), default=None,
     )
 
     #TODO add color transform options
@@ -316,17 +316,17 @@ class RGBPercent(TypedSerialisable):
     r: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="r", min_value=0, max_value=100),
+        converter=lambda v: _range_converter(v, field_name="r", min_value=0, max_value=100), default=None,
     )
     g: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="g", min_value=0, max_value=100),
+        converter=lambda v: _range_converter(v, field_name="g", min_value=0, max_value=100), default=None,
     )
     b: float | int | None = Field.attribute(
         expected_type=float,
         allow_none=True,
-        converter=lambda v: _range_converter(v, field_name="b", min_value=0, max_value=100),
+        converter=lambda v: _range_converter(v, field_name="b", min_value=0, max_value=100), default=None,
     )
 
     #TODO add color transform options
@@ -346,47 +346,47 @@ class SchemeColor(TypedSerialisable):
     tagname = "schemeClr"
     namespace = DRAWING_NS
 
-    tint: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    shade: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    tint: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    shade: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     comp: bool | None = Field.nested_bool(
         allow_none=True,
-        renderer=_drawml_empty_element,
+        renderer=_drawml_empty_element, default=None,
     )
-    inv: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    gray: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    alpha: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    alphaOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    alphaMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    hue: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    hueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    hueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    sat: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    satOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    satMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    lum: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    lumOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    lumMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    red: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    redOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    redMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    green: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    greenOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    greenMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    blue: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    blueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
-    blueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    inv: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    gray: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    alpha: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    alphaOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    alphaMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    hue: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    hueOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    hueMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    sat: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    satOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    satMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    lum: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    lumOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    lumMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    red: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    redOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    redMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    green: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    greenOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    greenMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    blue: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    blueOff: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
+    blueMod: int | None = Field.nested_value(expected_type=int, allow_none=True, default=None)
     gamma: bool | None = Field.nested_bool(
         allow_none=True,
-        renderer=_drawml_empty_element,
+        renderer=_drawml_empty_element, default=None,
     )
     invGamma: bool | None = Field.nested_bool(
         allow_none=True,
-        renderer=_drawml_empty_element,
+        renderer=_drawml_empty_element, default=None,
     )
     val: str | None = Field.attribute(
         expected_type=str,
         allow_none=True,
-        converter=_scheme_color_val,
+        converter=_scheme_color_val, default=None,
     )
 
     xml_order = (
@@ -486,17 +486,17 @@ class ColorChoice(TypedSerialisable):
     tagname = "colorChoice"
     namespace = DRAWING_NS
 
-    scrgbClr: RGBPercent | None = Field.element(expected_type=RGBPercent, allow_none=True)
-    RGBPercent = AliasField("scrgbClr")
-    srgbClr: str | None = Field.nested_value(expected_type=str, allow_none=True)
-    RGB = AliasField("srgbClr")
-    hslClr: HSLColor | None = Field.element(expected_type=HSLColor, allow_none=True)
-    sysClr: SystemColor | None = Field.element(expected_type=SystemColor, allow_none=True)
-    schemeClr: SchemeColor | None = Field.element(expected_type=SchemeColor, allow_none=True)
+    scrgbClr: RGBPercent | None = Field.element(expected_type=RGBPercent, allow_none=True, default=None)
+    RGBPercent = AliasField("scrgbClr", default=None)
+    srgbClr: str | None = Field.nested_value(expected_type=str, allow_none=True, default=None)
+    RGB = AliasField("srgbClr", default=None)
+    hslClr: HSLColor | None = Field.element(expected_type=HSLColor, allow_none=True, default=None)
+    sysClr: SystemColor | None = Field.element(expected_type=SystemColor, allow_none=True, default=None)
+    schemeClr: SchemeColor | None = Field.element(expected_type=SchemeColor, allow_none=True, default=None)
     prstClr: str | None = Field.nested_value(
         expected_type=str,
         allow_none=True,
-        converter=lambda v: _enum_converter(v, PRESET_COLORS, "prstClr"),
+        converter=lambda v: _enum_converter(v, PRESET_COLORS, "prstClr"), default=None,
     )
 
     xml_order = ('scrgbClr', 'srgbClr', 'hslClr', 'sysClr', 'schemeClr', 'prstClr')

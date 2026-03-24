@@ -2,7 +2,7 @@ Introduction
 ------------
 
 fastpyxl is a high-performance Python library to read/write Excel 2010
-xlsx/xlsm/xltx/xltm files. It is a fork of `openpyxl <https://foss.heptapod.net/openpyxl/openpyxl>`_,
+xlsx/xlsm/xltx/xltm files. It is a fork of `openpyxl <https://pypi.org/project/openpyxl/>`_,
 focused on optimized performance for large-scale Excel processing.
 
 All kudos to the PHPExcel team and the openpyxl developers whose work this

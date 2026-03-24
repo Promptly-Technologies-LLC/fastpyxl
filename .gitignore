@@ -6,5 +6,4 @@ dist/
 build/
 .eggs/
 .coverage
-.tox/
 *.egg

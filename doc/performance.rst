@@ -20,14 +20,11 @@ they can nevertheless give an indication.
 Write Performance
 +++++++++++++++++
 
-The `benchmark code
-<https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/66>`_
-can be adjusted to use more sheets and adjust the proportion of data that is
-strings. Because the version of Python being used can also significantly
-affect performance, a `driver script
-<https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/67>`_
-can also be used to test with different Python versions with a tox
-environment.
+The benchmark code used for write-performance testing can be adjusted to use
+more sheets and adjust the proportion of data that is strings. Because the
+version of Python being used can also significantly affect performance, a
+driver script can also be used to test with different Python versions in
+separate environments.
 
 Performance is compared with the excellent alternative library xlsxwriter
 
@@ -37,13 +34,12 @@ Performance is compared with the excellent alternative library xlsxwriter
 Read Performance
 ++++++++++++++++
 
-Performance is measured using a file provided with a previous `bug report
-<https://bitbucket.org/fastpyxl/fastpyxl/issues/494/>`_ and compared with the
+Performance is measured using a file provided with a previous
+`bug report #494 <https://github.com/fastpyxl/fastpyxl/issues/494>`_ and compared with the
 older xlrd library. xlrd is primarily for the older BIFF file format of .XLS
 files but it does have limited support for XLSX.
 
-The code for the `benchmark
-<https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/68>`_ shows the importance of
+The benchmark code shows the importance of
 choosing the right options when working with a file. In this case disabling
 external links stops fastpyxl opening cached copies of the linked worksheets.
 
@@ -66,7 +62,7 @@ gained by parallelisation. However, if you are mainly interested in dumping
 the contents of a workbook then you can use fastpyxl's read-only mode and
 open multiple instances of a workbook and take advantage of multiple CPUs.
 
-`Sample code <https://foss.heptapod.net/fastpyxl/fastpyxl/-/snippets/69>`_ using the
+Sample code using the
 same source file as for read performance shows that performance scales
 reasonably with only a slight overhead due to creating additional Python
 processes.

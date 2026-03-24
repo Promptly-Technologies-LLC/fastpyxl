@@ -28,8 +28,8 @@ dependencies = [
 
 [project.urls]
 Documentation = "https://fastpyxl.readthedocs.io/en/stable/"
-Source = "https://foss.heptapod.net/fastpyxl/fastpyxl"
-Tracker = "https://foss.heptapod.net/fastpyxl/fastpyxl/-/issues"
+Source = "https://github.com/fastpyxl/fastpyxl"
+Tracker = "https://github.com/fastpyxl/fastpyxl/issues"
 
 [dependency-groups]
 dev = [
@@ -88,7 +88,7 @@ exclude = ["doc/"]
 
 [tool.pytest.ini_options]
 addopts = "--strict-markers --showlocals"
-norecursedirs = ["lib", "include", "fastpyxl/Issues", ".tox", "local"]
+norecursedirs = ["lib", "include", "fastpyxl/Issues", "local"]
 python_files = ["test_*.py"]
 markers = [
     "pil_required: PIL required to run test",

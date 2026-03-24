@@ -13,48 +13,21 @@ Python environment, running tests and building the documentation.
 Getting the source
 ------------------
 
-The source code of fastpyxl is hosted on `Heptapod <https://foss.heptapod.net/fastpyxl/fastpyxl>`_
-as a Mercurial project which you can download using e.g. the GUI client
-`SourceTree <http://www.sourcetreeapp.com>`_ by Atlassian. If you prefer working
-with the command line you can use the following:
+The source code is on GitHub: https://github.com/fastpyxl/fastpyxl
 
-.. parsed-literal::
+Clone the repository and install with :code:`uv` (recommended)::
 
-    $ hg clone \https://foss.heptapod.net/fastpyxl/fastpyxl
-    $ hg up |version|
-
-Please note that the default branch should never be used for development
-work. For bug fixes and minor patches you should base your work on the branch
-of the current release, e.g |version|. New features should generally be based
-on the development branch of the **next** minor version. If in doubt get in
-touch with the fastpyxl development team.
-
-It is worthwhile to add an upstream remote reference to the
-original repository to update your fork with the latest changes, by adding
-to the :code:`./hg/hgrc` file the following::
-
-    [paths]
-    default = ...
-    fastpyxl-master = https://foss.heptapod.net/fastpyxl/fastpyxl
-
-You can then grab any new changes using::
-
-    $ hg pull fastpyxl-master
-
-After that you should create a virtual environment using :code:`virtualenv`
-and install the project requirements and the project itself::
-
+    $ git clone https://github.com/fastpyxl/fastpyxl.git
     $ cd fastpyxl
-    $ virtualenv fastpyxl-env
+    $ uv sync --all-groups
+    $ uv pip install -e .
 
-Activate the environment using::
+For installing a specific revision from another project, pin a tag or commit in
+the dependency URL (see also :doc:`tutorial`).
 
-    $ source bin/activate  # or ./fastpyxl-env/Scripts/activate on Windows
-
-Install the dev and prod dependencies and the package itself using::
-
-    (fastpyxl-env) $ pip install -U -r requirements.txt
-    (fastpyxl-env) $ pip install -e .
+Please base bug fixes on the branch for the current release when applicable;
+new features on the main development line. If in doubt, open an issue to
+discuss.
 
 
 Running tests
@@ -62,17 +35,15 @@ Running tests
 
 Note that contributions to the project without tests will **not** be accepted.
 
-We use :code:`pytest` as the test runner with :code:`pytest-cov` for coverage information and
-:code:`pytest-flakes` for static code analysis.
+We use :code:`pytest` as the test runner with :code:`pytest-cov` for coverage.
 
-To run all the tests you need to either execute::
+To run the full suite from the repo root::
 
-    (openpxyl-env) $ pytest -xrf fastpyxl  # the flags will stop testing at the first error
+    $ uv run pytest
 
-Or use :code:`tox` to run the tests on different Python versions and
-configurations::
+To stop at the first failure::
 
-    $ tox fastpyxl
+    $ uv run pytest -xrf fastpyxl
 
 
 Coverage
@@ -81,7 +52,7 @@ Coverage
 The goal is 100 % coverage for unit tests - data types and utility functions.
 Coverage information can be obtained using::
 
-    py.test --cov fastpyxl
+    $ uv run pytest --cov fastpyxl
 
 
 Organisation
@@ -90,7 +61,7 @@ Organisation
 Tests should be preferably at package / module level e.g :code:`fastpyxl/cell`. This
 makes testing and getting statistics for code under development easier::
 
-    py.test --cov fastpyxl/cell fastpyxl/cell
+    $ uv run pytest --cov fastpyxl/cell fastpyxl/cell
 
 
 Checking XML
@@ -180,18 +151,19 @@ to the |version| branch. Exceptions are bug fixes to released versions which
 should be made to the relevant release branch and merged upstream into
 development.
 
-Please use :code:`tox` to test code for different submissions **before**
-making a pull request. This is especially important for picking up problems
-across Python versions.
+Please run the test suite locally before opening a pull request. CI exercises
+multiple Python versions; matching that locally is easiest with several
+:code:`uv` installations or by relying on CI after you push.
 
 
 Documentation
 +++++++++++++
 
 Remember to update the documentation when adding or changing features. Check
-that documentation is syntactically correct.::
+that documentation is syntactically correct::
 
-    tox -e doc
+    $ uv sync --group docs
+    $ uv run sphinx-build -q -j auto -b html -d doc/_build/doctrees doc doc/_build/html
 
 
 Benchmarking
@@ -199,15 +171,6 @@ Benchmarking
 
 Benchmarking and profiling are ongoing tasks. Contributions to these are very
 welcome as we know there is a lot to do.
-
-
-Memory Use
-++++++++++
-
-There is a tox profile for long-running memory benchmarks using the
-`memory_utils` package.::
-
-    tox -e memory
 
 
 Pympler

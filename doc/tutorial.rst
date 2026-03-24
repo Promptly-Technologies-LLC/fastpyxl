@@ -35,7 +35,7 @@ This may be the case if bugs have been fixed but a release has not yet been
 made.
 
 .. parsed-literal::
-    $ pip install -e hg+https://foss.heptapod.net/fastpyxl/fastpyxl/@\ |version|\ #egg=fastpyxl
+    $ uv pip install -e "git+https://github.com/fastpyxl/fastpyxl@v\ |version|\ #egg=fastpyxl"
 
 
 Create a workbook

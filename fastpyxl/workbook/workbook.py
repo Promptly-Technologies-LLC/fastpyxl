@@ -64,6 +64,7 @@ class Workbook:
                  iso_dates=False,
                  ):
         self._sheets = []
+        self._sheet_titles_lower: set[str] = set()
         self._pivots = []
         self._active_sheet_index = 0
         self.defined_names = DefinedNameDict()
@@ -86,6 +87,7 @@ class Workbook:
 
         if not self.write_only:
             self._sheets.append(Worksheet(self))
+            self._sheet_titles_lower.add(self._sheets[-1].title.lower())
 
         self.rels = RelationshipList()
         self.calculation = CalcProperties()
@@ -218,6 +220,7 @@ class Workbook:
             self._sheets.append(sheet)
         else:
             self._sheets.insert(index, sheet)
+        self._sheet_titles_lower.add(sheet.title.lower())
 
 
     def move_sheet(self, sheet, offset=0):
@@ -234,6 +237,7 @@ class Workbook:
 
     def remove(self, worksheet):
         """Remove `worksheet` from this workbook."""
+        self._sheet_titles_lower.discard(worksheet.title.lower())
         self._sheets.remove(worksheet)
 
 

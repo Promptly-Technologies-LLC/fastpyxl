@@ -94,13 +94,31 @@ class _WorkbookChild:
             msg = "Invalid character {0} found in sheet title".format(m.group(0))
             raise ValueError(msg)
 
-        if self.title is not None and self.title != value:
-            value = avoid_duplicate_name(self.parent.sheetnames, value)
+        parent = self._parent
+        old_title = self.__title
+
+        if old_title is not None and old_title != value:
+            idx = getattr(parent, "_sheet_titles_lower", None)
+            if idx is not None:
+                vl = value.lower()
+                conflict = vl in idx
+                if self in parent._sheets and old_title:
+                    if conflict and vl == old_title.lower():
+                        conflict = False
+                if conflict:
+                    value = avoid_duplicate_name(parent.sheetnames, value)
+            else:
+                value = avoid_duplicate_name(parent.sheetnames, value)
 
         if len(value) > 31:
             warnings.warn("Title is more than 31 characters. Some applications may not be able to read the file")
 
         self.__title = value
+        idx = getattr(parent, "_sheet_titles_lower", None)
+        if idx is not None and self in parent._sheets:
+            if old_title:
+                idx.discard(old_title.lower())
+            idx.add(value.lower())
 
 
     @property

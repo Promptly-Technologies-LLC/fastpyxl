@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Run Phase 1 synthetic legacy-vs-typed serializer benchmarks."""
+"""Run synthetic legacy-vs-typed serializer benchmarks (Phase 1 harness)."""
 
 from __future__ import annotations
 
+import argparse
 import json
 import statistics
 import sys
@@ -22,6 +23,17 @@ from fastpyxl.xml.functions import fromstring, tostring
 
 
 ARTIFACTS_DIR = ROOT / "artifacts"
+
+_REPORT_TITLE = {
+    "phase1_synthetic_benchmarks": "Phase 1 Synthetic Benchmarks",
+    "phase8_synthetic_benchmarks": "Phase 8 Synthetic Benchmarks",
+}
+
+
+def _markdown_title(output_stem: str) -> str:
+    return _REPORT_TITLE.get(
+        output_stem, output_stem.replace("_", " ").title().replace("Phase8", "Phase 8")
+    )
 
 
 class LegacyChild(LegacySerialisable):
@@ -132,6 +144,17 @@ def _pct_change(new: float, old: float) -> float:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--output-stem",
+        default="phase1_synthetic_benchmarks",
+        help="Basename for artifacts/STEM.json and artifacts/STEM.md (default: phase1_synthetic_benchmarks)",
+    )
+    args = parser.parse_args()
+    output_stem = args.output_stem
+    if output_stem.endswith((".json", ".md")):
+        output_stem = output_stem.rsplit(".", 1)[0]
+
     ARTIFACTS_DIR.mkdir(exist_ok=True)
 
     benchmark_results = [
@@ -163,11 +186,11 @@ def main() -> None:
         "results": [asdict(r) for r in benchmark_results],
         "comparisons": comparisons,
     }
-    out_json = ARTIFACTS_DIR / "phase1_synthetic_benchmarks.json"
+    out_json = ARTIFACTS_DIR / f"{output_stem}.json"
     out_json.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
     lines = [
-        "# Phase 1 Synthetic Benchmarks",
+        f"# {_markdown_title(output_stem)}",
         "",
         "| Benchmark | Mean (s) | Median (s) | StdDev (s) |",
         "|---|---:|---:|---:|",
@@ -189,7 +212,7 @@ def main() -> None:
             "",
         ]
     )
-    out_md = ARTIFACTS_DIR / "phase1_synthetic_benchmarks.md"
+    out_md = ARTIFACTS_DIR / f"{output_stem}.md"
     out_md.write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Wrote {out_json.relative_to(ROOT)}")

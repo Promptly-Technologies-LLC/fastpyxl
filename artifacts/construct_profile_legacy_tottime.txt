@@ -1,0 +1,22 @@
+# construct profile (legacy)
+# n=2000 repeat=12 sort=tottime top=50
+
+         744025 function calls in 3.250 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    72000    0.480    0.000    1.676    0.000 base.py:65(__set__)
+    72000    0.470    0.000    0.769    0.000 base.py:37(__set__)
+   120000    0.464    0.000    0.696    0.000 base.py:50(_convert)
+   216000    0.419    0.000    0.419    0.000 {built-in method builtins.isinstance}
+    24000    0.339    0.000    1.002    0.000 sequence.py:26(__set__)
+    72000    0.292    0.000    0.561    0.000 sequence.py:29(<genexpr>)
+    96000    0.214    0.000    0.214    0.000 base.py:22(__set__)
+       12    0.212    0.018    3.250    0.271 run_phase1_synthetic_benchmarks.py:92(_build_legacy)
+    48000    0.203    0.000    1.324    0.000 run_phase1_synthetic_benchmarks.py:43(__init__)
+    24000    0.157    0.000    1.713    0.000 run_phase1_synthetic_benchmarks.py:52(__init__)
+       12    0.000    0.000    3.250    0.271 profile_construct_synthetic.py:59(<lambda>)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+

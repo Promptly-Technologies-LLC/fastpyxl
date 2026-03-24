@@ -1,0 +1,19 @@
+# construct profile (typed)
+# n=2000 repeat=12 sort=cumtime top=35
+
+         504025 function calls in 2.941 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       12    0.000    0.000    2.941    0.245 profile_construct_synthetic.py:56(<lambda>)
+       12    0.249    0.021    2.941    0.245 run_phase1_synthetic_benchmarks.py:99(_build_typed)
+    72000    0.751    0.000    2.691    0.000 base.py:202(__init__)
+    96000    0.825    0.000    1.741    0.000 base.py:145(_coerce)
+    72000    0.391    0.000    0.587    0.000 base.py:127(_convert_scalar)
+   144000    0.392    0.000    0.392    0.000 {built-in method builtins.isinstance}
+    72000    0.199    0.000    0.199    0.000 {method 'items' of 'dict' objects}
+    48000    0.132    0.000    0.132    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+

@@ -242,7 +242,6 @@ class TestPivotTableDefinition:
         assert manifest.find(defn.mime_type)
 
 
-    @pytest.mark.xfail
     def test_formatted_fields(self, TableDefinition, datadir):
         datadir.chdir()
         with open("table_with_conditional.xml", "rb") as src:
@@ -569,7 +568,6 @@ class TestConditionalFormatList:
         assert list(prios.keys()) == [(0, 3), (1, 2), (1, 1)]
 
 
-    @pytest.mark.xfail
     def test_dedupe(self, ConditionalFormatList):
         src = """
         <conditionalFormats count="3">

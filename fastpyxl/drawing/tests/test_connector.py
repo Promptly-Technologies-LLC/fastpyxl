@@ -15,12 +15,11 @@ def ConnectorShape():
 class TestConnectorShape:
 
 
-    @pytest.mark.xfail
     def test_ctor(self, ConnectorShape):
         fut = ConnectorShape()
         xml = tostring(fut.to_tree())
         expected = """
-        <root />
+        <cxnSp />
         """
         diff = compare_xml(xml, expected)
         assert diff is None, diff

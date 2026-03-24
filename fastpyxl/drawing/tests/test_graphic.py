@@ -192,18 +192,16 @@ def GroupShape():
 
 class TestGroupShape:
 
-    @pytest.mark.xfail
     def test_ctor(self, GroupShape):
         grp = GroupShape()
         xml = tostring(grp.to_tree())
         expected = """
-        <root />
+        <xdr:grpSp xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" />
         """
         diff = compare_xml(xml, expected)
         assert diff is None, diff
 
 
-    @pytest.mark.xfail
     def test_from_xml(self, GroupShape):
         src = """
         <xdr:grpSp xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"
@@ -275,7 +273,11 @@ class TestGroupShape:
         """
         node = fromstring(src)
         grp = GroupShape.from_tree(node)
-        assert grp == GroupShape()
+        assert grp.nvGrpSpPr is not None
+        assert grp.nvGrpSpPr.cNvPr.id == 14
+        assert grp.nvGrpSpPr.cNvPr.name == "Group 13"
+        assert grp.grpSpPr is not None
+        assert grp.pic is None
 
 
 @pytest.fixture

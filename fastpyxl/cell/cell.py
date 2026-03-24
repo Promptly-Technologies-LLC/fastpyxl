@@ -24,7 +24,7 @@ from fastpyxl.compat import (
 from fastpyxl.utils.exceptions import IllegalCharacterError
 
 from fastpyxl.utils import get_column_letter
-from fastpyxl.styles import numbers, is_date_format
+from fastpyxl.styles import numbers, is_date_format, is_timedelta_format
 from fastpyxl.styles.styleable import StyleableObject
 from fastpyxl.worksheet.hyperlink import Hyperlink
 from fastpyxl.worksheet.formula import DataTableFormula, ArrayFormula
@@ -178,6 +178,12 @@ class Cell(StyleableObject):
         """Given a value, infer the correct data type"""
 
         self.data_type = "n"
+        if isinstance(value, datetime.timedelta):
+            self._value = value.total_seconds() / 86400.0
+            self.data_type = "n"
+            self.number_format = numbers.FORMAT_DATE_TIMEDELTA
+            return
+
         t = type(value)
         try:
             dt = _TYPES[t]
@@ -254,7 +260,9 @@ class Cell(StyleableObject):
         :type: bool
         """
         return self.data_type == 'd' or (
-            self.data_type == 'n' and is_date_format(self.number_format)
+            self.data_type == 'n'
+            and is_date_format(self.number_format)
+            and not is_timedelta_format(self.number_format)
             )
 
 

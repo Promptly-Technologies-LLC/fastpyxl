@@ -630,14 +630,18 @@ class ConditionalFormatList(TypedSerialisable):
         this value specifies the index into the table tag position in @url."
         Yeah, right!
         """
-        fmts = self.by_priority()
-        # sort by priority in order, keeping the highest numerical priority, least when
-        # actually applied
-        # this is not documented but it's what Excel is happy with
-        fmts = {field:fmt for (field, priority), fmt in sorted(fmts.items(), reverse=True)}
-        #fmts = {field:fmt for (field, priority), fmt in fmts.items()}
-        if fmts:
-            self.conditionalFormat = list(fmts.values())
+        best: dict[int, tuple[int, ConditionalFormat]] = {}
+        for fmt in self.conditionalFormat:
+            prio = fmt.priority
+            for area in fmt.pivotAreas:
+                for ref in area.references:
+                    for field in ref.x:
+                        v = field.v if hasattr(field, "v") else field
+                        if v not in best or prio > best[v][0]:
+                            best[v] = (prio, fmt)
+        if best:
+            ordered = sorted(best.values(), key=lambda t: -t[0])
+            self.conditionalFormat = [fmt for _, fmt in ordered]
 
 
     @property
@@ -1304,7 +1308,6 @@ class TableDefinition(TypedSerialisable):
         self.dataFields = list(dataFields)
         self.formats = list(formats)
         self.conditionalFormats = conditionalFormats
-        self.conditionalFormats = None
         self.chartFormats = list(chartFormats)
         self.pivotHierarchies = list(pivotHierarchies)
         self.pivotTableStyleInfo = pivotTableStyleInfo

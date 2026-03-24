@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pivotTableDefinition xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" name="PivotTable1" cacheId="1" applyNumberFormats="0" applyBorderFormats="0" applyFontFormats="0" applyPatternFormats="0" applyAlignmentFormats="0" applyWidthHeightFormats="0" dataCaption="Values" updatedVersion="4" minRefreshableVersion="3" useAutoFormatting="1" itemPrintTitles="1" createdVersion="4" indent="0" outline="1" outlineData="1" gridDropZones="1" multipleFieldFilters="0">
+  <location ref="A3:E14" firstHeaderRow="1" firstDataRow="2" firstDataCol="1"/>
+  <dataFields count="2">
+    <dataField name="Duration (minutes)" fld="0" baseField="0" baseItem="0"/>
+    <dataField name="Count" fld="1" baseField="0" baseItem="0"/>
+  </dataFields>
+  <conditionalFormats count="3">
+    <conditionalFormat scope="data" priority="3">
+      <pivotAreas count="1">
+        <pivotArea outline="0" fieldPosition="0">
+          <references count="1">
+            <reference field="4294967294" count="1" selected="0">
+              <x v="0"/>
+            </reference>
+          </references>
+        </pivotArea>
+      </pivotAreas>
+    </conditionalFormat>
+    <conditionalFormat scope="data" priority="2">
+      <pivotAreas count="1">
+        <pivotArea outline="0" fieldPosition="0">
+          <references count="1">
+            <reference field="4294967294" count="1" selected="0">
+              <x v="1"/>
+            </reference>
+          </references>
+        </pivotArea>
+      </pivotAreas>
+    </conditionalFormat>
+    <conditionalFormat scope="data" priority="1">
+      <pivotAreas count="1">
+        <pivotArea outline="0" fieldPosition="0">
+          <references count="1">
+            <reference field="4294967294" count="1" selected="0">
+              <x v="1"/>
+            </reference>
+          </references>
+        </pivotArea>
+      </pivotAreas>
+    </conditionalFormat>
+  </conditionalFormats>
+</pivotTableDefinition>

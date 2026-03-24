@@ -103,7 +103,6 @@ def test_set_active_by_index(Workbook):
         assert wb.active == wb.worksheets[idx]
 
 
-@pytest.mark.xfail
 def test_set_invalid_active_index(Workbook):
     wb = Workbook()
     with pytest.raises(ValueError):

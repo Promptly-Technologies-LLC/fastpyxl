@@ -48,7 +48,7 @@ class WorkbookParser:
             self.wb.epoch = CALENDAR_MAC_1904
 
         self.wb.code_name = package.properties.codeName
-        self.wb.active = package.active
+        self._pending_active_tab = package.active
         self.wb.views = package.bookViews
         self.sheets = package.sheets
         self.wb.calculation = package.calcPr

@@ -169,12 +169,12 @@ class Workbook:
         if not isinstance(value, (_WorkbookChild, INTEGER_TYPES)):
             raise TypeError("Value must be either a worksheet, chartsheet or numerical index")
         if isinstance(value, INTEGER_TYPES):
+            if not self._sheets or not (0 <= value < len(self._sheets)):
+                raise ValueError(
+                    "Sheet index is outside the range of possible values", value
+                )
             self._active_sheet_index = value
             return
-            #if self._sheets and 0 <= value < len(self._sheets):
-                #value = self._sheets[value]
-            #else:
-                #raise ValueError("Sheet index is outside the range of possible values", value)
         if value not in self._sheets:
             raise ValueError("Worksheet is not in the workbook")
         if value.sheet_state != "visible":

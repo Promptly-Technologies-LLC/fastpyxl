@@ -301,6 +301,10 @@ class ExcelReader:
             apply_stylesheet(self.archive, self.wb)
             action = "read worksheets"
             self.read_worksheets()
+            idx = self.parser._pending_active_tab
+            if isinstance(idx, int) and self.wb._sheets:
+                idx = max(0, min(idx, len(self.wb._sheets) - 1))
+                self.wb._active_sheet_index = idx
             action = "assign names"
             self.parser.assign_names()
             if not self.read_only:

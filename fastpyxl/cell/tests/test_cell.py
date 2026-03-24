@@ -211,7 +211,6 @@ def test_illegal_characters(dummy_cell):
 
 
 
-@pytest.mark.xfail
 def test_timedelta(dummy_cell):
     cell = dummy_cell
     cell.value = timedelta(days=1, hours=3)

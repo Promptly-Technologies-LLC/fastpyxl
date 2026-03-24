@@ -172,8 +172,10 @@ class ColorList(Serialisable):
                  indexedColors=(),
                  mruColors=(),
                 ):
-        self.indexedColors = indexedColors
-        self.mruColors = mruColors
+        self.indexedColors = [
+            RgbColor(rgb=c) if isinstance(c, str) else c for c in indexedColors
+        ]
+        self.mruColors = list(mruColors)
 
 
     def __bool__(self):
@@ -188,7 +190,9 @@ class ColorList(Serialisable):
 def _rgb_converter(value, field_name: str):
     if value is None:
         return None
-    if not isinstance(value, str) or aRGB_REGEX.match(value) is None:
+    if not isinstance(value, str):
+        raise TypeError("Colors must be aRGB hex values")
+    if aRGB_REGEX.match(value) is None:
         raise FieldValidationError(f"{field_name} rejected value {value!r}")
     if len(value) == 6:
         return "00" + value

@@ -4,20 +4,38 @@ from copy import copy
 from keyword import kwlist
 from typing import Any
 
+try:
+    from typing import dataclass_transform
+except ImportError:
+    from typing_extensions import dataclass_transform
+
 from fastpyxl.compat import safe_string
 from fastpyxl.xml.functions import Element
 
 from .compat import supports_to_tree
 from .errors import FieldCoercionError, FieldValidationError
 from .field_info import FieldInfo
-from .fields import _FieldSpec
+from .fields import _FieldFactory, _FieldSpec, AliasField
 from .parse import child_tag, normalize_attrib
 from .render import namespaced_tag, nested_text_node, nested_value_node
 
 KEYWORDS = frozenset(kwlist)
 SEQ_TYPES = (list, tuple)
 
+_SERIALISABLE_FIELD_SPECIFIERS = (
+    _FieldFactory.attribute,
+    _FieldFactory.nested_value,
+    _FieldFactory.nested_text,
+    _FieldFactory.nested_bool,
+    _FieldFactory.element,
+    _FieldFactory.sequence,
+    _FieldFactory.nested_sequence,
+    _FieldFactory.multi_sequence,
+    AliasField,
+)
 
+
+@dataclass_transform(field_specifiers=_SERIALISABLE_FIELD_SPECIFIERS)
 class MetaSerialisable(type):
     def __new__(mcls, name, bases, namespace):
         annotations = namespace.get("__annotations__", {})
@@ -212,7 +230,7 @@ class Serialisable(metaclass=MetaSerialisable):
 
     @classmethod
     def from_tree(cls, node):
-        attrib = dict(node.attrib)
+        attrib: Any = dict(node.attrib)
         for key, ns_key in cls.__namespaced__:
             if ns_key in attrib:
                 attrib[key] = attrib.pop(ns_key)

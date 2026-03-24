@@ -189,14 +189,18 @@ def _check_anchor(obj):
     if not isinstance(anchor, _AnchorBase):
         row, col = coordinate_to_tuple(anchor.upper())
         anchor = OneCellAnchor()
-        anchor._from.row = row -1
-        anchor._from.col = col -1
+        frm = anchor._from
+        assert frm is not None
+        frm.row = row - 1
+        frm.col = col - 1
+        ext = anchor.ext
+        assert ext is not None
         if isinstance(obj, ChartBase):
-            anchor.ext.width = cm_to_EMU(obj.width)
-            anchor.ext.height = cm_to_EMU(obj.height)
+            ext.width = cm_to_EMU(obj.width)
+            ext.height = cm_to_EMU(obj.height)
         elif isinstance(obj, Image):
-            anchor.ext.width = pixels_to_EMU(obj.width)
-            anchor.ext.height = pixels_to_EMU(obj.height)
+            ext.width = pixels_to_EMU(obj.width)
+            ext.height = pixels_to_EMU(obj.height)
     return anchor
 
 
@@ -219,9 +223,9 @@ class SpreadsheetDrawing(Serialisable):
                  oneCellAnchor=(),
                  absoluteAnchor=(),
                  ):
-        self.twoCellAnchor = twoCellAnchor
-        self.oneCellAnchor = oneCellAnchor
-        self.absoluteAnchor = absoluteAnchor
+        self.twoCellAnchor = list(twoCellAnchor)
+        self.oneCellAnchor = list(oneCellAnchor)
+        self.absoluteAnchor = list(absoluteAnchor)
         self.charts = []
         self.images = []
         self._rels = []
@@ -276,25 +280,41 @@ class SpreadsheetDrawing(Serialisable):
     def _chart_frame(self, idx):
         chart_rel = ChartRelation(f"rId{idx}")
         frame = GraphicFrame()
-        nv = frame.nvGraphicFramePr.cNvPr
+        nv_pr = frame.nvGraphicFramePr
+        assert nv_pr is not None
+        nv = nv_pr.cNvPr
+        assert nv is not None
         nv.id = idx
         nv.name = "Chart {0}".format(idx)
-        frame.graphic.graphicData.chart = chart_rel
+        graphic = frame.graphic
+        assert graphic is not None
+        gdata = graphic.graphicData
+        assert gdata is not None
+        gdata.chart = chart_rel
         return frame
 
 
     def _picture_frame(self, idx):
         pic = PictureFrame()
-        pic.nvPicPr.cNvPr.descr = "Picture"
-        pic.nvPicPr.cNvPr.id = idx
-        pic.nvPicPr.cNvPr.name = "Image {0}".format(idx)
+        nv_pic = pic.nvPicPr
+        assert nv_pic is not None
+        cnv = nv_pic.cNvPr
+        assert cnv is not None
+        cnv.descr = "Picture"
+        cnv.id = idx
+        cnv.name = "Image {0}".format(idx)
 
-        pic.blipFill.blip = Blip()
-        pic.blipFill.blip.embed = "rId{0}".format(idx)
-        pic.blipFill.blip.cstate = "print"
+        blip_fill = pic.blipFill
+        assert blip_fill is not None
+        blip_fill.blip = Blip()
+        assert blip_fill.blip is not None
+        blip_fill.blip.embed = "rId{0}".format(idx)
+        blip_fill.blip.cstate = "print"
 
-        pic.spPr.prstGeom = PresetGeometry2D(prst="rect")
-        pic.spPr.ln = None
+        sp_pr = pic.spPr
+        assert sp_pr is not None
+        sp_pr.prstGeom = PresetGeometry2D(prst="rect")
+        sp_pr.ln = None
         return pic
 
 

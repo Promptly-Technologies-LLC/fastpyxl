@@ -28,4 +28,4 @@ class CustomProperties(Serialisable):
         self,
         customPr=(),
     ):
-        self.customPr = customPr
+        self.customPr = list(customPr)

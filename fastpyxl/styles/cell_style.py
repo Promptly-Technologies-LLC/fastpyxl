@@ -172,7 +172,7 @@ class CellStyleList(Serialisable):
                  count=None,
                  xf=(),
                 ):
-        self.xf = xf
+        self.xf = list(xf)
 
 
     @property

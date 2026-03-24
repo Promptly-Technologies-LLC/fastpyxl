@@ -4,7 +4,7 @@
 RichText definition
 """
 from copy import copy
-from fastpyxl.compat import NUMERIC_TYPES
+from fastpyxl.compat import NUMERIC_TYPES, safe_string
 from fastpyxl.cell.text import InlineFont, Text
 from fastpyxl.descriptors import (
     Strict,
@@ -45,7 +45,7 @@ class TextBlock(Strict):
         el = Element("r")
         el.append(self.font.to_tree(tagname="rPr"))
         t = Element("t")
-        t.text = self.text
+        t.text = safe_string(self.text)
         whitespace(t)
         el.append(t)
         return el

@@ -19,7 +19,17 @@ from .line import LineProperties  # noqa: F401 -- re-exported
 from fastpyxl.styles.colors import Color
 from fastpyxl.xml.constants import DRAWING_NS
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
+
+
+def _emu_coord(value, field_name: str):
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
 
 
 class Point2D(TypedSerialisable):
@@ -27,8 +37,16 @@ class Point2D(TypedSerialisable):
     tagname = "off"
     namespace = DRAWING_NS
 
-    x: str | int | float | None = Field.attribute(expected_type=object, allow_none=True)
-    y: str | int | float | None = Field.attribute(expected_type=object, allow_none=True)
+    x: int | None = Field.attribute(
+        expected_type=int,
+        allow_none=True,
+        converter=lambda v: _emu_coord(v, "x"),
+    )
+    y: int | None = Field.attribute(
+        expected_type=int,
+        allow_none=True,
+        converter=lambda v: _emu_coord(v, "y"),
+    )
 
     def __init__(self,
                  x=None,

@@ -1,9 +1,12 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 from io import BytesIO
+from typing import Any
 
+PILImage: Any
 try:
-    from PIL import Image as PILImage
+    from PIL import Image as _PILImage
+    PILImage = _PILImage
 except ImportError:
     PILImage = False
 

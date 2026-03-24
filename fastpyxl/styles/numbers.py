@@ -184,7 +184,7 @@ class NumberFormatList(Serialisable):
                  numFmt=(),
                 ):
         del count
-        self.numFmt = numFmt
+        self.numFmt = list(numFmt)
 
 
     @property

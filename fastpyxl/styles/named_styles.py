@@ -232,7 +232,7 @@ class _NamedCellStyleList(Serialisable):
                  cellStyle=(),
                 ):
         del count
-        self.cellStyle = cellStyle
+        self.cellStyle = list(cellStyle)
 
     @property
     def count(self):

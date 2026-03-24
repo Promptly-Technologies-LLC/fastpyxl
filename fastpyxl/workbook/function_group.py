@@ -28,4 +28,4 @@ class FunctionGroupList(Serialisable):
                  functionGroup=(),
                 ):
         self.builtInGroupCount = builtInGroupCount
-        self.functionGroup = functionGroup
+        self.functionGroup = list(functionGroup)

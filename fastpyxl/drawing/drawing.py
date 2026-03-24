@@ -77,15 +77,23 @@ class Drawing:
             AbsoluteAnchor)
         if self.anchortype == "absolute":
             anchor = AbsoluteAnchor()
-            anchor.pos.x = pixels_to_EMU(self.left)
-            anchor.pos.y = pixels_to_EMU(self.top)
+            pos = anchor.pos
+            assert pos is not None
+            pos.x = pixels_to_EMU(self.left)
+            pos.y = pixels_to_EMU(self.top)
 
         elif self.anchortype == "oneCell":
             anchor = OneCellAnchor()
-            anchor._from.col = self.anchorcol
-            anchor._from.row = self.anchorrow
+            frm = anchor._from
+            assert frm is not None
+            frm.col = self.anchorcol
+            frm.row = self.anchorrow
+        else:
+            raise ValueError(f"unknown anchortype {self.anchortype!r}")
 
-        anchor.ext.width = pixels_to_EMU(self._width)
-        anchor.ext.height = pixels_to_EMU(self._height)
+        ext = anchor.ext
+        assert ext is not None
+        ext.width = pixels_to_EMU(self._width)
+        ext.height = pixels_to_EMU(self._height)
 
         return anchor

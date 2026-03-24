@@ -18,11 +18,15 @@ def test_ctor():
 
 @pytest.fixture
 def SimpleTestProps():
+    from fastpyxl.styles.colors import Color
+
     from .. properties import WorksheetProperties
     wsp = WorksheetProperties()
     wsp.filterMode = False
-    wsp.tabColor = 'FF123456'
-    wsp.pageSetUpPr.fitToPage = False
+    wsp.tabColor = Color(rgb="FF123456")
+    page_setup = wsp.pageSetUpPr
+    assert page_setup is not None
+    page_setup.fitToPage = False
     return wsp
 
 

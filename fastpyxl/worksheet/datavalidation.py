@@ -13,6 +13,7 @@ from fastpyxl.utils import (
     coordinate_to_tuple,
     get_column_letter,
 )
+from fastpyxl.worksheet.cell_range import MultiCellRange
 
 
 def collapse_cell_addresses(cells, input_ranges=()):
@@ -127,7 +128,7 @@ class DataValidation(Serialisable):
                  operator=None,
                  allow_blank=None,
                  ):
-        self.sqref = sqref
+        self.sqref = MultiCellRange(sqref)
         self.showDropDown = showDropDown
         self.imeMode = imeMode
         self.operator = operator
@@ -177,7 +178,7 @@ class DataValidationList(Serialisable):
         self.disablePrompts = disablePrompts
         self.xWindow = xWindow
         self.yWindow = yWindow
-        self.dataValidation = dataValidation
+        self.dataValidation = list(dataValidation)
 
     @property
     def count(self):

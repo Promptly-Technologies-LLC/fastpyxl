@@ -40,7 +40,7 @@ class MergeCells(Serialisable):
                  count=None,
                  mergeCell=(),
                 ):
-        self.mergeCell = mergeCell
+        self.mergeCell = list(mergeCell)
 
     def __iter__(self):
         n = len(self.mergeCell)

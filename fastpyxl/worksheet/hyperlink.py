@@ -40,4 +40,4 @@ class HyperlinkList(Serialisable):
     hyperlink: list[Hyperlink] = Field.sequence(expected_type=Hyperlink, default=list)
 
     def __init__(self, hyperlink=()):
-        self.hyperlink = hyperlink
+        self.hyperlink = list(hyperlink)

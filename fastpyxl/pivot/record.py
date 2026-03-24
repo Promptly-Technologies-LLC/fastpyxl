@@ -46,7 +46,7 @@ class Record(Serialisable):
                  d=None,
                  x=None,
                 ):
-        self._fields = _fields
+        self._fields = list(_fields)
 
 
 class RecordList(Serialisable):
@@ -68,7 +68,7 @@ class RecordList(Serialisable):
                  r=(),
                  extLst=None,
                 ):
-        self.r = r
+        self.r = list(r)
         self.extLst = extLst
 
 

@@ -53,7 +53,7 @@ class Scenario(Serialisable):
                  comment=None,
                 ):
         del count
-        self.inputCells = inputCells
+        self.inputCells = list(inputCells)
         self.name = name
         self.locked = locked
         self.hidden = hidden
@@ -87,7 +87,7 @@ class ScenarioList(Serialisable):
                  show=None,
                  sqref=None,
                 ):
-        self.scenario = scenario
+        self.scenario = list(scenario)
         self.current = current
         self.show = show
         self.sqref = sqref

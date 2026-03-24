@@ -54,6 +54,14 @@ class WorksheetCopy:
             if source_cell.has_style:
                 target_cell._style = copy(source_cell._style)
 
+            sp = getattr(source_cell, "_pending_styles", None)
+            if sp:
+                td = getattr(target_cell, "_pending_styles", None)
+                if td is None:
+                    target_cell._pending_styles = {}
+                    td = target_cell._pending_styles
+                td.update(sp)
+
             if source_cell.hyperlink:
                 target_cell._hyperlink = copy(source_cell.hyperlink)
 

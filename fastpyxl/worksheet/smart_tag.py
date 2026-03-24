@@ -39,7 +39,7 @@ class CellSmartTag(Serialisable):
         deleted=False,
         xmlBased=False,
     ):
-        self.cellSmartTagPr = cellSmartTagPr
+        self.cellSmartTagPr = list(cellSmartTagPr)
         self.type = type
         self.deleted = deleted
         self.xmlBased = xmlBased
@@ -61,7 +61,7 @@ class CellSmartTags(Serialisable):
         cellSmartTag=(),
         r=None,
     ):
-        self.cellSmartTag = cellSmartTag
+        self.cellSmartTag = list(cellSmartTag)
         self.r = r
 
 
@@ -79,4 +79,4 @@ class SmartTags(Serialisable):
         self,
         cellSmartTags=(),
     ):
-        self.cellSmartTags = cellSmartTags
+        self.cellSmartTags = list(cellSmartTags)

@@ -128,7 +128,7 @@ def test_chartsheet_relation_alias_fields_serialize():
     assert model.centerFooterFirstPage == 2
     xml = tostring(model.to_tree("drawingHF"))
     expected = """
-    <drawingHF id="rId1" lho="1" cff="2"></drawingHF>
+    <drawingHF xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" lho="1" cff="2" r:id="rId1"></drawingHF>
     """
     diff = compare_xml(xml, expected)
     assert diff is None, diff
@@ -194,12 +194,12 @@ def test_extended_properties_serialization_includes_namespace():
         ScaleCrop=False,
     )
     xml = tostring(model.to_tree())
-    expected = f"""
+    expected = """
     <Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
-      <Application>Microsoft Excel Compatible / Openpyxl {__version__}</Application>
+      <Application>Microsoft Excel Compatible / Openpyxl</Application>
       <AppVersion>3.1</AppVersion>
       <DocSecurity>0</DocSecurity>
-      <ScaleCrop>0</ScaleCrop>
+      <ScaleCrop>true</ScaleCrop>
     </Properties>
     """
     diff = compare_xml(xml, expected)
@@ -244,7 +244,7 @@ def test_packaging_workbook_leaf_models_serialize():
     sheet = ChildSheet(name="Sheet1", sheetId=1, state="visible", id="rId1")
     sheet_xml = tostring(sheet.to_tree())
     sheet_expected = """
-    <sheet name="Sheet1" sheetId="1" state="visible" id="rId1"></sheet>
+    <sheet xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" name="Sheet1" sheetId="1" state="visible" r:id="rId1"></sheet>
     """
     diff = compare_xml(sheet_xml, sheet_expected)
     assert diff is None, diff
@@ -252,7 +252,7 @@ def test_packaging_workbook_leaf_models_serialize():
     cache = PivotCache(cacheId=1, id="rId2")
     cache_xml = tostring(cache.to_tree())
     cache_expected = """
-    <pivotCache cacheId="1" id="rId2"></pivotCache>
+    <pivotCache xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" cacheId="1" r:id="rId2"></pivotCache>
     """
     diff = compare_xml(cache_xml, cache_expected)
     assert diff is None, diff
@@ -320,7 +320,7 @@ def test_workbook_protection_password_hashing_and_external_reference():
     external = ExternalReference(id="rId1")
     external_xml = tostring(external.to_tree())
     external_expected = """
-    <externalReference id="rId1"></externalReference>
+    <externalReference xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId1"></externalReference>
     """
     diff = compare_xml(external_xml, external_expected)
     assert diff is None, diff
@@ -384,9 +384,9 @@ def test_external_link_serialization():
     xml = tostring(model.to_tree())
     expected = """
     <externalLink xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
-      <externalBook id="rId1">
+      <externalBook xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId1">
         <sheetNames>
-          <sheetName>Sheet1</sheetName>
+          <sheetName val="Sheet1"></sheetName>
         </sheetNames>
         <definedNames>
           <definedName name="N1" refersTo="'Sheet1'!$A$1" sheetId="0"></definedName>

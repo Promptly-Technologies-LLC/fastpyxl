@@ -27,11 +27,35 @@ def test_empty_string(datadir):
 def test_formatted_string_table(datadir):
     datadir.chdir()
     src = 'shared-strings-rich.xml'
+    expected = [
+        'Welcome',
+        CellRichText([
+            'to the best ',
+            TextBlock(
+                font=InlineFont(
+                    rFont='Calibri',
+                    sz=11.0,
+                    family=2.0,
+                    scheme='minor',
+                    color=Color(theme=1),
+                    b=True,
+                ),
+                text='shop in ',
+            ),
+            TextBlock(
+                font=InlineFont(
+                    rFont='Calibri',
+                    sz=11.0,
+                    family=2.0,
+                    scheme='minor',
+                    color=Color(theme=1),
+                    b=True,
+                    u='single',
+                ),
+                text='town',
+            ),
+        ]),
+        "     let's play ",
+    ]
     with open(src, "rb") as content:
-        assert repr(read_rich_text(content)) == repr([
-            u'Welcome',
-            CellRichText([u'to the best ',
-            TextBlock(font=InlineFont(rFont='Calibri', sz="11", family="2", scheme="minor", color=Color(theme=1), b=True), text=u'shop in '),
-            TextBlock(font=InlineFont(rFont='Calibri', sz="11", family="2", scheme="minor", color=Color(theme=1), b=True, u='single'), text=u'town')]),
-            u"     let's play "
-        ])
+        assert read_rich_text(content) == expected

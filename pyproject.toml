@@ -67,10 +67,7 @@ ignore = ["E402", "E501", "E101"]
 "doc/*" = ["F401"]
 
 [tool.ty.rules]
-# The codebase uses a custom descriptor system (Typed, Set, NoneSet, etc.)
-# that implements __set__/__get__ for runtime type coercion. ty sees the
-# descriptor type rather than the coerced value type, causing false positives.
-invalid-assignment = "ignore"
+# Phase 8: invalid-assignment enabled (see typed_serialisable.fields Any returns). Further rules next.
 unresolved-attribute = "ignore"
 unsupported-operator = "ignore"
 not-iterable = "ignore"

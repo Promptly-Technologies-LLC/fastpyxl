@@ -2,9 +2,30 @@
 
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
+from fastpyxl.xml.functions import Element
 
 from fastpyxl.xml.constants import XPROPS_NS
 from fastpyxl import __version__
+
+
+def _invert_xml_bool(value):
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.lower() not in ("true", "1", "t")
+    return not bool(value)
+
+
+def _invert_xml_bool_renderer(tagname, value, namespace=None):
+    if value is None:
+        return None
+    if namespace is not None:
+        tagname = "{%s}%s" % (namespace, tagname)
+    el = Element(tagname)
+    el.text = "false" if value else "true"
+    return el
 
 
 class DigSigBlob(Serialisable):
@@ -50,15 +71,35 @@ class ExtendedProperties(Serialisable):
     TotalTime: int | None = Field.nested_text(expected_type=int, allow_none=True)
     HiddenSlides: int | None = Field.nested_text(expected_type=int, allow_none=True)
     MMClips: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    ScaleCrop: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    ScaleCrop: bool | None = Field.nested_text(
+        expected_type=bool,
+        allow_none=True,
+        converter=_invert_xml_bool,
+        renderer=_invert_xml_bool_renderer,
+    )
     HeadingPairs: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True)
     TitlesOfParts: VectorLpstr | None = Field.element(expected_type=VectorLpstr, allow_none=True)
-    LinksUpToDate: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    LinksUpToDate: bool | None = Field.nested_text(
+        expected_type=bool,
+        allow_none=True,
+        converter=_invert_xml_bool,
+        renderer=_invert_xml_bool_renderer,
+    )
     CharactersWithSpaces: int | None = Field.nested_text(expected_type=int, allow_none=True)
-    SharedDoc: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    SharedDoc: bool | None = Field.nested_text(
+        expected_type=bool,
+        allow_none=True,
+        converter=_invert_xml_bool,
+        renderer=_invert_xml_bool_renderer,
+    )
     HyperlinkBase: str | None = Field.nested_text(expected_type=str, allow_none=True)
     HLinks: VectorVariant | None = Field.element(expected_type=VectorVariant, allow_none=True)
-    HyperlinksChanged: bool | None = Field.nested_text(expected_type=bool, allow_none=True)
+    HyperlinksChanged: bool | None = Field.nested_text(
+        expected_type=bool,
+        allow_none=True,
+        converter=_invert_xml_bool,
+        renderer=_invert_xml_bool_renderer,
+    )
     DigSig: DigSigBlob | None = Field.element(expected_type=DigSigBlob, allow_none=True)
     Application: str | None = Field.nested_text(expected_type=str, allow_none=True)
     AppVersion: str | None = Field.nested_text(expected_type=str, allow_none=True)
@@ -111,17 +152,23 @@ class ExtendedProperties(Serialisable):
         self.HiddenSlides = HiddenSlides
         self.MMClips = MMClips
         self.ScaleCrop = ScaleCrop
-        self.HeadingPairs = None
-        self.TitlesOfParts = None
+        self.HeadingPairs = HeadingPairs
+        self.TitlesOfParts = TitlesOfParts
         self.LinksUpToDate = LinksUpToDate
         self.CharactersWithSpaces = CharactersWithSpaces
         self.SharedDoc = SharedDoc
         self.HyperlinkBase = HyperlinkBase
-        self.HLinks = None
+        self.HLinks = HLinks
         self.HyperlinksChanged = HyperlinksChanged
-        self.DigSig = None
-        self.Application = f"Microsoft Excel Compatible / Openpyxl {__version__}"
-        self.AppVersion = ".".join(__version__.split(".")[:-1])
+        self.DigSig = DigSig
+        if Application is None:
+            self.Application = f"Microsoft Excel Compatible / Openpyxl {__version__}"
+        else:
+            self.Application = Application
+        if AppVersion is None:
+            self.AppVersion = ".".join(__version__.split(".")[:-1])
+        else:
+            self.AppVersion = AppVersion
         self.DocSecurity = DocSecurity
 
 

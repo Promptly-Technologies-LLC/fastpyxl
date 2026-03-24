@@ -84,6 +84,7 @@ class GroupLocking(TypedSerialisable):
         self.noEditPoints = noEditPoints
         self.noAdjustHandles = noAdjustHandles
         self.noChangeShapeType = noChangeShapeType
+        self.extLst = extLst
 
 
 class NonVisualGroupDrawingShapeProps(TypedSerialisable):

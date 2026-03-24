@@ -2,6 +2,7 @@
 
 """Implementation of custom properties see § 22.3 in the specification"""
 
+import datetime
 
 from warnings import warn
 
@@ -23,8 +24,19 @@ from fastpyxl.xml.constants import (
     VTYPES_NS,
     CPROPS_FMTID,
 )
+from fastpyxl.xml.functions import Element
 
-from .core import NestedDateTime
+from .core import NestedDateTime, _datetime_converter
+
+
+def _filetime_nested_renderer(tagname, value, namespace=None):
+    if value is None:
+        return None
+    if namespace is not None:
+        tagname = "{%s}%s" % (namespace, tagname)
+    el = Element(tagname)
+    el.text = value.replace(tzinfo=None).isoformat(timespec="seconds") + "Z"
+    return el
 
 
 class NestedBoolText(Bool, NestedText):
@@ -50,7 +62,13 @@ class _CustomDocumentProperty(Serialisable):
     lpwstr: str | None = Field.nested_text(expected_type=str, allow_none=True, namespace=VTYPES_NS)
     i4: int | None = Field.nested_text(expected_type=int, allow_none=True, namespace=VTYPES_NS)
     r8: float | None = Field.nested_text(expected_type=float, allow_none=True, namespace=VTYPES_NS)
-    filetime: object | None = Field.nested_text(expected_type=object, allow_none=True, namespace=VTYPES_NS, converter=lambda v: v)
+    filetime: datetime.datetime | None = Field.nested_text(
+        expected_type=datetime.datetime,
+        allow_none=True,
+        namespace=VTYPES_NS,
+        converter=_datetime_converter,
+        renderer=_filetime_nested_renderer,
+    )
     bool = Field.nested_text(expected_type=bool, allow_none=True, namespace=VTYPES_NS)
     linkTarget: str | None = Field.attribute(expected_type=str, allow_none=True)
     fmtid: str | None = Field.attribute(expected_type=str, allow_none=True)
@@ -108,7 +126,7 @@ class _CustomDocumentPropertyList(Serialisable):
 
 
     def __init__(self, property=()):
-        self.property = property
+        self.property = list(property)
 
 
     def __len__(self):

@@ -122,10 +122,12 @@ class DefinedName(Serialisable):
     def to_tree(self, tagname=None, idx=None, namespace=None):
         node = super().to_tree(tagname=tagname, idx=idx, namespace=namespace)
         if self.attr_text is not None:
-            # Defined names store the formula/range expression as element text.
             text = self.attr_text
             if text.startswith("'") and "'!" in text:
-                text = text[1:].replace("'!", "!", 1)
+                q = text.index("'!")
+                inner = text[1:q]
+                if " " not in inner and "," not in inner:
+                    text = inner + "!" + text[q + 2 :]
             node.text = text
         return node
 
@@ -160,7 +162,7 @@ class DefinedNameList(Serialisable):
 
 
     def __init__(self, definedName=()):
-        self.definedName = definedName
+        self.definedName = list(definedName)
 
 
     def by_sheet(self):

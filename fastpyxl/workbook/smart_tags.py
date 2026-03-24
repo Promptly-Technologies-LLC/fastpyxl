@@ -32,7 +32,7 @@ class SmartTagList(Serialisable):
     def __init__(self,
                  smartTagType=(),
                 ):
-        self.smartTagType = smartTagType
+        self.smartTagType = list(smartTagType)
 
 
 class SmartTagProperties(Serialisable):

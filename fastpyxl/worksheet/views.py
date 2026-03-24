@@ -116,7 +116,7 @@ class SheetView(Serialisable):
         self.pane = pane
         if selection is None:
             selection = (Selection(),)
-        self.selection = selection
+        self.selection = list(selection)
 
 
 class SheetViewList(Serialisable):

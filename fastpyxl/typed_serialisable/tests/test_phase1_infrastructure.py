@@ -156,12 +156,12 @@ def test_xml_order_override_for_elements():
 
 def test_scalar_assignment_validation_and_alias_forwarding():
     demo = Demo()
-    demo.attr_id = "7"
+    demo.attr_id = "7"  # ty: ignore[invalid-assignment]
     assert demo.attr_id == 7
     demo.alias_attr = 9
     assert demo.attr_id == 9
     with pytest.raises(TypeError):
-        demo.items = "not-a-sequence"
+        demo.items = "not-a-sequence"  # ty: ignore[invalid-assignment]
 
 
 def test_parse_and_render_roundtrip_for_field_strategies():

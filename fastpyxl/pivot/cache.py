@@ -1,6 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 from datetime import datetime
+from typing import Any
 
 from fastpyxl.descriptors.excel import (
     ExtensionList,
@@ -257,9 +258,9 @@ class TupleCache(TypedSerialisable):
                  extLst=None,
                 ):
         self.entries = entries
-        self.sets = sets
-        self.queryCache = queryCache
-        self.serverFormats = serverFormats
+        self.sets = list(sets)
+        self.queryCache = list(queryCache)
+        self.serverFormats = list(serverFormats)
         self.extLst = extLst
 
 
@@ -350,7 +351,7 @@ class LevelGroup(TypedSerialisable):
         self.caption = caption
         self.uniqueParent = uniqueParent
         self.id = id
-        self.groupMembers = groupMembers
+        self.groupMembers = list(groupMembers)
 
 
 class GroupLevel(TypedSerialisable):
@@ -378,7 +379,7 @@ class GroupLevel(TypedSerialisable):
         self.caption = caption
         self.user = user
         self.customRollUp = customRollUp
-        self.groups = groups
+        self.groups = list(groups)
         self.extLst = extLst
 
 
@@ -475,8 +476,8 @@ class CacheHierarchy(TypedSerialisable):
         self.unbalanced = unbalanced
         self.unbalancedGroup = unbalancedGroup
         self.hidden = hidden
-        self.fieldsUsage = fieldsUsage
-        self.groupLevels = groupLevels
+        self.fieldsUsage = list(fieldsUsage)
+        self.groupLevels = list(groupLevels)
         self.extLst = extLst
 
 
@@ -502,12 +503,12 @@ class GroupItems(TypedSerialisable):
                  s=(),
                  d=(),
                 ):
-        self.m = m
-        self.n = n
-        self.b = b
-        self.e = e
-        self.s = s
-        self.d = d
+        self.m = list(m)
+        self.n = list(n)
+        self.b = list(b)
+        self.e = list(e)
+        self.s = list(s)
+        self.d = list(d)
 
 
     @property
@@ -559,7 +560,7 @@ class FieldGroup(TypedSerialisable):
     par: int | None = Field.attribute(expected_type=int, allow_none=True)
     base: int | None = Field.attribute(expected_type=int, allow_none=True)
     rangePr: RangePr | None = Field.element(expected_type=RangePr, allow_none=True)
-    discretePr: list[NestedInteger] = Field.nested_sequence(expected_type=NestedInteger, count=True)
+    discretePr: list[Any] = Field.nested_sequence(expected_type=NestedInteger, count=True)
     groupItems: GroupItems | None = Field.element(expected_type=GroupItems, allow_none=True)
 
     xml_order = ("rangePr", "discretePr", "groupItems")
@@ -574,7 +575,7 @@ class FieldGroup(TypedSerialisable):
         self.par = par
         self.base = base
         self.rangePr = rangePr
-        self.discretePr = discretePr
+        self.discretePr = list(discretePr)
         self.groupItems = groupItems
 
 
@@ -626,7 +627,7 @@ class SharedItems(TypedSerialisable):
                  count=None,
                  longText=None,
                 ):
-        self._fields = _fields
+        self._fields = list(_fields)
         self.containsBlank = containsBlank
         self.containsDate = containsDate
         self.containsNonDate = containsNonDate
@@ -657,7 +658,7 @@ class CacheField(TypedSerialisable):
 
     sharedItems: SharedItems | None = Field.element(expected_type=SharedItems, allow_none=True)
     fieldGroup: FieldGroup | None = Field.element(expected_type=FieldGroup, allow_none=True)
-    mpMap: NestedInteger | None = Field.element(expected_type=NestedInteger, allow_none=True)
+    mpMap: Any = Field.element(expected_type=NestedInteger, allow_none=True)
     extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
     name: str | None = Field.attribute(expected_type=str, allow_none=False)
     caption: str | None = Field.attribute(expected_type=str, allow_none=True)
@@ -771,8 +772,8 @@ class Consolidation(TypedSerialisable):
                  rangeSets=(),
                 ):
         self.autoPage = autoPage
-        self.pages = pages
-        self.rangeSets = rangeSets
+        self.pages = list(pages)
+        self.rangeSets = list(rangeSets)
 
 
 class WorksheetSource(TypedSerialisable):
@@ -922,15 +923,15 @@ class CacheDefinition(TypedSerialisable):
         self.supportSubquery = supportSubquery
         self.supportAdvancedDrill = supportAdvancedDrill
         self.cacheSource = cacheSource
-        self.cacheFields = cacheFields
-        self.cacheHierarchies = cacheHierarchies
-        self.kpis = kpis
+        self.cacheFields = list(cacheFields)
+        self.cacheHierarchies = list(cacheHierarchies)
+        self.kpis = list(kpis)
         self.tupleCache = tupleCache
-        self.calculatedItems = calculatedItems
-        self.calculatedMembers = calculatedMembers
-        self.dimensions = dimensions
-        self.measureGroups = measureGroups
-        self.maps = maps
+        self.calculatedItems = list(calculatedItems)
+        self.calculatedMembers = list(calculatedMembers)
+        self.dimensions = list(dimensions)
+        self.measureGroups = list(measureGroups)
+        self.maps = list(maps)
         self.extLst = extLst
         self.id = id
 

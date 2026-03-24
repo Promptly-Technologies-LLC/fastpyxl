@@ -6,6 +6,7 @@
 import datetime
 from math import isnan
 import re
+from typing import Any
 
 
 # constants
@@ -49,7 +50,7 @@ def from_ISO8601(formatted_string):
 
     match = ISO_REGEX.match(formatted_string)
     if match and any(match.groups()):
-        parts = match.groupdict(0)
+        parts: dict[str, Any] = dict(match.groupdict(0))
         for key in ["year", "month", "day", "hour", "minute", "second"]:
             if parts[key]:
                 parts[key] = int(parts[key])
@@ -69,7 +70,7 @@ def from_ISO8601(formatted_string):
 
     match = ISO_DURATION.match(formatted_string)
     if match and any(match.groups()):
-        parts = match.groupdict(0)
+        parts: dict[str, Any] = dict(match.groupdict(0))
         for key, val in parts.items():
             if val:
                 parts[key] = float(val)

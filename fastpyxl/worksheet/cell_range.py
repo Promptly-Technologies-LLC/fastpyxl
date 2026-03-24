@@ -82,6 +82,9 @@ class CellRange(Serialisable):
             else:
                 min_col, min_row, max_col, max_row = range_boundaries(range_string)
 
+        if min_col is None or min_row is None or max_col is None or max_row is None:
+            raise ValueError("CellRange requires range_string or all of min_col, min_row, max_col, max_row")
+
         self.min_col = min_col
         self.min_row = min_row
         self.max_col = max_col

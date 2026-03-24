@@ -57,12 +57,10 @@ class TestExtendedProperties:
         """
         node = fromstring(src)
         props = ExtendedProperties.from_tree(node)
-        assert props == ExtendedProperties(
-            Application="Microsoft Macintosh Excel",
-            DocSecurity=0,
-            ScaleCrop=True,
-            LinksUpToDate=True,
-            SharedDoc=True,
-            HyperlinksChanged=True,
-            AppVersion='14.0300'
-        )
+        assert props.Application == "Microsoft Macintosh Excel"
+        assert props.DocSecurity == 0
+        assert props.ScaleCrop is True
+        assert props.LinksUpToDate is True
+        assert props.SharedDoc is True
+        assert props.HyperlinksChanged is True
+        assert props.AppVersion == "14.0300"

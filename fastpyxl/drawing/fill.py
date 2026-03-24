@@ -4,7 +4,7 @@ from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
-from fastpyxl.xml.constants import DRAWING_NS
+from fastpyxl.xml.constants import DRAWING_NS, REL_NS
 
 from .colors import (
     PRESET_COLORS,
@@ -50,9 +50,13 @@ def _enum_converter(value, allowed_values, field_name: str):
 def _range_converter(value, minimum: int, maximum: int, field_name: str):
     if value is None:
         return None
-    if not minimum <= value <= maximum:
+    try:
+        numeric = int(value)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
+    if not minimum <= numeric <= maximum:
         raise FieldValidationError(f"{field_name} rejected value {value!r}")
-    return value
+    return numeric
 
 
 class PatternFillProperties(Serialisable):
@@ -208,7 +212,7 @@ class GradientFillProperties(Serialisable):
     def __init__(self, flip=None, rotWithShape=None, gsLst=(), lin=None, path=None, tileRect=None):
         self.flip = flip
         self.rotWithShape = rotWithShape
-        self.gsLst = gsLst
+        self.gsLst = list(gsLst)
         self.lin = lin
         self.path = path
         self.tileRect = tileRect
@@ -250,8 +254,8 @@ class Blip(Serialisable):
         allow_none=True,
         converter=lambda v: _enum_converter(v, ("email", "screen", "print", "hqprint"), "cstate"),
     )
-    embed: str | None = Field.attribute(expected_type=str, allow_none=True)
-    link: str | None = Field.attribute(expected_type=str, allow_none=True)
+    embed: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
+    link: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
     noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True)

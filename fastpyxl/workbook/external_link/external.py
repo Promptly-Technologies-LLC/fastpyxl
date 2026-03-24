@@ -9,7 +9,7 @@ from fastpyxl.packaging.relationship import (
     get_rels_path,
     get_dependents
     )
-from fastpyxl.xml.constants import SHEET_MAIN_NS
+from fastpyxl.xml.constants import REL_NS, SHEET_MAIN_NS
 from fastpyxl.xml.functions import fromstring
 
 
@@ -46,11 +46,11 @@ class ExternalRow(Serialisable):
     xml_order = ('cell',)
 
     def __init__(self,
-                 r=(),
+                 r=None,
                  cell=None,
                 ):
         self.r = r
-        self.cell = cell
+        self.cell = list(cell or ())
 
 
 class ExternalSheetData(Serialisable):
@@ -67,7 +67,7 @@ class ExternalSheetData(Serialisable):
                 ):
         self.sheetId = sheetId
         self.refreshError = refreshError
-        self.row = row
+        self.row = list(row)
 
 
 class ExternalSheetDataSet(Serialisable):
@@ -83,13 +83,13 @@ class ExternalSheetDataSet(Serialisable):
 
 class ExternalSheetNames(Serialisable):
 
-    sheetName: list[str] = Field.sequence(expected_type=str)
+    sheetName: list[str] = Field.sequence(expected_type=str, primitive_attribute="val")
     xml_order = ('sheetName',)
 
     def __init__(self,
                  sheetName=(),
                 ):
-        self.sheetName = sheetName
+        self.sheetName = list(sheetName)
 
 
 class ExternalDefinedName(Serialisable):
@@ -117,7 +117,7 @@ class ExternalBook(Serialisable):
     sheetNames: ExternalSheetNames | None = Field.element(expected_type=ExternalSheetNames, allow_none=True)
     definedNames: list[ExternalDefinedName] = Field.nested_sequence(expected_type=ExternalDefinedName)
     sheetDataSet: ExternalSheetDataSet | None = Field.element(expected_type=ExternalSheetDataSet, allow_none=True)
-    id: str | None = Field.attribute(expected_type=str, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
 
     xml_order = ('sheetNames', 'definedNames', 'sheetDataSet')
 
@@ -128,7 +128,7 @@ class ExternalBook(Serialisable):
                  id=None,
                 ):
         self.sheetNames = sheetNames
-        self.definedNames = definedNames
+        self.definedNames = list(definedNames)
         self.sheetDataSet = sheetDataSet
         self.id = id
 
@@ -143,7 +143,11 @@ class ExternalLink(Serialisable):
     mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.externalLink+xml"
 
     externalBook: ExternalBook | None = Field.element(expected_type=ExternalBook, allow_none=True)
-    file_link: Relationship | None = Field.element(expected_type=Relationship, allow_none=True)  # link to external file
+    file_link: Relationship | None = Field.element(
+        expected_type=Relationship,
+        allow_none=True,
+        serialize=False,
+    )
 
     xml_order = ('externalBook',)
 

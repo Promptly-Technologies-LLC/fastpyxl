@@ -166,7 +166,7 @@ def test_chart_relation_serialization():
     rel = ChartRelation(id="rId1")
     xml = tostring(rel.to_tree())
     expected = """
-    <chart xmlns="http://schemas.openxmlformats.org/drawingml/2006/chart" id="rId1"></chart>
+    <chart xmlns="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId1"></chart>
     """
     diff = compare_xml(xml, expected)
     assert diff is None, diff
@@ -200,7 +200,7 @@ def test_graphic_data_and_frame_serialization():
       <xfrm></xfrm>
       <graphic xmlns="http://schemas.openxmlformats.org/drawingml/2006/main">
         <graphicData uri="urn:test">
-          <chart xmlns="http://schemas.openxmlformats.org/drawingml/2006/chart" id="rId1"></chart>
+          <chart xmlns="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId1"></chart>
         </graphicData>
       </graphic>
     </graphicFrame>

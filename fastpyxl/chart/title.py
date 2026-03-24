@@ -63,7 +63,9 @@ def title_maker(text):
     paraprops.defRPr = CharacterProperties()
     paras = [Paragraph(r=[RegularTextRun(t=s)], pPr=paraprops) for s in text.split("\n")]
 
-    title.tx.rich.paragraphs = paras
+    body = title.tx.rich
+    assert body is not None
+    body.paragraphs = paras
     return title
 
 

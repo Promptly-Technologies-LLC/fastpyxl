@@ -2,7 +2,9 @@
 
 from datetime import datetime
 
+from fastpyxl.compat import safe_string
 from fastpyxl.descriptors.excel import HexBinary
+from fastpyxl.packaging.core import _datetime_converter
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
 
@@ -64,8 +66,8 @@ class Missing(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
@@ -88,8 +90,8 @@ class Missing(Serialisable):
                  st=None,
                  b=None,
                 ):
-        self.tpls = tpls
-        self.x = x
+        self.tpls = list(tpls)
+        self.x = list(x)
         self.u = u
         self.f = f
         self.c = c
@@ -115,8 +117,8 @@ class Number(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
@@ -140,8 +142,8 @@ class Number(Serialisable):
                  st=None,
                  b=None,
                 ):
-        self.tpls = tpls
-        self.x = x
+        self.tpls = list(tpls)
+        self.x = list(x)
         self.v = v
         self.u = u
         self.f = f
@@ -168,8 +170,8 @@ class Error(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
@@ -194,7 +196,7 @@ class Error(Serialisable):
                  b=None,
                 ):
         self.tpls = tpls
-        self.x = x
+        self.x = list(x)
         self.v = v
         self.u = u
         self.f = f
@@ -214,7 +216,7 @@ class Boolean(Serialisable):
     tagname = "b"
 
     x: list[Index] = Field.sequence(expected_type=Index)
-    v: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    v: bool = Field.attribute(expected_type=bool, allow_none=False, default=False)
     u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     c: str | None = Field.attribute(expected_type=str, allow_none=True)
@@ -224,18 +226,34 @@ class Boolean(Serialisable):
 
     def __init__(self,
                  x=(),
-                 v=None,
+                 v=False,
                  u=None,
                  f=None,
                  c=None,
                  cp=None,
                 ):
-        self.x = x
+        self.x = list(x)
         self.v = v
         self.u = u
         self.f = f
         self.c = c
         self.cp = cp
+
+    def __iter__(self):
+        for attr in self.__attrs__:
+            field = self.__fields__[attr]
+            value = getattr(self, attr)
+            xml_attr = field.tag
+            if xml_attr.startswith("_"):
+                xml_attr = xml_attr[1:]
+            if field.hyphenated:
+                xml_attr = xml_attr.replace("_", "-")
+            if attr == "v":
+                yield xml_attr, "1" if value else "0"
+                continue
+            if value is None:
+                continue
+            yield xml_attr, safe_string(value)
 
 
 class Text(Serialisable):
@@ -250,8 +268,8 @@ class Text(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True)
-    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
-    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
@@ -275,8 +293,8 @@ class Text(Serialisable):
                  st=None,
                  b=None,
                  ):
-        self.tpls = tpls
-        self.x = x
+        self.tpls = list(tpls)
+        self.x = list(x)
         self.v = v
         self.u = u
         self.f = f
@@ -296,7 +314,11 @@ class DateTimeField(Serialisable):
     tagname = "d"
 
     x: list[Index] = Field.sequence(expected_type=Index)
-    v: datetime | None = Field.attribute(expected_type=datetime, allow_none=False)
+    v: datetime | None = Field.attribute(
+        expected_type=datetime,
+        allow_none=False,
+        converter=_datetime_converter,
+    )
     u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
     c: str | None = Field.attribute(expected_type=str, allow_none=True)
@@ -312,7 +334,7 @@ class DateTimeField(Serialisable):
                  c=None,
                  cp=None,
                  ):
-        self.x = x
+        self.x = list(x)
         self.v = v
         self.u = u
         self.f = f

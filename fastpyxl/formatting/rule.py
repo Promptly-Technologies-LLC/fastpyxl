@@ -89,7 +89,7 @@ class IconSet(RuleType):
         self.showValue = showValue
         self.percent = percent
         self.reverse = reverse
-        self.cfvo = cfvo
+        self.cfvo = list(cfvo or ())
 
 
 class DataBar(RuleType):
@@ -107,7 +107,7 @@ class DataBar(RuleType):
         self.minLength = minLength
         self.maxLength = maxLength
         self.showValue = showValue
-        self.cfvo = cfvo
+        self.cfvo = list(cfvo or ())
         self.color = color
 
 
@@ -120,8 +120,8 @@ class ColorScale(RuleType):
     xml_order = ('cfvo', 'color')
 
     def __init__(self, cfvo=None, color=None):
-        self.cfvo = cfvo
-        self.color = color
+        self.cfvo = list(cfvo or ())
+        self.color = list(color or ())
 
 
 class Rule(Serialisable):
@@ -208,7 +208,7 @@ class Rule(Serialisable):
         self.rank = rank
         self.stdDev = stdDev
         self.equalAverage = equalAverage
-        self.formula = formula
+        self.formula = list(formula)
         self.colorScale = colorScale
         self.dataBar = dataBar
         self.iconSet = iconSet

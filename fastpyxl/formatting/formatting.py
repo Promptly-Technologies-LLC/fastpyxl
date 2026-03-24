@@ -22,9 +22,9 @@ class ConditionalFormatting(Serialisable):
 
     def __init__(self, sqref=(), pivot=None, cfRule=(), extLst=None):
         del extLst
-        self.sqref = sqref
+        self.sqref = MultiCellRange(sqref)
         self.pivot = pivot
-        self.cfRule = cfRule
+        self.cfRule = list(cfRule)
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):

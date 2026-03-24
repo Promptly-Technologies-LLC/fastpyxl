@@ -67,8 +67,11 @@ def test_write_comments_vml(datadir):
         correct_coords.append((row,col))
         # blank the data we are checking separately
         i.attrib["id"] = "0"
-        i.find("{%s}ClientData" % excelns).find("{%s}Row" % excelns).text="0"
-        i.find("{%s}ClientData" % excelns).find("{%s}Column" % excelns).text="0"
+        row_el = i.find("{%s}ClientData" % excelns).find("{%s}Row" % excelns)
+        col_el = i.find("{%s}ClientData" % excelns).find("{%s}Column" % excelns)
+        assert row_el is not None and col_el is not None
+        row_el.text = "0"
+        col_el.text = "0"
 
     for i in check.findall("{%s}shape" % vmlns):
         check_ids.append(i.attrib["id"])
@@ -77,8 +80,11 @@ def test_write_comments_vml(datadir):
         check_coords.append((row,col))
         # blank the data we are checking separately
         i.attrib["id"] = "0"
-        i.find("{%s}ClientData" % excelns).find("{%s}Row" % excelns).text="0"
-        i.find("{%s}ClientData" % excelns).find("{%s}Column" % excelns).text="0"
+        row_el = i.find("{%s}ClientData" % excelns).find("{%s}Row" % excelns)
+        col_el = i.find("{%s}ClientData" % excelns).find("{%s}Column" % excelns)
+        assert row_el is not None and col_el is not None
+        row_el.text = "0"
+        col_el.text = "0"
 
     assert set(correct_coords) == set(check_coords)
     assert set(correct_ids) == set(check_ids)

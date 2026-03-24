@@ -228,10 +228,11 @@ class TestChartBase:
 
 
     def test_no_fill(self, ChartBase):
-        from fastpyxl.chart.shapes import GraphicalProperties
+        from fastpyxl.chart.shapes import GraphicalProperties, _NoFill
+
         chart = ChartBase()
         chart.graphical_properties = GraphicalProperties()
-        chart.graphical_properties.noFill = True
+        chart.graphical_properties.noFill = _NoFill()
         chart.graphical_properties.line = None
         tree = chart._write()
         expected = """

@@ -42,7 +42,7 @@ class RowBreak(Serialisable):
         brk=(),
     ):
         del count, manualBreakCount
-        self.brk = brk
+        self.brk = list(brk)
 
     def __bool__(self):
         return len(self.brk) > 0

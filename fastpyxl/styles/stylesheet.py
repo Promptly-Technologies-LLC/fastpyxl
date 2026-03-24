@@ -69,9 +69,9 @@ class Stylesheet(Serialisable):
             numFmts = NumberFormatList()
         self.numFmts = numFmts
         self.number_formats = IndexedList()
-        self.fonts = fonts
-        self.fills = fills
-        self.borders = borders
+        self.fonts = list(fonts)
+        self.fills = list(fills)
+        self.borders = list(borders)
         if cellStyleXfs is None:
             cellStyleXfs = CellStyleList()
         self.cellStyleXfs = cellStyleXfs
@@ -82,7 +82,7 @@ class Stylesheet(Serialisable):
             cellStyles = _NamedCellStyleList()
         self.cellStyles = cellStyles
 
-        self.dxfs = dxfs
+        self.dxfs = list(dxfs)
         self.tableStyles = tableStyles
         self.colors = colors
         self.extLst = extLst
@@ -245,7 +245,9 @@ def write_stylesheet(wb):
         fmt = NumberFormat(idx, code)
         fmts.append(fmt)
 
-    stylesheet.numFmts.numFmt = fmts
+    num_fmts = stylesheet.numFmts
+    assert num_fmts is not None
+    num_fmts.numFmt = fmts
 
     xfs = []
     for style in wb._cell_styles:

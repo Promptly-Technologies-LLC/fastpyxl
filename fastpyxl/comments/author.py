@@ -15,4 +15,4 @@ class AuthorList(Serialisable):
         self,
         author=(),
     ):
-        self.author = author
+        self.author = list(author)

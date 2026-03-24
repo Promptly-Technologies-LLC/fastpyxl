@@ -56,7 +56,7 @@ class WebPublishItems(Serialisable):
                  webPublishItem=None,
                  ):
         del count
-        self.webPublishItem = webPublishItem
+        self.webPublishItem = list(webPublishItem or ())
 
 
     @property

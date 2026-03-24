@@ -26,7 +26,7 @@ class ExtensionList(Serialisable):
         self,
         ext=(),
     ):
-        self.ext = ext
+        self.ext = list(ext)
 
 
 class IgnoredError(Serialisable):
@@ -83,5 +83,5 @@ class IgnoredErrors(Serialisable):
         ignoredError=(),
         extLst=None,
     ):
-        self.ignoredError = ignoredError
+        self.ignoredError = list(ignoredError)
         self.extLst = extLst

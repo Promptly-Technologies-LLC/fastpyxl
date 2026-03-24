@@ -240,6 +240,13 @@ class InlineFont(Serialisable):
         self.vertAlign = vertAlign
         self.scheme = scheme
 
+    @classmethod
+    def from_tree(cls, node):
+        underline = node.find("{%s}u" % SHEET_MAIN_NS)
+        if underline is not None and underline.get("val") is None:
+            underline.set("val", "single")
+        return super().from_tree(node)
+
 
 class RichText(Serialisable):
 
@@ -286,8 +293,8 @@ class Text(Serialisable):
         phoneticPr=None,
     ):
         self.t = t
-        self.r = r
-        self.rPh = rPh
+        self.r = list(r)
+        self.rPh = list(rPh)
         self.phoneticPr = phoneticPr
 
     @classmethod

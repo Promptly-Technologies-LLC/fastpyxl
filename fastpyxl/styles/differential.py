@@ -56,7 +56,7 @@ class DifferentialStyleList(Serialisable):
 
 
     def __init__(self, dxf=(), count=None):
-        self.dxf = dxf
+        self.dxf = list(dxf)
 
 
     def append(self, dxf):

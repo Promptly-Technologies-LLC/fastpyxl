@@ -1,5 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from typing import Any
+
 import pytest
 import platform
 
@@ -9,13 +11,15 @@ import platform
 def pytest_runtest_setup(item):
     from fastpyxl import DEFUSEDXML, LXML
     if isinstance(item, pytest.Function):
+        pil_image: Any
         try:
-            from PIL import Image
+            from PIL import Image as _pil_image
+            pil_image = _pil_image
         except ImportError:
-            Image = False
-        if item.get_closest_marker("pil_required") and Image is False:
+            pil_image = False
+        if item.get_closest_marker("pil_required") and pil_image is False:
             pytest.skip("PIL must be installed")
-        elif item.get_closest_marker("pil_not_installed") and Image:
+        elif item.get_closest_marker("pil_not_installed") and pil_image:
             pytest.skip("PIL is installed")
         elif item.get_closest_marker("not_py33"):
             pytest.skip("Ordering is not a given in Python 3")

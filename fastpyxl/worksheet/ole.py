@@ -154,4 +154,4 @@ class OleObjects(Serialisable):
         self,
         oleObject=(),
     ):
-        self.oleObject = oleObject
+        self.oleObject = list(oleObject)

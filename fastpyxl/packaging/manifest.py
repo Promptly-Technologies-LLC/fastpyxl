@@ -68,12 +68,23 @@ DEFAULT_OVERRIDE = [
 ]
 
 
+class _AppendUniqueList(list):
+    def append(self, value):
+        if value in self:
+            return
+        super().append(value)
+
+
 class Manifest(Serialisable):
 
     tagname = "Types"
 
-    Default: list[FileExtension] = Field.sequence(expected_type=FileExtension, default=list)
-    Override: list[Override] = Field.sequence(expected_type=Override, default=list)
+    Default: list[FileExtension] = Field.sequence(
+        expected_type=FileExtension, default=list, container_factory=_AppendUniqueList
+    )
+    Override: list[Override] = Field.sequence(
+        expected_type=Override, default=list, container_factory=_AppendUniqueList
+    )
     path = "[Content_Types].xml"
 
     xml_order = ("Default", "Override")

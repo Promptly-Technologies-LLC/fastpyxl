@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from keyword import kwlist
+from typing import Any
 
 KEYWORDS = frozenset(kwlist)
 
 
-def normalize_attrib(attrib: dict[str, str]) -> dict[str, str]:
+def normalize_attrib(attrib: dict[str, Any]) -> dict[str, Any]:
     for key in list(attrib):
         if key.startswith("{"):
             del attrib[key]

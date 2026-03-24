@@ -38,8 +38,10 @@ def test_read(datadir):
 
 def test_read_chart_with_no_series():
     container = ChartContainer()
+    plot_area = container.plotArea
+    assert plot_area is not None
+    plot_area.barChart = BarChart()
     cs = ChartSpace(chart=container)
-    cs.chart.plotArea.barChart = BarChart()
 
     from ..reader import read_chart
     chart = read_chart(cs)

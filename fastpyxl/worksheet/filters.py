@@ -62,7 +62,7 @@ class SortState(Serialisable):
         self.caseSensitive = caseSensitive
         self.sortMethod = sortMethod
         self.ref = ref
-        self.sortCondition = sortCondition
+        self.sortCondition = list(sortCondition)
         self.extLst = extLst
 
     def __bool__(self):
@@ -251,7 +251,7 @@ class CustomFilters(Serialisable):
 
     def __init__(self, _and=None, customFilter=()):
         self._and = _and
-        self.customFilter = customFilter
+        self.customFilter = list(customFilter)
 
 
 class Top10(Serialisable):
@@ -309,8 +309,8 @@ class Filters(Serialisable):
     def __init__(self, blank=None, calendarType=None, filter=(), dateGroupItem=()):
         self.blank = blank
         self.calendarType = calendarType
-        self.filter = filter
-        self.dateGroupItem = dateGroupItem
+        self.filter = list(filter)
+        self.dateGroupItem = list(dateGroupItem)
 
 
 class FilterColumn(Serialisable):
@@ -376,7 +376,7 @@ class AutoFilter(Serialisable):
 
     def __init__(self, ref=None, filterColumn=(), sortState=None, extLst=None):
         self.ref = ref
-        self.filterColumn = filterColumn
+        self.filterColumn = list(filterColumn)
         self.sortState = sortState
         self.extLst = extLst
 

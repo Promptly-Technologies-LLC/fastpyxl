@@ -97,4 +97,4 @@ class Controls(Serialisable):
     def __init__(self,
                  control=(),
                 ):
-        self.control = control
+        self.control = list(control)

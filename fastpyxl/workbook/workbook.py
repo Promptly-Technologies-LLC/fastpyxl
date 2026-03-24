@@ -2,6 +2,8 @@
 
 """Workbook is the top-level container for all document information."""
 from copy import copy
+from typing import Optional
+from zipfile import ZipFile
 
 from fastpyxl.compat import deprecated
 from fastpyxl.worksheet.worksheet import Worksheet
@@ -55,6 +57,7 @@ class Workbook:
     _data_only = False
     template = False
     path = "/xl/workbook.xml"
+    _archive: Optional[ZipFile]
 
     def __init__(self,
                  write_only=False,
@@ -417,8 +420,9 @@ class Workbook:
         """
         Close workbook file if open. Only affects read-only and write-only modes.
         """
-        if hasattr(self, '_archive'):
-            self._archive.close()
+        archive = getattr(self, "_archive", None)
+        if archive is not None:
+            archive.close()
 
 
     def _duplicate_name(self, name):

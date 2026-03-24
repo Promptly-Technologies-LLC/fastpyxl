@@ -31,7 +31,7 @@ class _FieldFactory:
         converter=None,
         validator=None,
         serialize: bool = True,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -61,7 +61,7 @@ class _FieldFactory:
         converter=None,
         parser=None,
         renderer=None,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -90,7 +90,7 @@ class _FieldFactory:
         converter=None,
         parser=None,
         renderer=None,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -114,7 +114,7 @@ class _FieldFactory:
         xml_name: str | None = None,
         namespace: str | None = None,
         renderer=None,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -139,7 +139,7 @@ class _FieldFactory:
         converter=None,
         validator=None,
         serialize: bool = True,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -165,7 +165,7 @@ class _FieldFactory:
         namespace: str | None = None,
         container_factory=list,
         primitive_attribute: str | None = None,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -191,7 +191,7 @@ class _FieldFactory:
         namespace: str | None = None,
         count: bool = False,
         container_factory=list,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -216,7 +216,7 @@ class _FieldFactory:
         xml_name: str | None = None,
         namespace: str | None = None,
         container_factory=list,
-    ) -> _FieldSpec:
+    ) -> Any:
         return _FieldSpec(
             FieldInfo(
                 name="",
@@ -232,7 +232,7 @@ class _FieldFactory:
         )
 
 
-def AliasField(target: str, *, xml_name: str | None = None) -> _FieldSpec:
+def AliasField(target: str, *, xml_name: str | None = None) -> Any:
     return _FieldSpec(
         FieldInfo(
             name="",

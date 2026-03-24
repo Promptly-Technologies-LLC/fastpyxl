@@ -207,7 +207,7 @@ class CommentSheet(Serialisable):
         commentList=None,
         extLst=None,
     ):
-        self.authors = authors
+        self.authors = authors or AuthorList()
         self.commentList = commentList or []
         self.extLst = extLst
 

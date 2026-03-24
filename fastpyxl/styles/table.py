@@ -53,7 +53,7 @@ class TableStyle(Serialisable):
         self.pivot = pivot
         self.table = table
         self.count = count
-        self.tableStyleElement = tableStyleElement
+        self.tableStyleElement = list(tableStyleElement)
 
 
 class TableStyleList(Serialisable):
@@ -72,7 +72,7 @@ class TableStyleList(Serialisable):
                 ):
         self.defaultTableStyle = defaultTableStyle
         self.defaultPivotStyle = defaultPivotStyle
-        self.tableStyle = tableStyle
+        self.tableStyle = list(tableStyle)
 
 
     @property

@@ -177,7 +177,7 @@ class _TableColumnList(Serialisable):
     xml_order = ('tableColumn',)
 
     def __init__(self, tableColumn=()):
-        self.tableColumn = tableColumn
+        self.tableColumn = list(tableColumn)
 
     def __iter__(self):
         yield 'count', str(len(self.tableColumn))
@@ -277,7 +277,7 @@ class Table(Serialisable):
         self.connectionId = connectionId
         self.autoFilter = autoFilter
         self.sortState = sortState
-        self.tableColumns = tableColumns
+        self.tableColumns = list(tableColumns)
         self.tableStyleInfo = tableStyleInfo
         self.extLst = extLst
 
@@ -330,7 +330,7 @@ class TablePartList(Serialisable):
 
     def __init__(self, count=None, tablePart=()):
         del count
-        self.tablePart = tablePart
+        self.tablePart = list(tablePart)
 
     def append(self, part):
         self.tablePart.append(part)

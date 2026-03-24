@@ -47,7 +47,7 @@ class WebPublishObjectList(Serialisable):
                  webPublishObject=(),
                 ):
         del count
-        self.webPublishObject = webPublishObject
+        self.webPublishObject = list(webPublishObject)
 
 
     @property
@@ -56,7 +56,8 @@ class WebPublishObjectList(Serialisable):
 
 
     def __iter__(self):
-        yield "count", str(self.count)
+        if self.webPublishObject:
+            yield "count", str(self.count)
 
 
 class WebPublishing(Serialisable):

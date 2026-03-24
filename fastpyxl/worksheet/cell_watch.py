@@ -28,4 +28,4 @@ class CellWatches(Serialisable):
         self,
         cellWatch=(),
     ):
-        self.cellWatch = cellWatch
+        self.cellWatch = list(cellWatch)

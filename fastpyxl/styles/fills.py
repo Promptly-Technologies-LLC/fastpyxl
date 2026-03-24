@@ -181,6 +181,8 @@ class Stop(Serialisable):
     )
 
     def __init__(self, color, position):
+        if position is None:
+            raise TypeError("position cannot be None")
         self.position = position
         self.color = color
 
@@ -255,7 +257,7 @@ class GradientFill(Fill):
         self.right = right
         self.top = top
         self.bottom = bottom
-        self.stop = stop
+        self.stop = list(stop)
         self.type = type
 
 

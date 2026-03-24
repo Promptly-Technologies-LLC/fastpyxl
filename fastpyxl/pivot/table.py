@@ -55,7 +55,7 @@ class ColHierarchiesUsage(TypedSerialisable):
                  count=None,
                  colHierarchyUsage=(),
                 ):
-        self.colHierarchyUsage = colHierarchyUsage
+        self.colHierarchyUsage = list(colHierarchyUsage)
 
 
     @property
@@ -79,7 +79,7 @@ class RowHierarchiesUsage(TypedSerialisable):
                  count=None,
                  rowHierarchyUsage=(),
                 ):
-        self.rowHierarchyUsage = rowHierarchyUsage
+        self.rowHierarchyUsage = list(rowHierarchyUsage)
 
     @property
     def count(self):
@@ -212,7 +212,7 @@ class MemberList(TypedSerialisable):
                  member=(),
                 ):
         self.level = level
-        self.member = member
+        self.member = list(member)
 
     @property
     def count(self):
@@ -374,7 +374,7 @@ class Reference(TypedSerialisable):
         self.stdDevPSubtotal = stdDevPSubtotal
         self.varSubtotal = varSubtotal
         self.varPSubtotal = varPSubtotal
-        self.x = x
+        self.x = list(x)
         self.extLst = extLst
 
 
@@ -420,7 +420,7 @@ class PivotArea(TypedSerialisable):
                  axis=None,
                  fieldPosition=None,
                 ):
-        self.references = references
+        self.references = list(references)
         self.extLst = extLst
         self.field = field
         self.type = type
@@ -481,7 +481,7 @@ class ConditionalFormat(TypedSerialisable):
         self.scope = scope
         self.type = type
         self.priority = priority
-        self.pivotAreas = pivotAreas
+        self.pivotAreas = list(pivotAreas)
         self.extLst = extLst
 
 
@@ -492,7 +492,7 @@ class ConditionalFormatList(TypedSerialisable):
     conditionalFormat: list[ConditionalFormat] = Field.sequence(expected_type=ConditionalFormat)
 
     def __init__(self, conditionalFormat=(), count=None):
-        self.conditionalFormat = conditionalFormat
+        self.conditionalFormat = list(conditionalFormat)
 
 
     def by_priority(self):
@@ -672,7 +672,7 @@ class RowColItem(TypedSerialisable):
         self.t = t
         self.r = r
         self.i = i
-        self.x = x
+        self.x = list(x)
 
 
 class RowColField(TypedSerialisable):
@@ -852,7 +852,7 @@ class PivotField(TypedSerialisable):
                  defaultAttributeDrillState=None,
                  extLst=None,
                 ):
-        self.items = items
+        self.items = list(items)
         self.autoSortScope = autoSortScope
         self.name = name
         self.axis = axis
@@ -1205,20 +1205,20 @@ class TableDefinition(TypedSerialisable):
         self.applyAlignmentFormats = applyAlignmentFormats
         self.applyWidthHeightFormats = applyWidthHeightFormats
         self.location = location
-        self.pivotFields = pivotFields
-        self.rowFields = rowFields
-        self.rowItems = rowItems
-        self.colFields = colFields
-        self.colItems = colItems
-        self.pageFields = pageFields
-        self.dataFields = dataFields
-        self.formats = formats
+        self.pivotFields = list(pivotFields)
+        self.rowFields = list(rowFields)
+        self.rowItems = list(rowItems)
+        self.colFields = list(colFields)
+        self.colItems = list(colItems)
+        self.pageFields = list(pageFields)
+        self.dataFields = list(dataFields)
+        self.formats = list(formats)
         self.conditionalFormats = conditionalFormats
         self.conditionalFormats = None
-        self.chartFormats = chartFormats
-        self.pivotHierarchies = pivotHierarchies
+        self.chartFormats = list(chartFormats)
+        self.pivotHierarchies = list(pivotHierarchies)
         self.pivotTableStyleInfo = pivotTableStyleInfo
-        self.filters = filters
+        self.filters = list(filters)
         self.rowHierarchiesUsage = rowHierarchiesUsage
         self.colHierarchiesUsage = colHierarchiesUsage
         self.extLst = extLst

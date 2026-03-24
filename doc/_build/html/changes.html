@@ -1,0 +1,2304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.1.5 (2024-06-28) &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=851b9b12"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Parsing Formulas" href="formula.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            fastpyxl
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id5">3.1.4 (2024-06-12)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#changes">Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id8">3.1.3 (2024-05-29)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bugfixes">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id25">Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id29">3.1.1 (2023-02-13)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id30">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id33">3.1.0 (2023-01-31)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id34">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deprecations">Deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#removals">Removals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id50">3.0.10 (2022-05-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id51">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id56">3.0.9 (2021-09-22)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id57">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id65">3.0.7 (2021-03-09)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id66">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id71">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id72">3.0.6 (2021-01-14)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id73">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id83">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id84">3.0.5 (2020-08-21)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id85">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id93">3.0.4 (2020-06-24)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id94">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id103">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id104">3.0.3 (2020-01-20)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id105">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id109">3.0.2 (2019-11-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id115">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id116">3.0.1 (2019-11-14)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id117">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id119">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id120">3.0.0 (2019-09-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-3-6-only-release">Python 3.6+ only release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id121">2.6.4 (2019-09-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#final-release-for-python-2-7-and-3-5">Final release for Python 2.7 and 3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id122">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id123">2.6.3 (2019-08-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id124">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id131">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id132">2.6.2 (2019-03-29)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id133">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id140">2.6.1 (2019-03-04)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id141">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id154">2.6.0 (2019-02-06)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id155">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b1-2019-01-08">2.6.-b1 (2019-01-08)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id158">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#a1-2018-11-21">2.6-a1 (2018-11-21)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#major-changes">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minor-changes">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id163">Deprecations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id164">2.5.14 (2019-01-23)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id165">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id169">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id171">2.5.12 (2018-11-29)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id172">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id177">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id178">2.5.11 (2018-11-21)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id179">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id180">2.5.10 (2018-11-13)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id181">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id183">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id184">2.5.9 (2018-10-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id185">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id189">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id202">2.5.5 (2018-08-04)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id203">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id207">Pull Requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id208">2.5.4 (2018-06-07)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id209">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id212">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id213">2.5.3 (2018-04-18)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id214">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id221">2.5.2 (2018-04-06)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id222">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id229">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id230">2.5.1 (2018-03-12)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id231">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id240">2.5.0 (2018-01-24)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id241">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id242">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id249">Major Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id250">Minor Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id251">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id263">Major Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id264">Minor Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id265">Deprecations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id266">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id269">Major Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id270">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compatibility">Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id274">Major Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id275">Deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id276">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id279">Pull requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id281">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id283">2.4.10 (2018-01-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id284">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id285">Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id286">2.4.9 (2017-10-19)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id287">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id297">Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id303">2.4.8 (2017-05-30)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id304">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id310">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id311">2.4.7 (2017-04-24)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id312">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id314">2.4.6 (2017-04-14)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id315">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id322">2.4.5 (2017-03-07)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id323">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id327">Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id330">2.4.4 (2017-02-23)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id331">Bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id339">Minor Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id340">Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id342">2.4.2 (2017-01-31)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id343">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id354">Minor Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id355">2.4.1 (2016-11-23)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id356">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id372">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id373">Deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id374">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id375">2.4.0 (2016-09-15)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id376">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id382">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id383">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id384">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id385">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id391">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id392">Deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id393">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id405">2.3.5 (2016-04-11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id406">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id408">2.3.4 (2016-03-16)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id409">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id413">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id414">2.3.3 (2016-01-18)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id415">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id421">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id422">2.3.2 (2015-12-07)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id423">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id428">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id430">2.3.1 (2015-11-20)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id431">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id441">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id442">2.3.0 (2015-10-20)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id443">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id444">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id446">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id447">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id457">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id458">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id459">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id460">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id469">2.2.6 (unreleased)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id470">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id475">2.2.5 (2015-06-29)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id476">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id480">2.2.4 (2015-06-17)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id481">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id489">2.2.3 (2015-05-26)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id490">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id496">2.2.2 (2015-04-28)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id497">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id500">2.2.1 (2015-03-31)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id501">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id502">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id512">2.2.0 (2015-03-11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id513">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id515">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id516">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id527">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id528">2.1.5 (2015-02-18)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id529">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id534">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id535">2.1.4 (2014-12-16)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id536">Bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id542">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id543">2.1.3 (2014-12-09)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id544">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id545">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id548">2.1.2 (2014-10-23)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id549">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id550">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id557">2.1.1 (2014-10-08)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id558">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id559">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id566">2.1.0 (2014-09-21)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id567">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id568">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id569">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id578">2.0.5 (2014-08-08)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id579">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id582">2.0.4 (2014-06-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id583">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id584">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id586">2.0.3 (2014-05-22)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id587">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id588">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id592">2.0.0 (2014-05-13)  brown bag</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id593">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id594">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id595">Pull requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id596">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id616">1.8.6 (2014-05-05)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id617">Minor changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id618">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id620">1.8.5 (2014-03-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id621">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id622">1.8.4 (2014-02-25)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id623">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id627">1.8.3 (2014-02-09)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id628">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id629">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id639">1.8.0 (2014-01-08)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id640">Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id641">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id642">Minor changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id643">1.7.0 (2013-10-31)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id644">Major changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id645">Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#merged-pull-requests">Merged pull requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-bugfixes">Known bugfixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">3.1.5 (2024-06-28)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/changes.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>3.1.5 (2024-06-28)<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2187">#2187</a> Test fails due to change in Numpy API</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2198">#2198</a> Excel is very fussy about the version number</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2200">#2200</a> Poor perfomance when reading workbooks with lots of named styles</p></li>
+</ul>
+</section>
+<section id="id5">
+<h1>3.1.4 (2024-06-12)<a class="headerlink" href="#id5" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2189">#2189</a> Assigning named styles doesn’t work</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2190">#2190</a> Problems caused when saving workbooks created by LibreOffice</p></li>
+</ul>
+<section id="changes">
+<h2>Changes<a class="headerlink" href="#changes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Python 3.6 and 3.7 are no longer supported.</p></li>
+</ul>
+</section>
+</section>
+<section id="id8">
+<h1>3.1.3 (2024-05-29)<a class="headerlink" href="#id8" title="Link to this heading"></a></h1>
+<section id="bugfixes">
+<h2>Bugfixes<a class="headerlink" href="#bugfixes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1401">#1401</a> Column name caches are slow and use a lot of memory</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1457">#1457</a> Improved handling of duplicate named styles</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1842">#1842</a> Rich-text can be saved if lxml is not installed</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1954">#1954</a> Documentation for sheet views is incorrect</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1973">#1973</a> Timedeltas not read properly in read-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1987">#1987</a> List of formulae names contains mistakes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1967">#1967</a> Filters does not handle non-numerical filters</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2054">#2054</a> Type checking increases exponentially</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2057">#2057</a> Loading pivot tables can be unnecessarily slow</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2102">#2102</a> Improve performance when reading files with lots of custom properties</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2106">#2106</a> Setting Trendline.name attribute raises exception when saving</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2120">#2120</a> Timezone and Zombie formatting cannot be combined.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2107">#2107</a> Column name generation is inefficient and slow</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2122">#2122</a> File handlers not always released in read-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2149">#2149</a> Workbook files not properly closed on Python ≥ 3.11.8 and Windows</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2161">#2161</a> Pivot cache definitions using tupleCache had serialisation issues</p></li>
+</ul>
+</section>
+<section id="id25">
+<h2>Changes<a class="headerlink" href="#id25" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add a <cite>__repr__</cite> method for Row and Column dimension objects so you don’t need to check every time.</p></li>
+</ul>
+</section>
+</section>
+<section id="id26">
+<h1>3.1.2 (2023-03-11)<a class="headerlink" href="#id26" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1963">#1963</a> Cannot read worksheets in read-only mode with locally scoped definitions</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1974">#1974</a> Empty custom properties cause invalid files</p></li>
+</ul>
+</section>
+<section id="id29">
+<h1>3.1.1 (2023-02-13)<a class="headerlink" href="#id29" title="Link to this heading"></a></h1>
+<section id="id30">
+<h2>Bugfixes<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1881">#1881</a> DocumentProperties times set by module import only</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1947">#1947</a> Worksheet-specific definitions are missing</p></li>
+</ul>
+</section>
+</section>
+<section id="id33">
+<h1>3.1.0 (2023-01-31)<a class="headerlink" href="#id33" title="Link to this heading"></a></h1>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Added support for data table formulae</p></li>
+<li><p>Mapped chartspace graphical properties to charts for advanced formatting</p></li>
+</ul>
+</section>
+<section id="id34">
+<h2>Bugfixes<a class="headerlink" href="#id34" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1156">#1156</a> Table filters are always overriden</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1360">#1360</a> Can’t read some ScatterCharts if n</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1724">#1724</a> Problem with multilevel indices in dataframes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1763">#1763</a> Make calculating worksheet sizes slightly faster</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1772">#1772</a> Problem with category indices in dataframes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1786">#1786</a> NamedStyles share attributes - mutables gotcha</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1851">#1851</a> Allow print area to be set to None</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1852">#1852</a> Worksheet for print title and print areas can’t be found</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1853">#1853</a> Custom document properties that are strings can be empty</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1858">#1858</a> ConditionalFormatting lost when pivot table updated</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1864">#1864</a> Better handling of defined names</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1904">#1904</a> dataframe_to_rows() misalignment on multiindex</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1908">#1908</a> Ditto</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1912">#1912</a> Excel doesn’t like xmlns:space on nodes with only whitespace, which it treats as empty.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1942">#1942</a> Exception when print areas use table references.</p></li>
+</ul>
+</section>
+<section id="pull-requests">
+<h2>Pull Requests<a class="headerlink" href="#pull-requests" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/409/">PR409</a> Support for Rich Text in cells</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/411/">PR411</a> Provide more information when workbook cannot be loaded</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/407/">PR407</a> Support for Custom Document Properties</p></li>
+</ul>
+</section>
+<section id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Link to this heading"></a></h2>
+<p>The following properties have been removed from worksheets: formula_attributes, page_breaks, show_summary_below, show_summary_right, page_size orientation. Client code should use the relevant objects.</p>
+</section>
+<section id="removals">
+<h2>Removals<a class="headerlink" href="#removals" title="Link to this heading"></a></h2>
+<p>The following deprecated methods have been removed from workbooks: get_named_range, add_named_range, remove_named_range. And the get_emu_dimesions from images.</p>
+</section>
+</section>
+<section id="id50">
+<h1>3.0.10 (2022-05-19)<a class="headerlink" href="#id50" title="Link to this heading"></a></h1>
+<section id="id51">
+<h2>Bugfixes<a class="headerlink" href="#id51" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1684">#1684</a> Image files not closed when workbooks are saved</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1778">#1778</a> Problem with missing scope attribute in Pivot Table formats</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1821">#1821</a> Excel unhappy when multiple sorts are defined</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/2014">#2014</a> Accounting format interpreted as datetime</p></li>
+</ul>
+</section>
+</section>
+<section id="id56">
+<h1>3.0.9 (2021-09-22)<a class="headerlink" href="#id56" title="Link to this heading"></a></h1>
+<section id="id57">
+<h2>Bugfixes<a class="headerlink" href="#id57" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1284">#1284</a> Ignore blank ignored in existing Data Validations</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1539">#1539</a> Add support for cell protection for merged cell ranges</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1645">#1645</a> Timezone-aware datetimes raise an Exception</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1666">#1666</a> Improved normalisation of chart series</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1670">#1670</a> Catch OverflowError for out of range datetimes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1708">#1708</a> Alignment.relativeIndent can be negative</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1769">#1736</a> Incorrect default value <cite>groupBy</cite> attribute</p></li>
+</ul>
+</section>
+</section>
+<section id="brown-bag">
+<h1>3.0.8 (brown bag)<a class="headerlink" href="#brown-bag" title="Link to this heading"></a></h1>
+<p>Deleted because it contained breaking changes from 3.1</p>
+</section>
+<section id="id65">
+<h1>3.0.7 (2021-03-09)<a class="headerlink" href="#id65" title="Link to this heading"></a></h1>
+<section id="id66">
+<h2>Bugfixes<a class="headerlink" href="#id66" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1510">#1510</a> Problems with zero time values</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1588">#1588</a> Not possible to correctly convert excel dates to timedelta</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1589">#1589</a> Exception raised when merging cells which do not have borders all the way round.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1594">#1594</a> Python 2 print statement in the tutorial</p></li>
+</ul>
+</section>
+<section id="id71">
+<h2>Pull Requests<a class="headerlink" href="#id71" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/392/">PR392</a> Add documentation on datetime handling</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/393/">PR393</a> Drop dependency on jdcal</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/394/">PR394</a> Datetime rounding</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/395/">PR395</a> Unify handling of 1900 epoch</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/397/">PR397</a> Add explicit support for reading datetime deltas</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/399/">PR399</a> Millisecond precision for datetimes</p></li>
+</ul>
+</section>
+</section>
+<section id="id72">
+<h1>3.0.6 (2021-01-14)<a class="headerlink" href="#id72" title="Link to this heading"></a></h1>
+<section id="id73">
+<h2>Bugfixes<a class="headerlink" href="#id73" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1154">#1154</a> Borders in differential styles are incorrect</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1528">#1287</a> Error when opening some pivot tables</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1366">#1366</a> Resave breaks the border format in conditional formatting rules</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1450">#1450</a> Read-only workbook not closed properly if generator interrupted</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1547">#1547</a> Pandas.Multiindex.labels deprecated</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1557">#1552</a> Pandas.Multiinex not expanded correctly</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1557">#1557</a> Cannot read rows with exponents</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1568">#1568</a> numpy.float is deprecated</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1571">#1571</a> Cells without coordinate attributes not always correctly handled</p></li>
+</ul>
+</section>
+<section id="id83">
+<h2>Pull Requests<a class="headerlink" href="#id83" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/385/">PR385</a> Improved handling of borders for differential styles</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/386/">PR386</a> Support subclasses of datetime objects</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/387/">PR387</a> Improved handling of cells without coordinates</p></li>
+</ul>
+</section>
+</section>
+<section id="id84">
+<h1>3.0.5 (2020-08-21)<a class="headerlink" href="#id84" title="Link to this heading"></a></h1>
+<section id="id85">
+<h2>Bugfixes<a class="headerlink" href="#id85" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1413">#1413</a> Incorrectly consider currency format as datetime</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1490">#1490</a> Cannot copy worksheets with merged cells</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1492">#1492</a> Empty worksheets do not return generators when looping.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1496">#1496</a> Hyperlinks duplicated on multiple saves</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1500">#1500</a> Incorrectly literal format as datetime</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1502">#1502</a> Links set to range of cells not preserved</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1507">#1507</a> Exception when opening workbook with chartsheets and tables</p></li>
+</ul>
+</section>
+</section>
+<section id="id93">
+<h1>3.0.4 (2020-06-24)<a class="headerlink" href="#id93" title="Link to this heading"></a></h1>
+<section id="id94">
+<h2>Bugfixes<a class="headerlink" href="#id94" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/844">#844</a> Find tables by name</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1414">#1414</a> Worksheet protection missing in existing files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1439">#1439</a> Exception when reading files with external images</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1452">#1452</a> Reading lots of merged cells is very slow.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1455">#1455</a> Read support for Bubble Charts.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1458">#1458</a> Preserve any indexed colours</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1473">#1473</a> Reading many thousand of merged cells is really slow.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1474">#1474</a> Adding tables in write-only mode raises an exception.</p></li>
+</ul>
+</section>
+<section id="id103">
+<h2>Pull Requests<a class="headerlink" href="#id103" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/377/">PR377</a> Add support for finding tables by name or range.</p></li>
+</ul>
+</section>
+</section>
+<section id="id104">
+<h1>3.0.3 (2020-01-20)<a class="headerlink" href="#id104" title="Link to this heading"></a></h1>
+<section id="id105">
+<h2>Bugfixes<a class="headerlink" href="#id105" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1260">#1260</a> Exception when handling merged cells with hyperlinks</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1373">#1373</a> Problems when both lxml and defusedxml are installed</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1385">#1385</a> CFVO with incorrect values cannot be processed</p></li>
+</ul>
+</section>
+</section>
+<section id="id109">
+<h1>3.0.2 (2019-11-25)<a class="headerlink" href="#id109" title="Link to this heading"></a></h1>
+<section id="bug-fixes">
+<h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1267">#1267</a> DeprecationError if both defusedxml and lxml are installed</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1345">#1345</a> ws._current_row is higher than ws.max_row</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1365">#1365</a> Border bottom style is not optional when it should be</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1367">#1367</a> Empty cells in read-only, values-only mode are sometimes returned as ReadOnlyCells</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1368">#1368</a> Cannot add page breaks to existing worksheets if none exist already</p></li>
+</ul>
+</section>
+<section id="id115">
+<h2>Pull Requests<a class="headerlink" href="#id115" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/359/">PR359</a> Improvements to the documentation</p></li>
+</ul>
+</section>
+</section>
+<section id="id116">
+<h1>3.0.1 (2019-11-14)<a class="headerlink" href="#id116" title="Link to this heading"></a></h1>
+<section id="id117">
+<h2>Bugfixes<a class="headerlink" href="#id117" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1250">#1250</a> Cannot read empty charts.</p></li>
+</ul>
+</section>
+<section id="id119">
+<h2>Pull Requests<a class="headerlink" href="#id119" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/354/">PR354</a> Fix for #1250</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/354/">PR352</a> TableStyleElement is a sequence</p></li>
+</ul>
+</section>
+</section>
+<section id="id120">
+<h1>3.0.0 (2019-09-25)<a class="headerlink" href="#id120" title="Link to this heading"></a></h1>
+<section id="python-3-6-only-release">
+<h2>Python 3.6+ only release<a class="headerlink" href="#python-3-6-only-release" title="Link to this heading"></a></h2>
+</section>
+</section>
+<section id="id121">
+<h1>2.6.4 (2019-09-25)<a class="headerlink" href="#id121" title="Link to this heading"></a></h1>
+<section id="final-release-for-python-2-7-and-3-5">
+<h2>Final release for Python 2.7 and 3.5<a class="headerlink" href="#final-release-for-python-2-7-and-3-5" title="Link to this heading"></a></h2>
+</section>
+<section id="id122">
+<h2>Bugfixes<a class="headerlink" href="#id122" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>` #1330 &lt;<a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1330">https://github.com/fastpyxl/fastpyxl/issues/1330</a>&gt;`_ Cannot save workbooks with comments more than once.</p></li>
+</ul>
+</section>
+</section>
+<section id="id123">
+<h1>2.6.3 (2019-08-19)<a class="headerlink" href="#id123" title="Link to this heading"></a></h1>
+<section id="id124">
+<h2>Bugfixes<a class="headerlink" href="#id124" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1237">#1237</a> Fix 3D charts.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1290">#1290</a> Minimum for holeSize in Doughnut charts too high</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1291">#1291</a> Warning for MergedCells with comments</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1296">#1296</a> Pagebreaks duplicated</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1309">#1309</a> Workbook has no default CellStyle</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1330">#1330</a> Workbooks with comments cannot be saved multiple times</p></li>
+</ul>
+</section>
+<section id="id131">
+<h2>Pull Requests<a class="headerlink" href="#id131" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/345/">PR344</a> Make sure NamedStyles number formats are correctly handled</p></li>
+</ul>
+</section>
+</section>
+<section id="id132">
+<h1>2.6.2 (2019-03-29)<a class="headerlink" href="#id132" title="Link to this heading"></a></h1>
+<section id="id133">
+<h2>Bugfixes<a class="headerlink" href="#id133" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1173">#1173</a> Workbook has no _date_formats attribute</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1190">#1190</a> Cannot create charts for worksheets with quotes in the title</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1228">#1228</a> MergedCells not removed when range is unmerged</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1232">#1232</a> Link to pivot table lost from charts</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1233">#1233</a> Chart colours change after saving</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1236">#1236</a> Cannot use ws.cell in read-only mode with Python 2.7</p></li>
+</ul>
+</section>
+</section>
+<section id="id140">
+<h1>2.6.1 (2019-03-04)<a class="headerlink" href="#id140" title="Link to this heading"></a></h1>
+<section id="id141">
+<h2>Bugfixes<a class="headerlink" href="#id141" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1174">#1174</a> ReadOnlyCell.is_date does not work properly</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1175">#1175</a> Cannot read Google Docs spreadsheet with a Pivot Table</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1180">#1180</a> Charts created with fastpyxl cannot be styled</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1181">#1181</a> Cannot handle some numpy number types</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1182">#1182</a> Exception when reading unknowable number formats</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1186">#1186</a> Only last formatting rule for a range loaded</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1191">#1191</a> Give MergedCell a <cite>value</cite> attribute</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1193">#1193</a> Cannot process worksheets with comments</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1197">#1197</a> Cannot process worksheets with both row and page breaks</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1204">#1204</a> Cannot reset dimensions in ReadOnlyWorksheets</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1211">#1211</a> Incorrect descriptor in ParagraphProperties</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1213">#1213</a> Missing <cite>hier</cite> attribute in PageField raises an exception</p></li>
+</ul>
+</section>
+</section>
+<section id="id154">
+<h1>2.6.0 (2019-02-06)<a class="headerlink" href="#id154" title="Link to this heading"></a></h1>
+<section id="id155">
+<h2>Bugfixes<a class="headerlink" href="#id155" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1162">#1162</a> Exception on tables with names containing spaces.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1170">#1170</a> Cannot save files with existing images.</p></li>
+</ul>
+</section>
+</section>
+<section id="b1-2019-01-08">
+<h1>2.6.-b1 (2019-01-08)<a class="headerlink" href="#b1-2019-01-08" title="Link to this heading"></a></h1>
+<section id="id158">
+<h2>Bugfixes<a class="headerlink" href="#id158" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1141">#1141</a> Cannot use read-only mode with stream</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1143">#1143</a> Hyperlinks always set on A1</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1151">#1151</a> Internal row counter not initialised when reading files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1152">#1152</a> Exception raised on out of bounds date</p></li>
+</ul>
+</section>
+</section>
+<section id="a1-2018-11-21">
+<h1>2.6-a1 (2018-11-21)<a class="headerlink" href="#a1-2018-11-21" title="Link to this heading"></a></h1>
+<section id="major-changes">
+<h2>Major changes<a class="headerlink" href="#major-changes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Implement robust for merged cells so that these can be formatted the way
+Excel does without confusion. Thanks to Magnus Schieder.</p></li>
+</ul>
+</section>
+<section id="minor-changes">
+<h2>Minor changes<a class="headerlink" href="#minor-changes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add support for worksheet scenarios</p></li>
+<li><p>Add read support for chartsheets</p></li>
+<li><p>Add method for moving ranges of cells on a worksheet</p></li>
+<li><p>Drop support for Python 3.4</p></li>
+<li><p>Last version to support Python 2.7</p></li>
+</ul>
+</section>
+<section id="id163">
+<h2>Deprecations<a class="headerlink" href="#id163" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Type inference and coercion for cell values</p></li>
+</ul>
+</section>
+</section>
+<section id="id164">
+<h1>2.5.14 (2019-01-23)<a class="headerlink" href="#id164" title="Link to this heading"></a></h1>
+<section id="id165">
+<h2>Bugfixes<a class="headerlink" href="#id165" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1150">#1150</a> Correct typo in LineProperties</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1142">#1142</a> Exception raised for unsupported image files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1159">#1159</a> Exception raised when cannot find source for non-local cache object</p></li>
+</ul>
+</section>
+<section id="id169">
+<h2>Pull Requests<a class="headerlink" href="#id169" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/301/">PR301</a> Add support for nested brackets to the tokeniser</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/301/">PR303</a> Improvements on handling nested brackets in the tokeniser</p></li>
+</ul>
+</section>
+</section>
+<section id="id170">
+<h1>2.5.13 (brown bag)<a class="headerlink" href="#id170" title="Link to this heading"></a></h1>
+</section>
+<section id="id171">
+<h1>2.5.12 (2018-11-29)<a class="headerlink" href="#id171" title="Link to this heading"></a></h1>
+<section id="id172">
+<h2>Bugfixes<a class="headerlink" href="#id172" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1130">#1130</a> Overwriting default font in Normal style affects library default</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1133">#1133</a> Images not added to anchors.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1134">#1134</a> Cannot read pivot table formats without dxId</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1138">#1138</a> Repeated registration of simple filter could lead to memory leaks</p></li>
+</ul>
+</section>
+<section id="id177">
+<h2>Pull Requests<a class="headerlink" href="#id177" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/300/">PR300</a> Use defusedxml if available</p></li>
+</ul>
+</section>
+</section>
+<section id="id178">
+<h1>2.5.11 (2018-11-21)<a class="headerlink" href="#id178" title="Link to this heading"></a></h1>
+<section id="id179">
+<h2>Pull Requests<a class="headerlink" href="#id179" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/295">PR295</a> Improved handling of missing rows</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/296">PR296</a> Add support for defined names to tokeniser</p></li>
+</ul>
+</section>
+</section>
+<section id="id180">
+<h1>2.5.10 (2018-11-13)<a class="headerlink" href="#id180" title="Link to this heading"></a></h1>
+<section id="id181">
+<h2>Bugfixes<a class="headerlink" href="#id181" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1114">#1114</a> Empty column dimensions should not be saved.</p></li>
+</ul>
+</section>
+<section id="id183">
+<h2>Pull Requests<a class="headerlink" href="#id183" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/285">PR285</a> Tokenizer failure for quoted sheet name in second half of range</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/289">PR289</a> Improved error detection in ranges.</p></li>
+</ul>
+</section>
+</section>
+<section id="id184">
+<h1>2.5.9 (2018-10-19)<a class="headerlink" href="#id184" title="Link to this heading"></a></h1>
+<section id="id185">
+<h2>Bugfixes<a class="headerlink" href="#id185" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1000">#1000</a> Clean AutoFilter name definitions</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1106">#1106</a> Attribute missing from Shape object</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1109">#1109</a> Failure to read all DrawingML means workbook can’t be read</p></li>
+</ul>
+</section>
+<section id="id189">
+<h2>Pull Requests<a class="headerlink" href="#id189" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/281">PR281</a> Allow newlines in formulae</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/284">PR284</a> Fix whitespace in front of infix operator in formulae</p></li>
+</ul>
+</section>
+</section>
+<section id="id190">
+<h1>2.5.8 (2018-09-25)<a class="headerlink" href="#id190" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/877">#877</a> Cannot control how missing values are displayed in charts.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/948">#948</a> Cell references can’t be used for chart titles</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1095">#1095</a> Params in iter_cols and iter_rows methods are slightly wrong.</p></li>
+</ul>
+</section>
+<section id="id194">
+<h1>2.5.7 (2018-09-13)<a class="headerlink" href="#id194" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/954">#954</a> Sheet title containing % need quoting in references</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1047">#1047</a> Cannot set quote prefix</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1093">#1093</a> Pandas timestamps raise KeyError</p></li>
+</ul>
+</section>
+<section id="id198">
+<h1>2.5.6 (2018-08-30)<a class="headerlink" href="#id198" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/832">#832</a> Read-only mode can leave find-handles open when reading dimensions</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/933">#933</a> Set a worksheet directly as active</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1086">#1086</a> Internal row counter not adjusted when rows are deleted or inserted</p></li>
+</ul>
+</section>
+<section id="id202">
+<h1>2.5.5 (2018-08-04)<a class="headerlink" href="#id202" title="Link to this heading"></a></h1>
+<section id="id203">
+<h2>Bugfixes<a class="headerlink" href="#id203" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1049">#1049</a> Files with Mac epoch are read incorrectly</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1058">#1058</a> Cannot copy merged cells</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1066">#1066</a> Cannot access ws.active_cell</p></li>
+</ul>
+</section>
+<section id="id207">
+<h2>Pull Requests<a class="headerlink" href="#id207" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/267/image-read">PR267</a> Introduce read-support for images</p></li>
+</ul>
+</section>
+</section>
+<section id="id208">
+<h1>2.5.4 (2018-06-07)<a class="headerlink" href="#id208" title="Link to this heading"></a></h1>
+<section id="id209">
+<h2>Bugfixes<a class="headerlink" href="#id209" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1025">#1025</a> Cannot read files with 3D charts.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1030">#1030</a> Merged cells take a long time to parse</p></li>
+</ul>
+</section>
+<section id="id212">
+<h2>Minor changes<a class="headerlink" href="#id212" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Improve read support for pivot tables and don’t always create a Filters child for filterColumn objects.</p></li>
+<li><p><cite>Support folding rows</cite> &lt;<a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/259/fold-rows">https://github.com/fastpyxl/fastpyxl/pull/259/fold-rows</a>&gt;`_</p></li>
+</ul>
+</section>
+</section>
+<section id="id213">
+<h1>2.5.3 (2018-04-18)<a class="headerlink" href="#id213" title="Link to this heading"></a></h1>
+<section id="id214">
+<h2>Bugfixes<a class="headerlink" href="#id214" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/983">#983</a> Warning level too aggressive.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1015">#1015</a> Alignment and protection values not saved for named styles.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1017">#1017</a> Deleting elements from a legend doesn’t work.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1018">#1018</a> Index names repeated for every row in dataframe.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1020">#1020</a> Worksheet protection not being stored.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1023">#1023</a> Exception raised when reading a tooltip.</p></li>
+</ul>
+</section>
+</section>
+<section id="id221">
+<h1>2.5.2 (2018-04-06)<a class="headerlink" href="#id221" title="Link to this heading"></a></h1>
+<section id="id222">
+<h2>Bugfixes<a class="headerlink" href="#id222" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/949">#949</a> High memory use when reading text-heavy files.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/970">#970</a> Copying merged cells copies references.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/978">#978</a> Cannot set comment size.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/895">#985</a> Exception when trying to save workbooks with no views.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/995">#995</a> Cannot delete last row or column.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/1002">#1002</a> Cannot read Drawings containing embedded images.</p></li>
+</ul>
+</section>
+<section id="id229">
+<h2>Minor changes<a class="headerlink" href="#id229" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Support for dataframes with multiple columns and multiple indices.</p></li>
+</ul>
+</section>
+</section>
+<section id="id230">
+<h1>2.5.1 (2018-03-12)<a class="headerlink" href="#id230" title="Link to this heading"></a></h1>
+<section id="id231">
+<h2>Bugfixes<a class="headerlink" href="#id231" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/934">#934</a> Headers and footers not included in write-only mode.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/960">#960</a> Deprecation warning raised when using ad-hoc access in read-only mode.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/964">#964</a> Not all cells removed when deleting multiple rows.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/966">#966</a> Cannot read 3d bar chart correctly.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/967">#967</a> Problems reading some charts.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/968">#968</a> Worksheets with SHA protection become corrupted after saving.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/974">#974</a> Problem when deleting ragged rows or columns.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/976">#976</a> GroupTransforms and GroupShapeProperties have incorrect descriptors</p></li>
+<li><p>Make sure that headers and footers in chartsheets are included in the file</p></li>
+</ul>
+</section>
+</section>
+<section id="id240">
+<h1>2.5.0 (2018-01-24)<a class="headerlink" href="#id240" title="Link to this heading"></a></h1>
+<section id="id241">
+<h2>Minor changes<a class="headerlink" href="#id241" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Correct definition for Connection Shapes. Related to # 958</p></li>
+</ul>
+</section>
+</section>
+<section id="b2-2018-01-19">
+<h1>2.5.0-b2 (2018-01-19)<a class="headerlink" href="#b2-2018-01-19" title="Link to this heading"></a></h1>
+<section id="id242">
+<h2>Bugfixes<a class="headerlink" href="#id242" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/915">#915</a> TableStyleInfo has no required attributes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/925">#925</a> Cannot read files with 3D drawings</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/926">#926</a> Incorrect version check in installer</p></li>
+<li><p>Cell merging uses transposed parameters</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/928">#928</a> ExtLst missing keyword for PivotFields</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/932">#932</a> Inf causes problems for Excel</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/952">#952</a> Cannot load table styles with custom names</p></li>
+</ul>
+</section>
+<section id="id249">
+<h2>Major Changes<a class="headerlink" href="#id249" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>You can now insert and delete rows and columns in worksheets</p></li>
+</ul>
+</section>
+<section id="id250">
+<h2>Minor Changes<a class="headerlink" href="#id250" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>pip now handles which Python versions can be used.</p></li>
+</ul>
+</section>
+</section>
+<section id="b1-2017-10-19">
+<h1>2.5.0-b1 (2017-10-19)<a class="headerlink" href="#b1-2017-10-19" title="Link to this heading"></a></h1>
+<section id="id251">
+<h2>Bugfixes<a class="headerlink" href="#id251" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/812">#812</a> Explicitly support for multiple cell ranges in conditonal formatting</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/827">#827</a> Non-contiguous cell ranges in validators get merged</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/837">#837</a> Empty data validators create invalid Excel files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/860">#860</a> Large validation ranges use lots of memory</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/876">#876</a> Unicode in chart axes not handled correctly in Python 2</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/882">#882</a> ScatterCharts have defective axes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/885">#885</a> Charts with empty numVal elements cannot be read</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/894">#894</a> Scaling options from existing files ignored</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/895">#895</a> Charts with PivotSource cannot be read</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/903">#903</a> Cannot read gradient fills</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/904">#904</a> Quotes in number formats could be treated as datetimes</p></li>
+</ul>
+</section>
+<section id="id263">
+<h2>Major Changes<a class="headerlink" href="#id263" title="Link to this heading"></a></h2>
+<p><cite>worksheet.cell()</cite> no longer accepts a <cite>coordinate</cite> parameter. The syntax is now <cite>ws.cell(row, column, value=None)</cite></p>
+</section>
+<section id="id264">
+<h2>Minor Changes<a class="headerlink" href="#id264" title="Link to this heading"></a></h2>
+<p>Added CellRange and MultiCellRange types (thanks to Laurent LaPorte for the
+suggestion) as a utility type for things like data validations, conditional
+formatting and merged cells.</p>
+</section>
+<section id="id265">
+<h2>Deprecations<a class="headerlink" href="#id265" title="Link to this heading"></a></h2>
+<p>ws.merged_cell_ranges has been deprecated because MultiCellRange provides sufficient functionality</p>
+</section>
+</section>
+<section id="a3-2017-08-14">
+<h1>2.5.0-a3 (2017-08-14)<a class="headerlink" href="#a3-2017-08-14" title="Link to this heading"></a></h1>
+<section id="id266">
+<h2>Bugfixes<a class="headerlink" href="#id266" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/848">#848</a> Reading workbooks with Pie Charts raises an exception</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/857">#857</a> Pivot Tables without Worksheet Sources raise an exception</p></li>
+</ul>
+</section>
+</section>
+<section id="a2-2017-06-25">
+<h1>2.5.0-a2 (2017-06-25)<a class="headerlink" href="#a2-2017-06-25" title="Link to this heading"></a></h1>
+<section id="id269">
+<h2>Major Changes<a class="headerlink" href="#id269" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Read support for charts</p></li>
+</ul>
+</section>
+<section id="id270">
+<h2>Bugfixes<a class="headerlink" href="#id270" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/833">#833</a> Cannot access chartsheets by title</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/834">#834</a> Preserve workbook views</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/841">#841</a> Incorrect classification of a datetime</p></li>
+</ul>
+</section>
+</section>
+<section id="a1-2017-05-30">
+<h1>2.5.0-a1 (2017-05-30)<a class="headerlink" href="#a1-2017-05-30" title="Link to this heading"></a></h1>
+<section id="compatibility">
+<h2>Compatibility<a class="headerlink" href="#compatibility" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Dropped support for Python 2.6 and 3.3. fastpyxl will not run with Python 2.6</p></li>
+</ul>
+</section>
+<section id="id274">
+<h2>Major Changes<a class="headerlink" href="#id274" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Read/write support for pivot tables</p></li>
+</ul>
+</section>
+<section id="id275">
+<h2>Deprecations<a class="headerlink" href="#id275" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Dropped the anchor method from images and additional constructor arguments</p></li>
+</ul>
+</section>
+<section id="id276">
+<h2>Bugfixes<a class="headerlink" href="#id276" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/779">#779</a> Fails to recognise Chinese date format`</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/828">#828</a> Include hidden cells in charts`</p></li>
+</ul>
+</section>
+<section id="id279">
+<h2>Pull requests<a class="headerlink" href="#id279" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/163">163</a> Improved GradientFill</p></li>
+</ul>
+</section>
+<section id="id281">
+<h2>Minor changes<a class="headerlink" href="#id281" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Remove deprecated methods from Cell</p></li>
+<li><p>Remove deprecated methods from Worksheet</p></li>
+<li><p>Added read/write support for the datetime type for cells</p></li>
+</ul>
+</section>
+</section>
+<section id="id282">
+<h1>2.4.11 (2018-01-24)<a class="headerlink" href="#id282" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>#957 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/957">https://github.com/fastpyxl/fastpyxl/issues/957</a> Relationship type for tables is borked</p></li>
+</ul>
+</section>
+<section id="id283">
+<h1>2.4.10 (2018-01-19)<a class="headerlink" href="#id283" title="Link to this heading"></a></h1>
+<section id="id284">
+<h2>Bugfixes<a class="headerlink" href="#id284" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>#912 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/912">https://github.com/fastpyxl/fastpyxl/issues/912</a> Copying objects uses shallow copy</p></li>
+<li><p>#921 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/921">https://github.com/fastpyxl/fastpyxl/issues/921</a> API documentation not generated automatically</p></li>
+<li><p>#927 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/927">https://github.com/fastpyxl/fastpyxl/issues/927</a> Exception raised when adding coloured borders together</p></li>
+<li><p>#931 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/931">https://github.com/fastpyxl/fastpyxl/issues/931</a> Number formats not correctly deduplicated</p></li>
+</ul>
+</section>
+<section id="id285">
+<h2>Pull requests<a class="headerlink" href="#id285" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>203 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/203/">https://github.com/fastpyxl/fastpyxl/pull/203/</a> Correction to worksheet protection description</p></li>
+<li><p>210 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/210/">https://github.com/fastpyxl/fastpyxl/pull/210/</a> Some improvements to the API docs</p></li>
+<li><p>211 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/211/">https://github.com/fastpyxl/fastpyxl/pull/211/</a> Improved deprecation decorator</p></li>
+<li><p>218 <a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/218/">https://github.com/fastpyxl/fastpyxl/pull/218/</a> Fix problems with deepcopy</p></li>
+</ul>
+</section>
+</section>
+<section id="id286">
+<h1>2.4.9 (2017-10-19)<a class="headerlink" href="#id286" title="Link to this heading"></a></h1>
+<section id="id287">
+<h2>Bugfixes<a class="headerlink" href="#id287" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/809">#809</a> Incomplete documentation of <cite>copy_worksheet</cite> method</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/811">#811</a> Scoped definedNames not removed when worksheet is deleted</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/824">#824</a> Raise an exception if a chart is used in multiple sheets</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/842">#842</a> Non-ASCII table column headings cause an exception in Python 2</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/846">#846</a> Conditional formats not supported in write-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/849">#849</a> Conditional formats with no sqref cause an exception</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/859">#859</a> Headers that start with a number conflict with font size</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/902">#902</a> TableStyleElements don’t always have a condtional format</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/908">#908</a> Read-only mode sometimes returns too many cells</p></li>
+</ul>
+</section>
+<section id="id297">
+<h2>Pull requests<a class="headerlink" href="#id297" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/179">#179</a> Cells kept in a set</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/180">#180</a> Support for Workbook protection</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/182">#182</a> Read support for page breaks</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/183">#183</a> Improve documentation of <cite>copy_worksheet</cite> method</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/198">#198</a> Fix for #908</p></li>
+</ul>
+</section>
+</section>
+<section id="id303">
+<h1>2.4.8 (2017-05-30)<a class="headerlink" href="#id303" title="Link to this heading"></a></h1>
+<section id="id304">
+<h2>Bugfixes<a class="headerlink" href="#id304" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>AutoFilter.sortState being assignd to the ws.sortState</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/666">#766</a> Sheetnames with apostrophes need additional escaping</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/729">#729</a> Cannot open files created by Microsoft Dynamics</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/819">#819</a> Negative percents not case correctly</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/821">#821</a> Runtime imports can cause deadlock</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/855">#855</a> Print area containing only columns leads to corrupt file</p></li>
+</ul>
+</section>
+<section id="id310">
+<h2>Minor changes<a class="headerlink" href="#id310" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Preserve any table styles</p></li>
+</ul>
+</section>
+</section>
+<section id="id311">
+<h1>2.4.7 (2017-04-24)<a class="headerlink" href="#id311" title="Link to this heading"></a></h1>
+<section id="id312">
+<h2>Bugfixes<a class="headerlink" href="#id312" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/807">#807</a> Sample files being included by mistake in sdist</p></li>
+</ul>
+</section>
+</section>
+<section id="id314">
+<h1>2.4.6 (2017-04-14)<a class="headerlink" href="#id314" title="Link to this heading"></a></h1>
+<section id="id315">
+<h2>Bugfixes<a class="headerlink" href="#id315" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/776">#776</a> Cannot apply formatting to plot area</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/780">#780</a> Exception when element attributes are Python keywords</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/781">#781</a> Exception raised when saving files with styled columns</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/785">#785</a> Number formats for data labels are incorrect</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/788">#788</a> Worksheet titles not quoted in defined names</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/800">#800</a> Font underlines not read correctly</p></li>
+</ul>
+</section>
+</section>
+<section id="id322">
+<h1>2.4.5 (2017-03-07)<a class="headerlink" href="#id322" title="Link to this heading"></a></h1>
+<section id="id323">
+<h2>Bugfixes<a class="headerlink" href="#id323" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/750">#750</a> Adding images keeps file handles open</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/772">#772</a> Exception for column-only ranges</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/773">#773</a> Cannot copy worksheets with non-ascii titles on Python 2</p></li>
+</ul>
+</section>
+<section id="id327">
+<h2>Pull requests<a class="headerlink" href="#id327" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/161">161</a> Support for non-standard names for Workbook part.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/162">162</a> Documentation correction</p></li>
+</ul>
+</section>
+</section>
+<section id="id330">
+<h1>2.4.4 (2017-02-23)<a class="headerlink" href="#id330" title="Link to this heading"></a></h1>
+<section id="id331">
+<h2>Bugfixes<a class="headerlink" href="#id331" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/673">#673</a> Add close method to workbooks</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/762">#762</a> fastpyxl can create files with invalid style indices</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/729">#729</a> Allow images in write-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/744">#744</a> Rounded corners for charts</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/747">#747</a> Use repr when handling non-convertible objects</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/764">#764</a> Hashing function is incorrect</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/765">#765</a> Named styles share underlying array</p></li>
+</ul>
+</section>
+<section id="id339">
+<h2>Minor Changes<a class="headerlink" href="#id339" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add roundtrip support for worksheet tables.</p></li>
+</ul>
+</section>
+<section id="id340">
+<h2>Pull requests<a class="headerlink" href="#id340" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/160">160</a> Don’t init mimetypes more than once.</p></li>
+</ul>
+</section>
+</section>
+<section id="unreleased">
+<h1>2.4.3 (unreleased)<a class="headerlink" href="#unreleased" title="Link to this heading"></a></h1>
+<p>bad release</p>
+</section>
+<section id="id342">
+<h1>2.4.2 (2017-01-31)<a class="headerlink" href="#id342" title="Link to this heading"></a></h1>
+<section id="id343">
+<h2>Bug fixes<a class="headerlink" href="#id343" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/727">#727</a> DeprecationWarning is incorrect</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/734">#734</a> Exception raised if userName is missing</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/739">#739</a> Always provide a date1904 attribute</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/740">#740</a> Hashes should be stored as Base64</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/743">#743</a> Print titles broken on sheetnames with spaces</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/748">#748</a> Workbook breaks when active sheet is removed</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/754">#754</a> Incorrect descriptor for Filter values</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/756">#756</a> Potential XXE vulerability</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/758">#758</a> Cannot create files with page breaks and charts</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/759">#759</a> Problems with worksheets with commas in their titles</p></li>
+</ul>
+</section>
+<section id="id354">
+<h2>Minor Changes<a class="headerlink" href="#id354" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add unicode support for sheet name incrementation.</p></li>
+</ul>
+</section>
+</section>
+<section id="id355">
+<h1>2.4.1 (2016-11-23)<a class="headerlink" href="#id355" title="Link to this heading"></a></h1>
+<section id="id356">
+<h2>Bug fixes<a class="headerlink" href="#id356" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/643">#643</a> Make checking for duplicate sheet titles case insensitive</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/647">#647</a> Trouble handling LibreOffice files with named styles</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/682">#687</a> Directly assigned new named styles always refer to “Normal”</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/690">#690</a> Cannot parse print titles with multiple sheet names</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/691">#691</a> Cannot work with macro files created by LibreOffice</p></li>
+<li><p>Prevent duplicate differential styles</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/694">#694</a> Allow sheet titles longer than 31 characters</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/697">#697</a> Cannot unset hyperlinks</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/699">#699</a> Exception raised when format objects use cell references</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/703">#703</a> Copy height and width when copying comments</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/705">#705</a> Incorrect content type for VBA macros</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/707">#707</a> IndexError raised in read-only mode when accessing individual cells</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/711">#711</a> Files with external links become corrupted</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/715">#715</a> Cannot read files containing macro sheets</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/717">#717</a> Details from named styles not preserved when reading files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/722">#722</a> Remove broken Print Title and Print Area definitions</p></li>
+</ul>
+</section>
+<section id="id372">
+<h2>Minor changes<a class="headerlink" href="#id372" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add support for Python 3.6</p></li>
+<li><p>Correct documentation for headers and footers</p></li>
+</ul>
+</section>
+<section id="id373">
+<h2>Deprecations<a class="headerlink" href="#id373" title="Link to this heading"></a></h2>
+<p>Worksheet methods <cite>get_named_range()</cite> and <cite>get_sqaured_range()</cite></p>
+</section>
+<section id="id374">
+<h2>Bug fixes<a class="headerlink" href="#id374" title="Link to this heading"></a></h2>
+</section>
+</section>
+<section id="id375">
+<h1>2.4.0 (2016-09-15)<a class="headerlink" href="#id375" title="Link to this heading"></a></h1>
+<section id="id376">
+<h2>Bug fixes<a class="headerlink" href="#id376" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/652">#652</a> Exception raised when epoch is 1904</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/642">#642</a> Cannot handle unicode in headers and footers in Python 2</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/646">#646</a> Cannot handle unicode sheetnames in Python 2</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/658">#658</a> Chart styles, and axis units should not be 0</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/663">#663</a> Strings in external workbooks not unicode</p></li>
+</ul>
+</section>
+<section id="id382">
+<h2>Major changes<a class="headerlink" href="#id382" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add support for builtin styles and include one for Pandas</p></li>
+</ul>
+</section>
+<section id="id383">
+<h2>Minor changes<a class="headerlink" href="#id383" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add a <cite>keep_links</cite> option to <cite>load_workbook</cite>. External links contain cached
+copies of the external workbooks. If these are big it can be advantageous to
+be able to disable them.</p></li>
+<li><p>Provide an example for using cell ranges in DataValidation.</p></li>
+<li><p>PR 138 - add copy support to comments.</p></li>
+</ul>
+</section>
+</section>
+<section id="b1-2016-06-08">
+<h1>2.4.0-b1 (2016-06-08)<a class="headerlink" href="#b1-2016-06-08" title="Link to this heading"></a></h1>
+<section id="id384">
+<h2>Minor changes<a class="headerlink" href="#id384" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add an the alias <cite>hide_drop_down</cite> to DataValidation for <cite>showDropDown</cite> because that is how Excel works.</p></li>
+</ul>
+</section>
+<section id="id385">
+<h2>Bug fixes<a class="headerlink" href="#id385" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/625">#625</a> Exception raises when inspecting EmptyCells in read-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/547">#547</a> Functions for handling OOXML “escaped” ST_XStrings</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/629">#629</a> Row Dimensions not supported in write-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/530">#530</a> Problems when removing worksheets with charts</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/630">#630</a> Cannot use SheetProtection in write-only mode</p></li>
+</ul>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add write support for worksheet tables</p></li>
+</ul>
+</section>
+</section>
+<section id="a1-2016-04-11">
+<h1>2.4.0-a1 (2016-04-11)<a class="headerlink" href="#a1-2016-04-11" title="Link to this heading"></a></h1>
+<section id="id391">
+<h2>Minor changes<a class="headerlink" href="#id391" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Remove deprecated methods from DataValidation</p></li>
+<li><p>Remove deprecated methods from PrintPageSetup</p></li>
+<li><p>Convert AutoFilter to Serialisable and extend support for filters</p></li>
+<li><p>Add support for SortState</p></li>
+<li><p>Removed <cite>use_iterators</cite> keyword when loading workbooks. Use <cite>read_only</cite> instead.</p></li>
+<li><p>Removed <cite>optimized_write</cite> keyword for new workbooks. Use <cite>write_only</cite> instead.</p></li>
+<li><p>Improve print title support</p></li>
+<li><p>Add print area support</p></li>
+<li><p>New implementation of defined names</p></li>
+<li><p>New implementation of page headers and footers</p></li>
+<li><p>Add support for Python’s NaN</p></li>
+<li><p>Added iter_cols method for worksheets</p></li>
+<li><p>ws.rows and ws.columns now always return generators and start at the top of the worksheet</p></li>
+<li><p>Add a <cite>values</cite> property for worksheets</p></li>
+<li><p>Default column width changed to 8 as per the specification</p></li>
+</ul>
+</section>
+<section id="id392">
+<h2>Deprecations<a class="headerlink" href="#id392" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Cell anchor method</p></li>
+<li><p>Worksheet point_pos method</p></li>
+<li><p>Worksheet add_print_title method</p></li>
+<li><p>Worksheet HeaderFooter attribute, replaced by individual ones</p></li>
+<li><p>Flatten function for cells</p></li>
+<li><p>Workbook get_named_range, add_named_range, remove_named_range, get_sheet_names, get_sheet_by_name</p></li>
+<li><p>Comment text attribute</p></li>
+<li><p>Use of range strings deprecated for ws.iter_rows()</p></li>
+<li><p>Use of coordinates deprecated for ws.cell()</p></li>
+<li><p>Deprecate .copy() method for StyleProxy objects</p></li>
+</ul>
+</section>
+<section id="id393">
+<h2>Bug fixes<a class="headerlink" href="#id393" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/152">#152</a> Hyperlinks lost when reading files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/171">#171</a> Add function for copying worksheets</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/386">#386</a> Cells with inline strings considered empty</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/397">#397</a> Add support for ranges of rows and columns</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/446">#446</a> Workbook with definedNames corrupted by fastpyxl</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/481">#481</a> “safe” reserved ranges are not read from workbooks</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/501">#501</a> Discarding named ranges can lead to corrupt files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/574">#574</a> Exception raised when using the class method to parse Relationships</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/579">#579</a> Crashes when reading defined names with no content</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/597">#597</a> Cannot read worksheets without coordinates</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/617">#617</a> Customised named styles not correctly preserved</p></li>
+</ul>
+</section>
+</section>
+<section id="id405">
+<h1>2.3.5 (2016-04-11)<a class="headerlink" href="#id405" title="Link to this heading"></a></h1>
+<section id="id406">
+<h2>Bug fixes<a class="headerlink" href="#id406" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/618">#618</a> Comments not written in write-only mode</p></li>
+</ul>
+</section>
+</section>
+<section id="id408">
+<h1>2.3.4 (2016-03-16)<a class="headerlink" href="#id408" title="Link to this heading"></a></h1>
+<section id="id409">
+<h2>Bug fixes<a class="headerlink" href="#id409" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/594">#594</a> Content types might be missing when keeping VBA</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/599">#599</a> Cells with only one cell look empty</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/607">#607</a> Serialise NaN as ‘’</p></li>
+</ul>
+</section>
+<section id="id413">
+<h2>Minor changes<a class="headerlink" href="#id413" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Preserve the order of external references because formualae use numerical indices.</p></li>
+<li><p>Typo corrected in cell unit tests (PR 118)</p></li>
+</ul>
+</section>
+</section>
+<section id="id414">
+<h1>2.3.3 (2016-01-18)<a class="headerlink" href="#id414" title="Link to this heading"></a></h1>
+<section id="id415">
+<h2>Bug fixes<a class="headerlink" href="#id415" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/540">#540</a> Cannot read merged cells in read-only mode</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/565">#565</a> Empty styled text blocks cannot be parsed</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/569">#569</a> Issue warning rather than raise Exception raised for unparsable definedNames</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/575">#575</a> Cannot open workbooks with embdedded OLE files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/584">#584</a> Exception when saving borders with attributes</p></li>
+</ul>
+</section>
+<section id="id421">
+<h2>Minor changes<a class="headerlink" href="#id421" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/103/">PR 103</a> Documentation about chart scaling and axis limits</p></li>
+<li><p>Raise an exception when trying to copy cells from other workbooks.</p></li>
+</ul>
+</section>
+</section>
+<section id="id422">
+<h1>2.3.2 (2015-12-07)<a class="headerlink" href="#id422" title="Link to this heading"></a></h1>
+<section id="id423">
+<h2>Bug fixes<a class="headerlink" href="#id423" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/554">#554</a> Cannot add comments to a worksheet when preserving VBA</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/561">#561</a> Exception when reading phonetic text</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/562">#562</a> DARKBLUE is the same as RED</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/563">#563</a> Minimum for row and column indexes not enforced</p></li>
+</ul>
+</section>
+<section id="id428">
+<h2>Minor changes<a class="headerlink" href="#id428" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/97/">PR 97</a> One VML file per worksheet.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/96/">PR 96</a> Correct descriptor for CharacterProperties.rtl</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/498">#498</a> Metadata is not essential to use the package.</p></li>
+</ul>
+</section>
+</section>
+<section id="id430">
+<h1>2.3.1 (2015-11-20)<a class="headerlink" href="#id430" title="Link to this heading"></a></h1>
+<section id="id431">
+<h2>Bug fixes<a class="headerlink" href="#id431" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/534">#534</a> Exception when using columns property in read-only mode.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/536">#536</a> Incorrectly handle comments from Google Docs files.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/539">#539</a> Flexible value types for conditional formatting.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/542">#542</a> Missing content types for images.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/543">#543</a> Make sure images fit containers on all OSes.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/544">#544</a> Gracefully handle missing cell styles.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/546">#546</a> ExternalLink duplicated when editing a file with macros.</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/548">#548</a> Exception with non-ASCII worksheet titles</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/551">#551</a> Combine multiple LineCharts</p></li>
+</ul>
+</section>
+<section id="id441">
+<h2>Minor changes<a class="headerlink" href="#id441" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/pull/88/">PR 88</a> Fix page margins in parser.</p></li>
+</ul>
+</section>
+</section>
+<section id="id442">
+<h1>2.3.0 (2015-10-20)<a class="headerlink" href="#id442" title="Link to this heading"></a></h1>
+<section id="id443">
+<h2>Major changes<a class="headerlink" href="#id443" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Support the creation of chartsheets</p></li>
+</ul>
+</section>
+<section id="id444">
+<h2>Bug fixes<a class="headerlink" href="#id444" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/532">#532</a> Problems when cells have no style in read-only mode.</p></li>
+</ul>
+</section>
+<section id="id446">
+<h2>Minor changes<a class="headerlink" href="#id446" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>PR 79 Make PlotArea editable in charts</p></li>
+<li><p>Use graphicalProperties as the alias for spPr</p></li>
+</ul>
+</section>
+</section>
+<section id="b2-2015-09-04">
+<h1>2.3.0-b2 (2015-09-04)<a class="headerlink" href="#b2-2015-09-04" title="Link to this heading"></a></h1>
+<section id="id447">
+<h2>Bug fixes<a class="headerlink" href="#id447" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/488">#488</a> Support hashValue attribute for sheetProtection</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/493">#493</a> Warn that unsupported extensions will be dropped</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/494/">#494</a> Cells with exponentials causes a ValueError</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/497/">#497</a> Scatter charts are broken</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/499/">#499</a> Inconsistent conversion of localised datetimes</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/500/">#500</a> Adding images leads to unreadable files</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/509/">#509</a> Improve handling of sheet names</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/515/">#515</a> Non-ascii titles have bad repr</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/516/">#516</a> Ignore unassigned worksheets</p></li>
+</ul>
+</section>
+<section id="id457">
+<h2>Minor changes<a class="headerlink" href="#id457" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Worksheets are now iterable by row.</p></li>
+<li><p>Assign individual cell styles only if they are explicitly set.</p></li>
+</ul>
+</section>
+</section>
+<section id="b1-2015-06-29">
+<h1>2.3.0-b1 (2015-06-29)<a class="headerlink" href="#b1-2015-06-29" title="Link to this heading"></a></h1>
+<section id="id458">
+<h2>Major changes<a class="headerlink" href="#id458" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Shift to using (row, column) indexing for cells. Cells will at some point <em>lose</em> coordinates.</p></li>
+<li><p>New implementation of conditional formatting. Databars now partially preserved.</p></li>
+<li><p>et_xmlfile is now a standalone library.</p></li>
+<li><p>Complete rewrite of chart package</p></li>
+<li><p>Include a tokenizer for fomulae to be able to adjust cell references in them. PR 63</p></li>
+</ul>
+</section>
+<section id="id459">
+<h2>Minor changes<a class="headerlink" href="#id459" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Read-only and write-only worksheets renamed.</p></li>
+<li><p>Write-only workbooks support charts and images.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/76">PR76</a> Prevent comment images from conflicting with VBA</p></li>
+</ul>
+</section>
+<section id="id460">
+<h2>Bug fixes<a class="headerlink" href="#id460" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/81">#81</a> Support stacked bar charts</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/88">#88</a> Charts break hyperlinks</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/97">#97</a> Pie and combination charts</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/99">#99</a> Quote worksheet names in chart references</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/150">#150</a> Support additional chart options</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/172">#172</a> Support surface charts</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/381">#381</a> Preserve named styles</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/470">#470</a> Adding more than 10 worksheets with the same name leads to duplicates sheet names and an invalid file</p></li>
+</ul>
+</section>
+</section>
+<section id="id469">
+<h1>2.2.6 (unreleased)<a class="headerlink" href="#id469" title="Link to this heading"></a></h1>
+<section id="id470">
+<h2>Bug fixes<a class="headerlink" href="#id470" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/502">#502</a> Unexpected keyword “mergeCell”</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/503">#503</a> tostring missing in dump_worksheet</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/506">#506</a> Non-ASCII formulae cannot be parsed</p></li>
+<li><p><a class="reference external" href="https://github.com/fastpyxl/fastpyxl/issues/508">#508</a> Cannot save files with coloured tabs</p></li>
+<li><p>Regex for ignoring named ranges is wrong (character class instead of prefix)</p></li>
+</ul>
+</section>
+</section>
+<section id="id475">
+<h1>2.2.5 (2015-06-29)<a class="headerlink" href="#id475" title="Link to this heading"></a></h1>
+<section id="id476">
+<h2>Bug fixes<a class="headerlink" href="#id476" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/463">#463</a> Unexpected keyword “mergeCell”</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/484">#484</a> Unusual dimensions breaks read-only mode</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/485">#485</a> Move return out of loop</p></li>
+</ul>
+</section>
+</section>
+<section id="id480">
+<h1>2.2.4 (2015-06-17)<a class="headerlink" href="#id480" title="Link to this heading"></a></h1>
+<section id="id481">
+<h2>Bug fixes<a class="headerlink" href="#id481" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/464">#464</a> Cannot use images when preserving macros</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/465">#465</a> ws.cell() returns an empty cell on read-only workbooks</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/467">#467</a> Cannot edit a file with ActiveX components</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/471">#471</a> Sheet properties elements must be in order</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/475">#475</a> Do not redefine class __slots__ in subclasses</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/477">#477</a> Write-only support for SheetProtection</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/477">#478</a> Write-only support for DataValidation</p></li>
+<li><p>Improved regex when checking for datetime formats</p></li>
+</ul>
+</section>
+</section>
+<section id="id489">
+<h1>2.2.3 (2015-05-26)<a class="headerlink" href="#id489" title="Link to this heading"></a></h1>
+<section id="id490">
+<h2>Bug fixes<a class="headerlink" href="#id490" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/451">#451</a> fitToPage setting ignored</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/458">#458</a> Trailing spaces lost when saving files.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/459">#459</a> setup.py install fails with Python 3</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/462">#462</a> Vestigial rId conflicts when adding charts, images or comments</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/455">#455</a> Enable Zip64 extensions for all versions of Python</p></li>
+</ul>
+</section>
+</section>
+<section id="id496">
+<h1>2.2.2 (2015-04-28)<a class="headerlink" href="#id496" title="Link to this heading"></a></h1>
+<section id="id497">
+<h2>Bug fixes<a class="headerlink" href="#id497" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/447">#447</a> Uppercase datetime number formats not recognised.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/453">#453</a> Borders broken in shared_styles.</p></li>
+</ul>
+</section>
+</section>
+<section id="id500">
+<h1>2.2.1 (2015-03-31)<a class="headerlink" href="#id500" title="Link to this heading"></a></h1>
+<section id="id501">
+<h2>Minor changes<a class="headerlink" href="#id501" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/54">PR54</a> Improved precision on times near midnight.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/55">PR55</a> Preserve macro buttons</p></li>
+</ul>
+</section>
+<section id="id502">
+<h2>Bug fixes<a class="headerlink" href="#id502" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/429">#429</a> Workbook fails to load because header and footers cannot be parsed.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/433">#433</a> File-like object with encoding=None</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/434">#434</a> SyntaxError when writing page breaks.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/436">#436</a> Read-only mode duplicates empty rows.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/437">#437</a> Cell.offset raises an exception</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/438">#438</a> Cells with pivotButton and quotePrefix styles cannot be read</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/440">#440</a> Error when customised versions of builtin formats</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/442">#442</a> Exception raised when a fill element contains no children</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/442">#444</a> Styles cannot be copied</p></li>
+</ul>
+</section>
+</section>
+<section id="id512">
+<h1>2.2.0 (2015-03-11)<a class="headerlink" href="#id512" title="Link to this heading"></a></h1>
+<section id="id513">
+<h2>Bug fixes<a class="headerlink" href="#id513" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/415">#415</a> Improved exception when passing in invalid in memory files.</p></li>
+</ul>
+</section>
+</section>
+<section id="b1-2015-02-18">
+<h1>2.2.0-b1 (2015-02-18)<a class="headerlink" href="#b1-2015-02-18" title="Link to this heading"></a></h1>
+<section id="id515">
+<h2>Major changes<a class="headerlink" href="#id515" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Cell styles deprecated, use formatting objects (fonts, fills, borders, etc.) directly instead</p></li>
+<li><p>Charts will no longer try and calculate axes by default</p></li>
+<li><p>Support for template file types - PR21</p></li>
+<li><p>Moved ancillary functions and classes into utils package - single place of reference</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/34/">PR 34</a> Fully support page setup</p></li>
+<li><p>Removed SAX-based XML Generator. Special thanks to Elias Rabel for implementing xmlfile for xml.etree</p></li>
+<li><p>Preserve sheet view definitions in existing files (frozen panes, zoom, etc.)</p></li>
+</ul>
+</section>
+<section id="id516">
+<h2>Bug fixes<a class="headerlink" href="#id516" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/103">#103</a> Set the zoom of a sheet</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/199">#199</a> Hide gridlines</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/215">#215</a> Preserve sheet view setings</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/262">#262</a> Set the zoom of a sheet</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/392">#392</a> Worksheet header not read</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/387">#387</a> Cannot read files without styles.xml</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/410">#410</a> Exception when preserving whitespace in strings</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/417">#417</a> Cannot create print titles</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/420">#420</a> Rename confusing constants</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/422">#422</a> Preserve color index in a workbook if it differs from the standard</p></li>
+</ul>
+</section>
+<section id="id527">
+<h2>Minor changes<a class="headerlink" href="#id527" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Use a 2-way cache for column index lookups</p></li>
+<li><p>Clean up tests in cells</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/40/">PR 40</a> Support frozen panes and autofilter in write-only mode</p></li>
+<li><p>Use ws.calculate_dimension(force=True) in read-only mode for unsized worksheets</p></li>
+</ul>
+</section>
+</section>
+<section id="id528">
+<h1>2.1.5 (2015-02-18)<a class="headerlink" href="#id528" title="Link to this heading"></a></h1>
+<section id="id529">
+<h2>Bug fixes<a class="headerlink" href="#id529" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/403">#403</a> Cannot add comments in write-only mode</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/401">#401</a> Creating cells in an empty row raises an exception</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/408">#408</a> from_excel adjustment for Julian dates 1 &lt; x &lt; 60</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/409">#409</a> refersTo is an optional attribute</p></li>
+</ul>
+</section>
+<section id="id534">
+<h2>Minor changes<a class="headerlink" href="#id534" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Allow cells to be appended to standard worksheets for code compatibility with write-only mode.</p></li>
+</ul>
+</section>
+</section>
+<section id="id535">
+<h1>2.1.4 (2014-12-16)<a class="headerlink" href="#id535" title="Link to this heading"></a></h1>
+<section id="id536">
+<h2>Bug fixes<a class="headerlink" href="#id536" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/393">#393</a> IterableWorksheet skips empty cells in rows</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/394">#394</a> Date format is applied to all columns (while only first column contains dates)</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/395">#395</a> temporary files not cleaned properly</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/396">#396</a> Cannot write “=” in Excel file</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/398">#398</a> Cannot write empty rows in write-only mode with LXML installed</p></li>
+</ul>
+</section>
+<section id="id542">
+<h2>Minor changes<a class="headerlink" href="#id542" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add relation namespace to root element for compatibility with iWork</p></li>
+<li><p>Serialize comments relation in LXML-backend</p></li>
+</ul>
+</section>
+</section>
+<section id="id543">
+<h1>2.1.3 (2014-12-09)<a class="headerlink" href="#id543" title="Link to this heading"></a></h1>
+<section id="id544">
+<h2>Minor changes<a class="headerlink" href="#id544" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/31/">PR 31</a> Correct tutorial</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/32/">PR 32</a> See #380</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/37/">PR 37</a> Bind worksheet to ColumnDimension objects</p></li>
+</ul>
+</section>
+<section id="id545">
+<h2>Bug fixes<a class="headerlink" href="#id545" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/379">#379</a> ws.append() doesn’t set RowDimension Correctly</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/379">#380</a> empty cells formatted as datetimes raise exceptions</p></li>
+</ul>
+</section>
+</section>
+<section id="id548">
+<h1>2.1.2 (2014-10-23)<a class="headerlink" href="#id548" title="Link to this heading"></a></h1>
+<section id="id549">
+<h2>Minor changes<a class="headerlink" href="#id549" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/30/">PR 30</a> Fix regex for positive exponentials</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/pull-request/28/">PR 28</a> Fix for #328</p></li>
+</ul>
+</section>
+<section id="id550">
+<h2>Bug fixes<a class="headerlink" href="#id550" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/120">#120</a>, <a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/168">#168</a> defined names with formulae raise exceptions, <a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/292">#292</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/328/">#328</a> ValueError when reading cells with hyperlinks</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/369">#369</a> IndexError when reading definedNames</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/372">#372</a> number_format not consistently applied from styles</p></li>
+</ul>
+</section>
+</section>
+<section id="id557">
+<h1>2.1.1 (2014-10-08)<a class="headerlink" href="#id557" title="Link to this heading"></a></h1>
+<section id="id558">
+<h2>Minor changes<a class="headerlink" href="#id558" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>PR 20 Support different workbook code names</p></li>
+<li><p>Allow auto_axis keyword for ScatterCharts</p></li>
+</ul>
+</section>
+<section id="id559">
+<h2>Bug fixes<a class="headerlink" href="#id559" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/332">#332</a> Fills lost in ConditionalFormatting</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/360">#360</a> Support value=”none” in attributes</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/363">#363</a> Support undocumented value for textRotation</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/364">#364</a> Preserve integers in read-only mode</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/366">#366</a> Complete read support for DataValidation</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/367">#367</a> Iterate over unsized worksheets</p></li>
+</ul>
+</section>
+</section>
+<section id="id566">
+<h1>2.1.0 (2014-09-21)<a class="headerlink" href="#id566" title="Link to this heading"></a></h1>
+<section id="id567">
+<h2>Major changes<a class="headerlink" href="#id567" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>“read_only” and “write_only” new flags for workbooks</p></li>
+<li><p>Support for reading and writing worksheet protection</p></li>
+<li><p>Support for reading hidden rows</p></li>
+<li><p>Cells now manage their styles directly</p></li>
+<li><p>ColumnDimension and RowDimension object manage their styles directly</p></li>
+<li><p>Use xmlfile for writing worksheets if available - around 3 times faster</p></li>
+<li><p>Datavalidation now part of the worksheet package</p></li>
+</ul>
+</section>
+<section id="id568">
+<h2>Minor changes<a class="headerlink" href="#id568" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Number formats are now just strings</p></li>
+<li><p>Strings can be used for RGB and aRGB colours for Fonts, Fills and Borders</p></li>
+<li><p>Create all style tags in a single pass</p></li>
+<li><p>Performance improvement when appending rows</p></li>
+<li><p>Cleaner conversion of Python to Excel values</p></li>
+<li><p>PR6 reserve formatting for empty rows</p></li>
+<li><p>standard worksheets can append from ranges and generators</p></li>
+</ul>
+</section>
+<section id="id569">
+<h2>Bug fixes<a class="headerlink" href="#id569" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/153">#153</a> Cannot read visibility of sheets and rows</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/181">#181</a> No content type for worksheets</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/241">241</a> Cannot read sheets with inline strings</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/322">322</a> 1-indexing for merged cells</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/339">339</a> Correctly handle removal of cell protection</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/341">341</a> Cells with formulae do not round-trip</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/347">347</a> Read DataValidations</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/353">353</a> Support Defined Named Ranges to external workbooks</p></li>
+</ul>
+</section>
+</section>
+<section id="id578">
+<h1>2.0.5 (2014-08-08)<a class="headerlink" href="#id578" title="Link to this heading"></a></h1>
+<section id="id579">
+<h2>Bug fixes<a class="headerlink" href="#id579" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/348">#348</a> incorrect casting of boolean strings</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/349">#349</a> roundtripping cells with formulae</p></li>
+</ul>
+</section>
+</section>
+<section id="id582">
+<h1>2.0.4 (2014-06-25)<a class="headerlink" href="#id582" title="Link to this heading"></a></h1>
+<section id="id583">
+<h2>Minor changes<a class="headerlink" href="#id583" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add a sample file illustrating colours</p></li>
+</ul>
+</section>
+<section id="id584">
+<h2>Bug fixes<a class="headerlink" href="#id584" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/331">#331</a> DARKYELLOW was incorrect</p></li>
+<li><p>Correctly handle extend attribute for fonts</p></li>
+</ul>
+</section>
+</section>
+<section id="id586">
+<h1>2.0.3 (2014-05-22)<a class="headerlink" href="#id586" title="Link to this heading"></a></h1>
+<section id="id587">
+<h2>Minor changes<a class="headerlink" href="#id587" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Updated docs</p></li>
+</ul>
+</section>
+<section id="id588">
+<h2>Bug fixes<a class="headerlink" href="#id588" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/319">#319</a> Cannot load Workbooks with vertAlign styling for fonts</p></li>
+</ul>
+</section>
+</section>
+<section id="id590">
+<h1>2.0.2 (2014-05-13)<a class="headerlink" href="#id590" title="Link to this heading"></a></h1>
+</section>
+<section id="id591">
+<h1>2.0.1 (2014-05-13)  brown bag<a class="headerlink" href="#id591" title="Link to this heading"></a></h1>
+</section>
+<section id="id592">
+<h1>2.0.0 (2014-05-13)  brown bag<a class="headerlink" href="#id592" title="Link to this heading"></a></h1>
+<section id="id593">
+<h2>Major changes<a class="headerlink" href="#id593" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>This is last release that will support Python 3.2</p></li>
+<li><p>Cells are referenced with 1-indexing: A1 == cell(row=1, column=1)</p></li>
+<li><p>Use jdcal for more efficient and reliable conversion of datetimes</p></li>
+<li><p>Significant speed up when reading files</p></li>
+<li><p>Merged immutable styles</p></li>
+<li><p>Type inference is disabled by default</p></li>
+<li><p>RawCell renamed ReadOnlyCell</p></li>
+<li><p>ReadOnlyCell.internal_value and ReadOnlyCell.value now behave the same as Cell</p></li>
+<li><p>Provide no size information on unsized worksheets</p></li>
+<li><p>Lower memory footprint when reading files</p></li>
+</ul>
+</section>
+<section id="id594">
+<h2>Minor changes<a class="headerlink" href="#id594" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>All tests converted to pytest</p></li>
+<li><p>Pyflakes used for static code analysis</p></li>
+<li><p>Sample code in the documentation is automatically run</p></li>
+<li><p>Support GradientFills</p></li>
+<li><p>BaseColWidth set</p></li>
+</ul>
+</section>
+<section id="id595">
+<h2>Pull requests<a class="headerlink" href="#id595" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>#70 Add filterColumn, sortCondition support to AutoFilter</p></li>
+<li><p>#80 Reorder worksheets parts</p></li>
+<li><p>#82 Update API for conditional formatting</p></li>
+<li><p>#87 Add support for writing Protection styles, others</p></li>
+<li><p>#89 Better handling of content types when preserving macros</p></li>
+</ul>
+</section>
+<section id="id596">
+<h2>Bug fixes<a class="headerlink" href="#id596" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/46">#46</a> ColumnDimension style error</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/86">#86</a> reader.worksheet.fast_parse sets booleans to integers</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/98">#98</a> Auto sizing column widths does not work</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/137">#137</a> Workbooks with chartsheets</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/185">#185</a>  Invalid PageMargins</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/230">#230</a> Using v in cells creates invalid files</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/243">#243</a> - IndexError when loading workbook</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/263">#263</a> - Forded conversion of line breaks</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/267">#267</a> - Raise exceptions when passed invalid types</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/270">#270</a> - Cannot open files which use non-standard sheet names or reference Ids</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/269">#269</a> - Handling unsized worksheets in IterableWorksheet</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/270">#270</a> - Handling Workbooks with non-standard references</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/275">#275</a> - Handling auto filters where there are only custom filters</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/277">#277</a> - Harmonise chart and cell coordinates</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/280">#280</a>- Explicit exception raising for invalid characters</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/286">#286</a> - Optimized writer can not handle a datetime.time value</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/296">#296</a> - Cell coordinates not consistent with documentation</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/300">#300</a> - Missing column width causes load_workbook() exception</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/304">#304</a> - Handling Workbooks with absolute paths for worksheets (from Sharepoint)</p></li>
+</ul>
+</section>
+</section>
+<section id="id616">
+<h1>1.8.6 (2014-05-05)<a class="headerlink" href="#id616" title="Link to this heading"></a></h1>
+<section id="id617">
+<h2>Minor changes<a class="headerlink" href="#id617" title="Link to this heading"></a></h2>
+<p>Fixed typo for import Elementtree</p>
+</section>
+<section id="id618">
+<h2>Bugfixes<a class="headerlink" href="#id618" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/279">#279</a> Incorrect path for comments files on Windows</p></li>
+</ul>
+</section>
+</section>
+<section id="id620">
+<h1>1.8.5 (2014-03-25)<a class="headerlink" href="#id620" title="Link to this heading"></a></h1>
+<section id="id621">
+<h2>Minor changes<a class="headerlink" href="#id621" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The ‘=’ string is no longer interpreted as a formula</p></li>
+<li><p>When a client writes empty xml tags for cells (e.g. &lt;c r=’A1’&gt;&lt;/c&gt;), reader will not crash</p></li>
+</ul>
+</section>
+</section>
+<section id="id622">
+<h1>1.8.4 (2014-02-25)<a class="headerlink" href="#id622" title="Link to this heading"></a></h1>
+<section id="id623">
+<h2>Bugfixes<a class="headerlink" href="#id623" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/260">#260</a> better handling of undimensioned worksheets</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/268">#268</a> non-ascii in formualae</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/282">#282</a> correct implementation of register_namepsace for Python 2.6</p></li>
+</ul>
+</section>
+</section>
+<section id="id627">
+<h1>1.8.3 (2014-02-09)<a class="headerlink" href="#id627" title="Link to this heading"></a></h1>
+<section id="id628">
+<h2>Major changes<a class="headerlink" href="#id628" title="Link to this heading"></a></h2>
+<p>Always parse using cElementTree</p>
+</section>
+<section id="id629">
+<h2>Minor changes<a class="headerlink" href="#id629" title="Link to this heading"></a></h2>
+<p>Slight improvements in memory use when parsing</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/256">#256</a> - error when trying to read comments with optimised reader</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/260">#260</a> - unsized worksheets</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/264">#264</a> - only numeric cells can be dates</p></li>
+</ul>
+</section>
+</section>
+<section id="id633">
+<h1>1.8.2 (2014-01-17)<a class="headerlink" href="#id633" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/247">#247</a> - iterable worksheets open too many files</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/252">#252</a> - improved handling of lxml</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/253">#253</a> - better handling of unique sheetnames</p></li>
+</ul>
+</section>
+<section id="id637">
+<h1>1.8.1 (2014-01-14)<a class="headerlink" href="#id637" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/246">#246</a></p></li>
+</ul>
+</section>
+<section id="id639">
+<h1>1.8.0 (2014-01-08)<a class="headerlink" href="#id639" title="Link to this heading"></a></h1>
+<section id="id640">
+<h2>Compatibility<a class="headerlink" href="#id640" title="Link to this heading"></a></h2>
+<p>Support for Python 2.5 dropped.</p>
+</section>
+<section id="id641">
+<h2>Major changes<a class="headerlink" href="#id641" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Support conditional formatting</p></li>
+<li><p>Support lxml as backend</p></li>
+<li><p>Support reading and writing comments</p></li>
+<li><p>pytest as testrunner now required</p></li>
+<li><p>Improvements in charts: new types, more reliable</p></li>
+</ul>
+</section>
+<section id="id642">
+<h2>Minor changes<a class="headerlink" href="#id642" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>load_workbook now accepts data_only to allow extracting values only from
+formulae. Default is false.</p></li>
+<li><p>Images can now be anchored to cells</p></li>
+<li><p>Docs updated</p></li>
+<li><p>Provisional benchmarking</p></li>
+<li><p>Added convenience methods for accessing worksheets and cells by key</p></li>
+</ul>
+</section>
+</section>
+<section id="id643">
+<h1>1.7.0 (2013-10-31)<a class="headerlink" href="#id643" title="Link to this heading"></a></h1>
+<section id="id644">
+<h2>Major changes<a class="headerlink" href="#id644" title="Link to this heading"></a></h2>
+<p>Drops support for Python &lt; 2.5 and last version to support Python 2.5</p>
+</section>
+<section id="id645">
+<h2>Compatibility<a class="headerlink" href="#id645" title="Link to this heading"></a></h2>
+<p>Tests run on Python 2.5, 2.6, 2.7, 3.2, 3.3</p>
+</section>
+<section id="merged-pull-requests">
+<h2>Merged pull requests<a class="headerlink" href="#merged-pull-requests" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>27 Include more metadata</p></li>
+<li><p>41 Able to read files with chart sheets</p></li>
+<li><p>45 Configurable Worksheet classes</p></li>
+<li><p>3 Correct serialisation of Decimal</p></li>
+<li><p>36 Preserve VBA macros when reading files</p></li>
+<li><p>44 Handle empty oddheader and oddFooter tags</p></li>
+<li><p>43 Fixed issue that the reader never set the active sheet</p></li>
+<li><p>33 Reader set value and type explicitly and TYPE_ERROR checking</p></li>
+<li><p>22 added page breaks, fixed formula serialization</p></li>
+<li><p>39 Fix Python 2.6 compatibility</p></li>
+<li><p>47 Improvements in styling</p></li>
+</ul>
+</section>
+<section id="known-bugfixes">
+<h2>Known bugfixes<a class="headerlink" href="#known-bugfixes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/109">#109</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/165">#165</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/209">#209</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/112">#112</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/166">#166</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/109">#109</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/223">#223</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/124">#124</a></p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/fastpyxl/fastpyxl/issue/157">#157</a></p></li>
+</ul>
+</section>
+<section id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading"></a></h2>
+<p>Performance improvements in optimised writer</p>
+<p>Docs updated</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="formula.html" class="btn btn-neutral float-left" title="Parsing Formulas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

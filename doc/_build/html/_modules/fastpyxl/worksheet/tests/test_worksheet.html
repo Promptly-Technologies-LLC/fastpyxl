@@ -1,0 +1,1279 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.worksheet.tests.test_worksheet &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.worksheet.tests.test_worksheet</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.worksheet.tests.test_worksheet</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="c1"># test imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">islice</span>
+
+<span class="c1"># package imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.workbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cell</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..cell_range</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellRange</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+
+<div class="viewcode-block" id="DummyWorkbook">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.DummyWorkbook">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DummyWorkbook</span><span class="p">:</span>
+
+    <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;UTF-8&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheetnames</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.Worksheet">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Worksheet</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..worksheet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Worksheet</span>
+    <span class="k">return</span> <span class="n">Worksheet</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWorksheet</span><span class="p">:</span>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_path">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/xl/worksheets/sheetNone.xml&quot;</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_new_worksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_new_worksheet">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_new_worksheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">wb</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_get_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_get_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_get_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">==</span> <span class="s1">&#39;A1&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_invalid_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_invalid_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_invalid_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_worksheet_dimension">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_worksheet_dimension">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_worksheet_dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="s1">&#39;A1:A1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="o">.</span><span class="n">calculate_dimension</span><span class="p">()</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B12&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;AAA&#39;</span>
+        <span class="k">assert</span> <span class="s1">&#39;B12:B12&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="o">.</span><span class="n">calculate_dimension</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_fill_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_fill_rows">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;row, column, coordinate&quot;</span><span class="p">,</span>
+                             <span class="p">[</span>
+                                 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;A1&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C9&#39;</span><span class="p">),</span>
+                             <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_fill_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C9&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;last&#39;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">calculate_dimension</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;A1:C9&#39;</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">()</span>
+        <span class="n">first_row</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">first_row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">==</span> <span class="n">coordinate</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_iter_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_iter_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_iter_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;B1&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;A2&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;A3&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;A4&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">coordinate</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="n">coord</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_cell_alternate_coordinates">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_cell_alternate_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cell_alternate_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="s1">&#39;D8&#39;</span> <span class="o">==</span> <span class="n">cell</span><span class="o">.</span><span class="n">coordinate</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_cell_insufficient_coordinates">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_cell_insufficient_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cell_insufficient_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_hyperlink_value">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_hyperlink_value">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_hyperlink_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span> <span class="o">=</span> <span class="s2">&quot;http://test.com&quot;</span>
+        <span class="k">assert</span> <span class="s2">&quot;http://test.com&quot;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
+        <span class="k">assert</span> <span class="s2">&quot;test&quot;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_list">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_list">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;This is A1&#39;</span><span class="p">,</span> <span class="s1">&#39;This is B1&#39;</span><span class="p">])</span>
+
+        <span class="k">assert</span> <span class="s1">&#39;This is A1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">assert</span> <span class="s1">&#39;This is B1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_dict_letter">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_dict_letter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_dict_letter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;A&#39;</span> <span class="p">:</span> <span class="s1">&#39;This is A1&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="s1">&#39;This is C1&#39;</span><span class="p">})</span>
+
+        <span class="k">assert</span> <span class="s1">&#39;This is A1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">assert</span> <span class="s1">&#39;This is C1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_dict_index">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_dict_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_dict_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="mi">1</span> <span class="p">:</span> <span class="s1">&#39;This is A1&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="p">:</span> <span class="s1">&#39;This is C1&#39;</span><span class="p">})</span>
+
+        <span class="k">assert</span> <span class="s1">&#39;This is A1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">assert</span> <span class="s1">&#39;This is C1&#39;</span> <span class="o">==</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_bad_append">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_bad_append">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_bad_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_range">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_range">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;AD1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">29</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_iterator">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_iterator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">itty</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">i</span>
+
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">gen</span> <span class="o">=</span> <span class="n">itty</span><span class="p">()</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;AD1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">29</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_2d_list">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_2d_list">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_2d_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;This is A1&#39;</span><span class="p">,</span> <span class="s1">&#39;This is B1&#39;</span><span class="p">])</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;This is A2&#39;</span><span class="p">,</span> <span class="s1">&#39;This is B2&#39;</span><span class="p">])</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s1">&#39;This is A1&#39;</span><span class="p">,</span> <span class="s1">&#39;This is B1&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;This is A2&#39;</span><span class="p">,</span> <span class="s1">&#39;This is B2&#39;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">e</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_append_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_append_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_append_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cell</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">Cell</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">cell</span><span class="p">])</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">25</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C9&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;last&#39;</span>
+
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
+        <span class="n">first_row</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">last_row</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">assert</span> <span class="n">first_row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;first&#39;</span> <span class="ow">and</span> <span class="n">first_row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">==</span> <span class="s1">&#39;A1&#39;</span>
+        <span class="k">assert</span> <span class="n">last_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;last&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_no_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_no_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_no_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_no_cols">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_no_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_no_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_one_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_one_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_one_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="p">((</span><span class="n">c</span><span class="p">,),)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_by_col">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_by_col">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_by_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">_cells_by_col</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">==</span> <span class="p">((</span><span class="n">c</span><span class="p">,),)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_cols">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C9&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;last&#39;</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;A2&#39;</span><span class="p">,</span> <span class="s1">&#39;A3&#39;</span><span class="p">,</span> <span class="s1">&#39;A4&#39;</span><span class="p">,</span> <span class="s1">&#39;A5&#39;</span><span class="p">,</span> <span class="s1">&#39;A6&#39;</span><span class="p">,</span> <span class="s1">&#39;A7&#39;</span><span class="p">,</span> <span class="s1">&#39;A8&#39;</span><span class="p">,</span> <span class="s1">&#39;A9&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;B1&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">,</span> <span class="s1">&#39;B7&#39;</span><span class="p">,</span> <span class="s1">&#39;B8&#39;</span><span class="p">,</span> <span class="s1">&#39;B9&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;C5&#39;</span><span class="p">,</span> <span class="s1">&#39;C6&#39;</span><span class="p">,</span> <span class="s1">&#39;C7&#39;</span><span class="p">,</span> <span class="s1">&#39;C8&#39;</span><span class="p">,</span> <span class="s1">&#39;C9&#39;</span><span class="p">),</span>
+
+        <span class="p">]</span>
+
+        <span class="n">cols</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">coordinate</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">col</span><span class="p">)</span> <span class="o">==</span> <span class="n">coord</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+
+        <span class="k">assert</span> <span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;first&#39;</span>
+        <span class="k">assert</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;last&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_values">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_values">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">assert</span> <span class="nb">next</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">next</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_auto_filter">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_auto_filter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_auto_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;c1:g9&#39;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="s1">&#39;C1:G9&#39;</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_getitem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_getitem">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_getitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Cell</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">==</span> <span class="s2">&quot;A1&quot;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_getitem_invalid">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_getitem_invalid">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A0&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_getitem_invalid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">((</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)):</span>
+            <span class="n">ws</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_setitem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_setitem">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_setitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A12&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A12&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">5</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_delitem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_delitem">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+
+        <span class="k">assert</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">_cells</span>
+
+        <span class="k">del</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A2&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">_cells</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_getslice">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_getslice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_getslice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;cell&quot;</span>
+        <span class="n">cell_range</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">:</span><span class="s1">&#39;B2&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">cell_range</span> <span class="o">==</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">],</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B1&#39;</span><span class="p">]),</span>
+            <span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A2&#39;</span><span class="p">],</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">])</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheet.test_get_single__column">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_get_single__column">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;C:C&quot;</span><span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_get_single__column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">c1</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">c2</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_get_row">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_get_row">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;2:2&quot;</span><span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_get_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">a2</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">c2</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_freeze">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_freeze">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_freeze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;b2&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">==</span> <span class="s1">&#39;B2&#39;</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="s1">&#39;C5&#39;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">==</span> <span class="s1">&#39;C5&#39;</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_merged_cells_lookup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_merged_cells_lookup">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merged_cells_lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="s2">&quot;A1:N50&quot;</span><span class="p">)</span>
+        <span class="n">merged</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span>
+        <span class="k">assert</span> <span class="s1">&#39;A1&#39;</span> <span class="ow">in</span> <span class="n">merged</span>
+        <span class="k">assert</span> <span class="s1">&#39;N50&#39;</span> <span class="ow">in</span> <span class="n">merged</span>
+        <span class="k">assert</span> <span class="s1">&#39;A51&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">merged</span>
+        <span class="k">assert</span> <span class="s1">&#39;O1&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">merged</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_merged_cell_ranges">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_merged_cell_ranges">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merged_cell_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span><span class="o">.</span><span class="n">ranges</span> <span class="o">==</span> <span class="nb">set</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_merge_range_string">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_merge_range_string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merge_range_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;D4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">_cells</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="n">range_string</span><span class="o">=</span><span class="s2">&quot;A1:D4&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;A1:D4&quot;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;MergedCell&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">_cells</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_merge_coordinate">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_merge_coordinate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merge_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="n">start_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;A1:D4&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_merge_more_columns_than_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_merge_more_columns_than_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merge_more_columns_than_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="n">start_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;A1:D2&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_merge_more_rows_than_columns">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_merge_more_rows_than_columns">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merge_more_rows_than_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="n">start_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;A1:B4&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_unmerge_range_string">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_unmerge_range_string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_unmerge_range_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="s2">&quot;A1:D4&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">unmerge_cells</span><span class="p">(</span><span class="s2">&quot;A1:D4&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_unmerge_coordinate">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_unmerge_coordinate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_unmerge_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="s2">&quot;A1:D4&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">unmerge_cells</span><span class="p">(</span><span class="n">start_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">_cells</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_print_titles">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_print_titles">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;rows, cols, titles&quot;</span><span class="p">,</span>
+                             <span class="p">[</span>
+                                <span class="p">(</span><span class="s2">&quot;1:4&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;&#39;Sheet&#39;!$1:$4&quot;</span><span class="p">),</span>
+                                <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;A:F&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;Sheet&#39;!$A:$F&quot;</span><span class="p">),</span>
+                                <span class="p">(</span><span class="s2">&quot;1:2&quot;</span><span class="p">,</span> <span class="s2">&quot;C:D&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;Sheet&#39;!$1:$2,&#39;Sheet&#39;!$C:$D&quot;</span><span class="p">),</span>
+                             <span class="p">]</span>
+                             <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_print_titles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">titles</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">print_title_rows</span> <span class="o">=</span> <span class="n">rows</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">print_title_cols</span> <span class="o">=</span> <span class="n">cols</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">print_titles</span><span class="p">)</span> <span class="o">==</span> <span class="n">titles</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_print_area">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_print_area">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;cell_range, result&quot;</span><span class="p">,</span>
+                             <span class="p">[</span>
+                                 <span class="p">(</span><span class="s2">&quot;A1:F5&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;Sheet&#39;!$A$1:$F$5&quot;</span><span class="p">),</span>
+                                 <span class="p">([</span><span class="s2">&quot;$A$1:$F$5&quot;</span><span class="p">],</span> <span class="s2">&quot;&#39;Sheet&#39;!$A$1:$F$5&quot;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                                 <span class="p">([],</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                             <span class="p">]</span>
+                             <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_print_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell_range</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">print_area</span> <span class="o">=</span> <span class="n">cell_range</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">print_area</span> <span class="o">==</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_active_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_active_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_active_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">active_cell</span> <span class="o">==</span> <span class="s1">&#39;A1&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_selected_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_selected_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_selected_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">selected_cell</span> <span class="o">==</span> <span class="s1">&#39;A1&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_gridlines">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_gridlines">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_gridlines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">ws</span><span class="o">.</span><span class="n">show_gridlines</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_add_table">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_add_table">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_add_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">tbl_ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">table1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">displayName</span><span class="o">=</span><span class="s2">&quot;Table1&quot;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s2">&quot;A1:D10&quot;</span><span class="p">)</span>
+        <span class="n">tbl_ws</span><span class="o">.</span><span class="n">add_table</span><span class="p">(</span><span class="n">table1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tbl_ws</span><span class="o">.</span><span class="n">_tables</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheet.test_column_groups">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestWorksheet.test_column_groups">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_column_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;K&quot;</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">column_groups</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;F:K&quot;</span><span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="test_freeze_panes_horiz">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_freeze_panes_horiz">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_freeze_panes_horiz</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="s1">&#39;A4&#39;</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">sheet_view</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;activeCell&#39;</span><span class="p">:</span> <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;pane&#39;</span><span class="p">:</span> <span class="s1">&#39;bottomLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;sqref&#39;</span><span class="p">:</span> <span class="s1">&#39;A1&#39;</span><span class="p">}</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;activePane&#39;</span><span class="p">:</span> <span class="s1">&#39;bottomLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;topLeftCell&#39;</span><span class="p">:</span> <span class="s1">&#39;A4&#39;</span><span class="p">,</span> <span class="s1">&#39;ySplit&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="test_freeze_panes_vert">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_freeze_panes_vert">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_freeze_panes_vert</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="s1">&#39;D1&#39;</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">sheet_view</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span>  <span class="p">{</span><span class="s1">&#39;activeCell&#39;</span><span class="p">:</span> <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;pane&#39;</span><span class="p">:</span> <span class="s1">&#39;topRight&#39;</span><span class="p">,</span> <span class="s1">&#39;sqref&#39;</span><span class="p">:</span> <span class="s1">&#39;A1&#39;</span><span class="p">}</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;activePane&#39;</span><span class="p">:</span> <span class="s1">&#39;topRight&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;topLeftCell&#39;</span><span class="p">:</span> <span class="s1">&#39;D1&#39;</span><span class="p">,</span> <span class="s1">&#39;xSplit&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="test_freeze_panes_both">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_freeze_panes_both">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_freeze_panes_both</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">Workbook</span><span class="p">())</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">freeze_panes</span> <span class="o">=</span> <span class="s1">&#39;D4&#39;</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">sheet_view</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;pane&#39;</span><span class="p">:</span> <span class="s1">&#39;topRight&#39;</span><span class="p">}</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;pane&#39;</span><span class="p">:</span> <span class="s1">&#39;bottomLeft&#39;</span><span class="p">,}</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;activeCell&#39;</span><span class="p">:</span> <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;pane&#39;</span><span class="p">:</span> <span class="s1">&#39;bottomRight&#39;</span><span class="p">,</span> <span class="s1">&#39;sqref&#39;</span><span class="p">:</span> <span class="s1">&#39;A1&#39;</span><span class="p">}</span>
+    <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;activePane&#39;</span><span class="p">:</span> <span class="s1">&#39;bottomRight&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;topLeftCell&#39;</span><span class="p">:</span> <span class="s1">&#39;D4&#39;</span><span class="p">,</span> <span class="s1">&#39;xSplit&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s2">&quot;ySplit&quot;</span><span class="p">:</span><span class="s2">&quot;3&quot;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="test_min_column">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_min_column">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_min_column</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+    <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">min_column</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="test_max_column">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_max_column">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_max_column</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;F1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;F2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;F3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;=F1+F2&#39;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;=A1+A2+A3&#39;</span>
+    <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span> <span class="o">==</span> <span class="mi">6</span></div>
+
+
+
+<div class="viewcode-block" id="test_min_row">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_min_row">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_min_row</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+    <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">min_row</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="test_max_row">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_max_row">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_max_row</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">5</span><span class="p">])</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">4</span></div>
+
+
+
+<div class="viewcode-block" id="test_add_chart">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_add_chart">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_add_chart</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.chart</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+    <span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">()</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">add_chart</span><span class="p">(</span><span class="n">chart</span><span class="p">,</span> <span class="s2">&quot;A1&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">chart</span><span class="o">.</span><span class="n">anchor</span> <span class="o">==</span> <span class="s2">&quot;A1&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="test_add_image">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.test_add_image">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">pil_required</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_add_image</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.drawing.image</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PIL.Image</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">PILImage</span><span class="p">())</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="s2">&quot;D5&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="dummy_worksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.dummy_worksheet">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dummy_worksheet</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a worksheet A1:H6 rows with values the same as cell coordinates</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">DummyWorkbook</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">max_row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">coordinate</span>
+
+    <span class="k">return</span> <span class="n">ws</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestEditableWorksheet</span><span class="p">:</span>
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_row_down">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_row_down">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_row_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">6</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">7</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="mi">5</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_col_right">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_col_right">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_col_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span> <span class="o">==</span> <span class="mi">8</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_col</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;column&quot;</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span> <span class="o">==</span> <span class="mi">10</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_row_up">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_row_up">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_row_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">6</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">offset</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">5</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">,</span> <span class="s2">&quot;A2&quot;</span><span class="p">,</span> <span class="s2">&quot;A4&quot;</span><span class="p">,</span> <span class="s2">&quot;A5&quot;</span><span class="p">,</span> <span class="s2">&quot;A6&quot;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_insert_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_insert_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_insert_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">insert_rows</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">8</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">==</span> <span class="mi">8</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_insert_cols">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_insert_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_insert_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">insert_cols</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span> <span class="o">==</span> <span class="mi">9</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;F1&#39;</span><span class="p">,</span> <span class="s1">&#39;F2&#39;</span><span class="p">,</span> <span class="s1">&#39;F3&#39;</span><span class="p">,</span> <span class="s1">&#39;F4&#39;</span><span class="p">,</span> <span class="s1">&#39;F5&#39;</span><span class="p">,</span> <span class="s1">&#39;F6&#39;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_delete_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_delete_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delete_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_rows</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">3</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">==</span> <span class="mi">3</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;B1&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_deleta_all_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_deleta_all_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_deleta_all_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_rows</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_delete_cols">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_delete_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delete_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_cols</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span> <span class="o">==</span> <span class="mi">6</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;A3&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;D3&#39;</span><span class="p">,</span> <span class="s1">&#39;G3&#39;</span><span class="p">,</span> <span class="s1">&#39;H3&#39;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_delete_missing_cols">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_delete_missing_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delete_missing_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="k">del</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;H2&#39;</span><span class="p">]</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_cols</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;G2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_delete_missing_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_delete_missing_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delete_missing_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="k">del</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">]</span>
+
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_rows</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B3&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_remainder">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_remainder">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;idx, offset, max_val, remainder&quot;</span><span class="p">,</span>
+                             <span class="p">[</span>
+                                 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">}),</span>
+                                 <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}),</span>
+                                 <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}),</span>
+                                 <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}),</span>
+                                 <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}),</span>
+                                 <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">6</span><span class="p">}),</span>
+                                 <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">{</span><span class="mi">6</span><span class="p">}),</span>
+                             <span class="p">]</span>
+                             <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_remainder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">remainder</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..worksheet</span><span class="w"> </span><span class="kn">import</span> <span class="n">_gutter</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">_gutter</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">max_val</span><span class="p">))</span> <span class="o">==</span> <span class="n">remainder</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_delete_last_col">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_delete_last_col">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delete_last_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_cols</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span> <span class="o">==</span> <span class="mi">7</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;H8&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_delete_last_row">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_delete_last_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_delete_last_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">delete_rows</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span> <span class="o">==</span> <span class="mi">5</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A6&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">_move_cell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;A1&#39;</span>
+        <span class="k">assert</span> <span class="n">cell</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">==</span> <span class="s1">&#39;G4&#39;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_translated_fomula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_translated_fomula">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;translate, formula, result&quot;</span><span class="p">,</span>
+                             <span class="p">[</span>
+                                 <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;=SUM(G1:G3)&quot;</span><span class="p">,</span> <span class="s2">&quot;=SUM(G1:G3)&quot;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;=SUM(G1:G3)&quot;</span><span class="p">,</span> <span class="s2">&quot;=SUM(I2:I4)&quot;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;I2:I4&quot;</span><span class="p">,</span> <span class="s2">&quot;I2:I4&quot;</span><span class="p">),</span>
+                             <span class="p">]</span>
+                             <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_translated_fomula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">,</span> <span class="n">translate</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">formula</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">_move_cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">row_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col_offset</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">translate</span><span class="p">)</span>
+        <span class="n">moved</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;I5&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">moved</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_nothing">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_nothing">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_nothing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="s2">&quot;B2:E5&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;B2&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_range_down">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_range_down">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_range_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="s2">&quot;B2:E5&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="n">cr</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;B2&quot;</span>
+        <span class="k">assert</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span> <span class="o">==</span> <span class="s2">&quot;B4:E7&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_range_up">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_range_up">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_range_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="s2">&quot;B4:E5&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="n">cr</span><span class="p">,</span> <span class="n">rows</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;B4&quot;</span>
+        <span class="k">assert</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span> <span class="o">==</span> <span class="s2">&quot;B2:E3&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_range_right">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_range_right">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_range_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="s2">&quot;B2:E5&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="n">cr</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;D2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;B2&quot;</span>
+        <span class="k">assert</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span> <span class="o">==</span> <span class="s2">&quot;D2:G5&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_range_left">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_range_left">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_range_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="s2">&quot;D2:E5&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="n">cr</span><span class="p">,</span> <span class="n">cols</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;D2&quot;</span>
+        <span class="k">assert</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span> <span class="o">==</span> <span class="s2">&quot;B2:C5&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_empty_range">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_empty_range">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_empty_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="s2">&quot;A7:E15&quot;</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="n">cr</span><span class="p">,</span> <span class="n">rows</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A6&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span> <span class="o">==</span> <span class="s2">&quot;A5:E13&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_range_from_string">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_range_from_string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_range_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="s2">&quot;B2:E5&quot;</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;B2&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestEditableWorksheet.test_move_range_with_formula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_worksheet.html#fastpyxl.worksheet.tests.test_worksheet.TestEditableWorksheet.test_move_range_with_formula">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_move_range_with_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy_worksheet</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">dummy_worksheet</span>
+        <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;G4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;=SUM(G1:G3)&quot;</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">move_range</span><span class="p">(</span><span class="s2">&quot;G4&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;H5&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;=SUM(H2:H4)&quot;</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

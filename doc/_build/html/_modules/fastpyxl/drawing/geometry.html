@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.drawing.geometry &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.drawing.geometry</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.drawing.geometry</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.serialisable</span><span class="w"> </span><span class="kn">import</span> <span class="n">Serialisable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Typed</span><span class="p">,</span>
+    <span class="n">Float</span><span class="p">,</span>
+    <span class="n">Integer</span><span class="p">,</span>
+    <span class="n">Bool</span><span class="p">,</span>
+    <span class="n">MinMax</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
+    <span class="n">NoneSet</span><span class="p">,</span>
+    <span class="n">String</span><span class="p">,</span>
+    <span class="n">Alias</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.excel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">Percentage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.excel</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtensionList</span> <span class="k">as</span> <span class="n">OfficeArtExtensionList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineProperties</span>  <span class="c1"># noqa: F401 -- re-exported</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.xml.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">DRAWING_NS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Serialisable</span> <span class="k">as</span> <span class="n">TypedSerialisable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldValidationError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.fields</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasField</span><span class="p">,</span> <span class="n">Field</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_emu_coord</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+
+<div class="viewcode-block" id="Point2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Point2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Point2D</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_emu_coord</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_emu_coord</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span></div>
+
+
+
+<div class="viewcode-block" id="PositiveSize2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.PositiveSize2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PositiveSize2D</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;ext&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dimensions in EMUs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">)</span>
+    <span class="n">cy</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">cx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">cy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cx</span> <span class="o">=</span> <span class="n">cx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cy</span> <span class="o">=</span> <span class="n">cy</span></div>
+
+
+
+<div class="viewcode-block" id="Transform2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Transform2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Transform2D</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;xfrm&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">rot</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">flipH</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">flipV</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">off</span><span class="p">:</span> <span class="n">Point2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Point2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ext</span><span class="p">:</span> <span class="n">PositiveSize2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">PositiveSize2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">chOff</span><span class="p">:</span> <span class="n">Point2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Point2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">chExt</span><span class="p">:</span> <span class="n">PositiveSize2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">PositiveSize2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;ext&quot;</span><span class="p">,</span> <span class="s2">&quot;chOff&quot;</span><span class="p">,</span> <span class="s2">&quot;chExt&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">rot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">flipH</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">flipV</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">off</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">chOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">chExt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flipH</span> <span class="o">=</span> <span class="n">flipH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flipV</span> <span class="o">=</span> <span class="n">flipV</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">off</span> <span class="o">=</span> <span class="n">off</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ext</span> <span class="o">=</span> <span class="n">ext</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chOff</span> <span class="o">=</span> <span class="n">chOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chExt</span> <span class="o">=</span> <span class="n">chExt</span></div>
+
+
+
+<div class="viewcode-block" id="GroupTransform2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.GroupTransform2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GroupTransform2D</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;xfrm&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">rot</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">flipH</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">flipV</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">off</span><span class="p">:</span> <span class="n">Point2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Point2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ext</span><span class="p">:</span> <span class="n">PositiveSize2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">PositiveSize2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">chOff</span><span class="p">:</span> <span class="n">Point2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Point2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">chExt</span><span class="p">:</span> <span class="n">PositiveSize2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">PositiveSize2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;ext&quot;</span><span class="p">,</span> <span class="s2">&quot;chOff&quot;</span><span class="p">,</span> <span class="s2">&quot;chExt&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">flipH</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">flipV</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">off</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">chOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">chExt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flipH</span> <span class="o">=</span> <span class="n">flipH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flipV</span> <span class="o">=</span> <span class="n">flipV</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">off</span> <span class="o">=</span> <span class="n">off</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ext</span> <span class="o">=</span> <span class="n">ext</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chOff</span> <span class="o">=</span> <span class="n">chOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chExt</span> <span class="o">=</span> <span class="n">chExt</span></div>
+
+
+
+<div class="viewcode-block" id="SphereCoords">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.SphereCoords">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SphereCoords</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;sphereCoords&quot;</span> <span class="c1"># usually</span>
+
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">rev</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="n">lat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rev</span> <span class="o">=</span> <span class="n">rev</span></div>
+
+
+
+<div class="viewcode-block" id="Camera">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Camera">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;camera&quot;</span>
+
+    <span class="n">prst</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;legacyObliqueTopLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyObliqueTop&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyObliqueTopRight&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyObliqueLeft&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyObliqueFront&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyObliqueRight&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyObliqueBottomLeft&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyObliqueBottom&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyObliqueBottomRight&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyPerspectiveTopLeft&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyPerspectiveTop&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyPerspectiveTopRight&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyPerspectiveLeft&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyPerspectiveFront&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyPerspectiveRight&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyPerspectiveBottomLeft&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyPerspectiveBottom&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyPerspectiveBottomRight&#39;</span><span class="p">,</span> <span class="s1">&#39;orthographicFront&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;isometricTopUp&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricTopDown&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricBottomUp&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricBottomDown&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;isometricLeftUp&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricLeftDown&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricRightUp&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricRightDown&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;isometricOffAxis1Left&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis1Right&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis1Top&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;isometricOffAxis2Left&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis2Right&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis2Top&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;isometricOffAxis3Left&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis3Right&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis3Bottom&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;isometricOffAxis4Left&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis4Right&#39;</span><span class="p">,</span> <span class="s1">&#39;isometricOffAxis4Bottom&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;obliqueTopLeft&#39;</span><span class="p">,</span>  <span class="s1">&#39;obliqueTop&#39;</span><span class="p">,</span> <span class="s1">&#39;obliqueTopRight&#39;</span><span class="p">,</span> <span class="s1">&#39;obliqueLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;obliqueRight&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;obliqueBottomLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;obliqueBottom&#39;</span><span class="p">,</span> <span class="s1">&#39;obliqueBottomRight&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveFront&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;perspectiveLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveRight&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveAbove&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveBelow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;perspectiveAboveLeftFacing&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveAboveRightFacing&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;perspectiveContrastingLeftFacing&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveContrastingRightFacing&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;perspectiveHeroicLeftFacing&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveHeroicRightFacing&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;perspectiveHeroicExtremeLeftFacing&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveHeroicExtremeRightFacing&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;perspectiveRelaxed&#39;</span><span class="p">,</span> <span class="s1">&#39;perspectiveRelaxedModerately&#39;</span><span class="p">])</span>
+    <span class="n">fov</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">zoom</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Percentage</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">SphereCoords</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">prst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">fov</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">zoom</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prst</span> <span class="o">=</span> <span class="n">prst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fov</span> <span class="o">=</span> <span class="n">fov</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">zoom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span></div>
+
+
+
+<div class="viewcode-block" id="LightRig">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.LightRig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LightRig</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;lightRig&quot;</span>
+
+    <span class="n">rig</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;legacyFlat1&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyFlat2&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyFlat3&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyFlat4&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyNormal1&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyNormal2&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyNormal3&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyNormal4&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyHarsh1&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;legacyHarsh2&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyHarsh3&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyHarsh4&#39;</span><span class="p">,</span> <span class="s1">&#39;threePt&#39;</span><span class="p">,</span> <span class="s1">&#39;balanced&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;soft&#39;</span><span class="p">,</span> <span class="s1">&#39;harsh&#39;</span><span class="p">,</span> <span class="s1">&#39;flood&#39;</span><span class="p">,</span> <span class="s1">&#39;contrasting&#39;</span><span class="p">,</span> <span class="s1">&#39;morning&#39;</span><span class="p">,</span> <span class="s1">&#39;sunrise&#39;</span><span class="p">,</span> <span class="s1">&#39;sunset&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;chilly&#39;</span><span class="p">,</span> <span class="s1">&#39;freezing&#39;</span><span class="p">,</span> <span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="s1">&#39;twoPt&#39;</span><span class="p">,</span> <span class="s1">&#39;glow&#39;</span><span class="p">,</span> <span class="s1">&#39;brightRoom&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="nb">dir</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;tl&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;tr&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;bl&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;br&#39;</span><span class="p">]))</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">SphereCoords</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">rig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="nb">dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rig</span> <span class="o">=</span> <span class="n">rig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="nb">dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span></div>
+
+
+
+<div class="viewcode-block" id="Vector3D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Vector3D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Vector3D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;vector&quot;</span>
+
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span> <span class="c1"># can be in or universl measure :-/</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">dx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">dy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">dz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="n">dy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dz</span> <span class="o">=</span> <span class="n">dz</span></div>
+
+
+
+<div class="viewcode-block" id="Point3D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Point3D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Point3D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;anchor&quot;</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span></div>
+
+
+
+<div class="viewcode-block" id="Backdrop">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Backdrop">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Backdrop</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">anchor</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Point3D</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Vector3D</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">up</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Vector3D</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">extLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">OfficeArtExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">anchor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">up</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="n">anchor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">up</span> <span class="o">=</span> <span class="n">up</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span></div>
+
+
+
+<div class="viewcode-block" id="Scene3D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Scene3D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Scene3D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">lightRig</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">LightRig</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">backdrop</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Backdrop</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">OfficeArtExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lightRig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">backdrop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lightRig</span> <span class="o">=</span> <span class="n">lightRig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backdrop</span> <span class="o">=</span> <span class="n">backdrop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span></div>
+
+
+
+<div class="viewcode-block" id="Bevel">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Bevel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Bevel</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;bevel&quot;</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="n">prst</span> <span class="o">=</span> <span class="n">NoneSet</span><span class="p">(</span><span class="n">values</span><span class="o">=</span>
+               <span class="p">[</span><span class="s1">&#39;relaxedInset&#39;</span><span class="p">,</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;slope&#39;</span><span class="p">,</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span> <span class="s1">&#39;angle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;softRound&#39;</span><span class="p">,</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span> <span class="s1">&#39;coolSlant&#39;</span><span class="p">,</span> <span class="s1">&#39;divot&#39;</span><span class="p">,</span> <span class="s1">&#39;riblet&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;hardEdge&#39;</span><span class="p">,</span> <span class="s1">&#39;artDeco&#39;</span><span class="p">]</span>
+               <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">h</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">prst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prst</span> <span class="o">=</span> <span class="n">prst</span></div>
+
+
+
+<div class="viewcode-block" id="Shape3D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Shape3D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Shape3D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">z</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Coordinate</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extrusionH</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">contourW</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prstMaterial</span> <span class="o">=</span> <span class="n">NoneSet</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;legacyMatte&#39;</span><span class="p">,</span><span class="s1">&#39;legacyPlastic&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyMetal&#39;</span><span class="p">,</span> <span class="s1">&#39;legacyWireframe&#39;</span><span class="p">,</span> <span class="s1">&#39;matte&#39;</span><span class="p">,</span> <span class="s1">&#39;plastic&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;metal&#39;</span><span class="p">,</span> <span class="s1">&#39;warmMatte&#39;</span><span class="p">,</span> <span class="s1">&#39;translucentPowder&#39;</span><span class="p">,</span> <span class="s1">&#39;powder&#39;</span><span class="p">,</span> <span class="s1">&#39;dkEdge&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;softEdge&#39;</span><span class="p">,</span> <span class="s1">&#39;clear&#39;</span><span class="p">,</span> <span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="s1">&#39;softmetal&#39;</span><span class="p">]</span>
+                       <span class="p">)</span>
+    <span class="n">bevelT</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Bevel</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">bevelB</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Bevel</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extrusionClr</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Color</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">contourClr</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Color</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">OfficeArtExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extrusionH</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">contourW</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">prstMaterial</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">bevelT</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">bevelB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extrusionClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">contourClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extrusionH</span> <span class="o">=</span> <span class="n">extrusionH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contourW</span> <span class="o">=</span> <span class="n">contourW</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prstMaterial</span> <span class="o">=</span> <span class="n">prstMaterial</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bevelT</span> <span class="o">=</span> <span class="n">bevelT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bevelB</span> <span class="o">=</span> <span class="n">bevelB</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extrusionClr</span> <span class="o">=</span> <span class="n">extrusionClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contourClr</span> <span class="o">=</span> <span class="n">contourClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span></div>
+
+
+
+<div class="viewcode-block" id="Path2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Path2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Path2D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+    <span class="n">fill</span> <span class="o">=</span> <span class="n">NoneSet</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="s1">&#39;lighten&#39;</span><span class="p">,</span> <span class="s1">&#39;lightenLess&#39;</span><span class="p">,</span> <span class="s1">&#39;darken&#39;</span><span class="p">,</span> <span class="s1">&#39;darkenLess&#39;</span><span class="p">]))</span>
+    <span class="n">stroke</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extrusionOk</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">h</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">stroke</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extrusionOk</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">fill</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stroke</span> <span class="o">=</span> <span class="n">stroke</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extrusionOk</span> <span class="o">=</span> <span class="n">extrusionOk</span></div>
+
+
+
+<div class="viewcode-block" id="Path2DList">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Path2DList">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Path2DList</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Path2D</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span></div>
+
+
+
+<div class="viewcode-block" id="GeomRect">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.GeomRect">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeomRect</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">l</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">()</span>  <span class="c1"># noqa: E741</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">()</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">()</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+                 <span class="bp">self</span><span class="p">,</span>
+                 <span class="n">l</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: E741</span>
+                 <span class="n">t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">l</span>  <span class="c1"># noqa: E741</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span></div>
+
+
+
+<div class="viewcode-block" id="AdjPoint2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.AdjPoint2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdjPoint2D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span></div>
+
+
+
+<div class="viewcode-block" id="ConnectionSite">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.ConnectionSite">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConnectionSite</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">ang</span> <span class="o">=</span> <span class="n">MinMax</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">360</span><span class="p">)</span> <span class="c1"># guess work, can also be a name</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">AdjPoint2D</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">ang</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ang</span> <span class="o">=</span> <span class="n">ang</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span></div>
+
+
+
+<div class="viewcode-block" id="ConnectionSiteList">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.ConnectionSiteList">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConnectionSiteList</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">cxn</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">ConnectionSite</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">cxn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cxn</span> <span class="o">=</span> <span class="n">cxn</span></div>
+
+
+
+<div class="viewcode-block" id="AdjustHandleList">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.AdjustHandleList">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdjustHandleList</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="GeomGuide">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.GeomGuide">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeomGuide</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
+    <span class="n">fmla</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">fmla</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmla</span> <span class="o">=</span> <span class="n">fmla</span></div>
+
+
+
+<div class="viewcode-block" id="GeomGuideList">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.GeomGuideList">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeomGuideList</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">gd</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">GeomGuide</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">gd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gd</span> <span class="o">=</span> <span class="n">gd</span></div>
+
+
+
+<div class="viewcode-block" id="CustomGeometry2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.CustomGeometry2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomGeometry2D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">avLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">GeomGuideList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gdLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">GeomGuideList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ahLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">AdjustHandleList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cxnLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">ConnectionSiteList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#rect = Typed(expected_type=GeomRect, allow_none=True)</span>
+    <span class="n">pathLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Path2DList</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">avLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">gdLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ahLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">cxnLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">pathLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avLst</span> <span class="o">=</span> <span class="n">avLst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gdLst</span> <span class="o">=</span> <span class="n">gdLst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ahLst</span> <span class="o">=</span> <span class="n">ahLst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cxnLst</span> <span class="o">=</span> <span class="n">cxnLst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pathLst</span> <span class="o">=</span> <span class="n">pathLst</span></div>
+
+
+
+<div class="viewcode-block" id="PresetGeometry2D">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.PresetGeometry2D">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PresetGeometry2D</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">prst</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span>
+        <span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;lineInv&#39;</span><span class="p">,</span> <span class="s1">&#39;triangle&#39;</span><span class="p">,</span> <span class="s1">&#39;rtTriangle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;diamond&#39;</span><span class="p">,</span> <span class="s1">&#39;parallelogram&#39;</span><span class="p">,</span> <span class="s1">&#39;trapezoid&#39;</span><span class="p">,</span> <span class="s1">&#39;nonIsoscelesTrapezoid&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;pentagon&#39;</span><span class="p">,</span> <span class="s1">&#39;hexagon&#39;</span><span class="p">,</span> <span class="s1">&#39;heptagon&#39;</span><span class="p">,</span> <span class="s1">&#39;octagon&#39;</span><span class="p">,</span> <span class="s1">&#39;decagon&#39;</span><span class="p">,</span> <span class="s1">&#39;dodecagon&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;star4&#39;</span><span class="p">,</span> <span class="s1">&#39;star5&#39;</span><span class="p">,</span> <span class="s1">&#39;star6&#39;</span><span class="p">,</span> <span class="s1">&#39;star7&#39;</span><span class="p">,</span> <span class="s1">&#39;star8&#39;</span><span class="p">,</span> <span class="s1">&#39;star10&#39;</span><span class="p">,</span> <span class="s1">&#39;star12&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;star16&#39;</span><span class="p">,</span> <span class="s1">&#39;star24&#39;</span><span class="p">,</span> <span class="s1">&#39;star32&#39;</span><span class="p">,</span> <span class="s1">&#39;roundRect&#39;</span><span class="p">,</span> <span class="s1">&#39;round1Rect&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;round2SameRect&#39;</span><span class="p">,</span> <span class="s1">&#39;round2DiagRect&#39;</span><span class="p">,</span> <span class="s1">&#39;snipRoundRect&#39;</span><span class="p">,</span> <span class="s1">&#39;snip1Rect&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;snip2SameRect&#39;</span><span class="p">,</span> <span class="s1">&#39;snip2DiagRect&#39;</span><span class="p">,</span> <span class="s1">&#39;plaque&#39;</span><span class="p">,</span> <span class="s1">&#39;ellipse&#39;</span><span class="p">,</span> <span class="s1">&#39;teardrop&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;homePlate&#39;</span><span class="p">,</span> <span class="s1">&#39;chevron&#39;</span><span class="p">,</span> <span class="s1">&#39;pieWedge&#39;</span><span class="p">,</span> <span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="s1">&#39;blockArc&#39;</span><span class="p">,</span> <span class="s1">&#39;donut&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;noSmoking&#39;</span><span class="p">,</span> <span class="s1">&#39;rightArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;leftArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;upArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;downArrow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;stripedRightArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;notchedRightArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;bentUpArrow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;leftRightArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;upDownArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;leftUpArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;leftRightUpArrow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;quadArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;leftArrowCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;rightArrowCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;upArrowCallout&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;downArrowCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;leftRightArrowCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;upDownArrowCallout&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;quadArrowCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;bentArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;uturnArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;circularArrow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;leftCircularArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;leftRightCircularArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;curvedRightArrow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;curvedLeftArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;curvedUpArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;curvedDownArrow&#39;</span><span class="p">,</span> <span class="s1">&#39;swooshArrow&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="s1">&#39;can&#39;</span><span class="p">,</span> <span class="s1">&#39;lightningBolt&#39;</span><span class="p">,</span> <span class="s1">&#39;heart&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">,</span> <span class="s1">&#39;moon&#39;</span><span class="p">,</span> <span class="s1">&#39;smileyFace&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;irregularSeal1&#39;</span><span class="p">,</span> <span class="s1">&#39;irregularSeal2&#39;</span><span class="p">,</span> <span class="s1">&#39;foldedCorner&#39;</span><span class="p">,</span> <span class="s1">&#39;bevel&#39;</span><span class="p">,</span> <span class="s1">&#39;frame&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;halfFrame&#39;</span><span class="p">,</span> <span class="s1">&#39;corner&#39;</span><span class="p">,</span> <span class="s1">&#39;diagStripe&#39;</span><span class="p">,</span> <span class="s1">&#39;chord&#39;</span><span class="p">,</span> <span class="s1">&#39;arc&#39;</span><span class="p">,</span> <span class="s1">&#39;leftBracket&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;rightBracket&#39;</span><span class="p">,</span> <span class="s1">&#39;leftBrace&#39;</span><span class="p">,</span> <span class="s1">&#39;rightBrace&#39;</span><span class="p">,</span> <span class="s1">&#39;bracketPair&#39;</span><span class="p">,</span> <span class="s1">&#39;bracePair&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;straightConnector1&#39;</span><span class="p">,</span> <span class="s1">&#39;bentConnector2&#39;</span><span class="p">,</span> <span class="s1">&#39;bentConnector3&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;bentConnector4&#39;</span><span class="p">,</span> <span class="s1">&#39;bentConnector5&#39;</span><span class="p">,</span> <span class="s1">&#39;curvedConnector2&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;curvedConnector3&#39;</span><span class="p">,</span> <span class="s1">&#39;curvedConnector4&#39;</span><span class="p">,</span> <span class="s1">&#39;curvedConnector5&#39;</span><span class="p">,</span> <span class="s1">&#39;callout1&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;callout2&#39;</span><span class="p">,</span> <span class="s1">&#39;callout3&#39;</span><span class="p">,</span> <span class="s1">&#39;accentCallout1&#39;</span><span class="p">,</span> <span class="s1">&#39;accentCallout2&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;accentCallout3&#39;</span><span class="p">,</span> <span class="s1">&#39;borderCallout1&#39;</span><span class="p">,</span> <span class="s1">&#39;borderCallout2&#39;</span><span class="p">,</span> <span class="s1">&#39;borderCallout3&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;accentBorderCallout1&#39;</span><span class="p">,</span> <span class="s1">&#39;accentBorderCallout2&#39;</span><span class="p">,</span> <span class="s1">&#39;accentBorderCallout3&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;wedgeRectCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;wedgeRoundRectCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;wedgeEllipseCallout&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;cloudCallout&#39;</span><span class="p">,</span> <span class="s1">&#39;cloud&#39;</span><span class="p">,</span> <span class="s1">&#39;ribbon&#39;</span><span class="p">,</span> <span class="s1">&#39;ribbon2&#39;</span><span class="p">,</span> <span class="s1">&#39;ellipseRibbon&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;ellipseRibbon2&#39;</span><span class="p">,</span> <span class="s1">&#39;leftRightRibbon&#39;</span><span class="p">,</span> <span class="s1">&#39;verticalScroll&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;horizontalScroll&#39;</span><span class="p">,</span> <span class="s1">&#39;wave&#39;</span><span class="p">,</span> <span class="s1">&#39;doubleWave&#39;</span><span class="p">,</span> <span class="s1">&#39;plus&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartProcess&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartDecision&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartInputOutput&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartPredefinedProcess&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartInternalStorage&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartDocument&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartMultidocument&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartTerminator&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartPreparation&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartManualInput&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartManualOperation&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartConnector&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartPunchedCard&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartPunchedTape&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartSummingJunction&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartOr&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartCollate&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartSort&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartExtract&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartMerge&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartOfflineStorage&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartOnlineStorage&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartMagneticTape&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartMagneticDisk&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartMagneticDrum&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartDisplay&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartDelay&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;flowChartAlternateProcess&#39;</span><span class="p">,</span> <span class="s1">&#39;flowChartOffpageConnector&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;actionButtonBlank&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonHome&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonHelp&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;actionButtonInformation&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonForwardNext&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;actionButtonBackPrevious&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonEnd&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonBeginning&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;actionButtonReturn&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonDocument&#39;</span><span class="p">,</span> <span class="s1">&#39;actionButtonSound&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;actionButtonMovie&#39;</span><span class="p">,</span> <span class="s1">&#39;gear6&#39;</span><span class="p">,</span> <span class="s1">&#39;gear9&#39;</span><span class="p">,</span> <span class="s1">&#39;funnel&#39;</span><span class="p">,</span> <span class="s1">&#39;mathPlus&#39;</span><span class="p">,</span> <span class="s1">&#39;mathMinus&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;mathMultiply&#39;</span><span class="p">,</span> <span class="s1">&#39;mathDivide&#39;</span><span class="p">,</span> <span class="s1">&#39;mathEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;mathNotEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;cornerTabs&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;squareTabs&#39;</span><span class="p">,</span> <span class="s1">&#39;plaqueTabs&#39;</span><span class="p">,</span> <span class="s1">&#39;chartX&#39;</span><span class="p">,</span> <span class="s1">&#39;chartStar&#39;</span><span class="p">,</span> <span class="s1">&#39;chartPlus&#39;</span><span class="p">]))</span>
+    <span class="n">avLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">GeomGuideList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">prst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">avLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prst</span> <span class="o">=</span> <span class="n">prst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avLst</span> <span class="o">=</span> <span class="n">avLst</span></div>
+
+
+
+<div class="viewcode-block" id="FontReference">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.FontReference">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FontReference</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">NoneSet</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;minor&#39;</span><span class="p">]))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">idx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span></div>
+
+
+
+<div class="viewcode-block" id="StyleMatrixReference">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.StyleMatrixReference">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StyleMatrixReference</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">idx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span></div>
+
+
+
+<div class="viewcode-block" id="ShapeStyle">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.ShapeStyle">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ShapeStyle</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">lnRef</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">StyleMatrixReference</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">fillRef</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">StyleMatrixReference</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">effectRef</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">StyleMatrixReference</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">fontRef</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">FontReference</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">lnRef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">fillRef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">effectRef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">fontRef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lnRef</span> <span class="o">=</span> <span class="n">lnRef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fillRef</span> <span class="o">=</span> <span class="n">fillRef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">effectRef</span> <span class="o">=</span> <span class="n">effectRef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fontRef</span> <span class="o">=</span> <span class="n">fontRef</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1376 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.drawing.text module &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.drawing.xdr module" href="fastpyxl.drawing.xdr.html" />
+    <link rel="prev" title="fastpyxl.drawing.spreadsheet_drawing module" href="fastpyxl.drawing.spreadsheet_drawing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.drawing.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="fastpyxl.drawing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.drawing.text module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.drawing.text.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.drawing.text">
+<span id="fastpyxl-drawing-text-module"></span><h1>fastpyxl.drawing.text module<a class="headerlink" href="#module-fastpyxl.drawing.text" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.AutonumberBullet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">AutonumberBullet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startAt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#AutonumberBullet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.AutonumberBullet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.AutonumberBullet.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.AutonumberBullet.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.AutonumberBullet.startAt">
+<span class="sig-name descname"><span class="pre">startAt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.AutonumberBullet.startAt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.AutonumberBullet.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'buAutoNum'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.AutonumberBullet.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.AutonumberBullet.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.AutonumberBullet.type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">CharacterProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kumimoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">altLang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strike</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalizeH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noProof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smtClean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smtId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bmk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ln</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highlight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ea</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hlinkClick</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hlinkMouseOver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solidFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blipFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grpFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">effectLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">effectDag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uLnTx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uLn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uFillTx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uFill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#CharacterProperties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.altLang">
+<span class="sig-name descname"><span class="pre">altLang</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.altLang" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.b">
+<span class="sig-name descname"><span class="pre">b</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.b" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.baseline">
+<span class="sig-name descname"><span class="pre">baseline</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.baseline" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.blipFill">
+<span class="sig-name descname"><span class="pre">blipFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.fill.html#fastpyxl.drawing.fill.BlipFillProperties" title="fastpyxl.drawing.fill.BlipFillProperties"><span class="pre">BlipFillProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.blipFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.bmk">
+<span class="sig-name descname"><span class="pre">bmk</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.bmk" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.cap">
+<span class="sig-name descname"><span class="pre">cap</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.cap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.cs">
+<span class="sig-name descname"><span class="pre">cs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Font" title="fastpyxl.drawing.text.Font"><span class="pre">Font</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.cs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.dirty">
+<span class="sig-name descname"><span class="pre">dirty</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.dirty" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.ea">
+<span class="sig-name descname"><span class="pre">ea</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Font" title="fastpyxl.drawing.text.Font"><span class="pre">Font</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.ea" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.effectDag">
+<span class="sig-name descname"><span class="pre">effectDag</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.effect.html#fastpyxl.drawing.effect.EffectContainer" title="fastpyxl.drawing.effect.EffectContainer"><span class="pre">EffectContainer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.effectDag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.effectLst">
+<span class="sig-name descname"><span class="pre">effectLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.effect.html#fastpyxl.drawing.effect.EffectList" title="fastpyxl.drawing.effect.EffectList"><span class="pre">EffectList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.effectLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.err">
+<span class="sig-name descname"><span class="pre">err</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.err" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.descriptors.excel.html#fastpyxl.descriptors.excel.ExtensionList" title="fastpyxl.descriptors.excel.ExtensionList"><span class="pre">ExtensionList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.extLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.gradFill">
+<span class="sig-name descname"><span class="pre">gradFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.fill.html#fastpyxl.drawing.fill.GradientFillProperties" title="fastpyxl.drawing.fill.GradientFillProperties"><span class="pre">GradientFillProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.gradFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.grpFill">
+<span class="sig-name descname"><span class="pre">grpFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_CharGrpFill</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.grpFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.highlight">
+<span class="sig-name descname"><span class="pre">highlight</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color" title="fastpyxl.styles.colors.Color"><span class="pre">Color</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.highlight" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.hlinkClick">
+<span class="sig-name descname"><span class="pre">hlinkClick</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Hyperlink" title="fastpyxl.drawing.text.Hyperlink"><span class="pre">Hyperlink</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.hlinkClick" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.hlinkMouseOver">
+<span class="sig-name descname"><span class="pre">hlinkMouseOver</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Hyperlink" title="fastpyxl.drawing.text.Hyperlink"><span class="pre">Hyperlink</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.hlinkMouseOver" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.i">
+<span class="sig-name descname"><span class="pre">i</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.i" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.kern">
+<span class="sig-name descname"><span class="pre">kern</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.kern" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.kumimoji">
+<span class="sig-name descname"><span class="pre">kumimoji</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.kumimoji" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.lang">
+<span class="sig-name descname"><span class="pre">lang</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.lang" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.latin">
+<span class="sig-name descname"><span class="pre">latin</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Font" title="fastpyxl.drawing.text.Font"><span class="pre">Font</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.latin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.ln">
+<span class="sig-name descname"><span class="pre">ln</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.line.html#fastpyxl.drawing.line.LineProperties" title="fastpyxl.drawing.line.LineProperties"><span class="pre">LineProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.ln" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.noFill">
+<span class="sig-name descname"><span class="pre">noFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_CharNoFill</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.noFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.noProof">
+<span class="sig-name descname"><span class="pre">noProof</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.noProof" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.normalizeH">
+<span class="sig-name descname"><span class="pre">normalizeH</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.normalizeH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.pattFill">
+<span class="sig-name descname"><span class="pre">pattFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.fill.html#fastpyxl.drawing.fill.PatternFillProperties" title="fastpyxl.drawing.fill.PatternFillProperties"><span class="pre">PatternFillProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.pattFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.rtl">
+<span class="sig-name descname"><span class="pre">rtl</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.rtl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.smtClean">
+<span class="sig-name descname"><span class="pre">smtClean</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.smtClean" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.smtId">
+<span class="sig-name descname"><span class="pre">smtId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.smtId" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.solidFill">
+<span class="sig-name descname"><span class="pre">solidFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoice" title="fastpyxl.drawing.colors.ColorChoice"><span class="pre">ColorChoice</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.solidFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.spc">
+<span class="sig-name descname"><span class="pre">spc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.spc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.strike">
+<span class="sig-name descname"><span class="pre">strike</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.strike" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.sym">
+<span class="sig-name descname"><span class="pre">sym</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Font" title="fastpyxl.drawing.text.Font"><span class="pre">Font</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.sym" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.sz">
+<span class="sig-name descname"><span class="pre">sz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.sz" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'defRPr'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.u">
+<span class="sig-name descname"><span class="pre">u</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.u" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.uFill">
+<span class="sig-name descname"><span class="pre">uFill</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_CharUFill</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.uFill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.uFillTx">
+<span class="sig-name descname"><span class="pre">uFillTx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_CharUFillTx</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.uFillTx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.uLn">
+<span class="sig-name descname"><span class="pre">uLn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.line.html#fastpyxl.drawing.line.LineProperties" title="fastpyxl.drawing.line.LineProperties"><span class="pre">LineProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.uLn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.uLnTx">
+<span class="sig-name descname"><span class="pre">uLnTx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_CharULnTx</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.uLnTx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.CharacterProperties.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('ln',</span> <span class="pre">'noFill',</span> <span class="pre">'solidFill',</span> <span class="pre">'gradFill',</span> <span class="pre">'blipFill',</span> <span class="pre">'pattFill',</span> <span class="pre">'grpFill',</span> <span class="pre">'effectLst',</span> <span class="pre">'effectDag',</span> <span class="pre">'highlight',</span> <span class="pre">'uLnTx',</span> <span class="pre">'uLn',</span> <span class="pre">'uFillTx',</span> <span class="pre">'uFill',</span> <span class="pre">'latin',</span> <span class="pre">'ea',</span> <span class="pre">'cs',</span> <span class="pre">'sym',</span> <span class="pre">'hlinkClick',</span> <span class="pre">'hlinkMouseOver',</span> <span class="pre">'rtl')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.CharacterProperties.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.EmbeddedWAVAudioFile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">EmbeddedWAVAudioFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#EmbeddedWAVAudioFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.EmbeddedWAVAudioFile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.EmbeddedWAVAudioFile.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.EmbeddedWAVAudioFile.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.EmbeddedWAVAudioFile.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.EmbeddedWAVAudioFile.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.EmbeddedWAVAudioFile.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'snd'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.EmbeddedWAVAudioFile.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">Font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typeface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pitchFamily</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#Font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.Font" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font.charset">
+<span class="sig-name descname"><span class="pre">charset</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Font.charset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Font.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font.panose">
+<span class="sig-name descname"><span class="pre">panose</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Font.panose" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font.pitchFamily">
+<span class="sig-name descname"><span class="pre">pitchFamily</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Font.pitchFamily" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'latin'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Font.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Font.typeface">
+<span class="sig-name descname"><span class="pre">typeface</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Font.typeface" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuide">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">GeomGuide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmla</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#GeomGuide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuide" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuide.fmla">
+<span class="sig-name descname"><span class="pre">fmla</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuide.fmla" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuide.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuide.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuide.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuide.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuide.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gd'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuide.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuideList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">GeomGuideList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#GeomGuideList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuideList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuideList.gd">
+<span class="sig-name descname"><span class="pre">gd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#fastpyxl.drawing.text.GeomGuide" title="fastpyxl.drawing.text.GeomGuide"><span class="pre">GeomGuide</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuideList.gd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuideList.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuideList.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.GeomGuideList.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'avLst'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.GeomGuideList.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">Hyperlink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invalidUrl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgtFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tooltip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highlightClick</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endSnd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#Hyperlink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.action" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.endSnd">
+<span class="sig-name descname"><span class="pre">endSnd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.endSnd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.descriptors.excel.html#fastpyxl.descriptors.excel.ExtensionList" title="fastpyxl.descriptors.excel.ExtensionList"><span class="pre">ExtensionList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.extLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.highlightClick">
+<span class="sig-name descname"><span class="pre">highlightClick</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.highlightClick" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.history">
+<span class="sig-name descname"><span class="pre">history</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.history" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.invalidUrl">
+<span class="sig-name descname"><span class="pre">invalidUrl</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.invalidUrl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.snd">
+<span class="sig-name descname"><span class="pre">snd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.EmbeddedWAVAudioFile" title="fastpyxl.drawing.text.EmbeddedWAVAudioFile"><span class="pre">EmbeddedWAVAudioFile</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.snd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hlinkClick'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.tgtFrame">
+<span class="sig-name descname"><span class="pre">tgtFrame</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.tgtFrame" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.tooltip">
+<span class="sig-name descname"><span class="pre">tooltip</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.tooltip" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Hyperlink.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('snd',)</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Hyperlink.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.LineBreak">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">LineBreak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#LineBreak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.LineBreak" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.LineBreak.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.LineBreak.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.LineBreak.rPr">
+<span class="sig-name descname"><span class="pre">rPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.CharacterProperties" title="fastpyxl.drawing.text.CharacterProperties"><span class="pre">CharacterProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.LineBreak.rPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.LineBreak.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'br'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.LineBreak.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">ListStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defPPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl1pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl2pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl3pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl4pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl5pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl6pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl7pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl8pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl9pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#ListStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.defPPr">
+<span class="sig-name descname"><span class="pre">defPPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.defPPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.descriptors.excel.html#fastpyxl.descriptors.excel.ExtensionList" title="fastpyxl.descriptors.excel.ExtensionList"><span class="pre">ExtensionList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.extLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl1pPr">
+<span class="sig-name descname"><span class="pre">lvl1pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl1pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl2pPr">
+<span class="sig-name descname"><span class="pre">lvl2pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl2pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl3pPr">
+<span class="sig-name descname"><span class="pre">lvl3pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl3pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl4pPr">
+<span class="sig-name descname"><span class="pre">lvl4pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl4pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl5pPr">
+<span class="sig-name descname"><span class="pre">lvl5pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl5pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl6pPr">
+<span class="sig-name descname"><span class="pre">lvl6pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl6pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl7pPr">
+<span class="sig-name descname"><span class="pre">lvl7pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl7pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl8pPr">
+<span class="sig-name descname"><span class="pre">lvl8pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl8pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.lvl9pPr">
+<span class="sig-name descname"><span class="pre">lvl9pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.lvl9pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lstStyle'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ListStyle.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('defPPr',</span> <span class="pre">'lvl1pPr',</span> <span class="pre">'lvl2pPr',</span> <span class="pre">'lvl3pPr',</span> <span class="pre">'lvl4pPr',</span> <span class="pre">'lvl5pPr',</span> <span class="pre">'lvl6pPr',</span> <span class="pre">'lvl7pPr',</span> <span class="pre">'lvl8pPr',</span> <span class="pre">'lvl9pPr')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ListStyle.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">Paragraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endParaRPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">br</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#Paragraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.br">
+<span class="sig-name descname"><span class="pre">br</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.LineBreak" title="fastpyxl.drawing.text.LineBreak"><span class="pre">LineBreak</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.br" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.endParaRPr">
+<span class="sig-name descname"><span class="pre">endParaRPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.CharacterProperties" title="fastpyxl.drawing.text.CharacterProperties"><span class="pre">CharacterProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.endParaRPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.fld">
+<span class="sig-name descname"><span class="pre">fld</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.TextField" title="fastpyxl.drawing.text.TextField"><span class="pre">TextField</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.fld" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.pPr">
+<span class="sig-name descname"><span class="pre">pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.properties">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">properties</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.properties" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.r">
+<span class="sig-name descname"><span class="pre">r</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#fastpyxl.drawing.text.RegularTextRun" title="fastpyxl.drawing.text.RegularTextRun"><span class="pre">RegularTextRun</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.r" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'p'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.text">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.text" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Paragraph.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('pPr',</span> <span class="pre">'r',</span> <span class="pre">'br',</span> <span class="pre">'fld',</span> <span class="pre">'endParaRPr')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Paragraph.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">ParagraphProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marL</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lvl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defTabSz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eaLnBrk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontAlgn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latinLnBrk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hangingPunct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lnSpc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spcBef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spcAft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tabLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defRPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buClrTx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buClr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buSzTx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buSzPct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buSzPts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buFontTx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buFont</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buNone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buAutoNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buChar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buBlip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#ParagraphProperties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.algn">
+<span class="sig-name descname"><span class="pre">algn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.algn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buAutoNum">
+<span class="sig-name descname"><span class="pre">buAutoNum</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_PPrBuAutoNum</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buAutoNum" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buBlip">
+<span class="sig-name descname"><span class="pre">buBlip</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.fill.html#fastpyxl.drawing.fill.Blip" title="fastpyxl.drawing.fill.Blip"><span class="pre">Blip</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buBlip" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buChar">
+<span class="sig-name descname"><span class="pre">buChar</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buChar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buClr">
+<span class="sig-name descname"><span class="pre">buClr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color" title="fastpyxl.styles.colors.Color"><span class="pre">Color</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buClr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buClrTx">
+<span class="sig-name descname"><span class="pre">buClrTx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_PPrBuClrTx</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buClrTx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buFont">
+<span class="sig-name descname"><span class="pre">buFont</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Font" title="fastpyxl.drawing.text.Font"><span class="pre">Font</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buFont" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buFontTx">
+<span class="sig-name descname"><span class="pre">buFontTx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_PPrBuFontTx</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buFontTx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buNone">
+<span class="sig-name descname"><span class="pre">buNone</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_PPrBuNone</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buNone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buSzPct">
+<span class="sig-name descname"><span class="pre">buSzPct</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buSzPct" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buSzPts">
+<span class="sig-name descname"><span class="pre">buSzPts</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buSzPts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.buSzTx">
+<span class="sig-name descname"><span class="pre">buSzTx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_PPrBuSzTx</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.buSzTx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.defRPr">
+<span class="sig-name descname"><span class="pre">defRPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.CharacterProperties" title="fastpyxl.drawing.text.CharacterProperties"><span class="pre">CharacterProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.defRPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.defTabSz">
+<span class="sig-name descname"><span class="pre">defTabSz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.defTabSz" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.eaLnBrk">
+<span class="sig-name descname"><span class="pre">eaLnBrk</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.eaLnBrk" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.descriptors.excel.html#fastpyxl.descriptors.excel.ExtensionList" title="fastpyxl.descriptors.excel.ExtensionList"><span class="pre">ExtensionList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.extLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.fontAlgn">
+<span class="sig-name descname"><span class="pre">fontAlgn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.fontAlgn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.hangingPunct">
+<span class="sig-name descname"><span class="pre">hangingPunct</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.hangingPunct" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.indent">
+<span class="sig-name descname"><span class="pre">indent</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.indent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.latinLnBrk">
+<span class="sig-name descname"><span class="pre">latinLnBrk</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.latinLnBrk" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.lnSpc">
+<span class="sig-name descname"><span class="pre">lnSpc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Spacing" title="fastpyxl.drawing.text.Spacing"><span class="pre">Spacing</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.lnSpc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.lvl">
+<span class="sig-name descname"><span class="pre">lvl</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.lvl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.marL">
+<span class="sig-name descname"><span class="pre">marL</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.marL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.marR">
+<span class="sig-name descname"><span class="pre">marR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.marR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.rtl">
+<span class="sig-name descname"><span class="pre">rtl</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.rtl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.spcAft">
+<span class="sig-name descname"><span class="pre">spcAft</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Spacing" title="fastpyxl.drawing.text.Spacing"><span class="pre">Spacing</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.spcAft" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.spcBef">
+<span class="sig-name descname"><span class="pre">spcBef</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.Spacing" title="fastpyxl.drawing.text.Spacing"><span class="pre">Spacing</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.spcBef" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.tabLst">
+<span class="sig-name descname"><span class="pre">tabLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.TabStopList" title="fastpyxl.drawing.text.TabStopList"><span class="pre">TabStopList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.tabLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pPr'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.ParagraphProperties.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('lnSpc',</span> <span class="pre">'spcBef',</span> <span class="pre">'spcAft',</span> <span class="pre">'tabLst',</span> <span class="pre">'defRPr',</span> <span class="pre">'buClrTx',</span> <span class="pre">'buClr',</span> <span class="pre">'buSzTx',</span> <span class="pre">'buSzPct',</span> <span class="pre">'buSzPts',</span> <span class="pre">'buFontTx',</span> <span class="pre">'buFont',</span> <span class="pre">'buNone',</span> <span class="pre">'buAutoNum',</span> <span class="pre">'buChar',</span> <span class="pre">'buBlip')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.ParagraphProperties.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.PresetTextShape">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">PresetTextShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#PresetTextShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.PresetTextShape" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.PresetTextShape.avLst">
+<span class="sig-name descname"><span class="pre">avLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.GeomGuideList" title="fastpyxl.drawing.text.GeomGuideList"><span class="pre">GeomGuideList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.PresetTextShape.avLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.PresetTextShape.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.PresetTextShape.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.PresetTextShape.prst">
+<span class="sig-name descname"><span class="pre">prst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.PresetTextShape.prst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.PresetTextShape.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('prst',</span> <span class="pre">'avLst')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.PresetTextShape.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">RegularTextRun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#RegularTextRun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.properties">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">properties</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.properties" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.rPr">
+<span class="sig-name descname"><span class="pre">rPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.CharacterProperties" title="fastpyxl.drawing.text.CharacterProperties"><span class="pre">CharacterProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.rPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.t">
+<span class="sig-name descname"><span class="pre">t</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.t" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'r'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.value">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RegularTextRun.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('rPr',</span> <span class="pre">'t')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RegularTextRun.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">RichTextProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spcFirstLastPara</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertOverflow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horzOverflow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lIns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tIns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rIns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bIns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numCol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spcCol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtlCol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromWordArt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchorCtr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceAA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upright</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compatLnSpc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prstTxWarp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noAutofit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normAutofit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spAutoFit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatTx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#RichTextProperties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.anchor">
+<span class="sig-name descname"><span class="pre">anchor</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.anchor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.anchorCtr">
+<span class="sig-name descname"><span class="pre">anchorCtr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.anchorCtr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.bIns">
+<span class="sig-name descname"><span class="pre">bIns</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.bIns" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.compatLnSpc">
+<span class="sig-name descname"><span class="pre">compatLnSpc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.compatLnSpc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.descriptors.excel.html#fastpyxl.descriptors.excel.ExtensionList" title="fastpyxl.descriptors.excel.ExtensionList"><span class="pre">ExtensionList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.extLst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.flatTx">
+<span class="sig-name descname"><span class="pre">flatTx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.flatTx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.forceAA">
+<span class="sig-name descname"><span class="pre">forceAA</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.forceAA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.fromWordArt">
+<span class="sig-name descname"><span class="pre">fromWordArt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.fromWordArt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.horzOverflow">
+<span class="sig-name descname"><span class="pre">horzOverflow</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.horzOverflow" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.lIns">
+<span class="sig-name descname"><span class="pre">lIns</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.lIns" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.noAutofit">
+<span class="sig-name descname"><span class="pre">noAutofit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_BodyNoAutofit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.noAutofit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.normAutofit">
+<span class="sig-name descname"><span class="pre">normAutofit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_BodyNormAutofit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.normAutofit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.numCol">
+<span class="sig-name descname"><span class="pre">numCol</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.numCol" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.prstTxWarp">
+<span class="sig-name descname"><span class="pre">prstTxWarp</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.PresetTextShape" title="fastpyxl.drawing.text.PresetTextShape"><span class="pre">PresetTextShape</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.prstTxWarp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.rIns">
+<span class="sig-name descname"><span class="pre">rIns</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.rIns" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.rot">
+<span class="sig-name descname"><span class="pre">rot</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.rot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.rtlCol">
+<span class="sig-name descname"><span class="pre">rtlCol</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.rtlCol" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.scene3d">
+<span class="sig-name descname"><span class="pre">scene3d</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fastpyxl.drawing.geometry.html#fastpyxl.drawing.geometry.Scene3D" title="fastpyxl.drawing.geometry.Scene3D"><span class="pre">Scene3D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.scene3d" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.spAutoFit">
+<span class="sig-name descname"><span class="pre">spAutoFit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_BodySpAutoFit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.spAutoFit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.spcCol">
+<span class="sig-name descname"><span class="pre">spcCol</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.spcCol" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.spcFirstLastPara">
+<span class="sig-name descname"><span class="pre">spcFirstLastPara</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.spcFirstLastPara" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.tIns">
+<span class="sig-name descname"><span class="pre">tIns</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.tIns" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bodyPr'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.upright">
+<span class="sig-name descname"><span class="pre">upright</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.upright" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.vert">
+<span class="sig-name descname"><span class="pre">vert</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.vert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.vertOverflow">
+<span class="sig-name descname"><span class="pre">vertOverflow</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.vertOverflow" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.wrap">
+<span class="sig-name descname"><span class="pre">wrap</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.wrap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.RichTextProperties.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('prstTxWarp',</span> <span class="pre">'scene3d',</span> <span class="pre">'noAutofit',</span> <span class="pre">'normAutofit',</span> <span class="pre">'spAutoFit')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.RichTextProperties.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Spacing">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">Spacing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spcPct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spcPts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#Spacing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.Spacing" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Spacing.spcPct">
+<span class="sig-name descname"><span class="pre">spcPct</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Spacing.spcPct" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Spacing.spcPts">
+<span class="sig-name descname"><span class="pre">spcPts</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Spacing.spcPts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.Spacing.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('spcPct',</span> <span class="pre">'spcPts')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.Spacing.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStop">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">TabStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#TabStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.TabStop" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStop.algn">
+<span class="sig-name descname"><span class="pre">algn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStop.algn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStop.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStop.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStop.pos">
+<span class="sig-name descname"><span class="pre">pos</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStop.pos" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStop.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tab'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStop.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStopList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">TabStopList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#TabStopList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.TabStopList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStopList.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStopList.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStopList.tab">
+<span class="sig-name descname"><span class="pre">tab</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.TabStop" title="fastpyxl.drawing.text.TabStop"><span class="pre">TabStop</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStopList.tab" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TabStopList.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tabLst'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TabStopList.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">TextField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pPr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#TextField"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.TextField" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextField.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField.pPr">
+<span class="sig-name descname"><span class="pre">pPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.ParagraphProperties" title="fastpyxl.drawing.text.ParagraphProperties"><span class="pre">ParagraphProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextField.pPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField.rPr">
+<span class="sig-name descname"><span class="pre">rPr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.text.CharacterProperties" title="fastpyxl.drawing.text.CharacterProperties"><span class="pre">CharacterProperties</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextField.rPr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField.t">
+<span class="sig-name descname"><span class="pre">t</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextField.t" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextField.type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextField.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('rPr',</span> <span class="pre">'pPr')</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextField.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextNormalAutofit">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.text.</span></span><span class="sig-name descname"><span class="pre">TextNormalAutofit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fontScale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lnSpcReduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/text.html#TextNormalAutofit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.text.TextNormalAutofit" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextNormalAutofit.fontScale">
+<span class="sig-name descname"><span class="pre">fontScale</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextNormalAutofit.fontScale" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextNormalAutofit.lnSpcReduction">
+<span class="sig-name descname"><span class="pre">lnSpcReduction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextNormalAutofit.lnSpcReduction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextNormalAutofit.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextNormalAutofit.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.text.TextNormalAutofit.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'normAutofit'</span></span><a class="headerlink" href="#fastpyxl.drawing.text.TextNormalAutofit.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.drawing.spreadsheet_drawing.html" class="btn btn-neutral float-left" title="fastpyxl.drawing.spreadsheet_drawing module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.drawing.xdr.html" class="btn btn-neutral float-right" title="fastpyxl.drawing.xdr module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1042 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.drawing.geometry module &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.drawing.graphic module" href="fastpyxl.drawing.graphic.html" />
+    <link rel="prev" title="fastpyxl.drawing.fill module" href="fastpyxl.drawing.fill.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.drawing.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="fastpyxl.drawing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.drawing.geometry module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.drawing.geometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.drawing.geometry">
+<span id="fastpyxl-drawing-geometry-module"></span><h1>fastpyxl.drawing.geometry module<a class="headerlink" href="#module-fastpyxl.drawing.geometry" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.AdjPoint2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">AdjPoint2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#AdjPoint2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.AdjPoint2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.AdjPoint2D.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.AdjPoint2D.x" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.AdjPoint2D.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.AdjPoint2D.y" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.AdjustHandleList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">AdjustHandleList</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#AdjustHandleList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.AdjustHandleList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Backdrop">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Backdrop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Backdrop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Backdrop" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Backdrop.anchor">
+<span class="sig-name descname"><span class="pre">anchor</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Backdrop.anchor" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Point3D’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Backdrop.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Backdrop.extLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.descriptors.excel.ExtensionList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Backdrop.norm">
+<span class="sig-name descname"><span class="pre">norm</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Backdrop.norm" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Vector3D’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Backdrop.up">
+<span class="sig-name descname"><span class="pre">up</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Backdrop.up" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Vector3D’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Bevel">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Bevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Bevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Bevel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Bevel.h">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Bevel.h" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Bevel.prst">
+<span class="sig-name descname"><span class="pre">prst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Bevel.prst" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘circle’, ‘artDeco’, ‘relaxedInset’, ‘divot’, ‘convex’, ‘angle’, ‘slope’, ‘cross’, ‘softRound’, ‘riblet’, ‘coolSlant’, ‘hardEdge’}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Bevel.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bevel'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Bevel.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Bevel.w">
+<span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Bevel.w" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Camera">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Camera" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Camera.fov">
+<span class="sig-name descname"><span class="pre">fov</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Camera.fov" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Camera.prst">
+<span class="sig-name descname"><span class="pre">prst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Camera.prst" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘isometricTopUp’, ‘perspectiveContrastingLeftFacing’, ‘perspectiveContrastingRightFacing’, ‘obliqueBottomLeft’, ‘isometricOffAxis2Left’, ‘legacyObliqueRight’, ‘perspectiveAbove’, ‘perspectiveBelow’, ‘isometricRightDown’, ‘isometricOffAxis3Right’, ‘obliqueBottom’, ‘isometricOffAxis3Bottom’, ‘legacyPerspectiveRight’, ‘obliqueBottomRight’, ‘isometricOffAxis4Bottom’, ‘isometricOffAxis1Top’, ‘perspectiveHeroicLeftFacing’, ‘legacyPerspectiveBottom’, ‘isometricLeftUp’, ‘perspectiveFront’, ‘legacyPerspectiveFront’, ‘legacyPerspectiveBottomRight’, ‘perspectiveHeroicRightFacing’, ‘isometricTopDown’, ‘obliqueTopLeft’, ‘perspectiveHeroicExtremeRightFacing’, ‘legacyPerspectiveLeft’, ‘perspectiveHeroicExtremeLeftFacing’, ‘legacyObliqueBottomRight’, ‘legacyPerspectiveTop’, ‘legacyObliqueBottom’, ‘perspectiveRight’, ‘orthographicFront’, ‘legacyPerspectiveTopRight’, ‘legacyObliqueLeft’, ‘legacyObliqueBottomLeft’, ‘perspectiveAboveLeftFacing’, ‘isometricOffAxis4Right’, ‘isometricRightUp’, ‘legacyPerspectiveBottomLeft’, ‘isometricLeftDown’, ‘isometricOffAxis1Left’, ‘legacyObliqueTopLeft’, ‘isometricBottomDown’, ‘isometricOffAxis1Right’, ‘isometricOffAxis3Left’, ‘obliqueTop’, ‘isometricBottomUp’, ‘isometricOffAxis4Left’, ‘obliqueLeft’, ‘obliqueRight’, ‘isometricOffAxis2Right’, ‘perspectiveRelaxed’, ‘obliqueTopRight’, ‘legacyObliqueFront’, ‘legacyPerspectiveTopLeft’, ‘legacyObliqueTopRight’, ‘perspectiveLeft’, ‘perspectiveAboveRightFacing’, ‘isometricOffAxis2Top’, ‘legacyObliqueTop’, ‘perspectiveRelaxedModerately’}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Camera.rot">
+<span class="sig-name descname"><span class="pre">rot</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Camera.rot" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.SphereCoords’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Camera.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'camera'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Camera.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Camera.zoom">
+<span class="sig-name descname"><span class="pre">zoom</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Camera.zoom" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.descriptors.excel.Percentage’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ConnectionSite">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">ConnectionSite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#ConnectionSite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.ConnectionSite" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ConnectionSite.ang">
+<span class="sig-name descname"><span class="pre">ang</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ConnectionSite.ang" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘float’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ConnectionSite.pos">
+<span class="sig-name descname"><span class="pre">pos</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ConnectionSite.pos" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.AdjPoint2D’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ConnectionSiteList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">ConnectionSiteList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cxn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#ConnectionSiteList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.ConnectionSiteList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ConnectionSiteList.cxn">
+<span class="sig-name descname"><span class="pre">cxn</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ConnectionSiteList.cxn" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.ConnectionSite’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.CustomGeometry2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">CustomGeometry2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">avLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ahLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cxnLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#CustomGeometry2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.CustomGeometry2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.CustomGeometry2D.ahLst">
+<span class="sig-name descname"><span class="pre">ahLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.CustomGeometry2D.ahLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.AdjustHandleList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.CustomGeometry2D.avLst">
+<span class="sig-name descname"><span class="pre">avLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.CustomGeometry2D.avLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.GeomGuideList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.CustomGeometry2D.cxnLst">
+<span class="sig-name descname"><span class="pre">cxnLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.CustomGeometry2D.cxnLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.ConnectionSiteList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.CustomGeometry2D.gdLst">
+<span class="sig-name descname"><span class="pre">gdLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.CustomGeometry2D.gdLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.GeomGuideList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.CustomGeometry2D.pathLst">
+<span class="sig-name descname"><span class="pre">pathLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.CustomGeometry2D.pathLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Path2DList’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.FontReference">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">FontReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#FontReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.FontReference" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.FontReference.idx">
+<span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.FontReference.idx" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘major’, ‘minor’}</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomGuide">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">GeomGuide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmla</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#GeomGuide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomGuide" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomGuide.fmla">
+<span class="sig-name descname"><span class="pre">fmla</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomGuide.fmla" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘str’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomGuide.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomGuide.name" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘str’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomGuideList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">GeomGuideList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#GeomGuideList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomGuideList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomGuideList.gd">
+<span class="sig-name descname"><span class="pre">gd</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomGuideList.gd" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.GeomGuide’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomRect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">GeomRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#GeomRect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomRect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomRect.b">
+<span class="sig-name descname"><span class="pre">b</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomRect.b" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomRect.l">
+<span class="sig-name descname"><span class="pre">l</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomRect.l" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomRect.r">
+<span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomRect.r" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GeomRect.t">
+<span class="sig-name descname"><span class="pre">t</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GeomRect.t" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">GroupTransform2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipV</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">off</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chOff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chExt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#GroupTransform2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.chExt">
+<span class="sig-name descname"><span class="pre">chExt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.PositiveSize2D" title="fastpyxl.drawing.geometry.PositiveSize2D"><span class="pre">PositiveSize2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.chExt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.chOff">
+<span class="sig-name descname"><span class="pre">chOff</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.Point2D" title="fastpyxl.drawing.geometry.Point2D"><span class="pre">Point2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.chOff" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.ext">
+<span class="sig-name descname"><span class="pre">ext</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.PositiveSize2D" title="fastpyxl.drawing.geometry.PositiveSize2D"><span class="pre">PositiveSize2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.ext" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.flipH">
+<span class="sig-name descname"><span class="pre">flipH</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.flipH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.flipV">
+<span class="sig-name descname"><span class="pre">flipV</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.flipV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.off">
+<span class="sig-name descname"><span class="pre">off</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.Point2D" title="fastpyxl.drawing.geometry.Point2D"><span class="pre">Point2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.off" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.rot">
+<span class="sig-name descname"><span class="pre">rot</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.rot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'xfrm'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.GroupTransform2D.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('off',</span> <span class="pre">'ext',</span> <span class="pre">'chOff',</span> <span class="pre">'chExt')</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.GroupTransform2D.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.LightRig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">LightRig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#LightRig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.LightRig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.LightRig.dir">
+<span class="sig-name descname"><span class="pre">dir</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.LightRig.dir" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘bl’, ‘tr’, ‘tl’, ‘l’, ‘r’, ‘b’, ‘t’, ‘br’}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.LightRig.rig">
+<span class="sig-name descname"><span class="pre">rig</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.LightRig.rig" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘brightRoom’, ‘legacyHarsh2’, ‘freezing’, ‘threePt’, ‘legacyFlat1’, ‘legacyHarsh4’, ‘balanced’, ‘legacyFlat3’, ‘morning’, ‘glow’, ‘flood’, ‘legacyNormal4’, ‘sunrise’, ‘legacyNormal3’, ‘harsh’, ‘legacyFlat2’, ‘sunset’, ‘contrasting’, ‘legacyFlat4’, ‘chilly’, ‘legacyHarsh3’, ‘soft’, ‘legacyHarsh1’, ‘twoPt’, ‘legacyNormal2’, ‘flat’, ‘legacyNormal1’}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.LightRig.rot">
+<span class="sig-name descname"><span class="pre">rot</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.LightRig.rot" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.SphereCoords’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.LightRig.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lightRig'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.LightRig.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Path2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stroke</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrusionOk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Path2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2D.extrusionOk">
+<span class="sig-name descname"><span class="pre">extrusionOk</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2D.extrusionOk" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘bool’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2D.fill">
+<span class="sig-name descname"><span class="pre">fill</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2D.fill" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘lightenLess’, ‘lighten’, ‘darken’, ‘norm’, ‘darkenLess’}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2D.h">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2D.h" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘float’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2D.stroke">
+<span class="sig-name descname"><span class="pre">stroke</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2D.stroke" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘bool’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2D.w">
+<span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2D.w" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘float’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2DList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Path2DList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Path2DList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2DList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Path2DList.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Path2DList.path" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Path2D’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Point2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Point2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Point2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point2D.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point2D.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point2D.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'off'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point2D.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point2D.x">
+<span class="sig-name descname"><span class="pre">x</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point2D.x" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point2D.y">
+<span class="sig-name descname"><span class="pre">y</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point2D.y" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point3D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Point3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Point3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Point3D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point3D.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'anchor'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point3D.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point3D.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point3D.x" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point3D.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point3D.y" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Point3D.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Point3D.z" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">PositiveSize2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#PositiveSize2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D.cx">
+<span class="sig-name descname"><span class="pre">cx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D.cx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D.cy">
+<span class="sig-name descname"><span class="pre">cy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D.cy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D.height">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D.height" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D.namespace" title="Link to this definition"></a></dt>
+<dd><p>Dimensions in EMUs</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ext'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PositiveSize2D.width">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PositiveSize2D.width" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PresetGeometry2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">PresetGeometry2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#PresetGeometry2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.PresetGeometry2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PresetGeometry2D.avLst">
+<span class="sig-name descname"><span class="pre">avLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PresetGeometry2D.avLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.GeomGuideList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PresetGeometry2D.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PresetGeometry2D.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.PresetGeometry2D.prst">
+<span class="sig-name descname"><span class="pre">prst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.PresetGeometry2D.prst" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘can’, ‘plaqueTabs’, ‘flowChartSort’, ‘actionButtonEnd’, ‘actionButtonSound’, ‘curvedConnector5’, ‘flowChartAlternateProcess’, ‘flowChartOnlineStorage’, ‘line’, ‘rightArrowCallout’, ‘corner’, ‘triangle’, ‘accentBorderCallout1’, ‘flowChartManualOperation’, ‘halfFrame’, ‘bentArrow’, ‘funnel’, ‘ribbon2’, ‘actionButtonBeginning’, ‘donut’, ‘upArrow’, ‘chevron’, ‘ribbon’, ‘chartStar’, ‘upDownArrowCallout’, ‘flowChartDecision’, ‘leftArrow’, ‘bentConnector2’, ‘leftRightCircularArrow’, ‘parallelogram’, ‘actionButtonHelp’, ‘hexagon’, ‘mathDivide’, ‘frame’, ‘star8’, ‘bracePair’, ‘decagon’, ‘ellipseRibbon’, ‘flowChartMagneticDisk’, ‘accentCallout1’, ‘flowChartMagneticDrum’, ‘mathPlus’, ‘mathEqual’, ‘homePlate’, ‘upDownArrow’, ‘star6’, ‘horizontalScroll’, ‘wedgeRectCallout’, ‘chartPlus’, ‘heptagon’, ‘flowChartDocument’, ‘rightBrace’, ‘sun’, ‘flowChartPreparation’, ‘callout1’, ‘smileyFace’, ‘wedgeEllipseCallout’, ‘cornerTabs’, ‘flowChartOr’, ‘blockArc’, ‘moon’, ‘bentConnector5’, ‘lineInv’, ‘snip1Rect’, ‘star5’, ‘flowChartPredefinedProcess’, ‘leftRightUpArrow’, ‘curvedConnector2’, ‘flowChartMagneticTape’, ‘star16’, ‘rightArrow’, ‘irregularSeal2’, ‘accentBorderCallout2’, ‘borderCallout1’, ‘bracketPair’, ‘mathMinus’, ‘mathNotEqual’, ‘nonIsoscelesTrapezoid’, ‘swooshArrow’, ‘flowChartMultidocument’, ‘actionButtonMovie’, ‘round2DiagRect’, ‘callout2’, ‘flowChartManualInput’, ‘actionButtonForwardNext’, ‘straightConnector1’, ‘rect’, ‘accentBorderCallout3’, ‘star7’, ‘ellipse’, ‘chord’, ‘bentConnector3’, ‘diamond’, ‘round1Rect’, ‘star32’, ‘gear9’, ‘star10’, ‘noSmoking’, ‘curvedUpArrow’, ‘roundRect’, ‘leftBrace’, ‘curvedRightArrow’, ‘actionButtonDocument’, ‘stripedRightArrow’, ‘trapezoid’, ‘curvedLeftArrow’, ‘gear6’, ‘quadArrow’, ‘leftRightArrow’, ‘upArrowCallout’, ‘bentConnector4’, ‘flowChartTerminator’, ‘flowChartPunchedTape’, ‘actionButtonInformation’, ‘star4’, ‘star12’, ‘octagon’, ‘accentCallout2’, ‘snip2DiagRect’, ‘leftBracket’, ‘dodecagon’, ‘snip2SameRect’, ‘leftUpArrow’, ‘downArrowCallout’, ‘circularArrow’, ‘heart’, ‘foldedCorner’, ‘flowChartOfflineStorage’, ‘flowChartDisplay’, ‘curvedConnector4’, ‘uturnArrow’, ‘arc’, ‘flowChartSummingJunction’, ‘borderCallout3’, ‘teardrop’, ‘bentUpArrow’, ‘actionButtonBackPrevious’, ‘doubleWave’, ‘rightBracket’, ‘actionButtonBlank’, ‘flowChartConnector’, ‘star24’, ‘irregularSeal1’, ‘squareTabs’, ‘diagStripe’, ‘flowChartDelay’, ‘cube’, ‘round2SameRect’, ‘quadArrowCallout’, ‘bevel’, ‘chartX’, ‘flowChartOffpageConnector’, ‘pentagon’, ‘actionButtonHome’, ‘wave’, ‘flowChartInputOutput’, ‘plaque’, ‘mathMultiply’, ‘borderCallout2’, ‘pie’, ‘actionButtonReturn’, ‘snipRoundRect’, ‘flowChartInternalStorage’, ‘callout3’, ‘rtTriangle’, ‘accentCallout3’, ‘cloudCallout’, ‘notchedRightArrow’, ‘flowChartProcess’, ‘leftArrowCallout’, ‘ellipseRibbon2’, ‘verticalScroll’, ‘lightningBolt’, ‘downArrow’, ‘cloud’, ‘leftCircularArrow’, ‘leftRightArrowCallout’, ‘flowChartPunchedCard’, ‘wedgeRoundRectCallout’, ‘plus’, ‘flowChartExtract’, ‘flowChartCollate’, ‘flowChartMerge’, ‘curvedDownArrow’, ‘leftRightRibbon’, ‘curvedConnector3’, ‘pieWedge’}</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Scene3D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Scene3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lightRig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backdrop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Scene3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Scene3D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Scene3D.backdrop">
+<span class="sig-name descname"><span class="pre">backdrop</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Scene3D.backdrop" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Backdrop’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Scene3D.camera">
+<span class="sig-name descname"><span class="pre">camera</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Scene3D.camera" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Camera’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Scene3D.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Scene3D.extLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.descriptors.excel.ExtensionList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Scene3D.lightRig">
+<span class="sig-name descname"><span class="pre">lightRig</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Scene3D.lightRig" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.LightRig’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Shape3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrusionH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contourW</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prstMaterial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bevelT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bevelB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrusionClr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contourClr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extLst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Shape3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.bevelB">
+<span class="sig-name descname"><span class="pre">bevelB</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.bevelB" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Bevel’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.bevelT">
+<span class="sig-name descname"><span class="pre">bevelT</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.bevelT" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.Bevel’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.contourClr">
+<span class="sig-name descname"><span class="pre">contourClr</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.contourClr" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.styles.colors.Color’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.contourW">
+<span class="sig-name descname"><span class="pre">contourW</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.contourW" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.extLst">
+<span class="sig-name descname"><span class="pre">extLst</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.extLst" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.descriptors.excel.ExtensionList’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.extrusionClr">
+<span class="sig-name descname"><span class="pre">extrusionClr</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.extrusionClr" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.styles.colors.Color’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.extrusionH">
+<span class="sig-name descname"><span class="pre">extrusionH</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.extrusionH" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.prstMaterial">
+<span class="sig-name descname"><span class="pre">prstMaterial</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.prstMaterial" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘legacyMatte’, ‘powder’, ‘dkEdge’, ‘legacyMetal’, ‘plastic’, ‘metal’, ‘softEdge’, ‘matte’, ‘softmetal’, ‘legacyWireframe’, ‘warmMatte’, ‘flat’, ‘translucentPowder’, ‘legacyPlastic’, ‘clear’}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Shape3D.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Shape3D.z" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.descriptors.base.Integer’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ShapeStyle">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">ShapeStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lnRef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillRef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">effectRef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontRef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#ShapeStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.ShapeStyle" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ShapeStyle.effectRef">
+<span class="sig-name descname"><span class="pre">effectRef</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ShapeStyle.effectRef" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.StyleMatrixReference’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ShapeStyle.fillRef">
+<span class="sig-name descname"><span class="pre">fillRef</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ShapeStyle.fillRef" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.StyleMatrixReference’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ShapeStyle.fontRef">
+<span class="sig-name descname"><span class="pre">fontRef</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ShapeStyle.fontRef" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.FontReference’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.ShapeStyle.lnRef">
+<span class="sig-name descname"><span class="pre">lnRef</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.ShapeStyle.lnRef" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘fastpyxl.drawing.geometry.StyleMatrixReference’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.SphereCoords">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">SphereCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#SphereCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.SphereCoords" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.SphereCoords.lat">
+<span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.SphereCoords.lat" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.SphereCoords.lon">
+<span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.SphereCoords.lon" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.SphereCoords.rev">
+<span class="sig-name descname"><span class="pre">rev</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.SphereCoords.rev" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.SphereCoords.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sphereCoords'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.SphereCoords.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.StyleMatrixReference">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">StyleMatrixReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#StyleMatrixReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.StyleMatrixReference" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.StyleMatrixReference.idx">
+<span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.StyleMatrixReference.idx" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Transform2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipV</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">off</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chOff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chExt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Transform2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.chExt">
+<span class="sig-name descname"><span class="pre">chExt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.PositiveSize2D" title="fastpyxl.drawing.geometry.PositiveSize2D"><span class="pre">PositiveSize2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.chExt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.chOff">
+<span class="sig-name descname"><span class="pre">chOff</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.Point2D" title="fastpyxl.drawing.geometry.Point2D"><span class="pre">Point2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.chOff" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.ext">
+<span class="sig-name descname"><span class="pre">ext</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.PositiveSize2D" title="fastpyxl.drawing.geometry.PositiveSize2D"><span class="pre">PositiveSize2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.ext" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.flipH">
+<span class="sig-name descname"><span class="pre">flipH</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.flipH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.flipV">
+<span class="sig-name descname"><span class="pre">flipV</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.flipV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://schemas.openxmlformats.org/drawingml/2006/main'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.namespace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.off">
+<span class="sig-name descname"><span class="pre">off</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.geometry.Point2D" title="fastpyxl.drawing.geometry.Point2D"><span class="pre">Point2D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.off" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.rot">
+<span class="sig-name descname"><span class="pre">rot</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.rot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'xfrm'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Transform2D.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('off',</span> <span class="pre">'ext',</span> <span class="pre">'chOff',</span> <span class="pre">'chExt')</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Transform2D.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Vector3D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.geometry.</span></span><span class="sig-name descname"><span class="pre">Vector3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/geometry.html#Vector3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.geometry.Vector3D" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Vector3D.dx">
+<span class="sig-name descname"><span class="pre">dx</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Vector3D.dx" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Vector3D.dy">
+<span class="sig-name descname"><span class="pre">dy</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Vector3D.dy" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Vector3D.dz">
+<span class="sig-name descname"><span class="pre">dz</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Vector3D.dz" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.geometry.Vector3D.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'vector'</span></span><a class="headerlink" href="#fastpyxl.drawing.geometry.Vector3D.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.drawing.fill.html" class="btn btn-neutral float-left" title="fastpyxl.drawing.fill module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.drawing.graphic.html" class="btn btn-neutral float-right" title="fastpyxl.drawing.graphic module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

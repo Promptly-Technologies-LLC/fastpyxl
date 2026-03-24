@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=851b9b12"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="fastpyxl package" href="api/fastpyxl.html" />
+    <link rel="prev" title="Performance" href="performance.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            fastpyxl
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-the-source">Getting the source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#coverage">Coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#organisation">Organisation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-xml">Checking XML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#schema-validation">Schema validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#microsoft-tools">Microsoft Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#file-support-and-specifications">File Support and Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-of-python-versions">Support of Python Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coding-style">Coding style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#branch-naming-convention">Branch naming convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmarking">Benchmarking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pympler">Pympler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development">
+<h1>Development<a class="headerlink" href="#development" title="Link to this heading"></a></h1>
+<p>If you find the fastpyxl project intriguing and want to contribute a new awesome
+feature, fix a nasty bug or improve the documentation this section will guide you
+in setting up your development environment.</p>
+<p>We will look into the coding standards and version control system workflows used,
+as well as cloning the fastpyxl code to your local machine, setting up a virtual
+Python environment, running tests and building the documentation.</p>
+<section id="getting-the-source">
+<h2>Getting the source<a class="headerlink" href="#getting-the-source" title="Link to this heading"></a></h2>
+<p>The source code is on GitHub: <a class="reference external" href="https://github.com/fastpyxl/fastpyxl">https://github.com/fastpyxl/fastpyxl</a></p>
+<p>Clone the repository and install with <code class="code docutils literal notranslate"><span class="pre">uv</span></code> (recommended):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/fastpyxl/fastpyxl.git
+$ cd fastpyxl
+$ uv sync --all-groups
+$ uv pip install -e .
+</pre></div>
+</div>
+<p>For installing a specific revision from another project, pin a tag or commit in
+the dependency URL (see also <a class="reference internal" href="tutorial.html"><span class="doc">Tutorial</span></a>).</p>
+<p>Please base bug fixes on the branch for the current release when applicable;
+new features on the main development line. If in doubt, open an issue to
+discuss.</p>
+</section>
+<section id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h2>
+<p>Note that contributions to the project without tests will <strong>not</strong> be accepted.</p>
+<p>We use <code class="code docutils literal notranslate"><span class="pre">pytest</span></code> as the test runner with <code class="code docutils literal notranslate"><span class="pre">pytest-cov</span></code> for coverage.</p>
+<p>To run the full suite from the repo root:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uv run pytest
+</pre></div>
+</div>
+<p>To stop at the first failure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uv run pytest -xrf fastpyxl
+</pre></div>
+</div>
+<section id="coverage">
+<h3>Coverage<a class="headerlink" href="#coverage" title="Link to this heading"></a></h3>
+<p>The goal is 100 % coverage for unit tests - data types and utility functions.
+Coverage information can be obtained using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uv run pytest --cov fastpyxl
+</pre></div>
+</div>
+</section>
+<section id="organisation">
+<h3>Organisation<a class="headerlink" href="#organisation" title="Link to this heading"></a></h3>
+<p>Tests should be preferably at package / module level e.g <code class="code docutils literal notranslate"><span class="pre">fastpyxl/cell</span></code>. This
+makes testing and getting statistics for code under development easier:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uv run pytest --cov fastpyxl/cell fastpyxl/cell
+</pre></div>
+</div>
+</section>
+<section id="checking-xml">
+<h3>Checking XML<a class="headerlink" href="#checking-xml" title="Link to this heading"></a></h3>
+<p>Use the <code class="code docutils literal notranslate"><span class="pre">fastpyxl.tests.helper.compare_xml</span></code> function to compare
+generated and expected fragments of XML.</p>
+</section>
+<section id="schema-validation">
+<h3>Schema validation<a class="headerlink" href="#schema-validation" title="Link to this heading"></a></h3>
+<p>When working on code to generate XML it is possible to validate that the
+generated XML conforms to the published specification. Note, this won’t
+necessarily guarantee that everything is fine but is preferable to reverse
+engineering!</p>
+</section>
+<section id="microsoft-tools">
+<h3>Microsoft Tools<a class="headerlink" href="#microsoft-tools" title="Link to this heading"></a></h3>
+<p>Along with the SDK, Microsoft also has a <a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=30425">“Productivity Tool”</a> for working
+with Office OpenXML.</p>
+<p>This allows you to quickly inspect or compare whole Excel files.
+Unfortunately, validation errors contain many false positives. The tool also
+contain links to the specification and implementers’ notes.</p>
+</section>
+</section>
+<section id="file-support-and-specifications">
+<h2>File Support and Specifications<a class="headerlink" href="#file-support-and-specifications" title="Link to this heading"></a></h2>
+<p>The primary aim of fastpyxl is to support reading and writing Microsoft Excel
+2010 files. These are zipped OOXML files that are specified by <a class="reference external" href="http://www.ecma-international.org/publications/standards/Ecma-376.htm">ECMA 376</a> and
+<a class="reference external" href="http://standards.iso.org/ittf/PubliclyAvailableStandards/index.html">ISO 29500</a>.</p>
+<p>Where possible we try to support files generated by other libraries or
+programs, but can’t guarantee it, because often these do not strictly adhere
+to the above format.</p>
+</section>
+<section id="support-of-python-versions">
+<h2>Support of Python Versions<a class="headerlink" href="#support-of-python-versions" title="Link to this heading"></a></h2>
+<p>Python 3.6 and upwards are supported</p>
+</section>
+<section id="coding-style">
+<h2>Coding style<a class="headerlink" href="#coding-style" title="Link to this heading"></a></h2>
+<p>We orient ourselves at PEP-8 for the coding style, except when implementing
+attributes for round tripping. Despite that you are encouraged to use Python
+data conventions (boolean, None, etc.). Note exceptions from this convention
+in docstrings.</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<p>Contributions in the form of pull requests are always welcome. Don’t forget
+to add yourself to the list of authors!</p>
+</section>
+<section id="branch-naming-convention">
+<h2>Branch naming convention<a class="headerlink" href="#branch-naming-convention" title="Link to this heading"></a></h2>
+<p>We use a “major.minor.patch” numbering system, ie. 3.1.5. Development
+branches are named after “major.minor” releases. In general, API change will
+only happen major releases but there will be exceptions. Always communicate
+API changes to the mailing list before making them. If you are changing an
+API try and an implement a fallback (with deprecation warning) for the old
+behaviour.</p>
+<p>The “default branch” is used for releases and always has changes from a
+development branch merged in. It should never be the target for a pull
+request.</p>
+</section>
+<section id="pull-requests">
+<h2>Pull Requests<a class="headerlink" href="#pull-requests" title="Link to this heading"></a></h2>
+<p>Pull requests should be submitted to the current, unreleased development
+branch. Eg. if the current release is 3.1.5, pull requests should be made
+to the 3.1 branch. Exceptions are bug fixes to released versions which
+should be made to the relevant release branch and merged upstream into
+development.</p>
+<p>Please run the test suite locally before opening a pull request. CI exercises
+multiple Python versions; matching that locally is easiest with several
+<code class="code docutils literal notranslate"><span class="pre">uv</span></code> installations or by relying on CI after you push.</p>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h3>
+<p>Remember to update the documentation when adding or changing features. Check
+that documentation is syntactically correct:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uv sync --group docs
+$ uv run sphinx-build -q -j auto -b html -d doc/_build/doctrees doc doc/_build/html
+</pre></div>
+</div>
+</section>
+</section>
+<section id="benchmarking">
+<h2>Benchmarking<a class="headerlink" href="#benchmarking" title="Link to this heading"></a></h2>
+<p>Benchmarking and profiling are ongoing tasks. Contributions to these are very
+welcome as we know there is a lot to do.</p>
+<section id="pympler">
+<h3>Pympler<a class="headerlink" href="#pympler" title="Link to this heading"></a></h3>
+<p>As fastpyxl does not include any internal memory benchmarking tools, the
+python <em>pympler</em> package was used during the testing of styles to profile the
+memory usage in <code class="code docutils literal notranslate"><span class="pre">fastpyxl.reader.excel.read_style_table()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># in fastpyxl/reader/style.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pympler</span><span class="w"> </span><span class="kn">import</span> <span class="n">muppy</span><span class="p">,</span> <span class="n">summary</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_style_table</span><span class="p">(</span><span class="n">xml_source</span><span class="p">):</span>
+  <span class="o">...</span>
+  <span class="k">if</span> <span class="n">cell_xfs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># ~ line 47</span>
+      <span class="n">initialState</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">muppy</span><span class="o">.</span><span class="n">get_objects</span><span class="p">())</span>  <span class="c1"># Capture the initial state</span>
+      <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">cell_xfs_node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cell_xfs_nodes</span><span class="p">):</span>
+         <span class="o">...</span>
+         <span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_style</span>
+      <span class="n">finalState</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">muppy</span><span class="o">.</span><span class="n">get_objects</span><span class="p">())</span>  <span class="c1"># Capture the final state</span>
+      <span class="n">diff</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get_diff</span><span class="p">(</span><span class="n">initialState</span><span class="p">,</span> <span class="n">finalState</span><span class="p">)</span>  <span class="c1"># Compare</span>
+      <span class="n">summary</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="code docutils literal notranslate"><span class="pre">pympler.summary.print_()</span></code> prints to the console a report of object
+memory usage, allowing the comparison of different methods and examination of
+memory usage. A useful future development would be to construct a
+benchmarking package to measure the performance of different components.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="performance.html" class="btn btn-neutral float-left" title="Performance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/fastpyxl.html" class="btn btn-neutral float-right" title="fastpyxl package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

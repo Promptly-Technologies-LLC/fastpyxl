@@ -1,0 +1,1001 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Working with styles &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=851b9b12"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Working with Rich Text" href="rich_text.html" />
+    <link rel="prev" title="Simple usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            fastpyxl
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Working with styles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cell-styles-and-named-styles">Cell Styles and Named Styles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cell-styles">Cell Styles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#copying-styles">Copying styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colours">Colours</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#argb-colours">aRGB colours</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexed-colours">Indexed Colours</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#applying-styles">Applying Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#columns-and-rows">Columns and Rows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#styling-merged-cells">Styling Merged Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-number-formats">Using number formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#edit-page-setup">Edit Page Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#named-styles">Named Styles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-named-style">Creating a Named Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-builtin-styles">Using builtin styles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#number-formats">Number formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#informative">Informative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text-styles">Text styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparisons">Comparisons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#highlights">Highlights</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Working with styles</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/styles.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="working-with-styles">
+<h1>Working with styles<a class="headerlink" href="#working-with-styles" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Styles are used to change the look of your data while displayed on screen.
+They are also used to determine the formatting for numbers.</p>
+<p>Styles can be applied to the following aspects:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>font to set font size, color, underlining, etc.</p></li>
+<li><p>fill to set a pattern or color gradient</p></li>
+<li><p>border to set borders on a cell</p></li>
+<li><p>cell alignment</p></li>
+<li><p>protection</p></li>
+</ul>
+</div></blockquote>
+<p>The following are the default values</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternFill</span><span class="p">,</span> <span class="n">Border</span><span class="p">,</span> <span class="n">Side</span><span class="p">,</span> <span class="n">Alignment</span><span class="p">,</span> <span class="n">Protection</span><span class="p">,</span> <span class="n">Font</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Calibri&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">size</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">vertAlign</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">underline</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">strike</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fill</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="n">fill_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">start_color</span><span class="o">=</span><span class="s1">&#39;FFFFFFFF&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">end_color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">border</span> <span class="o">=</span> <span class="n">Border</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">right</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">top</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">bottom</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">diagonal</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">diagonal_direction</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">outline</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">vertical</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">horizontal</span><span class="o">=</span><span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;FF000000&#39;</span><span class="p">)</span>
+<span class="gp">... </span>               <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alignment</span><span class="o">=</span><span class="n">Alignment</span><span class="p">(</span><span class="n">horizontal</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">vertical</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">text_rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">wrap_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">shrink_to_fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">number_format</span> <span class="o">=</span> <span class="s1">&#39;General&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">protection</span> <span class="o">=</span> <span class="n">Protection</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">hidden</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="cell-styles-and-named-styles">
+<h2>Cell Styles and Named Styles<a class="headerlink" href="#cell-styles-and-named-styles" title="Link to this heading"></a></h2>
+<p>There are two types of styles: cell styles and named styles, also known as style templates.</p>
+<section id="cell-styles">
+<h3>Cell Styles<a class="headerlink" href="#cell-styles" title="Link to this heading"></a></h3>
+<p>Cell styles are shared between objects and once they have been assigned they
+cannot be changed. This stops unwanted side-effects such as changing the
+style for lots of cells when only one changes.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">colors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Font</span><span class="p">,</span> <span class="n">Color</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d4</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;D4&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;FF0000&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">ft</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d4</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">ft</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">italic</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># is not allowed</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># If you want to change the color of a Font, you need to reassign it::</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;FF0000&quot;</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># the change only affects A1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="copying-styles">
+<h2>Copying styles<a class="headerlink" href="#copying-styles" title="Link to this heading"></a></h2>
+<p>Styles can also be copied</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Font</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft1</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft2</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">ft1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Tahoma&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft1</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Arial&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft2</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Tahoma&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ft2</span><span class="o">.</span><span class="n">size</span> <span class="c1"># copied from the</span>
+<span class="go">14.0</span>
+</pre></div>
+</div>
+</section>
+<section id="colours">
+<h2>Colours<a class="headerlink" href="#colours" title="Link to this heading"></a></h2>
+<p>Colours for fonts, backgrounds, borders, etc. can be set in three ways: indexed, aRGB or theme. Indexed colours are the legacy implementation and the colours themselves depend upon the index provided with the workbook or with the application default. Theme colours are useful for complementary shades of colours but also depend upon the theme being present in the workbook. It is, therefore, advisable to use aRGB colours.</p>
+<section id="argb-colours">
+<h3>aRGB colours<a class="headerlink" href="#argb-colours" title="Link to this heading"></a></h3>
+<p>RGB colours are set using hexadecimal values for red, green and blue.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Font</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;FF0000&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The alpha value refers in theory to the transparency of the colour but this is not relevant for cell styles. The default of 00 will prepended to any simple RGB value:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Font</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;00FF00&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">rgb</span>
+<span class="go">&#39;0000FF00&#39;</span>
+</pre></div>
+</div>
+<p>There is also support for legacy indexed colours as well as themes and tints.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span><span class="n">indexed</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">tint</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="indexed-colours">
+<h3>Indexed Colours<a class="headerlink" href="#indexed-colours" title="Link to this heading"></a></h3>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+  </head>
+  <body>
+    <table>
+      <caption>
+        Standard Colours
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">
+            Index
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2">
+            0-4
+          </td>
+          <td>
+            00000000
+          </td>
+          <td>
+            00FFFFFF
+          </td>
+          <td>
+            00FF0000
+          </td>
+          <td>
+            0000FF00
+          </td>
+          <td>
+            000000FF
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #000000;'></td>
+          <td style='background-color: #FFFFFF;'></td>
+          <td style='background-color: #FF0000;'></td>
+          <td style='background-color: #00FF00;'></td>
+          <td style='background-color: #0000FF;'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            5-9
+          </td>
+          <td>
+            00FFFF00
+          </td>
+          <td>
+            00FF00FF
+          </td>
+          <td>
+            0000FFFF
+          </td>
+          <td>
+            00000000
+          </td>
+          <td>
+            00FFFFFF
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #FFFF00;'></td>
+          <td style='background-color: #FF00FF;'></td>
+          <td style='background-color: #00FFFF;'></td>
+          <td style='background-color: #000000;'></td>
+          <td style='background-color: #FFFFFF;'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            10-14
+          </td>
+          <td>
+            00FF0000
+          </td>
+          <td>
+            0000FF00
+          </td>
+          <td>
+            000000FF
+          </td>
+          <td>
+            00FFFF00
+          </td>
+          <td>
+            00FF00FF
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #FF0000'></td>
+          <td style='background-color: #00FF00'></td>
+          <td style='background-color: #0000FF'></td>
+          <td style='background-color: #FFFF00'></td>
+          <td style='background-color: #FF00FF'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            15-19
+          </td>
+          <td>
+            0000FFFF
+          </td>
+          <td>
+            00800000
+          </td>
+          <td>
+            00008000
+          </td>
+          <td>
+            00000080
+          </td>
+          <td>
+            00808000
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #00FFFF'></td>
+          <td style='background-color: #800000'></td>
+          <td style='background-color: #008000'></td>
+          <td style='background-color: #000080'></td>
+          <td style='background-color: #808000'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            20-24
+          </td>
+          <td>
+            00800080
+          </td>
+          <td>
+            00008080
+          </td>
+          <td>
+            00C0C0C0
+          </td>
+          <td>
+            00808080
+          </td>
+          <td>
+            009999FF
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #800080'></td>
+          <td style='background-color: #008080'></td>
+          <td style='background-color: #C0C0C0'></td>
+          <td style='background-color: #808080'></td>
+          <td style='background-color: #9999FF'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            25-29
+          </td>
+          <td>
+            00993366
+          </td>
+          <td>
+            00FFFFCC
+          </td>
+          <td>
+            00CCFFFF
+          </td>
+          <td>
+            00660066
+          </td>
+          <td>
+            00FF8080
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #993366'></td>
+          <td style='background-color: #FFFFCC'></td>
+          <td style='background-color: #CCFFFF'></td>
+          <td style='background-color: #660066'></td>
+          <td style='background-color: #FF8080'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            30-34
+          </td>
+          <td>
+            000066CC
+          </td>
+          <td>
+            00CCCCFF
+          </td>
+          <td>
+            00000080
+          </td>
+          <td>
+            00FF00FF
+          </td>
+          <td>
+            00FFFF00
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #0066CC'></td>
+          <td style='background-color: #CCCCFF'></td>
+          <td style='background-color: #000080'></td>
+          <td style='background-color: #FF00FF'></td>
+          <td style='background-color: #FFFF00'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            35-39
+          </td>
+          <td>
+            0000FFFF
+          </td>
+          <td>
+            00800080
+          </td>
+          <td>
+            00800000
+          </td>
+          <td>
+            00008080
+          </td>
+          <td>
+            000000FF
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #00FFFF'></td>
+          <td style='background-color: #800080'></td>
+          <td style='background-color: #800000'></td>
+          <td style='background-color: #008080'></td>
+          <td style='background-color: #0000FF'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            40-44
+          </td>
+          <td>
+            0000CCFF
+          </td>
+          <td>
+            00CCFFFF
+          </td>
+          <td>
+            00CCFFCC
+          </td>
+          <td>
+            00FFFF99
+          </td>
+          <td>
+            0099CCFF
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #00CCFF'></td>
+          <td style='background-color: #CCFFFF'></td>
+          <td style='background-color: #CCFFCC'></td>
+          <td style='background-color: #FFFF99'></td>
+          <td style='background-color: #99CCFF'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            45-49
+          </td>
+          <td>
+            00FF99CC
+          </td>
+          <td>
+            00CC99FF
+          </td>
+          <td>
+            00FFCC99
+          </td>
+          <td>
+            003366FF
+          </td>
+          <td>
+            0033CCCC
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #FF99CC'></td>
+          <td style='background-color: #CC99FF'></td>
+          <td style='background-color: #FFCC99'></td>
+          <td style='background-color: #3366FF'></td>
+          <td style='background-color: #33CCCC'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            50-54
+          </td>
+          <td>
+            0099CC00
+          </td>
+          <td>
+            00FFCC00
+          </td>
+          <td>
+            00FF9900
+          </td>
+          <td>
+            00FF6600
+          </td>
+          <td>
+            00666699
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #99CC00'></td>
+          <td style='background-color: #FFCC00'></td>
+          <td style='background-color: #FF9900'></td>
+          <td style='background-color: #FF6600'></td>
+          <td style='background-color: #666699'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            55-60
+          </td>
+          <td>
+            00969696
+          </td>
+          <td>
+            00003366
+          </td>
+          <td>
+            00339966
+          </td>
+          <td>
+            00003300
+          </td>
+          <td>
+            00333300
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #969696'></td>
+          <td style='background-color: #003366'></td>
+          <td style='background-color: #339966'></td>
+          <td style='background-color: #003300'></td>
+          <td style='background-color: #333300'></td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            60-63
+          </td>
+          <td>
+            00993300
+          </td>
+          <td>
+            00993366
+          </td>
+          <td>
+            00333399
+          </td>
+          <td>
+            00333333
+          </td>
+        </tr>
+        <tr style="height: 1em;">
+          <td style='background-color: #993300'></td>
+          <td style='background-color: #993366'></td>
+          <td style='background-color: #333399'></td>
+          <td style='background-color: #333333'></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+<p>The indices 64 and 65 cannot be set and are reserved for the system foreground and background colours respectively.</p>
+</section>
+</section>
+<section id="applying-styles">
+<h2>Applying Styles<a class="headerlink" href="#applying-styles" title="Link to this heading"></a></h2>
+<p>Styles are applied directly to cells</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.workbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Font</span><span class="p">,</span> <span class="n">Fill</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="columns-and-rows">
+<h2>Columns and Rows<a class="headerlink" href="#columns-and-rows" title="Link to this heading"></a></h2>
+<p>Styles can also applied to columns and rows but note that this applies only
+to cells created (in Excel) after the file is closed. If you want to apply
+styles to entire rows and columns then you <strong>must</strong> apply the style to each cell
+individually. This is a restriction of the file format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">col</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">underline</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Column dimensions can be grouped, although this is primarily for outline
+purposes, it can also be used for other attributes, which can be confusing
+because only the first column of the group will be listed.
+Use <cite>ws.column_groups</cite> to check.</p>
+</div>
+</section>
+<section id="styling-merged-cells">
+<span id="id1"></span><h2>Styling Merged Cells<a class="headerlink" href="#styling-merged-cells" title="Link to this heading"></a></h2>
+<p>The merged cell behaves similarly to other cell objects.
+Its value and format is defined in its top-left cell.
+In order to change the border of the whole merged cell,
+change the border of its top-left cell.
+The formatting is generated for the purpose of writing.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Border</span><span class="p">,</span> <span class="n">Side</span><span class="p">,</span> <span class="n">PatternFill</span><span class="p">,</span> <span class="n">Font</span><span class="p">,</span> <span class="n">GradientFill</span><span class="p">,</span> <span class="n">Alignment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span><span class="s1">&#39;B2:F4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;My Cell&quot;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thin</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;000000&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">double</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="s2">&quot;double&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;ff0000&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="n">Border</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="n">double</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">thin</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">thin</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">double</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="n">fgColor</span><span class="o">=</span><span class="s2">&quot;DDDDDD&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">GradientFill</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;000000&quot;</span><span class="p">,</span> <span class="s2">&quot;FFFFFF&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span><span class="o">.</span><span class="n">font</span>  <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;FF0000&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top_left_cell</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">horizontal</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">vertical</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;styled.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-number-formats">
+<h2>Using number formats<a class="headerlink" href="#using-number-formats" title="Link to this heading"></a></h2>
+<p>You can specify the number format for cells, or for some instances (ie datetime) it will automatically format.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set date using a Python datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">number_format</span>
+<span class="go">&#39;yyyy-mm-dd h:mm:ss&#39;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s2">&quot;A2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.123456</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s2">&quot;A2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">number_format</span> <span class="o">=</span> <span class="s2">&quot;0.00&quot;</span> <span class="c1"># Display to 2dp</span>
+</pre></div>
+</div>
+</section>
+<section id="edit-page-setup">
+<h2>Edit Page Setup<a class="headerlink" href="#edit-page-setup" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.workbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="o">.</span><span class="n">page_setup</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">ORIENTATION_LANDSCAPE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="o">.</span><span class="n">page_setup</span><span class="o">.</span><span class="n">paperSize</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">PAPERSIZE_TABLOID</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="o">.</span><span class="n">page_setup</span><span class="o">.</span><span class="n">fitToHeight</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="o">.</span><span class="n">page_setup</span><span class="o">.</span><span class="n">fitToWidth</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<section id="named-styles">
+<h3>Named Styles<a class="headerlink" href="#named-styles" title="Link to this heading"></a></h3>
+<p>In contrast to Cell Styles, Named Styles are mutable. They make sense when
+you want to apply formatting to lots of different cells at once. NB. once you
+have assigned a named style to a cell, additional changes to the style will
+<strong>not</strong> affect the cell.</p>
+<p>Once a named style has been registered with a workbook, it can be referred to simply by name.</p>
+</section>
+</section>
+<section id="creating-a-named-style">
+<h2>Creating a Named Style<a class="headerlink" href="#creating-a-named-style" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedStyle</span><span class="p">,</span> <span class="n">Font</span><span class="p">,</span> <span class="n">Border</span><span class="p">,</span> <span class="n">Side</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">highlight</span> <span class="o">=</span> <span class="n">NamedStyle</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;highlight&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">highlight</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bd</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;thick&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;000000&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">highlight</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="n">Border</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">bd</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">bd</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">bd</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bd</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once a named style has been created, it can be registered with the workbook:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">add_named_style</span><span class="p">(</span><span class="n">highlight</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But named styles will also be registered automatically the first time they are assigned to a cell:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">highlight</span>
+</pre></div>
+</div>
+<p>Once registered, assign the style using just the name:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;D5&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;highlight&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="using-builtin-styles">
+<h2>Using builtin styles<a class="headerlink" href="#using-builtin-styles" title="Link to this heading"></a></h2>
+<p>The specification includes some builtin styles which can also be used.
+Unfortunately, the names for these styles are stored in their localised
+forms. fastpyxl will only recognise the English names and only exactly as
+written here. These are as follows:</p>
+<ul class="simple">
+<li><p>‘Normal’ # same as no style</p></li>
+</ul>
+<section id="number-formats">
+<h3>Number formats<a class="headerlink" href="#number-formats" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>‘Comma’</p></li>
+<li><p>‘Comma [0]’</p></li>
+<li><p>‘Currency’</p></li>
+<li><p>‘Currency [0]’</p></li>
+<li><p>‘Percent’</p></li>
+</ul>
+</section>
+<section id="informative">
+<h3>Informative<a class="headerlink" href="#informative" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>‘Calculation’</p></li>
+<li><p>‘Total’</p></li>
+<li><p>‘Note’</p></li>
+<li><p>‘Warning Text’</p></li>
+<li><p>‘Explanatory Text’</p></li>
+</ul>
+</section>
+<section id="text-styles">
+<h3>Text styles<a class="headerlink" href="#text-styles" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>‘Title’</p></li>
+<li><p>‘Headline 1’</p></li>
+<li><p>‘Headline 2’</p></li>
+<li><p>‘Headline 3’</p></li>
+<li><p>‘Headline 4’</p></li>
+<li><p>‘Hyperlink’</p></li>
+<li><p>‘Followed Hyperlink’</p></li>
+<li><p>‘Linked Cell’</p></li>
+</ul>
+</section>
+<section id="comparisons">
+<h3>Comparisons<a class="headerlink" href="#comparisons" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>‘Input’</p></li>
+<li><p>‘Output’</p></li>
+<li><p>‘Check Cell’</p></li>
+<li><p>‘Good’</p></li>
+<li><p>‘Bad’</p></li>
+<li><p>‘Neutral’</p></li>
+</ul>
+</section>
+<section id="highlights">
+<h3>Highlights<a class="headerlink" href="#highlights" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>‘Accent1’</p></li>
+<li><p>‘20 % - Accent1’</p></li>
+<li><p>‘40 % - Accent1’</p></li>
+<li><p>‘60 % - Accent1’</p></li>
+<li><p>‘Accent2’</p></li>
+<li><p>‘20 % - Accent2’</p></li>
+<li><p>‘40 % - Accent2’</p></li>
+<li><p>‘60 % - Accent2’</p></li>
+<li><p>‘Accent3’</p></li>
+<li><p>‘20 % - Accent3’</p></li>
+<li><p>‘40 % - Accent3’</p></li>
+<li><p>‘60 % - Accent3’</p></li>
+<li><p>‘Accent4’</p></li>
+<li><p>‘20 % - Accent4’</p></li>
+<li><p>‘40 % - Accent4’</p></li>
+<li><p>‘60 % - Accent4’</p></li>
+<li><p>‘Accent5’</p></li>
+<li><p>‘20 % - Accent5’</p></li>
+<li><p>‘40 % - Accent5’</p></li>
+<li><p>‘60 % - Accent5’</p></li>
+<li><p>‘Accent6’</p></li>
+<li><p>‘20 % - Accent6’</p></li>
+<li><p>‘40 % - Accent6’</p></li>
+<li><p>‘60 % - Accent6’</p></li>
+<li><p>‘Pandas’</p></li>
+</ul>
+<p>For more information about the builtin styles please refer to the <a class="reference internal" href="api/fastpyxl.styles.builtins.html#module-fastpyxl.styles.builtins" title="fastpyxl.styles.builtins"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastpyxl.styles.builtins</span></code></a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Simple usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rich_text.html" class="btn btn-neutral float-right" title="Working with Rich Text" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

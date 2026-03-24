@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.styles.fills &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.styles.fills</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.styles.fills</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">safe_string</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Serialisable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldValidationError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.fields</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasField</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.xml.functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">localname</span>
+
+
+<span class="n">FILL_NONE</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+<span class="n">FILL_SOLID</span> <span class="o">=</span> <span class="s1">&#39;solid&#39;</span>
+<span class="n">FILL_PATTERN_DARKDOWN</span> <span class="o">=</span> <span class="s1">&#39;darkDown&#39;</span>
+<span class="n">FILL_PATTERN_DARKGRAY</span> <span class="o">=</span> <span class="s1">&#39;darkGray&#39;</span>
+<span class="n">FILL_PATTERN_DARKGRID</span> <span class="o">=</span> <span class="s1">&#39;darkGrid&#39;</span>
+<span class="n">FILL_PATTERN_DARKHORIZONTAL</span> <span class="o">=</span> <span class="s1">&#39;darkHorizontal&#39;</span>
+<span class="n">FILL_PATTERN_DARKTRELLIS</span> <span class="o">=</span> <span class="s1">&#39;darkTrellis&#39;</span>
+<span class="n">FILL_PATTERN_DARKUP</span> <span class="o">=</span> <span class="s1">&#39;darkUp&#39;</span>
+<span class="n">FILL_PATTERN_DARKVERTICAL</span> <span class="o">=</span> <span class="s1">&#39;darkVertical&#39;</span>
+<span class="n">FILL_PATTERN_GRAY0625</span> <span class="o">=</span> <span class="s1">&#39;gray0625&#39;</span>
+<span class="n">FILL_PATTERN_GRAY125</span> <span class="o">=</span> <span class="s1">&#39;gray125&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTDOWN</span> <span class="o">=</span> <span class="s1">&#39;lightDown&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTGRAY</span> <span class="o">=</span> <span class="s1">&#39;lightGray&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTGRID</span> <span class="o">=</span> <span class="s1">&#39;lightGrid&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTHORIZONTAL</span> <span class="o">=</span> <span class="s1">&#39;lightHorizontal&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTTRELLIS</span> <span class="o">=</span> <span class="s1">&#39;lightTrellis&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTUP</span> <span class="o">=</span> <span class="s1">&#39;lightUp&#39;</span>
+<span class="n">FILL_PATTERN_LIGHTVERTICAL</span> <span class="o">=</span> <span class="s1">&#39;lightVertical&#39;</span>
+<span class="n">FILL_PATTERN_MEDIUMGRAY</span> <span class="o">=</span> <span class="s1">&#39;mediumGray&#39;</span>
+
+<span class="n">fills</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">FILL_NONE</span><span class="p">,</span>
+    <span class="n">FILL_SOLID</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKDOWN</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKGRAY</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKGRID</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKHORIZONTAL</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKTRELLIS</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKUP</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_DARKVERTICAL</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_GRAY0625</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_GRAY125</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTDOWN</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTGRAY</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTGRID</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTHORIZONTAL</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTTRELLIS</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTUP</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_LIGHTVERTICAL</span><span class="p">,</span>
+    <span class="n">FILL_PATTERN_MEDIUMGRAY</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_color_converter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Color</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Color</span><span class="p">(</span><span class="n">rgb</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_enum_converter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">allowed_values</span><span class="p">,</span> <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_values</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_range_converter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">numeric</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+    <span class="k">if</span> <span class="n">numeric</span> <span class="o">&lt;</span> <span class="n">min_value</span> <span class="ow">or</span> <span class="n">numeric</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numeric</span>
+
+
+<div class="viewcode-block" id="Fill">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.Fill">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Fill</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class&quot;&quot;&quot;</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;fill&quot;</span>
+
+<div class="viewcode-block" id="Fill.from_tree">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.Fill.from_tree">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_tree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">el</span><span class="p">):</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">el</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">children</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;patternFill&quot;</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">PatternFill</span><span class="o">.</span><span class="n">_from_tree</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Fill</span><span class="p">,</span> <span class="n">GradientFill</span><span class="p">)</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">child</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PatternFill">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PatternFill</span><span class="p">(</span><span class="n">Fill</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Area fill patterns for use in styles.</span>
+<span class="sd">    Caution: if you do not specify a fill_type, other attributes will have</span>
+<span class="sd">    no effect !&quot;&quot;&quot;</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;patternFill&quot;</span>
+
+    <span class="n">patternType</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span> <span class="k">else</span> <span class="n">_enum_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">fills</span><span class="p">,</span> <span class="s2">&quot;patternType&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">fill_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;patternType&quot;</span><span class="p">)</span>
+    <span class="n">fgColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="n">Color</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_color_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;fgColor&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">start_color</span><span class="p">:</span> <span class="n">Color</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;fgColor&quot;</span><span class="p">)</span>
+    <span class="n">bgColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="n">Color</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_color_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;bgColor&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">end_color</span><span class="p">:</span> <span class="n">Color</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;bgColor&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patternType</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fgColor</span><span class="o">=</span><span class="n">Color</span><span class="p">(),</span> <span class="n">bgColor</span><span class="o">=</span><span class="n">Color</span><span class="p">(),</span>
+                 <span class="n">fill_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">fill_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">patternType</span> <span class="o">=</span> <span class="n">fill_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patternType</span> <span class="o">=</span> <span class="n">patternType</span>
+        <span class="k">if</span> <span class="n">start_color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fgColor</span> <span class="o">=</span> <span class="n">start_color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgColor</span> <span class="o">=</span> <span class="n">fgColor</span>
+        <span class="k">if</span> <span class="n">end_color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bgColor</span> <span class="o">=</span> <span class="n">end_color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bgColor</span> <span class="o">=</span> <span class="n">bgColor</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_from_tree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">el</span><span class="p">):</span>
+        <span class="n">attrib</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">attrib</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">el</span><span class="p">:</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">localname</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="n">attrib</span><span class="p">[</span><span class="n">desc</span><span class="p">]</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">attrib</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PatternFill.to_tree">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.to_tree">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">)</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tagname</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">patternType</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;patternType&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">patternType</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__elements__</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">Color</span><span class="p">():</span>
+                <span class="n">el</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">to_tree</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">parent</span></div>
+</div>
+
+
+
+<span class="n">DEFAULT_EMPTY_FILL</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">()</span>
+<span class="n">DEFAULT_GRAY_FILL</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="n">patternType</span><span class="o">=</span><span class="s1">&#39;gray125&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Stop">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.Stop">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Stop</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;stop&quot;</span>
+
+    <span class="n">position</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_range_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">color</span><span class="p">:</span> <span class="n">Color</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="n">Color</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_color_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;position cannot be None&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_assign_position</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Automatically assign positions if a list of colours is provided.</span>
+
+<span class="sd">    It is not permitted to mix colours and stops</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">n_stops</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Stop</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n_stops</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">n_values</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_values</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">Stop</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">interval</span><span class="p">)</span>
+                  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span>
+
+    <span class="k">elif</span> <span class="n">n_stops</span> <span class="o">&lt;</span> <span class="n">n_values</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot interpret mix of Stops and Colors in GradientFill&#39;</span><span class="p">)</span>
+
+    <span class="n">pos</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stop</span><span class="o">.</span><span class="n">position</span> <span class="ow">in</span> <span class="n">pos</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Duplicate position </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">position</span><span class="p">))</span>
+        <span class="n">pos</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">values</span>
+
+
+<div class="viewcode-block" id="GradientFill">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GradientFill</span><span class="p">(</span><span class="n">Fill</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fill areas with gradient</span>
+
+<span class="sd">    Two types of gradient fill are supported:</span>
+
+<span class="sd">        - A type=&#39;linear&#39; gradient interpolates colours between</span>
+<span class="sd">          a set of specified Stops, across the length of an area.</span>
+<span class="sd">          The gradient is left-to-right by default, but this</span>
+<span class="sd">          orientation can be modified with the degree</span>
+<span class="sd">          attribute.  A list of Colors can be provided instead</span>
+<span class="sd">          and they will be positioned with equal distance between them.</span>
+
+<span class="sd">        - A type=&#39;path&#39; gradient applies a linear gradient from each</span>
+<span class="sd">          edge of the area. Attributes top, right, bottom, left specify</span>
+<span class="sd">          the extent of fill from the respective borders. Thus top=&quot;0.2&quot;</span>
+<span class="sd">          will fill the top 20% of the cell.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;gradientFill&quot;</span>
+
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">),</span> <span class="s2">&quot;type&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">fill_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
+    <span class="n">degree</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">right</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">top</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">bottom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">stop</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Stop</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">sequence</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Stop</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="p">()):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">degree</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">bottom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;stop&quot;</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">_assign_position</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__attrs__</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">attr</span><span class="p">,</span> <span class="n">safe_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="GradientFill.to_tree">
+<a class="viewcode-back" href="../../../api/fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.to_tree">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">)</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_tree</span><span class="p">()</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">parent</span></div>
+</div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

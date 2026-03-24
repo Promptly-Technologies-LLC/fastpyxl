@@ -1,0 +1,1039 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.formula.tests.test_tokenizer &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.formula.tests.test_tokenizer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.formula.tests.test_tokenizer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<div class="viewcode-block" id="tokenizer">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.tokenizer">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tokenizer</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">tokenizer</span>
+    <span class="k">return</span> <span class="n">tokenizer</span></div>
+
+
+<span class="c1"># Constants from tokenizer.Token:</span>
+<span class="n">LITERAL</span> <span class="o">=</span> <span class="s2">&quot;LITERAL&quot;</span>
+<span class="n">OPERAND</span> <span class="o">=</span> <span class="s2">&quot;OPERAND&quot;</span>
+<span class="n">FUNC</span> <span class="o">=</span> <span class="s2">&quot;FUNC&quot;</span>
+<span class="n">ARRAY</span> <span class="o">=</span> <span class="s2">&quot;ARRAY&quot;</span>
+<span class="n">PAREN</span> <span class="o">=</span> <span class="s2">&quot;PAREN&quot;</span>
+<span class="n">SEP</span> <span class="o">=</span> <span class="s2">&quot;SEP&quot;</span>
+<span class="n">OP_PRE</span> <span class="o">=</span> <span class="s2">&quot;OPERATOR-PREFIX&quot;</span>
+<span class="n">OP_IN</span> <span class="o">=</span> <span class="s2">&quot;OPERATOR-INFIX&quot;</span>
+<span class="n">OP_POST</span> <span class="o">=</span> <span class="s2">&quot;OPERATOR-POSTFIX&quot;</span>
+<span class="n">WSPACE</span> <span class="o">=</span> <span class="s2">&quot;WHITE-SPACE&quot;</span>
+<span class="n">TEXT</span> <span class="o">=</span> <span class="s1">&#39;TEXT&#39;</span>
+<span class="n">NUMBER</span> <span class="o">=</span> <span class="s1">&#39;NUMBER&#39;</span>
+<span class="n">LOGICAL</span> <span class="o">=</span> <span class="s1">&#39;LOGICAL&#39;</span>
+<span class="n">ERROR</span> <span class="o">=</span> <span class="s1">&#39;ERROR&#39;</span>
+<span class="n">RANGE</span> <span class="o">=</span> <span class="s1">&#39;RANGE&#39;</span>
+<span class="n">OPEN</span> <span class="o">=</span> <span class="s2">&quot;OPEN&quot;</span>
+<span class="n">CLOSE</span> <span class="o">=</span> <span class="s2">&quot;CLOSE&quot;</span>
+<span class="n">ARG</span> <span class="o">=</span> <span class="s2">&quot;ARG&quot;</span>
+<span class="n">ROW</span> <span class="o">=</span> <span class="s2">&quot;ROW&quot;</span>
+
+
+<div class="viewcode-block" id="TestTokenizerRegexes">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizerRegexes">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestTokenizerRegexes</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestTokenizerRegexes.test_scientific_re">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizerRegexes.test_scientific_re">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;string, success&quot;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;1.0E&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1.53321E&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;9.999E&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;3E&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;12E&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0.1E&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0E&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_scientific_re</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">success</span><span class="p">):</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="o">.</span><span class="n">SN_RE</span>
+        <span class="k">assert</span> <span class="nb">bool</span><span class="p">(</span><span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">))</span> <span class="ow">is</span> <span class="n">success</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizerRegexes.test_whitespace_re">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizerRegexes.test_whitespace_re">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;string, expected&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39; *&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="s1">&#39;     &#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;     a&#39;</span><span class="p">,</span> <span class="s1">&#39;     &#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="s1">&#39;   &#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;   +&#39;</span><span class="p">,</span> <span class="s1">&#39;   &#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_whitespace_re</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">expected</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="o">.</span><span class="n">WSPACE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="o">.</span><span class="n">WSPACE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="o">.</span><span class="n">WSPACE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizerRegexes.test_string_re">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizerRegexes.test_string_re">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;string, expected&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;spamspamspam&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;spamspamspam&quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;this is &quot;&quot; a test &quot;&quot; &quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;this is &quot;&quot; a test &quot;&quot; &quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;spam and &quot;&quot;cheese&quot;&quot;&quot;+&quot;ignore&quot;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;&quot;spam and &quot;&quot;cheese&quot;&quot;&quot;&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&quot;spam and &quot;&quot;cheese&quot;&quot;&quot;+&quot;ignore&quot;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;oops &quot;&quot;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_string_re</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="o">.</span><span class="n">STRING_REGEXES</span><span class="p">[</span><span class="s1">&#39;&quot;&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">expected</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizerRegexes.test_link_re">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizerRegexes.test_link_re">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;string, expected&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;&#39;spam and ham&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;spam and ham&#39;&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;&#39;double&#39;&#39; triple&#39;&#39;&#39; quadruple &#39;&#39;&#39;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;double&#39;&#39; triple&#39;&#39;&#39;&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;&#39;sextuple &#39;&#39;&#39;&#39;&#39;&#39; and septuple&#39;&#39;&#39;&#39;&#39;&#39;&#39; and more&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;&#39;sextuple &#39;&#39;&#39;&#39;&#39;&#39; and septuple&#39;&#39;&#39;&#39;&#39;&#39;&#39;&quot;</span><span class="p">,),</span>
+         <span class="p">(</span><span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">&quot;&#39;oops &#39;&#39;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">&quot;gunk&#39;hello world&#39;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_link_re</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="o">.</span><span class="n">STRING_REGEXES</span><span class="p">[</span><span class="s2">&quot;&#39;&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">expected</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TestTokenizer">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestTokenizer</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestTokenizer.test_init">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_init">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s2">&quot;abcdefg&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">formula</span> <span class="o">==</span> <span class="s2">&quot;abcdefg&quot;</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s2">&quot;=abcdefg&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">formula</span> <span class="o">==</span> <span class="s2">&quot;=abcdefg&quot;</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, tokens&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;=IF(A$3&lt;40%,&quot;&quot;,INDEX(Pipeline!B$4:B$138,#REF!))&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;IF(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;A$3&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;40&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="n">OP_POST</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;INDEX(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;Pipeline!B$4:B$138&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;#REF!&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;=&#39;Summary slices&#39;!$C$3&quot;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s2">&quot;&#39;Summary slices&#39;!$C$3&quot;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=-MAX(Pipeline!AA4:AA138)&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">OP_PRE</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;MAX(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;Pipeline!AA4:AA138&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=TEXT(-S7/1000,&quot;$#,##0&quot;&quot;M&quot;&quot;&quot;)&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;TEXT(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">OP_PRE</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;S7&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;1000&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;$#,##0&quot;&quot;M&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;=IF(A$3&lt;1.3E-8,</span><span class="se">\&quot;\&quot;</span><span class="s2">,IF(ISNA(&#39;External Ref&#39;!K7),&quot;</span> <span class="o">+</span>
+         <span class="s1">&#39;&quot;N/A&quot;,TEXT(K7*1E+12,&quot;0&quot;)&amp;&quot;bp&quot;&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;IF(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;A$3&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;1.3E-8&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;IF(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;ISNA(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s2">&quot;&#39;External Ref&#39;!K7&quot;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;N/A&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;TEXT(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;K7&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;1E+12&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;0&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;bp&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=+IF(A$3&lt;&gt;$B7,&quot;&quot;,(MIN(IF({TRUE, FALSE;1,2},A6:B6,$S7))&gt;=&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;LOWER_BOUND)*($BR6&gt;$S72123))&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="n">OP_PRE</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;IF(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;A$3&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&lt;&gt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;$B7&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;MIN(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;IF(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">LOGICAL</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">WSPACE</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">LOGICAL</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ROW</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;A6:B6&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;$S7&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span> <span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;LOWER_BOUND&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;$BR6&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;$S72123&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=(AW$4=$D7)+0%&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;AW$4&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;$D7&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="n">OP_POST</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=$A:$A,$C:$C&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;$A:$A&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;$C:$C&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=3 +1-5&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;NUMBER&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;WHITE-SPACE&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERATOR-INFIX&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;NUMBER&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERATOR-INFIX&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;NUMBER&#39;</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;Just text&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;Just text&quot;</span><span class="p">,</span> <span class="n">LITERAL</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="s2">&quot;123.456&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;123.456&quot;</span><span class="p">,</span> <span class="n">LITERAL</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="s2">&quot;31/12/1999&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;31/12/1999&quot;</span><span class="p">,</span> <span class="n">LITERAL</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=A1+</span><span class="se">\n</span><span class="s1">A2&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">WSPACE</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;A2&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s1">&#39;=R[41]C[2]&#39;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;R[41]C[2]&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;RANGE&#39;</span><span class="p">)]),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">tokens</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[(</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span><span class="p">)</span>
+                  <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">tokens</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="o">==</span> <span class="n">formula</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_string">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_string">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, result&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;spamspamspam&quot;spam&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&quot;spamspamspam&quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;this is &quot;&quot; a test &quot;&quot; &quot;test&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&quot;this is &quot;&quot; a test &quot;&quot; &quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;a&quot;bcd&quot;&quot;efg&quot;hijk&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;&quot;bcd&quot;&quot;efg&quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;oops &quot;&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;&#39;spam and ham&#39;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;&#39;spam and ham&#39;&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;&#39;double&#39;&#39; triple&#39;&#39;&#39; quad &#39;&#39;&#39;&#39;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;&#39;double&#39;&#39; triple&#39;&#39;&#39;&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;123&#39;sextuple &#39;&#39;&#39;&#39;&#39;&#39; and septuple&#39;&#39;&#39;&#39;&#39;&#39;&#39; and more&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="s2">&quot;&#39;sextuple &#39;&#39;&#39;&#39;&#39;&#39; and septuple&#39;&#39;&#39;&#39;&#39;&#39;&#39;&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">&quot;&#39;oops &#39;&#39;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">):</span>
+                <span class="n">tok</span><span class="o">.</span><span class="n">_parse_string</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_string</span><span class="p">()</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">formula</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">result</span>
+            <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">OPERAND</span>
+            <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">TEXT</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span>
+            <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_brackets">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_brackets">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, result&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;[abc]def&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;[abc]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;[]abcdef&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;[]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;[abcdef]&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;[abcdef]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;a[bcd]ef&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;[bcd]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;ab[cde]f&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;[cde]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;R[1]C[2]&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;[1]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;R[1]C[2]&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;[2]&#39;</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_brackets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">_parse_brackets</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_nested_brackets">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_nested_brackets">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, result&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;[a[b]c]def&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;[a[b]c]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;[[]]abcdef&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;[[]]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;[[abc]def]&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;[[abc]def]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;a[b[c]d]e[f]&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;[b[c]d]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;ab[c[d][e]][f]&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;[c[d][e]]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;TableX[[#Data],[COL1]]&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;[[#Data],[COL1]]&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;TableX[[#Data],[COL1]:[COL2]]&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;[[#Data],[COL1]:[COL2]]&#39;</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_nested_brackets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">_parse_brackets</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_brackets_error">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_brackets_error">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;[unfinished business&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;unfinished [business&#39;</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;[un[finished business]&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;un[finished [business]&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_brackets_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">):</span>
+            <span class="n">tok</span><span class="o">.</span><span class="n">_parse_brackets</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_error">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_error">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s2">&quot;#NULL!&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#DIV/0!&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#VALUE!&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#REF!&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#NAME?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#NUM!&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#N/A&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#GETTING_DATA&quot;</span><span class="p">,</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_error</span><span class="p">()</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">error</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">OPERAND</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">ERROR</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_defined_name_reference_error">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_defined_name_reference_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_defined_name_reference_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;=SUM(MyTable!#REF!)&quot;</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s2">&quot;=SUM(MyTable!#REF!)&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[(</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span><span class="p">)</span>
+                  <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">]</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;SUM(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;MyTable!#REF!&#39;</span><span class="p">,</span> <span class="n">OPERAND</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">tokens</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="o">==</span> <span class="n">formula</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_error_error">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_error_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_error_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s2">&quot;#NotAnError&quot;</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">):</span>
+            <span class="n">tok</span><span class="o">.</span><span class="n">_parse_error</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_whitespace">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_whitespace">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, value&#39;</span><span class="p">,</span>
+        <span class="p">[(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_whitespace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_whitespace</span><span class="p">()</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WSPACE</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_operator">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_operator">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, result, type_&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&lt;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&gt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="n">OP_POST</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">OP_PRE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">OP_PRE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;=&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&gt;&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&lt;&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&gt;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_operator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">type_</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_operator</span><span class="p">()</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">result</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">type_</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_opener">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_opener">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;prefix, char, type_&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_opener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">char</span><span class="p">,</span> <span class="n">type_</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">char</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
+            <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_opener</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">char</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">type_</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">OPEN</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">token_stack</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">token_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="n">token</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_opener_error">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_opener_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_opener_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s1">&#39;name{&#39;</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,)</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">):</span>
+            <span class="n">tok</span><span class="o">.</span><span class="n">_parse_opener</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_closer">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_closer">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, opener&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;func(a)&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;func(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;(a)&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;{a,b,c}&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">)),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_closer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">opener</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">token_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="p">(</span><span class="o">*</span><span class="n">opener</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_closer</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">formula</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">opener</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">CLOSE</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_closer_error">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_closer_error">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, opener&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;func(a}&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;func(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;(a}&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;{a,b,c)&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">)),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_closer_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">opener</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">token_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="p">(</span><span class="o">*</span><span class="n">opener</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">):</span>
+            <span class="n">tok</span><span class="o">.</span><span class="n">_parse_closer</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_parse_separator">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_parse_separator">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, opener, type_, subtype&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;{a;b}&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ROW</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;{a,b}&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;(a,b)&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;FUNC(a,b)&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;FUNC(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="n">SEP</span><span class="p">,</span> <span class="n">ARG</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;$A$15:$B$20,$A$1:$B$5&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OP_IN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_separator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">opener</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">subtype</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="k">if</span> <span class="n">opener</span><span class="p">:</span>
+            <span class="n">tok</span><span class="o">.</span><span class="n">token_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="p">(</span><span class="o">*</span><span class="n">opener</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">_parse_separator</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">formula</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">type_</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">subtype</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_check_scientific_notation">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_check_scientific_notation">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, offset, token, ret&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;1.0E-5&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1.53321E+3&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1.53321&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;9.9E+12&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;9.&#39;</span><span class="p">,</span> <span class="s1">&#39;9E&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;3E+155&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;9.&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;12E+15&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0.1E-5&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;.1&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0E+7&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;12+&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;13-E+&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1.0e-5&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1.53321e+3&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1.53321&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;9.9e+12&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;9.&#39;</span><span class="p">,</span> <span class="s1">&#39;9e&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;3e+155&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;9.&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;12e+15&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0.1e-5&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;.1&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0e+7&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;12+&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;13-e+&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_check_scientific_notation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ret</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[:]</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">token</span>
+        <span class="k">assert</span> <span class="n">ret</span> <span class="ow">is</span> <span class="n">tok</span><span class="o">.</span><span class="n">check_scientific_notation</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ret</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">offset</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">tok</span><span class="o">.</span><span class="n">offset</span>
+            <span class="k">assert</span> <span class="n">token</span> <span class="o">==</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">formula</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">offset</span> <span class="o">==</span> <span class="n">tok</span><span class="o">.</span><span class="n">offset</span>
+            <span class="k">assert</span> <span class="n">token</span> <span class="o">==</span> <span class="n">tok</span><span class="o">.</span><span class="n">token</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_assert_empty_token">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_assert_empty_token">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;token, can_follow, raises&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;test:&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;can_follow&#39;</span><span class="p">:</span> <span class="s1">&#39;:&#39;</span><span class="p">},</span> <span class="kc">False</span><span class="p">),</span>  <span class="c1"># sheetname in range</span>
+        <span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;can_follow&#39;</span><span class="p">:</span> <span class="s1">&#39;:&#39;</span><span class="p">},</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;test!&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;can_follow&#39;</span><span class="p">:</span> <span class="s1">&#39;!&#39;</span><span class="p">},</span> <span class="kc">False</span><span class="p">),</span>  <span class="c1"># #ERR! in defined name</span>
+        <span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;can_follow&#39;</span><span class="p">:</span> <span class="s1">&#39;!&#39;</span><span class="p">},</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_assert_empty_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">can_follow</span><span class="p">,</span> <span class="n">raises</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">raises</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tok</span><span class="o">.</span><span class="n">assert_empty_token</span><span class="p">(</span><span class="o">**</span><span class="n">can_follow</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">:</span>
+                <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span>
+                    <span class="s2">&quot;assert_empty_token raised TokenizerError incorrectly&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">TokenizerError</span><span class="p">):</span>
+                <span class="n">tok</span><span class="o">.</span><span class="n">assert_empty_token</span><span class="p">(</span><span class="o">**</span><span class="n">can_follow</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_save_token">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_save_token">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+        <span class="n">tok</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">OPERAND</span></div>
+
+
+<div class="viewcode-block" id="TestTokenizer.test_render">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestTokenizer.test_render">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s1">&#39;=IF(A$3&lt;40%,&quot;&quot;,INDEX(Pipeline!B$4:B$138,#REF!))&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;=&#39;Summary slices&#39;!$C$3&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;=-MAX(Pipeline!AA4:AA138)&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;=TEXT(-S7/1000,&quot;$#,##0&quot;&quot;M&quot;&quot;&quot;)&#39;</span><span class="p">,</span>
+        <span class="p">(</span><span class="s2">&quot;=IF(A$3&lt;1.3E-8,</span><span class="se">\&quot;\&quot;</span><span class="s2">,IF(ISNA(&#39;External Ref&#39;!K7),&quot;</span>
+         <span class="s1">&#39;&quot;N/A&quot;,TEXT(K7*1E+12,&quot;0&quot;)&amp;&quot;bp&quot;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;=+IF(A$3&lt;&gt;$B7,&quot;&quot;,(MIN(IF({TRUE, FALSE;1,2},A6:B6,$S7))&gt;=&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;LOWER_BOUND)*($BR6&gt;$S72123))&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;=(AW$4=$D7)+0%&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;Just text&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;123.456&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;31/12/1999&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="o">==</span> <span class="n">formula</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TestToken">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestToken</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestToken.test_init">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_init">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="p">(</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;subtype&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestToken.test_make_operand">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_make_operand">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;value, subtype&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;&quot;text&quot;&#39;</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;#REF!&#39;</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;0.123&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;.123&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1.234E5&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1E+5&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;1.13E-55&#39;</span><span class="p">,</span> <span class="n">NUMBER</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="n">LOGICAL</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="n">LOGICAL</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;ABCD12345&#39;</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;&#39;Hello world&#39;!R123C[-12]&quot;</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;[outside-workbook.xlsx]&#39;A sheet name&#39;!$AB$122&quot;</span><span class="p">,</span> <span class="n">RANGE</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_make_operand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">subtype</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">make_operand</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">OPERAND</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">subtype</span></div>
+
+
+<div class="viewcode-block" id="TestToken.test_make_subexp">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_make_subexp">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;value, type_, subtype&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">CLOSE</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;FUNC(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_make_subexp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">subtype</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">type_</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">subtype</span></div>
+
+
+<div class="viewcode-block" id="TestToken.test_make_subexp_func">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_make_subexp_func">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_make_subexp_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">FUNC</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">CLOSE</span>
+
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="s1">&#39;TEST(&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;TEST(&#39;</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">FUNC</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">OPEN</span></div>
+
+
+<div class="viewcode-block" id="TestToken.test_get_closer">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_get_closer">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;token, close_val&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">((</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="n">PAREN</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="s1">&#39;)&#39;</span><span class="p">),</span>
+        <span class="p">((</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="n">ARRAY</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="s1">&#39;}&#39;</span><span class="p">),</span>
+        <span class="p">((</span><span class="s1">&#39;FUNC(&#39;</span><span class="p">,</span> <span class="n">FUNC</span><span class="p">,</span> <span class="n">OPEN</span><span class="p">),</span> <span class="s1">&#39;)&#39;</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_get_closer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">close_val</span><span class="p">):</span>
+        <span class="n">closer</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="p">(</span><span class="o">*</span><span class="n">token</span><span class="p">)</span><span class="o">.</span><span class="n">get_closer</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">closer</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">close_val</span>
+        <span class="k">assert</span> <span class="n">closer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">closer</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">CLOSE</span></div>
+
+
+<div class="viewcode-block" id="TestToken.test_make_separator">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_make_separator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_make_separator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">):</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">make_separator</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;,&#39;</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">SEP</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">ARG</span>
+
+        <span class="n">token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">make_separator</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">SEP</span>
+        <span class="k">assert</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">ROW</span></div>
+
+
+<div class="viewcode-block" id="TestToken.test_parse_quoted_sheet_name_in_range">
+<a class="viewcode-back" href="../../../../api/fastpyxl.formula.tests.test_tokenizer.html#fastpyxl.formula.tests.test_tokenizer.TestToken.test_parse_quoted_sheet_name_in_range">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;formula, tokens&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;SUM(Inputs!$W$111:&#39;Input 1&#39;!W111)&quot;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s2">&quot;SUM(Inputs!$W$111:&#39;Input 1&#39;!W111)&quot;</span><span class="p">,</span> <span class="s1">&#39;LITERAL&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;=SUM(&#39;Inputs 1&#39;!$W$111:&#39;Input 1&#39;!W111)&quot;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;SUM(&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;OPEN&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s2">&quot;&#39;Inputs 1&#39;!$W$111:&#39;Input 1&#39;!W111&quot;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;RANGE&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;CLOSE&#39;</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;=SUM(Inputs!$W$111:&#39;Input 1&#39;!W111)&quot;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;SUM(&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;OPEN&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s2">&quot;Inputs!$W$111:&#39;Input 1&#39;!W111&quot;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;RANGE&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;CLOSE&#39;</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;=SUM(Inputs!$W$111:&#39;Input &#39;&#39;</span><span class="se">\&quot;</span><span class="s2">1&#39;!W111)&quot;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;SUM(&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;OPEN&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s2">&quot;Inputs!$W$111:&#39;Input &#39;&#39;</span><span class="se">\&quot;</span><span class="s2">1&#39;!W111&quot;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;RANGE&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;CLOSE&#39;</span><span class="p">)]),</span>
+
+        <span class="p">(</span><span class="s2">&quot;=SUM(Inputs!$W$111:Input1!W111)&quot;</span><span class="p">,</span>
+         <span class="p">[(</span><span class="s1">&#39;SUM(&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;OPEN&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;Inputs!$W$111:Input1!W111&#39;</span><span class="p">,</span> <span class="s1">&#39;OPERAND&#39;</span><span class="p">,</span> <span class="s1">&#39;RANGE&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;FUNC&#39;</span><span class="p">,</span> <span class="s1">&#39;CLOSE&#39;</span><span class="p">)]),</span>
+    <span class="p">])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_quoted_sheet_name_in_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">tokens</span><span class="p">):</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[(</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">subtype</span><span class="p">)</span>
+                  <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tok</span><span class="o">.</span><span class="n">items</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">tokens</span>
+        <span class="k">assert</span> <span class="n">tok</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="o">==</span> <span class="n">formula</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

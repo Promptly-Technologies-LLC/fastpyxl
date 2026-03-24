@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.drawing.tests package &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.drawing.tests.conftest module" href="fastpyxl.drawing.tests.conftest.html" />
+    <link rel="prev" title="fastpyxl.drawing package" href="fastpyxl.drawing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="fastpyxl.drawing.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.drawing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.drawing.tests package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.drawing.tests.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.drawing.tests">
+<span id="fastpyxl-drawing-tests-package"></span><h1>fastpyxl.drawing.tests package<a class="headerlink" href="#module-fastpyxl.drawing.tests" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.conftest.html">fastpyxl.drawing.tests.conftest module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.conftest.html#fastpyxl.drawing.tests.conftest.datadir"><code class="docutils literal notranslate"><span class="pre">datadir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html">fastpyxl.drawing.tests.test_color module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.ColorChoice"><code class="docutils literal notranslate"><span class="pre">ColorChoice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.ColorMapping"><code class="docutils literal notranslate"><span class="pre">ColorMapping()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.HSLColor"><code class="docutils literal notranslate"><span class="pre">HSLColor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.RGBPercent"><code class="docutils literal notranslate"><span class="pre">RGBPercent()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.SchemeColor"><code class="docutils literal notranslate"><span class="pre">SchemeColor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.SystemColor"><code class="docutils literal notranslate"><span class="pre">SystemColor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestColorChoice"><code class="docutils literal notranslate"><span class="pre">TestColorChoice</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestColorChoice.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestColorChoice.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestColorChoice.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestColorChoice.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestColorMapping"><code class="docutils literal notranslate"><span class="pre">TestColorMapping</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestColorMapping.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestColorMapping.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestColorMapping.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestColorMapping.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestHSLColor"><code class="docutils literal notranslate"><span class="pre">TestHSLColor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestHSLColor.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestHSLColor.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestHSLColor.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestHSLColor.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestRGBPercent"><code class="docutils literal notranslate"><span class="pre">TestRGBPercent</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestRGBPercent.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRGBPercent.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestRGBPercent.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRGBPercent.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestSchemeColor"><code class="docutils literal notranslate"><span class="pre">TestSchemeColor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestSchemeColor.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestSchemeColor.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestSchemeColor.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestSchemeColor.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestSystemColor"><code class="docutils literal notranslate"><span class="pre">TestSystemColor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestSystemColor.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestSystemColor.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_color.html#fastpyxl.drawing.tests.test_color.TestSystemColor.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestSystemColor.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_connector.html">fastpyxl.drawing.tests.test_connector module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_connector.html#fastpyxl.drawing.tests.test_connector.ConnectorShape"><code class="docutils literal notranslate"><span class="pre">ConnectorShape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_connector.html#fastpyxl.drawing.tests.test_connector.TestConnectorShape"><code class="docutils literal notranslate"><span class="pre">TestConnectorShape</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_connector.html#fastpyxl.drawing.tests.test_connector.TestConnectorShape.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestConnectorShape.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_connector.html#fastpyxl.drawing.tests.test_connector.TestConnectorShape.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestConnectorShape.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_descriptors.html">fastpyxl.drawing.tests.test_descriptors module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_descriptors.html#fastpyxl.drawing.tests.test_descriptors.test_color_descriptor"><code class="docutils literal notranslate"><span class="pre">test_color_descriptor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html">fastpyxl.drawing.tests.test_drawing module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.Drawing"><code class="docutils literal notranslate"><span class="pre">Drawing()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing"><code class="docutils literal notranslate"><span class="pre">TestDrawing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_absolute_anchor"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_absolute_anchor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_height"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_height()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_onecell_anchor"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_onecell_anchor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_proportional_height"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_proportional_height()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_proportional_width"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_proportional_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_set_dimension"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_set_dimension()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_drawing.html#fastpyxl.drawing.tests.test_drawing.TestDrawing.test_width"><code class="docutils literal notranslate"><span class="pre">TestDrawing.test_width()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html">fastpyxl.drawing.tests.test_effect module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.LuminanceEffect"><code class="docutils literal notranslate"><span class="pre">LuminanceEffect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.OuterShadow"><code class="docutils literal notranslate"><span class="pre">OuterShadow()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestLuminanceEffect"><code class="docutils literal notranslate"><span class="pre">TestLuminanceEffect</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestLuminanceEffect.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLuminanceEffect.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestLuminanceEffect.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLuminanceEffect.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestOuterShadow"><code class="docutils literal notranslate"><span class="pre">TestOuterShadow</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestOuterShadow.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestOuterShadow.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestOuterShadow.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestOuterShadow.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestTintEffect"><code class="docutils literal notranslate"><span class="pre">TestTintEffect</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestTintEffect.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestTintEffect.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TestTintEffect.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestTintEffect.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_effect.html#fastpyxl.drawing.tests.test_effect.TintEffect"><code class="docutils literal notranslate"><span class="pre">TintEffect()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html">fastpyxl.drawing.tests.test_fill module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.Blip"><code class="docutils literal notranslate"><span class="pre">Blip()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.BlipFillProperties"><code class="docutils literal notranslate"><span class="pre">BlipFillProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.GradientFillProperties"><code class="docutils literal notranslate"><span class="pre">GradientFillProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.GradientStop"><code class="docutils literal notranslate"><span class="pre">GradientStop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.LinearShadeProperties"><code class="docutils literal notranslate"><span class="pre">LinearShadeProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.PathShadeProperties"><code class="docutils literal notranslate"><span class="pre">PathShadeProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.PatternFillProperties"><code class="docutils literal notranslate"><span class="pre">PatternFillProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.RelativeRect"><code class="docutils literal notranslate"><span class="pre">RelativeRect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.StretchInfoProperties"><code class="docutils literal notranslate"><span class="pre">StretchInfoProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestBlip"><code class="docutils literal notranslate"><span class="pre">TestBlip</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestBlip.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestBlip.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestBlip.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestBlip.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestBlipFillProperties"><code class="docutils literal notranslate"><span class="pre">TestBlipFillProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestBlipFillProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestBlipFillProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestBlipFillProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestBlipFillProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestGradientFillProperties"><code class="docutils literal notranslate"><span class="pre">TestGradientFillProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestGradientFillProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGradientFillProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestGradientFillProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGradientFillProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestGradientStop"><code class="docutils literal notranslate"><span class="pre">TestGradientStop</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestGradientStop.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGradientStop.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestGradientStop.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGradientStop.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestLinearShadeProperties"><code class="docutils literal notranslate"><span class="pre">TestLinearShadeProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestLinearShadeProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLinearShadeProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestLinearShadeProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLinearShadeProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestPathShadeProperties"><code class="docutils literal notranslate"><span class="pre">TestPathShadeProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestPathShadeProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPathShadeProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestPathShadeProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPathShadeProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestPatternFillProperties"><code class="docutils literal notranslate"><span class="pre">TestPatternFillProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestPatternFillProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPatternFillProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestPatternFillProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPatternFillProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestRelativeRect"><code class="docutils literal notranslate"><span class="pre">TestRelativeRect</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestRelativeRect.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRelativeRect.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestRelativeRect.test_from_src_rect"><code class="docutils literal notranslate"><span class="pre">TestRelativeRect.test_from_src_rect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestRelativeRect.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRelativeRect.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestStretchInfoProperties"><code class="docutils literal notranslate"><span class="pre">TestStretchInfoProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestStretchInfoProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestStretchInfoProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_fill.html#fastpyxl.drawing.tests.test_fill.TestStretchInfoProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestStretchInfoProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html">fastpyxl.drawing.tests.test_geometry module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.Bevel"><code class="docutils literal notranslate"><span class="pre">Bevel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.Camera"><code class="docutils literal notranslate"><span class="pre">Camera()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.GradientFillProperties"><code class="docutils literal notranslate"><span class="pre">GradientFillProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.LightRig"><code class="docutils literal notranslate"><span class="pre">LightRig()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.Point3D"><code class="docutils literal notranslate"><span class="pre">Point3D()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.SphereCoords"><code class="docutils literal notranslate"><span class="pre">SphereCoords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestBevel"><code class="docutils literal notranslate"><span class="pre">TestBevel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestBevel.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestBevel.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestBevel.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestBevel.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestCamera"><code class="docutils literal notranslate"><span class="pre">TestCamera</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestCamera.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCamera.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestCamera.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCamera.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestGradientFillProperties"><code class="docutils literal notranslate"><span class="pre">TestGradientFillProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestGradientFillProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGradientFillProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestGradientFillProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGradientFillProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestLightRig"><code class="docutils literal notranslate"><span class="pre">TestLightRig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestLightRig.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLightRig.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestLightRig.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLightRig.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestPoint3D"><code class="docutils literal notranslate"><span class="pre">TestPoint3D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestPoint3D.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPoint3D.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestPoint3D.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPoint3D.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestSphereCoords"><code class="docutils literal notranslate"><span class="pre">TestSphereCoords</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestSphereCoords.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestSphereCoords.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestSphereCoords.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestSphereCoords.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestTransform2D"><code class="docutils literal notranslate"><span class="pre">TestTransform2D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestTransform2D.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestTransform2D.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestTransform2D.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestTransform2D.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestVector3D"><code class="docutils literal notranslate"><span class="pre">TestVector3D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestVector3D.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestVector3D.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.TestVector3D.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestVector3D.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.Transform2D"><code class="docutils literal notranslate"><span class="pre">Transform2D()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_geometry.html#fastpyxl.drawing.tests.test_geometry.Vector3D"><code class="docutils literal notranslate"><span class="pre">Vector3D()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html">fastpyxl.drawing.tests.test_graphic module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.GraphicData"><code class="docutils literal notranslate"><span class="pre">GraphicData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.GraphicFrame"><code class="docutils literal notranslate"><span class="pre">GraphicFrame()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.GraphicObject"><code class="docutils literal notranslate"><span class="pre">GraphicObject()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.GroupShape"><code class="docutils literal notranslate"><span class="pre">GroupShape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.GroupTransform2D"><code class="docutils literal notranslate"><span class="pre">GroupTransform2D()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.NonVisualGraphicFrame"><code class="docutils literal notranslate"><span class="pre">NonVisualGraphicFrame()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.NonVisualGraphicFrameProperties"><code class="docutils literal notranslate"><span class="pre">NonVisualGraphicFrameProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicData"><code class="docutils literal notranslate"><span class="pre">TestGraphicData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicData.test_contains_chart"><code class="docutils literal notranslate"><span class="pre">TestGraphicData.test_contains_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicData.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGraphicData.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicData.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGraphicData.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicFrame"><code class="docutils literal notranslate"><span class="pre">TestGraphicFrame</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicFrame.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGraphicFrame.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicFrame.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGraphicFrame.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicObject"><code class="docutils literal notranslate"><span class="pre">TestGraphicObject</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicObject.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGraphicObject.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGraphicObject.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGraphicObject.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGroupShape"><code class="docutils literal notranslate"><span class="pre">TestGroupShape</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGroupShape.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupShape.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGroupShape.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupShape.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGroupTransform2D"><code class="docutils literal notranslate"><span class="pre">TestGroupTransform2D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGroupTransform2D.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupTransform2D.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestGroupTransform2D.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupTransform2D.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestNonVisualGraphicFrame"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGraphicFrame</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestNonVisualGraphicFrame.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGraphicFrame.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestNonVisualGraphicFrame.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGraphicFrame.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestNonVisualGraphicFrameProperties"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGraphicFrameProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestNonVisualGraphicFrameProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGraphicFrameProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_graphic.html#fastpyxl.drawing.tests.test_graphic.TestNonVisualGraphicFrameProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGraphicFrameProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html">fastpyxl.drawing.tests.test_image module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.Image"><code class="docutils literal notranslate"><span class="pre">Image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage"><code class="docutils literal notranslate"><span class="pre">TestImage</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage.test_convert"><code class="docutils literal notranslate"><span class="pre">TestImage.test_convert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestImage.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage.test_dont_close_pil"><code class="docutils literal notranslate"><span class="pre">TestImage.test_dont_close_pil()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage.test_import"><code class="docutils literal notranslate"><span class="pre">TestImage.test_import()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage.test_save"><code class="docutils literal notranslate"><span class="pre">TestImage.test_save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_image.html#fastpyxl.drawing.tests.test_image.TestImage.test_write_image"><code class="docutils literal notranslate"><span class="pre">TestImage.test_write_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html">fastpyxl.drawing.tests.test_line module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.DashStop"><code class="docutils literal notranslate"><span class="pre">DashStop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.LineEndProperties"><code class="docutils literal notranslate"><span class="pre">LineEndProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.LineProperties"><code class="docutils literal notranslate"><span class="pre">LineProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestDashStop"><code class="docutils literal notranslate"><span class="pre">TestDashStop</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestDashStop.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestDashStop.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestDashStop.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestDashStop.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineEndProperties"><code class="docutils literal notranslate"><span class="pre">TestLineEndProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineEndProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLineEndProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineEndProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLineEndProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineProperties"><code class="docutils literal notranslate"><span class="pre">TestLineProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineProperties.test_color"><code class="docutils literal notranslate"><span class="pre">TestLineProperties.test_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLineProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_line.html#fastpyxl.drawing.tests.test_line.TestLineProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLineProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html">fastpyxl.drawing.tests.test_picture module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.NonVisualPictureProperties"><code class="docutils literal notranslate"><span class="pre">NonVisualPictureProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.PictureFrame"><code class="docutils literal notranslate"><span class="pre">PictureFrame()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.PictureLocking"><code class="docutils literal notranslate"><span class="pre">PictureLocking()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.PictureNonVisual"><code class="docutils literal notranslate"><span class="pre">PictureNonVisual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestNonVisualPictureProperties"><code class="docutils literal notranslate"><span class="pre">TestNonVisualPictureProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestNonVisualPictureProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNonVisualPictureProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestNonVisualPictureProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNonVisualPictureProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPicture"><code class="docutils literal notranslate"><span class="pre">TestPicture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPicture.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPicture.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPicture.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPicture.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPictureLocking"><code class="docutils literal notranslate"><span class="pre">TestPictureLocking</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPictureLocking.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPictureLocking.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPictureLocking.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPictureLocking.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPictureNonVisual"><code class="docutils literal notranslate"><span class="pre">TestPictureNonVisual</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPictureNonVisual.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPictureNonVisual.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_picture.html#fastpyxl.drawing.tests.test_picture.TestPictureNonVisual.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPictureNonVisual.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html">fastpyxl.drawing.tests.test_properties module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.GroupLocking"><code class="docutils literal notranslate"><span class="pre">GroupLocking()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.GroupShapeProperties"><code class="docutils literal notranslate"><span class="pre">GroupShapeProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.NonVisualDrawingProps"><code class="docutils literal notranslate"><span class="pre">NonVisualDrawingProps()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.NonVisualGroupDrawingShapeProps"><code class="docutils literal notranslate"><span class="pre">NonVisualGroupDrawingShapeProps()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.NonVisualGroupShape"><code class="docutils literal notranslate"><span class="pre">NonVisualGroupShape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestGroupLocking"><code class="docutils literal notranslate"><span class="pre">TestGroupLocking</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestGroupLocking.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupLocking.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestGroupLocking.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupLocking.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestGroupShapeProperties"><code class="docutils literal notranslate"><span class="pre">TestGroupShapeProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestGroupShapeProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupShapeProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestGroupShapeProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupShapeProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualDrawingProps"><code class="docutils literal notranslate"><span class="pre">TestNonVisualDrawingProps</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualDrawingProps.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNonVisualDrawingProps.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualDrawingProps.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNonVisualDrawingProps.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualGroupDrawingShapeProps"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGroupDrawingShapeProps</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualGroupDrawingShapeProps.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGroupDrawingShapeProps.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualGroupDrawingShapeProps.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGroupDrawingShapeProps.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualGroupShape"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGroupShape</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualGroupShape.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGroupShape.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_properties.html#fastpyxl.drawing.tests.test_properties.TestNonVisualGroupShape.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNonVisualGroupShape.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_relation.html">fastpyxl.drawing.tests.test_relation module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_relation.html#fastpyxl.drawing.tests.test_relation.ChartRelation"><code class="docutils literal notranslate"><span class="pre">ChartRelation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_relation.html#fastpyxl.drawing.tests.test_relation.TestChartRelation"><code class="docutils literal notranslate"><span class="pre">TestChartRelation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_relation.html#fastpyxl.drawing.tests.test_relation.TestChartRelation.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestChartRelation.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_relation.html#fastpyxl.drawing.tests.test_relation.TestChartRelation.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestChartRelation.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html">fastpyxl.drawing.tests.test_spreadsheet_drawing module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.AbsoluteAnchor"><code class="docutils literal notranslate"><span class="pre">AbsoluteAnchor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.OneCellAnchor"><code class="docutils literal notranslate"><span class="pre">OneCellAnchor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.SpreadsheetDrawing"><code class="docutils literal notranslate"><span class="pre">SpreadsheetDrawing()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestAbsoluteAnchor"><code class="docutils literal notranslate"><span class="pre">TestAbsoluteAnchor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestAbsoluteAnchor.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestAbsoluteAnchor.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestAbsoluteAnchor.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestAbsoluteAnchor.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestOneCellAnchor"><code class="docutils literal notranslate"><span class="pre">TestOneCellAnchor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestOneCellAnchor.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestOneCellAnchor.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestOneCellAnchor.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestOneCellAnchor.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_bool"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_bool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_empty"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_hash_function"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_hash_function()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_ignore_external_blip"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_ignore_external_blip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_image_as_group"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_image_as_group()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_image_as_pic"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_image_as_pic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_path"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_read_blip"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_read_blip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_read_chart"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_read_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_write_chart"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_write_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_write_picture"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_write_picture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestSpreadsheetDrawing.test_write_rels"><code class="docutils literal notranslate"><span class="pre">TestSpreadsheetDrawing.test_write_rels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestTwoCellAnchor"><code class="docutils literal notranslate"><span class="pre">TestTwoCellAnchor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestTwoCellAnchor.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestTwoCellAnchor.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TestTwoCellAnchor.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestTwoCellAnchor.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.TwoCellAnchor"><code class="docutils literal notranslate"><span class="pre">TwoCellAnchor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.test_check_anchor_chart"><code class="docutils literal notranslate"><span class="pre">test_check_anchor_chart()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.test_check_anchor_image"><code class="docutils literal notranslate"><span class="pre">test_check_anchor_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_spreadsheet_drawing.html#fastpyxl.drawing.tests.test_spreadsheet_drawing.test_check_chart_with_anchor"><code class="docutils literal notranslate"><span class="pre">test_check_chart_with_anchor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html">fastpyxl.drawing.tests.test_text module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.CharacterProperties"><code class="docutils literal notranslate"><span class="pre">CharacterProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.Font"><code class="docutils literal notranslate"><span class="pre">Font()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.Hyperlink"><code class="docutils literal notranslate"><span class="pre">Hyperlink()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.LineBreak"><code class="docutils literal notranslate"><span class="pre">LineBreak()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.Paragraph"><code class="docutils literal notranslate"><span class="pre">Paragraph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.ParagraphProperties"><code class="docutils literal notranslate"><span class="pre">ParagraphProperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestCharacterProperties"><code class="docutils literal notranslate"><span class="pre">TestCharacterProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestCharacterProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCharacterProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestCharacterProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCharacterProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestFont"><code class="docutils literal notranslate"><span class="pre">TestFont</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestFont.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestFont.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestFont.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestFont.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestHyperlink"><code class="docutils literal notranslate"><span class="pre">TestHyperlink</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestHyperlink.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestHyperlink.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestHyperlink.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestHyperlink.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestLineBreak"><code class="docutils literal notranslate"><span class="pre">TestLineBreak</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestLineBreak.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLineBreak.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestLineBreak.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLineBreak.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraph"><code class="docutils literal notranslate"><span class="pre">TestParagraph</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraph.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestParagraph.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraph.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestParagraph.test_from_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraph.test_multiline"><code class="docutils literal notranslate"><span class="pre">TestParagraph.test_multiline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraphProperties"><code class="docutils literal notranslate"><span class="pre">TestParagraphProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraphProperties.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestParagraphProperties.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestParagraphProperties.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestParagraphProperties.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestTextBox"><code class="docutils literal notranslate"><span class="pre">TestTextBox</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.tests.test_text.html#fastpyxl.drawing.tests.test_text.TestTextBox.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestTextBox.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.drawing.html" class="btn btn-neutral float-left" title="fastpyxl.drawing package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.drawing.tests.conftest.html" class="btn btn-neutral float-right" title="fastpyxl.drawing.tests.conftest module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

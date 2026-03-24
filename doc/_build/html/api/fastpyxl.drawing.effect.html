@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.drawing.effect module &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.drawing.fill module" href="fastpyxl.drawing.fill.html" />
+    <link rel="prev" title="fastpyxl.drawing.drawing module" href="fastpyxl.drawing.drawing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.drawing.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="fastpyxl.drawing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.drawing.effect module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.drawing.effect.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.drawing.effect">
+<span id="fastpyxl-drawing-effect-module"></span><h1>fastpyxl.drawing.effect module<a class="headerlink" href="#module-fastpyxl.drawing.effect" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaBiLevelEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaBiLevelEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaBiLevelEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaBiLevelEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaBiLevelEffect.thresh">
+<span class="sig-name descname"><span class="pre">thresh</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaBiLevelEffect.thresh" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaCeilingEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaCeilingEffect</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaCeilingEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaCeilingEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaFloorEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaFloorEffect</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaFloorEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaFloorEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaInverseEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaInverseEffect</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaInverseEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaInverseEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaModulateEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaModulateEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cont</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaModulateEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaModulateEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaModulateEffect.cont">
+<span class="sig-name descname"><span class="pre">cont</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.EffectContainer" title="fastpyxl.drawing.effect.EffectContainer"><span class="pre">EffectContainer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaModulateEffect.cont" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaModulateFixedEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaModulateFixedEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaModulateFixedEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaModulateFixedEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaModulateFixedEffect.amt">
+<span class="sig-name descname"><span class="pre">amt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaModulateFixedEffect.amt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaReplaceEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">AlphaReplaceEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#AlphaReplaceEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaReplaceEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.AlphaReplaceEffect.a">
+<span class="sig-name descname"><span class="pre">a</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.AlphaReplaceEffect.a" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.BiLevelEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">BiLevelEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#BiLevelEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.BiLevelEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.BiLevelEffect.thresh">
+<span class="sig-name descname"><span class="pre">thresh</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.BiLevelEffect.thresh" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.BlurEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">BlurEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#BlurEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.BlurEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.BlurEffect.grow">
+<span class="sig-name descname"><span class="pre">grow</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.BlurEffect.grow" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.BlurEffect.rad">
+<span class="sig-name descname"><span class="pre">rad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.BlurEffect.rad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.Color">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">Color</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#Color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.Color" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ColorChangeEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">ColorChangeEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">useA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clrFrom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clrTo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#ColorChangeEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.ColorChangeEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ColorChangeEffect.clrFrom">
+<span class="sig-name descname"><span class="pre">clrFrom</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.Color" title="fastpyxl.drawing.effect.Color"><span class="pre">Color</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ColorChangeEffect.clrFrom" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ColorChangeEffect.clrTo">
+<span class="sig-name descname"><span class="pre">clrTo</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.Color" title="fastpyxl.drawing.effect.Color"><span class="pre">Color</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ColorChangeEffect.clrTo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ColorChangeEffect.useA">
+<span class="sig-name descname"><span class="pre">useA</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ColorChangeEffect.useA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ColorChangeEffect.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('clrFrom',</span> <span class="pre">'clrTo')</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ColorChangeEffect.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ColorReplaceEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">ColorReplaceEffect</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#ColorReplaceEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.ColorReplaceEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.DuotoneEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">DuotoneEffect</span></span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#DuotoneEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.DuotoneEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectContainer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">EffectContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#EffectContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.EffectContainer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectContainer.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectContainer.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectContainer.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectContainer.type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">EffectList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blur</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillOverlay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">innerShdw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outerShdw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prstShdw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">softEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#EffectList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.blur">
+<span class="sig-name descname"><span class="pre">blur</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.BlurEffect" title="fastpyxl.drawing.effect.BlurEffect"><span class="pre">BlurEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.blur" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.fillOverlay">
+<span class="sig-name descname"><span class="pre">fillOverlay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.FillOverlayEffect" title="fastpyxl.drawing.effect.FillOverlayEffect"><span class="pre">FillOverlayEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.fillOverlay" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.glow">
+<span class="sig-name descname"><span class="pre">glow</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.GlowEffect" title="fastpyxl.drawing.effect.GlowEffect"><span class="pre">GlowEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.glow" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.innerShdw">
+<span class="sig-name descname"><span class="pre">innerShdw</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.InnerShadowEffect" title="fastpyxl.drawing.effect.InnerShadowEffect"><span class="pre">InnerShadowEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.innerShdw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.outerShdw">
+<span class="sig-name descname"><span class="pre">outerShdw</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.OuterShadow" title="fastpyxl.drawing.effect.OuterShadow"><span class="pre">OuterShadow</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.outerShdw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.prstShdw">
+<span class="sig-name descname"><span class="pre">prstShdw</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.PresetShadowEffect" title="fastpyxl.drawing.effect.PresetShadowEffect"><span class="pre">PresetShadowEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.prstShdw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.reflection">
+<span class="sig-name descname"><span class="pre">reflection</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.ReflectionEffect" title="fastpyxl.drawing.effect.ReflectionEffect"><span class="pre">ReflectionEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.reflection" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.softEdge">
+<span class="sig-name descname"><span class="pre">softEdge</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fastpyxl.drawing.effect.SoftEdgesEffect" title="fastpyxl.drawing.effect.SoftEdgesEffect"><span class="pre">SoftEdgesEffect</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.softEdge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.EffectList.xml_order">
+<span class="sig-name descname"><span class="pre">xml_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('blur',</span> <span class="pre">'fillOverlay',</span> <span class="pre">'glow',</span> <span class="pre">'innerShdw',</span> <span class="pre">'outerShdw',</span> <span class="pre">'prstShdw',</span> <span class="pre">'reflection',</span> <span class="pre">'softEdge')</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.EffectList.xml_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.FillOverlayEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">FillOverlayEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#FillOverlayEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.FillOverlayEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.FillOverlayEffect.blend">
+<span class="sig-name descname"><span class="pre">blend</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.FillOverlayEffect.blend" title="Link to this definition"></a></dt>
+<dd><p>Value must be one of {‘lighten’, ‘darken’, ‘over’, ‘screen’, ‘mult’}</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.GlowEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">GlowEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#GlowEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.GlowEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoice" title="fastpyxl.drawing.colors.ColorChoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColorChoice</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.GlowEffect.RGB">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGB</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.GlowEffect.RGB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.GlowEffect.RGBPercent">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGBPercent</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.GlowEffect.RGBPercent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.GlowEffect.rad">
+<span class="sig-name descname"><span class="pre">rad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.GlowEffect.rad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.GrayscaleEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">GrayscaleEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#GrayscaleEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.GrayscaleEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.GrayscaleEffect.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'grayscl'</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.GrayscaleEffect.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.HSLEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">HSLEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#HSLEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.HSLEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.descriptors.serialisable.html#fastpyxl.descriptors.serialisable.Serialisable" title="fastpyxl.descriptors.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.HSLEffect.hue">
+<span class="sig-name descname"><span class="pre">hue</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.HSLEffect.hue" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.HSLEffect.lum">
+<span class="sig-name descname"><span class="pre">lum</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.HSLEffect.lum" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.HSLEffect.sat">
+<span class="sig-name descname"><span class="pre">sat</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.HSLEffect.sat" title="Link to this definition"></a></dt>
+<dd><p>Values must be of type &lt;class ‘int’&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.InnerShadowEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">InnerShadowEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blurRad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#InnerShadowEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.InnerShadowEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoice" title="fastpyxl.drawing.colors.ColorChoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColorChoice</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.InnerShadowEffect.RGB">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGB</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.InnerShadowEffect.RGB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.InnerShadowEffect.RGBPercent">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGBPercent</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.InnerShadowEffect.RGBPercent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.InnerShadowEffect.blurRad">
+<span class="sig-name descname"><span class="pre">blurRad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.InnerShadowEffect.blurRad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.InnerShadowEffect.dir">
+<span class="sig-name descname"><span class="pre">dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.InnerShadowEffect.dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.InnerShadowEffect.dist">
+<span class="sig-name descname"><span class="pre">dist</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.InnerShadowEffect.dist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.LuminanceEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">LuminanceEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bright</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#LuminanceEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.LuminanceEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.LuminanceEffect.bright">
+<span class="sig-name descname"><span class="pre">bright</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.LuminanceEffect.bright" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.LuminanceEffect.contrast">
+<span class="sig-name descname"><span class="pre">contrast</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.LuminanceEffect.contrast" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.LuminanceEffect.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lum'</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.LuminanceEffect.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">OuterShadow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blurRad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotWithShape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#OuterShadow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoice" title="fastpyxl.drawing.colors.ColorChoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColorChoice</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.RGB">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGB</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.RGB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.RGBPercent">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGBPercent</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.RGBPercent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.algn">
+<span class="sig-name descname"><span class="pre">algn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.algn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.blurRad">
+<span class="sig-name descname"><span class="pre">blurRad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.blurRad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.dir">
+<span class="sig-name descname"><span class="pre">dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.dist">
+<span class="sig-name descname"><span class="pre">dist</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.dist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.kx">
+<span class="sig-name descname"><span class="pre">kx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.kx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.ky">
+<span class="sig-name descname"><span class="pre">ky</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.ky" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.rotWithShape">
+<span class="sig-name descname"><span class="pre">rotWithShape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.rotWithShape" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.sx">
+<span class="sig-name descname"><span class="pre">sx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.sx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.sy">
+<span class="sig-name descname"><span class="pre">sy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.sy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.OuterShadow.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'outerShdw'</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.OuterShadow.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.PresetShadowEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">PresetShadowEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#PresetShadowEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.PresetShadowEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoice" title="fastpyxl.drawing.colors.ColorChoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColorChoice</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.PresetShadowEffect.RGB">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGB</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.PresetShadowEffect.RGB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.PresetShadowEffect.RGBPercent">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RGBPercent</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.PresetShadowEffect.RGBPercent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.PresetShadowEffect.dir">
+<span class="sig-name descname"><span class="pre">dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.PresetShadowEffect.dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.PresetShadowEffect.dist">
+<span class="sig-name descname"><span class="pre">dist</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.PresetShadowEffect.dist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.PresetShadowEffect.prst">
+<span class="sig-name descname"><span class="pre">prst</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.PresetShadowEffect.prst" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">ReflectionEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blurRad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stPos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endPos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fadeDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotWithShape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#ReflectionEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.algn">
+<span class="sig-name descname"><span class="pre">algn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.algn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.blurRad">
+<span class="sig-name descname"><span class="pre">blurRad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.blurRad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.dir">
+<span class="sig-name descname"><span class="pre">dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.dist">
+<span class="sig-name descname"><span class="pre">dist</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.dist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.endA">
+<span class="sig-name descname"><span class="pre">endA</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.endA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.endPos">
+<span class="sig-name descname"><span class="pre">endPos</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.endPos" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.fadeDir">
+<span class="sig-name descname"><span class="pre">fadeDir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.fadeDir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.kx">
+<span class="sig-name descname"><span class="pre">kx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.kx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.ky">
+<span class="sig-name descname"><span class="pre">ky</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.ky" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.rotWithShape">
+<span class="sig-name descname"><span class="pre">rotWithShape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.rotWithShape" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.stA">
+<span class="sig-name descname"><span class="pre">stA</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.stA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.stPos">
+<span class="sig-name descname"><span class="pre">stPos</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.stPos" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.sx">
+<span class="sig-name descname"><span class="pre">sx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.sx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.ReflectionEffect.sy">
+<span class="sig-name descname"><span class="pre">sy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.ReflectionEffect.sy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.SoftEdgesEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">SoftEdgesEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#SoftEdgesEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.SoftEdgesEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.SoftEdgesEffect.rad">
+<span class="sig-name descname"><span class="pre">rad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.SoftEdgesEffect.rad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.TintEffect">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.drawing.effect.</span></span><span class="sig-name descname"><span class="pre">TintEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/drawing/effect.html#TintEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.drawing.effect.TintEffect" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="fastpyxl.typed_serialisable.base.html#fastpyxl.typed_serialisable.base.Serialisable" title="fastpyxl.typed_serialisable.base.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.TintEffect.amt">
+<span class="sig-name descname"><span class="pre">amt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.TintEffect.amt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.TintEffect.hue">
+<span class="sig-name descname"><span class="pre">hue</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.TintEffect.hue" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.drawing.effect.TintEffect.tagname">
+<span class="sig-name descname"><span class="pre">tagname</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tint'</span></span><a class="headerlink" href="#fastpyxl.drawing.effect.TintEffect.tagname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.drawing.drawing.html" class="btn btn-neutral float-left" title="fastpyxl.drawing.drawing module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.drawing.fill.html" class="btn btn-neutral float-right" title="fastpyxl.drawing.fill module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview: module code &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview: module code</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="builtins.html">builtins</a></li>
+<li><a href="datetime.html">datetime</a></li>
+<li><a href="fastpyxl/cell/cell.html">fastpyxl.cell.cell</a></li>
+<li><a href="fastpyxl/cell/read_only.html">fastpyxl.cell.read_only</a></li>
+<li><a href="fastpyxl/cell/rich_text.html">fastpyxl.cell.rich_text</a></li>
+<li><a href="fastpyxl/cell/tests/test_cell.html">fastpyxl.cell.tests.test_cell</a></li>
+<li><a href="fastpyxl/cell/tests/test_read_only.html">fastpyxl.cell.tests.test_read_only</a></li>
+<li><a href="fastpyxl/cell/tests/test_rich_text.html">fastpyxl.cell.tests.test_rich_text</a></li>
+<li><a href="fastpyxl/cell/tests/test_text.html">fastpyxl.cell.tests.test_text</a></li>
+<li><a href="fastpyxl/cell/tests/test_writer.html">fastpyxl.cell.tests.test_writer</a></li>
+<li><a href="fastpyxl/cell/text.html">fastpyxl.cell.text</a></li>
+<li><a href="fastpyxl/chart/area_chart.html">fastpyxl.chart.area_chart</a></li>
+<li><a href="fastpyxl/chart/axis.html">fastpyxl.chart.axis</a></li>
+<li><a href="fastpyxl/chart/bar_chart.html">fastpyxl.chart.bar_chart</a></li>
+<li><a href="fastpyxl/chart/bubble_chart.html">fastpyxl.chart.bubble_chart</a></li>
+<li><a href="fastpyxl/chart/chartspace.html">fastpyxl.chart.chartspace</a></li>
+<li><a href="fastpyxl/chart/data_source.html">fastpyxl.chart.data_source</a></li>
+<li><a href="fastpyxl/chart/descriptors.html">fastpyxl.chart.descriptors</a></li>
+<li><a href="fastpyxl/chart/error_bar.html">fastpyxl.chart.error_bar</a></li>
+<li><a href="fastpyxl/chart/label.html">fastpyxl.chart.label</a></li>
+<li><a href="fastpyxl/chart/layout.html">fastpyxl.chart.layout</a></li>
+<li><a href="fastpyxl/chart/legend.html">fastpyxl.chart.legend</a></li>
+<li><a href="fastpyxl/chart/line_chart.html">fastpyxl.chart.line_chart</a></li>
+<li><a href="fastpyxl/chart/marker.html">fastpyxl.chart.marker</a></li>
+<li><a href="fastpyxl/chart/picture.html">fastpyxl.chart.picture</a></li>
+<li><a href="fastpyxl/chart/pie_chart.html">fastpyxl.chart.pie_chart</a></li>
+<li><a href="fastpyxl/chart/pivot.html">fastpyxl.chart.pivot</a></li>
+<li><a href="fastpyxl/chart/plotarea.html">fastpyxl.chart.plotarea</a></li>
+<li><a href="fastpyxl/chart/print_settings.html">fastpyxl.chart.print_settings</a></li>
+<li><a href="fastpyxl/chart/radar_chart.html">fastpyxl.chart.radar_chart</a></li>
+<li><a href="fastpyxl/chart/reader.html">fastpyxl.chart.reader</a></li>
+<li><a href="fastpyxl/chart/reference.html">fastpyxl.chart.reference</a></li>
+<li><a href="fastpyxl/chart/scatter_chart.html">fastpyxl.chart.scatter_chart</a></li>
+<li><a href="fastpyxl/chart/series.html">fastpyxl.chart.series</a></li>
+<li><a href="fastpyxl/chart/series_factory.html">fastpyxl.chart.series_factory</a></li>
+<li><a href="fastpyxl/chart/shapes.html">fastpyxl.chart.shapes</a></li>
+<li><a href="fastpyxl/chart/stock_chart.html">fastpyxl.chart.stock_chart</a></li>
+<li><a href="fastpyxl/chart/surface_chart.html">fastpyxl.chart.surface_chart</a></li>
+<li><a href="fastpyxl/chart/tests/conftest.html">fastpyxl.chart.tests.conftest</a></li>
+<li><a href="fastpyxl/chart/tests/test_3d.html">fastpyxl.chart.tests.test_3d</a></li>
+<li><a href="fastpyxl/chart/tests/test_area_chart.html">fastpyxl.chart.tests.test_area_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_axis.html">fastpyxl.chart.tests.test_axis</a></li>
+<li><a href="fastpyxl/chart/tests/test_bar_chart.html">fastpyxl.chart.tests.test_bar_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_bubble_chart.html">fastpyxl.chart.tests.test_bubble_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_chart.html">fastpyxl.chart.tests.test_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_chartspace.html">fastpyxl.chart.tests.test_chartspace</a></li>
+<li><a href="fastpyxl/chart/tests/test_data_source.html">fastpyxl.chart.tests.test_data_source</a></li>
+<li><a href="fastpyxl/chart/tests/test_error_bar.html">fastpyxl.chart.tests.test_error_bar</a></li>
+<li><a href="fastpyxl/chart/tests/test_label.html">fastpyxl.chart.tests.test_label</a></li>
+<li><a href="fastpyxl/chart/tests/test_layout.html">fastpyxl.chart.tests.test_layout</a></li>
+<li><a href="fastpyxl/chart/tests/test_legend.html">fastpyxl.chart.tests.test_legend</a></li>
+<li><a href="fastpyxl/chart/tests/test_line_chart.html">fastpyxl.chart.tests.test_line_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_marker.html">fastpyxl.chart.tests.test_marker</a></li>
+<li><a href="fastpyxl/chart/tests/test_picture.html">fastpyxl.chart.tests.test_picture</a></li>
+<li><a href="fastpyxl/chart/tests/test_pie_chart.html">fastpyxl.chart.tests.test_pie_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_pivot.html">fastpyxl.chart.tests.test_pivot</a></li>
+<li><a href="fastpyxl/chart/tests/test_plotarea.html">fastpyxl.chart.tests.test_plotarea</a></li>
+<li><a href="fastpyxl/chart/tests/test_print.html">fastpyxl.chart.tests.test_print</a></li>
+<li><a href="fastpyxl/chart/tests/test_radar_chart.html">fastpyxl.chart.tests.test_radar_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_reader.html">fastpyxl.chart.tests.test_reader</a></li>
+<li><a href="fastpyxl/chart/tests/test_reference.html">fastpyxl.chart.tests.test_reference</a></li>
+<li><a href="fastpyxl/chart/tests/test_scatter_chart.html">fastpyxl.chart.tests.test_scatter_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_series.html">fastpyxl.chart.tests.test_series</a></li>
+<li><a href="fastpyxl/chart/tests/test_series_factory.html">fastpyxl.chart.tests.test_series_factory</a></li>
+<li><a href="fastpyxl/chart/tests/test_shapes.html">fastpyxl.chart.tests.test_shapes</a></li>
+<li><a href="fastpyxl/chart/tests/test_stock_chart.html">fastpyxl.chart.tests.test_stock_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_surface_chart.html">fastpyxl.chart.tests.test_surface_chart</a></li>
+<li><a href="fastpyxl/chart/tests/test_text.html">fastpyxl.chart.tests.test_text</a></li>
+<li><a href="fastpyxl/chart/tests/test_title.html">fastpyxl.chart.tests.test_title</a></li>
+<li><a href="fastpyxl/chart/tests/test_trendline.html">fastpyxl.chart.tests.test_trendline</a></li>
+<li><a href="fastpyxl/chart/tests/test_updown_bars.html">fastpyxl.chart.tests.test_updown_bars</a></li>
+<li><a href="fastpyxl/chart/text.html">fastpyxl.chart.text</a></li>
+<li><a href="fastpyxl/chart/title.html">fastpyxl.chart.title</a></li>
+<li><a href="fastpyxl/chart/trendline.html">fastpyxl.chart.trendline</a></li>
+<li><a href="fastpyxl/chart/updown_bars.html">fastpyxl.chart.updown_bars</a></li>
+<li><a href="fastpyxl/chartsheet/chartsheet.html">fastpyxl.chartsheet.chartsheet</a></li>
+<li><a href="fastpyxl/chartsheet/custom.html">fastpyxl.chartsheet.custom</a></li>
+<li><a href="fastpyxl/chartsheet/properties.html">fastpyxl.chartsheet.properties</a></li>
+<li><a href="fastpyxl/chartsheet/protection.html">fastpyxl.chartsheet.protection</a></li>
+<li><a href="fastpyxl/chartsheet/publish.html">fastpyxl.chartsheet.publish</a></li>
+<li><a href="fastpyxl/chartsheet/relation.html">fastpyxl.chartsheet.relation</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_chartsheet.html">fastpyxl.chartsheet.tests.test_chartsheet</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_custom.html">fastpyxl.chartsheet.tests.test_custom</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_properties.html">fastpyxl.chartsheet.tests.test_properties</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_protection.html">fastpyxl.chartsheet.tests.test_protection</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_publish.html">fastpyxl.chartsheet.tests.test_publish</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_relation.html">fastpyxl.chartsheet.tests.test_relation</a></li>
+<li><a href="fastpyxl/chartsheet/tests/test_views.html">fastpyxl.chartsheet.tests.test_views</a></li>
+<li><a href="fastpyxl/chartsheet/views.html">fastpyxl.chartsheet.views</a></li>
+<li><a href="fastpyxl/comments/author.html">fastpyxl.comments.author</a></li>
+<li><a href="fastpyxl/comments/comment_sheet.html">fastpyxl.comments.comment_sheet</a></li>
+<li><a href="fastpyxl/comments/comments.html">fastpyxl.comments.comments</a></li>
+<li><a href="fastpyxl/comments/shape_writer.html">fastpyxl.comments.shape_writer</a></li>
+<li><a href="fastpyxl/comments/tests/conftest.html">fastpyxl.comments.tests.conftest</a></li>
+<li><a href="fastpyxl/comments/tests/test_author.html">fastpyxl.comments.tests.test_author</a></li>
+<li><a href="fastpyxl/comments/tests/test_comment.html">fastpyxl.comments.tests.test_comment</a></li>
+<li><a href="fastpyxl/comments/tests/test_comment_reader.html">fastpyxl.comments.tests.test_comment_reader</a></li>
+<li><a href="fastpyxl/comments/tests/test_comment_sheet.html">fastpyxl.comments.tests.test_comment_sheet</a></li>
+<li><a href="fastpyxl/comments/tests/test_shape_writer.html">fastpyxl.comments.tests.test_shape_writer</a></li>
+<li><a href="fastpyxl/compat.html">fastpyxl.compat</a></li>
+<ul><li><a href="fastpyxl/compat/product.html">fastpyxl.compat.product</a></li>
+<li><a href="fastpyxl/compat/singleton.html">fastpyxl.compat.singleton</a></li>
+<li><a href="fastpyxl/compat/strings.html">fastpyxl.compat.strings</a></li>
+<li><a href="fastpyxl/compat/tests/test_compat.html">fastpyxl.compat.tests.test_compat</a></li>
+</ul><li><a href="fastpyxl/descriptors.html">fastpyxl.descriptors</a></li>
+<ul><li><a href="fastpyxl/descriptors/base.html">fastpyxl.descriptors.base</a></li>
+<li><a href="fastpyxl/descriptors/container.html">fastpyxl.descriptors.container</a></li>
+<li><a href="fastpyxl/descriptors/excel.html">fastpyxl.descriptors.excel</a></li>
+<li><a href="fastpyxl/descriptors/namespace.html">fastpyxl.descriptors.namespace</a></li>
+<li><a href="fastpyxl/descriptors/nested.html">fastpyxl.descriptors.nested</a></li>
+<li><a href="fastpyxl/descriptors/sequence.html">fastpyxl.descriptors.sequence</a></li>
+<li><a href="fastpyxl/descriptors/serialisable.html">fastpyxl.descriptors.serialisable</a></li>
+<li><a href="fastpyxl/descriptors/slots.html">fastpyxl.descriptors.slots</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_base.html">fastpyxl.descriptors.tests.test_base</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_container.html">fastpyxl.descriptors.tests.test_container</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_excel.html">fastpyxl.descriptors.tests.test_excel</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_namespace.html">fastpyxl.descriptors.tests.test_namespace</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_nested.html">fastpyxl.descriptors.tests.test_nested</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_sequence.html">fastpyxl.descriptors.tests.test_sequence</a></li>
+<li><a href="fastpyxl/descriptors/tests/test_serialisable.html">fastpyxl.descriptors.tests.test_serialisable</a></li>
+</ul><li><a href="fastpyxl/drawing/colors.html">fastpyxl.drawing.colors</a></li>
+<li><a href="fastpyxl/drawing/connector.html">fastpyxl.drawing.connector</a></li>
+<li><a href="fastpyxl/drawing/drawing.html">fastpyxl.drawing.drawing</a></li>
+<li><a href="fastpyxl/drawing/effect.html">fastpyxl.drawing.effect</a></li>
+<li><a href="fastpyxl/drawing/fill.html">fastpyxl.drawing.fill</a></li>
+<li><a href="fastpyxl/drawing/geometry.html">fastpyxl.drawing.geometry</a></li>
+<li><a href="fastpyxl/drawing/graphic.html">fastpyxl.drawing.graphic</a></li>
+<li><a href="fastpyxl/drawing/image.html">fastpyxl.drawing.image</a></li>
+<li><a href="fastpyxl/drawing/line.html">fastpyxl.drawing.line</a></li>
+<li><a href="fastpyxl/drawing/picture.html">fastpyxl.drawing.picture</a></li>
+<li><a href="fastpyxl/drawing/properties.html">fastpyxl.drawing.properties</a></li>
+<li><a href="fastpyxl/drawing/relation.html">fastpyxl.drawing.relation</a></li>
+<li><a href="fastpyxl/drawing/spreadsheet_drawing.html">fastpyxl.drawing.spreadsheet_drawing</a></li>
+<li><a href="fastpyxl/drawing/tests/conftest.html">fastpyxl.drawing.tests.conftest</a></li>
+<li><a href="fastpyxl/drawing/tests/test_color.html">fastpyxl.drawing.tests.test_color</a></li>
+<li><a href="fastpyxl/drawing/tests/test_connector.html">fastpyxl.drawing.tests.test_connector</a></li>
+<li><a href="fastpyxl/drawing/tests/test_descriptors.html">fastpyxl.drawing.tests.test_descriptors</a></li>
+<li><a href="fastpyxl/drawing/tests/test_drawing.html">fastpyxl.drawing.tests.test_drawing</a></li>
+<li><a href="fastpyxl/drawing/tests/test_effect.html">fastpyxl.drawing.tests.test_effect</a></li>
+<li><a href="fastpyxl/drawing/tests/test_fill.html">fastpyxl.drawing.tests.test_fill</a></li>
+<li><a href="fastpyxl/drawing/tests/test_geometry.html">fastpyxl.drawing.tests.test_geometry</a></li>
+<li><a href="fastpyxl/drawing/tests/test_graphic.html">fastpyxl.drawing.tests.test_graphic</a></li>
+<li><a href="fastpyxl/drawing/tests/test_image.html">fastpyxl.drawing.tests.test_image</a></li>
+<li><a href="fastpyxl/drawing/tests/test_line.html">fastpyxl.drawing.tests.test_line</a></li>
+<li><a href="fastpyxl/drawing/tests/test_picture.html">fastpyxl.drawing.tests.test_picture</a></li>
+<li><a href="fastpyxl/drawing/tests/test_properties.html">fastpyxl.drawing.tests.test_properties</a></li>
+<li><a href="fastpyxl/drawing/tests/test_relation.html">fastpyxl.drawing.tests.test_relation</a></li>
+<li><a href="fastpyxl/drawing/tests/test_spreadsheet_drawing.html">fastpyxl.drawing.tests.test_spreadsheet_drawing</a></li>
+<li><a href="fastpyxl/drawing/tests/test_text.html">fastpyxl.drawing.tests.test_text</a></li>
+<li><a href="fastpyxl/drawing/text.html">fastpyxl.drawing.text</a></li>
+<li><a href="fastpyxl/drawing/xdr.html">fastpyxl.drawing.xdr</a></li>
+<li><a href="fastpyxl/formatting/formatting.html">fastpyxl.formatting.formatting</a></li>
+<li><a href="fastpyxl/formatting/rule.html">fastpyxl.formatting.rule</a></li>
+<li><a href="fastpyxl/formatting/tests/conftest.html">fastpyxl.formatting.tests.conftest</a></li>
+<li><a href="fastpyxl/formatting/tests/test_formatting.html">fastpyxl.formatting.tests.test_formatting</a></li>
+<li><a href="fastpyxl/formatting/tests/test_rule.html">fastpyxl.formatting.tests.test_rule</a></li>
+<li><a href="fastpyxl/formula/tests/test_tokenizer.html">fastpyxl.formula.tests.test_tokenizer</a></li>
+<li><a href="fastpyxl/formula/tests/test_translate.html">fastpyxl.formula.tests.test_translate</a></li>
+<li><a href="fastpyxl/formula/tokenizer.html">fastpyxl.formula.tokenizer</a></li>
+<li><a href="fastpyxl/formula/translate.html">fastpyxl.formula.translate</a></li>
+<li><a href="fastpyxl/packaging/core.html">fastpyxl.packaging.core</a></li>
+<li><a href="fastpyxl/packaging/custom.html">fastpyxl.packaging.custom</a></li>
+<li><a href="fastpyxl/packaging/extended.html">fastpyxl.packaging.extended</a></li>
+<li><a href="fastpyxl/packaging/interface.html">fastpyxl.packaging.interface</a></li>
+<li><a href="fastpyxl/packaging/manifest.html">fastpyxl.packaging.manifest</a></li>
+<li><a href="fastpyxl/packaging/relationship.html">fastpyxl.packaging.relationship</a></li>
+<li><a href="fastpyxl/packaging/tests/conftest.html">fastpyxl.packaging.tests.conftest</a></li>
+<li><a href="fastpyxl/packaging/tests/test_core.html">fastpyxl.packaging.tests.test_core</a></li>
+<li><a href="fastpyxl/packaging/tests/test_custom.html">fastpyxl.packaging.tests.test_custom</a></li>
+<li><a href="fastpyxl/packaging/tests/test_extended.html">fastpyxl.packaging.tests.test_extended</a></li>
+<li><a href="fastpyxl/packaging/tests/test_interface.html">fastpyxl.packaging.tests.test_interface</a></li>
+<li><a href="fastpyxl/packaging/tests/test_manifest.html">fastpyxl.packaging.tests.test_manifest</a></li>
+<li><a href="fastpyxl/packaging/tests/test_pivot.html">fastpyxl.packaging.tests.test_pivot</a></li>
+<li><a href="fastpyxl/packaging/tests/test_relationship.html">fastpyxl.packaging.tests.test_relationship</a></li>
+<li><a href="fastpyxl/packaging/tests/test_workbook.html">fastpyxl.packaging.tests.test_workbook</a></li>
+<li><a href="fastpyxl/packaging/workbook.html">fastpyxl.packaging.workbook</a></li>
+<li><a href="fastpyxl/pivot/cache.html">fastpyxl.pivot.cache</a></li>
+<li><a href="fastpyxl/pivot/fields.html">fastpyxl.pivot.fields</a></li>
+<li><a href="fastpyxl/pivot/record.html">fastpyxl.pivot.record</a></li>
+<li><a href="fastpyxl/pivot/table.html">fastpyxl.pivot.table</a></li>
+<li><a href="fastpyxl/pivot/tests/conftest.html">fastpyxl.pivot.tests.conftest</a></li>
+<li><a href="fastpyxl/pivot/tests/test_cache.html">fastpyxl.pivot.tests.test_cache</a></li>
+<li><a href="fastpyxl/pivot/tests/test_fields.html">fastpyxl.pivot.tests.test_fields</a></li>
+<li><a href="fastpyxl/pivot/tests/test_record.html">fastpyxl.pivot.tests.test_record</a></li>
+<li><a href="fastpyxl/pivot/tests/test_table.html">fastpyxl.pivot.tests.test_table</a></li>
+<li><a href="fastpyxl/reader/drawings.html">fastpyxl.reader.drawings</a></li>
+<li><a href="fastpyxl/reader/excel.html">fastpyxl.reader.excel</a></li>
+<li><a href="fastpyxl/reader/strings.html">fastpyxl.reader.strings</a></li>
+<li><a href="fastpyxl/reader/tests/conftest.html">fastpyxl.reader.tests.conftest</a></li>
+<li><a href="fastpyxl/reader/tests/test_drawings.html">fastpyxl.reader.tests.test_drawings</a></li>
+<li><a href="fastpyxl/reader/tests/test_excel.html">fastpyxl.reader.tests.test_excel</a></li>
+<li><a href="fastpyxl/reader/tests/test_strings.html">fastpyxl.reader.tests.test_strings</a></li>
+<li><a href="fastpyxl/reader/tests/test_workbook.html">fastpyxl.reader.tests.test_workbook</a></li>
+<li><a href="fastpyxl/reader/workbook.html">fastpyxl.reader.workbook</a></li>
+<li><a href="fastpyxl/styles/alignment.html">fastpyxl.styles.alignment</a></li>
+<li><a href="fastpyxl/styles/borders.html">fastpyxl.styles.borders</a></li>
+<li><a href="fastpyxl/styles/cell_style.html">fastpyxl.styles.cell_style</a></li>
+<li><a href="fastpyxl/styles/colors.html">fastpyxl.styles.colors</a></li>
+<li><a href="fastpyxl/styles/differential.html">fastpyxl.styles.differential</a></li>
+<li><a href="fastpyxl/styles/fills.html">fastpyxl.styles.fills</a></li>
+<li><a href="fastpyxl/styles/fonts.html">fastpyxl.styles.fonts</a></li>
+<li><a href="fastpyxl/styles/named_styles.html">fastpyxl.styles.named_styles</a></li>
+<li><a href="fastpyxl/styles/numbers.html">fastpyxl.styles.numbers</a></li>
+<li><a href="fastpyxl/styles/protection.html">fastpyxl.styles.protection</a></li>
+<li><a href="fastpyxl/styles/proxy.html">fastpyxl.styles.proxy</a></li>
+<li><a href="fastpyxl/styles/styleable.html">fastpyxl.styles.styleable</a></li>
+<li><a href="fastpyxl/styles/stylesheet.html">fastpyxl.styles.stylesheet</a></li>
+<li><a href="fastpyxl/styles/table.html">fastpyxl.styles.table</a></li>
+<li><a href="fastpyxl/styles/tests/conftest.html">fastpyxl.styles.tests.conftest</a></li>
+<li><a href="fastpyxl/styles/tests/test_alignments.html">fastpyxl.styles.tests.test_alignments</a></li>
+<li><a href="fastpyxl/styles/tests/test_borders.html">fastpyxl.styles.tests.test_borders</a></li>
+<li><a href="fastpyxl/styles/tests/test_cell_style.html">fastpyxl.styles.tests.test_cell_style</a></li>
+<li><a href="fastpyxl/styles/tests/test_colors.html">fastpyxl.styles.tests.test_colors</a></li>
+<li><a href="fastpyxl/styles/tests/test_differential.html">fastpyxl.styles.tests.test_differential</a></li>
+<li><a href="fastpyxl/styles/tests/test_fills.html">fastpyxl.styles.tests.test_fills</a></li>
+<li><a href="fastpyxl/styles/tests/test_fonts.html">fastpyxl.styles.tests.test_fonts</a></li>
+<li><a href="fastpyxl/styles/tests/test_named_style.html">fastpyxl.styles.tests.test_named_style</a></li>
+<li><a href="fastpyxl/styles/tests/test_number_style.html">fastpyxl.styles.tests.test_number_style</a></li>
+<li><a href="fastpyxl/styles/tests/test_protection.html">fastpyxl.styles.tests.test_protection</a></li>
+<li><a href="fastpyxl/styles/tests/test_proxy.html">fastpyxl.styles.tests.test_proxy</a></li>
+<li><a href="fastpyxl/styles/tests/test_styleable.html">fastpyxl.styles.tests.test_styleable</a></li>
+<li><a href="fastpyxl/styles/tests/test_stylesheet.html">fastpyxl.styles.tests.test_stylesheet</a></li>
+<li><a href="fastpyxl/styles/tests/test_table.html">fastpyxl.styles.tests.test_table</a></li>
+<li><a href="fastpyxl/tests/conftest.html">fastpyxl.tests.conftest</a></li>
+<li><a href="fastpyxl/tests/helper.html">fastpyxl.tests.helper</a></li>
+<li><a href="fastpyxl/tests/test_backend.html">fastpyxl.tests.test_backend</a></li>
+<li><a href="fastpyxl/tests/test_iter.html">fastpyxl.tests.test_iter</a></li>
+<li><a href="fastpyxl/tests/test_read.html">fastpyxl.tests.test_read</a></li>
+<li><a href="fastpyxl/tests/test_read_write_custom_doc_props.html">fastpyxl.tests.test_read_write_custom_doc_props</a></li>
+<li><a href="fastpyxl/tests/test_vba.html">fastpyxl.tests.test_vba</a></li>
+<li><a href="fastpyxl/typed_serialisable/base.html">fastpyxl.typed_serialisable.base</a></li>
+<li><a href="fastpyxl/typed_serialisable/compat.html">fastpyxl.typed_serialisable.compat</a></li>
+<li><a href="fastpyxl/typed_serialisable/errors.html">fastpyxl.typed_serialisable.errors</a></li>
+<li><a href="fastpyxl/typed_serialisable/field_info.html">fastpyxl.typed_serialisable.field_info</a></li>
+<li><a href="fastpyxl/typed_serialisable/fields.html">fastpyxl.typed_serialisable.fields</a></li>
+<li><a href="fastpyxl/typed_serialisable/parse.html">fastpyxl.typed_serialisable.parse</a></li>
+<li><a href="fastpyxl/typed_serialisable/render.html">fastpyxl.typed_serialisable.render</a></li>
+<li><a href="fastpyxl/utils/bound_dictionary.html">fastpyxl.utils.bound_dictionary</a></li>
+<li><a href="fastpyxl/utils/cell.html">fastpyxl.utils.cell</a></li>
+<li><a href="fastpyxl/utils/dataframe.html">fastpyxl.utils.dataframe</a></li>
+<li><a href="fastpyxl/utils/datetime.html">fastpyxl.utils.datetime</a></li>
+<li><a href="fastpyxl/utils/escape.html">fastpyxl.utils.escape</a></li>
+<li><a href="fastpyxl/utils/exceptions.html">fastpyxl.utils.exceptions</a></li>
+<li><a href="fastpyxl/utils/formulas.html">fastpyxl.utils.formulas</a></li>
+<li><a href="fastpyxl/utils/indexed_list.html">fastpyxl.utils.indexed_list</a></li>
+<li><a href="fastpyxl/utils/inference.html">fastpyxl.utils.inference</a></li>
+<li><a href="fastpyxl/utils/protection.html">fastpyxl.utils.protection</a></li>
+<li><a href="fastpyxl/utils/tests/test_bound_dictionary.html">fastpyxl.utils.tests.test_bound_dictionary</a></li>
+<li><a href="fastpyxl/utils/tests/test_cell.html">fastpyxl.utils.tests.test_cell</a></li>
+<li><a href="fastpyxl/utils/tests/test_dataframe.html">fastpyxl.utils.tests.test_dataframe</a></li>
+<li><a href="fastpyxl/utils/tests/test_datetime.html">fastpyxl.utils.tests.test_datetime</a></li>
+<li><a href="fastpyxl/utils/tests/test_escape.html">fastpyxl.utils.tests.test_escape</a></li>
+<li><a href="fastpyxl/utils/tests/test_formulas.html">fastpyxl.utils.tests.test_formulas</a></li>
+<li><a href="fastpyxl/utils/tests/test_indexed_list.html">fastpyxl.utils.tests.test_indexed_list</a></li>
+<li><a href="fastpyxl/utils/tests/test_inference.html">fastpyxl.utils.tests.test_inference</a></li>
+<li><a href="fastpyxl/utils/tests/test_protection.html">fastpyxl.utils.tests.test_protection</a></li>
+<li><a href="fastpyxl/utils/tests/test_units.html">fastpyxl.utils.tests.test_units</a></li>
+<li><a href="fastpyxl/utils/units.html">fastpyxl.utils.units</a></li>
+<li><a href="fastpyxl/workbook/child.html">fastpyxl.workbook.child</a></li>
+<li><a href="fastpyxl/workbook/defined_name.html">fastpyxl.workbook.defined_name</a></li>
+<li><a href="fastpyxl/workbook/external_link/external.html">fastpyxl.workbook.external_link.external</a></li>
+<li><a href="fastpyxl/workbook/external_link/tests/conftest.html">fastpyxl.workbook.external_link.tests.conftest</a></li>
+<li><a href="fastpyxl/workbook/external_link/tests/test_external.html">fastpyxl.workbook.external_link.tests.test_external</a></li>
+<li><a href="fastpyxl/workbook/external_reference.html">fastpyxl.workbook.external_reference</a></li>
+<li><a href="fastpyxl/workbook/function_group.html">fastpyxl.workbook.function_group</a></li>
+<li><a href="fastpyxl/workbook/properties.html">fastpyxl.workbook.properties</a></li>
+<li><a href="fastpyxl/workbook/protection.html">fastpyxl.workbook.protection</a></li>
+<li><a href="fastpyxl/workbook/smart_tags.html">fastpyxl.workbook.smart_tags</a></li>
+<li><a href="fastpyxl/workbook/tests/conftest.html">fastpyxl.workbook.tests.conftest</a></li>
+<li><a href="fastpyxl/workbook/tests/test_child.html">fastpyxl.workbook.tests.test_child</a></li>
+<li><a href="fastpyxl/workbook/tests/test_defined_name.html">fastpyxl.workbook.tests.test_defined_name</a></li>
+<li><a href="fastpyxl/workbook/tests/test_external_reference.html">fastpyxl.workbook.tests.test_external_reference</a></li>
+<li><a href="fastpyxl/workbook/tests/test_function_group.html">fastpyxl.workbook.tests.test_function_group</a></li>
+<li><a href="fastpyxl/workbook/tests/test_properties.html">fastpyxl.workbook.tests.test_properties</a></li>
+<li><a href="fastpyxl/workbook/tests/test_protection.html">fastpyxl.workbook.tests.test_protection</a></li>
+<li><a href="fastpyxl/workbook/tests/test_smart_tags.html">fastpyxl.workbook.tests.test_smart_tags</a></li>
+<li><a href="fastpyxl/workbook/tests/test_views.html">fastpyxl.workbook.tests.test_views</a></li>
+<li><a href="fastpyxl/workbook/tests/test_web.html">fastpyxl.workbook.tests.test_web</a></li>
+<li><a href="fastpyxl/workbook/tests/test_workbook.html">fastpyxl.workbook.tests.test_workbook</a></li>
+<li><a href="fastpyxl/workbook/tests/test_writer.html">fastpyxl.workbook.tests.test_writer</a></li>
+<li><a href="fastpyxl/workbook/views.html">fastpyxl.workbook.views</a></li>
+<li><a href="fastpyxl/workbook/web.html">fastpyxl.workbook.web</a></li>
+<li><a href="fastpyxl/workbook/workbook.html">fastpyxl.workbook.workbook</a></li>
+<li><a href="fastpyxl/worksheet/cell_range.html">fastpyxl.worksheet.cell_range</a></li>
+<li><a href="fastpyxl/worksheet/cell_watch.html">fastpyxl.worksheet.cell_watch</a></li>
+<li><a href="fastpyxl/worksheet/controls.html">fastpyxl.worksheet.controls</a></li>
+<li><a href="fastpyxl/worksheet/copier.html">fastpyxl.worksheet.copier</a></li>
+<li><a href="fastpyxl/worksheet/custom.html">fastpyxl.worksheet.custom</a></li>
+<li><a href="fastpyxl/worksheet/datavalidation.html">fastpyxl.worksheet.datavalidation</a></li>
+<li><a href="fastpyxl/worksheet/dimensions.html">fastpyxl.worksheet.dimensions</a></li>
+<li><a href="fastpyxl/worksheet/drawing.html">fastpyxl.worksheet.drawing</a></li>
+<li><a href="fastpyxl/worksheet/errors.html">fastpyxl.worksheet.errors</a></li>
+<li><a href="fastpyxl/worksheet/filters.html">fastpyxl.worksheet.filters</a></li>
+<li><a href="fastpyxl/worksheet/formula.html">fastpyxl.worksheet.formula</a></li>
+<li><a href="fastpyxl/worksheet/header_footer.html">fastpyxl.worksheet.header_footer</a></li>
+<li><a href="fastpyxl/worksheet/hyperlink.html">fastpyxl.worksheet.hyperlink</a></li>
+<li><a href="fastpyxl/worksheet/merge.html">fastpyxl.worksheet.merge</a></li>
+<li><a href="fastpyxl/worksheet/ole.html">fastpyxl.worksheet.ole</a></li>
+<li><a href="fastpyxl/worksheet/page.html">fastpyxl.worksheet.page</a></li>
+<li><a href="fastpyxl/worksheet/pagebreak.html">fastpyxl.worksheet.pagebreak</a></li>
+<li><a href="fastpyxl/worksheet/picture.html">fastpyxl.worksheet.picture</a></li>
+<li><a href="fastpyxl/worksheet/print_settings.html">fastpyxl.worksheet.print_settings</a></li>
+<li><a href="fastpyxl/worksheet/properties.html">fastpyxl.worksheet.properties</a></li>
+<li><a href="fastpyxl/worksheet/protection.html">fastpyxl.worksheet.protection</a></li>
+<li><a href="fastpyxl/worksheet/related.html">fastpyxl.worksheet.related</a></li>
+<li><a href="fastpyxl/worksheet/scenario.html">fastpyxl.worksheet.scenario</a></li>
+<li><a href="fastpyxl/worksheet/smart_tag.html">fastpyxl.worksheet.smart_tag</a></li>
+<li><a href="fastpyxl/worksheet/table.html">fastpyxl.worksheet.table</a></li>
+<li><a href="fastpyxl/worksheet/tests/conftest.html">fastpyxl.worksheet.tests.conftest</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_cell_range.html">fastpyxl.worksheet.tests.test_cell_range</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_controls.html">fastpyxl.worksheet.tests.test_controls</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_datavalidation.html">fastpyxl.worksheet.tests.test_datavalidation</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_dimensions.html">fastpyxl.worksheet.tests.test_dimensions</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_filters.html">fastpyxl.worksheet.tests.test_filters</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_formula.html">fastpyxl.worksheet.tests.test_formula</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_header.html">fastpyxl.worksheet.tests.test_header</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_hyperlink.html">fastpyxl.worksheet.tests.test_hyperlink</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_merge.html">fastpyxl.worksheet.tests.test_merge</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_ole.html">fastpyxl.worksheet.tests.test_ole</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_page.html">fastpyxl.worksheet.tests.test_page</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_pagebreak.html">fastpyxl.worksheet.tests.test_pagebreak</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_print_settings.html">fastpyxl.worksheet.tests.test_print_settings</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_properties.html">fastpyxl.worksheet.tests.test_properties</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_protection.html">fastpyxl.worksheet.tests.test_protection</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_read_only.html">fastpyxl.worksheet.tests.test_read_only</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_reader.html">fastpyxl.worksheet.tests.test_reader</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_related.html">fastpyxl.worksheet.tests.test_related</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_scenario.html">fastpyxl.worksheet.tests.test_scenario</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_table.html">fastpyxl.worksheet.tests.test_table</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_views.html">fastpyxl.worksheet.tests.test_views</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_worksheet.html">fastpyxl.worksheet.tests.test_worksheet</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_worksheet_copy.html">fastpyxl.worksheet.tests.test_worksheet_copy</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_write_only.html">fastpyxl.worksheet.tests.test_write_only</a></li>
+<li><a href="fastpyxl/worksheet/tests/test_writer.html">fastpyxl.worksheet.tests.test_writer</a></li>
+<li><a href="fastpyxl/worksheet/views.html">fastpyxl.worksheet.views</a></li>
+<li><a href="fastpyxl/worksheet/worksheet.html">fastpyxl.worksheet.worksheet</a></li>
+<li><a href="fastpyxl/writer/excel.html">fastpyxl.writer.excel</a></li>
+<li><a href="fastpyxl/writer/tests/conftest.html">fastpyxl.writer.tests.conftest</a></li>
+<li><a href="fastpyxl/writer/tests/test_excel.html">fastpyxl.writer.tests.test_excel</a></li>
+<li><a href="fastpyxl/writer/tests/test_template.html">fastpyxl.writer.tests.test_template</a></li>
+<li><a href="fastpyxl/writer/theme.html">fastpyxl.writer.theme</a></li>
+<li><a href="fastpyxl/xml.html">fastpyxl.xml</a></li>
+<ul><li><a href="fastpyxl/xml/functions.html">fastpyxl.xml.functions</a></li>
+<li><a href="fastpyxl/xml/tests/test_functions.html">fastpyxl.xml.tests.test_functions</a></li>
+</ul><li><a href="re.html">re</a></li>
+</ul>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

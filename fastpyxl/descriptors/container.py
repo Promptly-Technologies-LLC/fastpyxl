@@ -6,6 +6,8 @@ Utility list for top level containers that contain one type of element
 Provides the necessary API to read and write XML
 """
 
+from typing import Any, cast
+
 from fastpyxl.xml.functions import Element
 
 
@@ -24,7 +26,8 @@ class ElementList(list):
 
     @classmethod
     def from_tree(cls, tree):
-        items = [cls.expected_type.from_tree(el) for el in tree]
+        et = cast(Any, cls).expected_type
+        items = [et.from_tree(el) for el in tree]
         return cls(items)
 
 

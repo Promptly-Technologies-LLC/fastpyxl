@@ -14,6 +14,7 @@ __docformat__ = "restructuredtext en"
 from copy import copy
 import datetime
 import re
+from typing import cast
 
 
 from fastpyxl.compat import (
@@ -268,8 +269,8 @@ class Cell(StyleableObject):
 
         :rtype: :class:`fastpyxl.cell.Cell`
         """
-        offset_column = self.col_idx + column
-        offset_row = self.row + row
+        offset_column = cast(int, self.column) + column
+        offset_row = cast(int, self.row) + row
         return self.parent.cell(column=offset_column, row=offset_row)
 
 

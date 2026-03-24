@@ -263,7 +263,8 @@ def CellIsRule(operator=None, formula=None, stopIfTrue=None, font=None, border=N
     expand = {">": "greaterThan", ">=": "greaterThanOrEqual", "<": "lessThan", "<=": "lessThanOrEqual",
               "=": "equal", "==": "equal", "!=": "notEqual"}
 
-    operator = expand.get(operator, operator)
+    if operator is not None:
+        operator = expand.get(operator, operator)
 
     rule = Rule(type='cellIs', operator=operator, formula=formula, stopIfTrue=stopIfTrue)
     rule.dxf = DifferentialStyle(font=font, border=border, fill=fill)
@@ -276,7 +277,7 @@ def IconSetRule(icon_style=None, type=None, values=None, showValue=None, percent
     Convenience function for creating icon set rules
     """
     cfvo = []
-    for val in values:
+    for val in values or ():
         cfvo.append(FormatObject(type, val))
     icon_set = IconSet(iconSet=icon_style, cfvo=cfvo, showValue=showValue,
                        percent=percent, reverse=reverse)

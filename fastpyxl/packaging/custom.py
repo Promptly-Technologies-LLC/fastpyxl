@@ -3,6 +3,7 @@
 """Implementation of custom properties see § 22.3 in the specification"""
 
 import datetime
+from typing import cast
 
 from warnings import warn
 
@@ -106,9 +107,10 @@ class _CustomDocumentProperty(Serialisable):
 
 
     def to_tree(self, tagname=None, idx=None, namespace=None):
-        child = getattr(self, self._typ, None)
-        if child is None:
-            setattr(self, self._typ, "")
+        typ = self._typ
+        child = getattr(self, typ, None) if typ is not None else None
+        if typ is not None and child is None:
+            setattr(self, typ, "")
 
         return super().to_tree(tagname=None, idx=None, namespace=None)
 
@@ -246,13 +248,13 @@ class CustomPropertyList(Strict):
         if prop.name in self.names:
             raise ValueError(f"Property with name {prop.name} already exists")
 
-        self.props.append(prop)
+        cast(list, self.props).append(prop)
 
 
     def to_tree(self):
         props = []
 
-        for p in self.props:
+        for p in cast(list, self.props):
             attr = CLASS_MAPPING.get(p.__class__, None)
             if not attr:
                 raise TypeError("Unknown adapter for {p}")
@@ -267,20 +269,20 @@ class CustomPropertyList(Strict):
 
 
     def __len__(self):
-        return len(self.props)
+        return len(cast(list, self.props))
 
 
     @property
     def names(self):
         """List of property names"""
-        return [p.name for p in self.props]
+        return [p.name for p in cast(list, self.props)]
 
 
     def __getitem__(self, name):
         """
         Get property by name
         """
-        for p in self.props:
+        for p in cast(list, self.props):
             if p.name == name:
                 return p
         raise KeyError(f"Property with name {name} not found")
@@ -290,16 +292,16 @@ class CustomPropertyList(Strict):
         """
         Delete a propery by name
         """
-        for idx, p in enumerate(self.props):
+        for idx, p in enumerate(cast(list, self.props)):
             if p.name == name:
-                self.props.pop(idx)
+                cast(list, self.props).pop(idx)
                 return
         raise KeyError(f"Property with name {name} not found")
 
 
     def __repr__(self):
-        return f"{self.__class__.__name__} containing {self.props}"
+        return f"{self.__class__.__name__} containing {cast(list, self.props)}"
 
 
     def __iter__(self):
-        return iter(self.props)
+        return iter(cast(list, self.props))

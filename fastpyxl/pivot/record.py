@@ -74,7 +74,8 @@ class RecordList(Serialisable):
 
     @property
     def count(self):
-        return len(self.r)
+        r = self.r
+        return len(r) if r is not None else 0
 
     def __iter__(self):
         yield from super().__iter__()

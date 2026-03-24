@@ -30,6 +30,7 @@ class Nested(Descriptor):
         if value is not None:
             if namespace is not None:
                 tagname = "{%s}%s" % (namespace, tagname)
+            assert tagname is not None
             value = safe_string(value)
             return Element(tagname, {self.attribute: value})
 
@@ -53,6 +54,7 @@ class NestedText(NestedValue):
         if value is not None:
             if namespace is not None:
                 tagname = "{%s}%s" % (namespace, tagname)
+            assert tagname is not None
             el = Element(tagname)
             el.text = safe_string(value)
             whitespace(el)
@@ -101,4 +103,5 @@ class EmptyTag(Nested, Bool):
             namespace = getattr(self, "namespace", namespace)
             if namespace is not None:
                 tagname = "{%s}%s" % (namespace, tagname)
+            assert tagname is not None
             return Element(tagname)

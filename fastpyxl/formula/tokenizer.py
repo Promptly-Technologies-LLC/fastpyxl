@@ -172,7 +172,9 @@ class Tokenizer:
         """
         assert self.formula[self.offset] in (' ', '\n')
         self.items.append(Token(self.formula[self.offset], Token.WSPACE))
-        return self.WSPACE_RE.match(self.formula[self.offset:]).end()
+        m = self.WSPACE_RE.match(self.formula[self.offset:])
+        assert m is not None
+        return m.end()
 
     def _parse_operator(self):
         """

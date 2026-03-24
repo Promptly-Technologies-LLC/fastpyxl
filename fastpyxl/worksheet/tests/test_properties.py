@@ -1,5 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from typing import Any, cast
+
 import pytest
 
 from fastpyxl.xml.functions import tostring, fromstring
@@ -12,8 +14,8 @@ def test_ctor():
     outline_pr = Outline(summaryBelow=True, summaryRight=True)
     wsprops = WorksheetProperties(tabColor=color_test, outlinePr=outline_pr)
     assert dict(wsprops) == {}
-    assert dict(wsprops.outlinePr) == {'summaryBelow': '1', 'summaryRight': '1'}
-    assert dict(wsprops.tabColor) == {'rgb': '00F0F0F0'}
+    assert dict(cast(Any, wsprops.outlinePr)) == {'summaryBelow': '1', 'summaryRight': '1'}
+    assert dict(cast(Any, wsprops.tabColor)) == {'rgb': '00F0F0F0'}
 
 
 @pytest.fixture

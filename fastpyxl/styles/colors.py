@@ -101,11 +101,15 @@ class Color(Serialisable):
 
     @property
     def value(self):
-        return getattr(self, self.type)
+        t = self.type
+        assert t is not None
+        return getattr(self, t)
 
     @value.setter
     def value(self, value):
-        setattr(self, self.type, value)
+        t = self.type
+        assert t is not None
+        setattr(self, t, value)
 
     def __iter__(self):
         attrs = [(self.type, self.value)]

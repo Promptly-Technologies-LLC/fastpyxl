@@ -81,7 +81,9 @@ class PrintPageSetup(Serialisable):
         """
         Proxy property
         """
-        return self._parent.sheet_properties.pageSetUpPr
+        parent = self._parent
+        assert parent is not None
+        return parent.sheet_properties.pageSetUpPr
 
     @property
     def fitToPage(self):

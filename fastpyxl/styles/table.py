@@ -77,7 +77,8 @@ class TableStyleList(Serialisable):
 
     @property
     def count(self):
-        return len(self.tableStyle)
+        ts = self.tableStyle
+        return len(ts) if ts is not None else 0
 
 
     def __iter__(self):

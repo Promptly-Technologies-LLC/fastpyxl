@@ -65,6 +65,9 @@ class DashStop(Serialisable):
 
 class DashStopList(Serialisable):
 
+    tagname = "custDash"
+    namespace = DRAWING_NS
+
     ds: list[DashStop] | None = Field.sequence(expected_type=DashStop, allow_none=True)
 
     def __init__(self,

@@ -380,7 +380,7 @@ class Reference(TypedSerialisable):
 
     @property
     def count(self):
-        return len(self.field)
+        return len(self.x)
 
 
 class PivotArea(TypedSerialisable):
@@ -1282,4 +1282,5 @@ class TableDefinition(TypedSerialisable):
         Provide a simplified summary of the table
         """
 
-        return f"{self.name} {dict(self.location)}"
+        loc = self.location
+        return f"{self.name} {dict(iter(loc))}" if loc is not None else str(self.name)

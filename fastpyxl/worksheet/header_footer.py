@@ -42,11 +42,11 @@ def _split_string(text):
     $""", re.VERBOSE | re.DOTALL)
 
     m = ITEM_REGEX.match(text)
-    try:
-        parts = m.groupdict()
-    except AttributeError:
+    if m is None:
         warn("""Cannot parse header or footer so it will be ignored""")
         parts = {'left':'', 'right':'', 'center':''}
+    else:
+        parts = m.groupdict()
     return parts
 
 

@@ -28,6 +28,7 @@ class NestedDateTime(DateTime, NestedText):
         namespace = getattr(self, "namespace", namespace)
         if namespace is not None:
             tagname = "{%s}%s" % (namespace, tagname)
+        assert tagname is not None
         el = Element(tagname)
         if value is not None:
             value = value.replace(tzinfo=None)

@@ -1,5 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from typing import Any, cast
+
 from fastpyxl.styles.colors import Color
 from fastpyxl.xml.functions import fromstring, tostring
 from fastpyxl.tests.helper import compare_xml
@@ -83,7 +85,7 @@ def test_color_descriptor():
 
     style = DummyStyle()
     style.value = "efefef"
-    assert dict(style.value) == {'rgb': '00efefef'}
+    assert dict(cast(Any, style.value)) == {'rgb': '00efefef'}
 
 
 @pytest.fixture

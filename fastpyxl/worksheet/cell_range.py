@@ -1,6 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 from copy import copy
+from typing import cast
 from operator import attrgetter
 
 from fastpyxl.descriptors import Strict
@@ -467,7 +468,7 @@ class MultiCellRange(Strict):
     def __contains__(self, coord):
         if isinstance(coord, str):
             coord = CellRange(coord)
-        for r in self.ranges:
+        for r in cast(set, self.ranges):
             if coord <= r:
                 return True
         return False
@@ -491,7 +492,7 @@ class MultiCellRange(Strict):
         """
         Return a sorted list of items
         """
-        return sorted(self.ranges, key=attrgetter('min_col', 'min_row', 'max_col', 'max_row'))
+        return sorted(cast(set, self.ranges), key=attrgetter('min_col', 'min_row', 'max_col', 'max_row'))
 
 
     def add(self, coord):
@@ -504,7 +505,7 @@ class MultiCellRange(Strict):
         elif not isinstance(coord, CellRange):
             raise ValueError("You can only add CellRanges")
         if cr not in self:
-            self.ranges.add(cr)
+            cast(set, self.ranges).add(cr)
 
 
     def __iadd__(self, coord):
@@ -529,14 +530,14 @@ class MultiCellRange(Strict):
     def remove(self, coord):
         if not isinstance(coord, CellRange):
             coord = CellRange(coord)
-        self.ranges.remove(coord)
+        cast(set, self.ranges).remove(coord)
 
 
     def __iter__(self):
-        for cr in self.ranges:
+        for cr in cast(set, self.ranges):
             yield cr
 
 
     def __copy__(self):
-        ranges = {copy(r) for r in self.ranges}
+        ranges = {copy(r) for r in cast(set, self.ranges)}
         return MultiCellRange(ranges)

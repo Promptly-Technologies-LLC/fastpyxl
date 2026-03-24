@@ -4,6 +4,7 @@
 """Write worksheets to xml representations in an optimized way"""
 
 from inspect import isgenerator
+from typing import cast
 
 from fastpyxl.cell import Cell, WriteOnlyCell
 from fastpyxl.workbook.child import _WorkbookChild
@@ -47,7 +48,7 @@ class WriteOnlyWorksheet(_WorkbookChild):
         super().__init__(parent, title)
         self._max_col = 0
         self._max_row = 0
-        self._setup()
+        Worksheet._setup(cast(Worksheet, self))
 
     @property
     def closed(self):
@@ -58,8 +59,10 @@ class WriteOnlyWorksheet(_WorkbookChild):
         """
         Send rows to the writer's stream
         """
+        writer = self._writer
+        assert writer is not None
         try:
-            xf = self._writer.xf.send(True)
+            xf = writer.xf.send(True)
         except StopIteration:
             self._already_saved()
 
@@ -69,12 +72,12 @@ class WriteOnlyWorksheet(_WorkbookChild):
                 while True:
                     row = (yield)
                     row = self._values_to_row(row, row_idx)
-                    self._writer.write_row(xf, row, row_idx)
+                    writer.write_row(xf, row, row_idx)
                     row_idx += 1
             except GeneratorExit:
                 pass
 
-        self._writer.xf.send(None)
+        writer.xf.send(None)
 
 
     def _get_writer(self):
@@ -89,14 +92,16 @@ class WriteOnlyWorksheet(_WorkbookChild):
 
         self._get_writer()
 
+        writer = self._writer
+        assert writer is not None
         if self._rows is None:
-            self._writer.write_rows()
+            writer.write_rows()
         else:
             self._rows.close()
 
-        self._writer.write_tail()
+        writer.write_tail()
 
-        self._writer.close()
+        writer.close()
         self.__saved = True
 
 

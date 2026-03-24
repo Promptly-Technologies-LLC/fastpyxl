@@ -67,23 +67,19 @@ ignore = ["E402", "E501", "E101"]
 "doc/*" = ["F401"]
 
 [tool.ty.rules]
-# Phase 8: invalid-assignment enabled (see typed_serialisable.fields Any returns). Further rules next.
-unresolved-attribute = "ignore"
-unsupported-operator = "ignore"
-not-iterable = "ignore"
-invalid-argument-type = "ignore"
-not-subscriptable = "ignore"
-call-non-callable = "ignore"
-no-matching-overload = "ignore"
-index-out-of-bounds = "ignore"
+# Phase 8: enabled invalid-assignment, unresolved-attribute, invalid-argument-type,
+# unsupported-operator (via python-version=3.10), not-iterable, not-subscriptable,
+# call-non-callable, no-matching-overload, index-out-of-bounds.
 # Optional deps (lxml, defusedxml) and legacy pytest (py.path) lack type stubs
 unresolved-import = "ignore"
-# Intentional LSP violations: subclasses narrow to_tree() signatures
+# Intentional LSP violations: narrowed to_tree/from_tree/__set__ signatures
 invalid-method-override = "ignore"
 # Python 2 compat code wrapped in try/except
 unresolved-reference = "ignore"
 
 [tool.ty.environment]
+# Use 3.10+ so PEP 604 unions (`int | None`) type-check; runtime still supports 3.8 via typing_extensions / __future__ where needed.
+python-version = "3.10"
 # Optional dependencies that may not be installed
 extra-paths = []
 

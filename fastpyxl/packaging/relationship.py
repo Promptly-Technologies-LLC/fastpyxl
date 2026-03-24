@@ -131,6 +131,8 @@ def get_rel(archive, deps, id=None, cls=None):
     """
     if not any([id, cls]):
         raise ValueError("Either the id or the content type are required")
+    if cls is None:
+        raise ValueError("cls is required")
     if id is not None:
         rel = deps.get(id)
     else:
@@ -138,6 +140,9 @@ def get_rel(archive, deps, id=None, cls=None):
             rel = next(deps.find(cls.rel_type))
         except StopIteration: # no known dependency
             return
+
+    if rel is None:
+        return
 
     path = rel.target
     src = archive.read(path)

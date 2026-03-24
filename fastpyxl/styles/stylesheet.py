@@ -106,7 +106,9 @@ class Stylesheet(Serialisable):
         Merge named style names "cellStyles" with their associated styles
         "cellStyleXfs"
         """
-        style_refs = self.cellStyles.remove_duplicates()
+        cell_styles = self.cellStyles
+        assert cell_styles is not None
+        style_refs = cell_styles.remove_duplicates()
         from_ref = [self._expand_named_style(style_ref) for style_ref in style_refs]
 
         return NamedStyleList(from_ref)
@@ -117,7 +119,9 @@ class Stylesheet(Serialisable):
         named style object by binding the relevant
         objects from the stylesheet
         """
-        xf = self.cellStyleXfs[style_ref.xfId]
+        xfs = self.cellStyleXfs
+        assert xfs is not None
+        xf = xfs[style_ref.xfId]
         named_style = NamedStyle(
             name=style_ref.name,
             hidden=style_ref.hidden,
@@ -146,13 +150,18 @@ class Stylesheet(Serialisable):
         Convert NamedStyle into separate CellStyle and Xf objects
 
         """
+        cell_styles = self.cellStyles
+        cell_xfs = self.cellStyleXfs
+        assert cell_styles is not None and cell_xfs is not None
         for  style in wb._named_styles:
-            self.cellStyles.cellStyle.append(style.as_name())
-            self.cellStyleXfs.xf.append(style.as_xf())
+            cell_styles.cellStyle.append(style.as_name())
+            cell_xfs.xf.append(style.as_xf())
 
     @property
     def custom_formats(self):
-        return dict([(n.numFmtId, n.formatCode) for n in self.numFmts.numFmt])
+        num_fmts = self.numFmts
+        assert num_fmts is not None
+        return dict([(n.numFmtId, n.formatCode) for n in num_fmts.numFmt])
 
     def _normalise_numbers(self):
         """

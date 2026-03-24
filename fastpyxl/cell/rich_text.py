@@ -4,6 +4,8 @@
 RichText definition
 """
 from copy import copy
+from typing import cast
+
 from fastpyxl.compat import NUMERIC_TYPES, safe_string
 from fastpyxl.cell.text import InlineFont, Text
 from fastpyxl.descriptors import (
@@ -43,7 +45,7 @@ class TextBlock(Strict):
 
     def to_tree(self):
         el = Element("r")
-        el.append(self.font.to_tree(tagname="rPr"))
+        el.append(cast(InlineFont, self.font).to_tree(tagname="rPr"))
         t = Element("t")
         t.text = safe_string(self.text)
         whitespace(t)
@@ -125,7 +127,7 @@ class CellRichText(list):
                 if isinstance(t, str):
                     last_t += t
                     continue
-                elif last_t.font == t.font:
+                if isinstance(last_t, TextBlock) and last_t.font == t.font:
                     last_t.text += t.text
                     continue
             if last_t:

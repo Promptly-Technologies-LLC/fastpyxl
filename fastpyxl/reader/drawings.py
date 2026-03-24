@@ -8,6 +8,7 @@ from warnings import warn
 from fastpyxl.xml.functions import fromstring
 from fastpyxl.xml.constants import IMAGE_NS
 from fastpyxl.packaging.relationship import (
+    RelationshipList,
     get_rel,
     get_rels_path,
     get_dependents,
@@ -34,7 +35,7 @@ def find_images(archive, path):
         return [], []
 
     rels_path = get_rels_path(path)
-    deps = []
+    deps = RelationshipList()
     if rels_path in archive.namelist():
         deps = get_dependents(archive, rels_path)
 
@@ -55,6 +56,8 @@ def find_images(archive, path):
 
     for rel in drawing._blip_rels:
         dep = deps.get(rel.embed)
+        if dep is None:
+            continue
         if dep.Type == IMAGE_NS:
             try:
                 image = Image(BytesIO(archive.read(dep.target)))

@@ -237,10 +237,9 @@ class TestExcelReader:
         rel = Relationship(Target="xl/chartsheets/sheet1.xml", type="chartsheet")
 
         class Sheet:
-            pass
+            name: str = "chart"
 
         sheet = Sheet()
-        sheet.name = "chart"
 
         reader.read_chartsheet(sheet, rel)
         assert reader.wb['chart'].title == "chart"

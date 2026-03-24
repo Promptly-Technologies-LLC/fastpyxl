@@ -1,7 +1,8 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.cell import Cell
+from fastpyxl.styles import is_date_format
 from fastpyxl.styles.numbers import BUILTIN_FORMATS, BUILTIN_FORMATS_MAX_SIZE
+from fastpyxl.utils import get_column_letter
 
 
 class ReadOnlyCell:
@@ -34,12 +35,12 @@ class ReadOnlyCell:
 
     @property
     def coordinate(self):
-        return Cell.coordinate.__get__(self)
-
+        col = get_column_letter(self.column)
+        return f"{col}{self.row}"
 
     @property
     def column_letter(self):
-        return Cell.column_letter.__get__(self)
+        return get_column_letter(self.column)
 
 
     @property
@@ -89,7 +90,9 @@ class ReadOnlyCell:
 
     @property
     def is_date(self):
-        return Cell.is_date.__get__(self)
+        return self.data_type == "d" or (
+            self.data_type == "n" and is_date_format(self.number_format)
+        )
 
 
     @property

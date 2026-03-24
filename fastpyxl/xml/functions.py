@@ -100,6 +100,8 @@ def localname(node):
     if callable(node.tag):
         return "comment"
     m = NS_REGEX.match(node.tag)
+    if m is None:
+        return node.tag
     return m.group('localname')
 
 

@@ -216,7 +216,10 @@ class DimensionHolder(BoundDictionary):
         if end is None:
             end = start
 
-        if isinstance(self.default_factory(), ColumnDimension):
+        default_factory = self.default_factory
+        assert default_factory is not None
+
+        if isinstance(default_factory(), ColumnDimension):
             new_dim = self[start]
             new_dim.outline_level = outline_level
             new_dim.hidden = hidden
@@ -225,7 +228,7 @@ class DimensionHolder(BoundDictionary):
                 if column_letter in self:
                     del self[column_letter]
             new_dim.min, new_dim.max = map(column_index_from_string, (start, end))
-        elif isinstance(self.default_factory(), RowDimension):
+        elif isinstance(default_factory(), RowDimension):
             for el in range(start, end + 1):
                 new_dim = self.worksheet.row_dimensions[el]
                 new_dim.outline_level = outline_level

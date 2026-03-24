@@ -88,9 +88,11 @@ def parse_richtext_string(element):
     """
     Parse inline string and preserve rich text formatting
     """
-    value = CellRichText.from_tree(element) or ""
+    value = CellRichText.from_tree(element)
+    if not value:
+        return ""
     if len(value) == 1 and isinstance(value[0], str):
-        value = value[0]
+        return value[0]
     return value
 
 
@@ -410,16 +412,17 @@ class WorksheetReader:
             if link.id:
                 rel = self.ws._rels.get(link.id)
                 link.target = rel.Target
-            if ":" in link.ref:
+            link_ref = link.ref
+            if link_ref and ":" in link_ref:
                 # range of cells
-                for row in self.ws[link.ref]:
+                for row in self.ws[link_ref]:
                     for cell in row:
                         try:
                             cell.hyperlink = copy(link)
                         except AttributeError:
                             pass
             else:
-                cell = self.ws[link.ref]
+                cell = self.ws[link_ref]
                 if isinstance(cell, MergedCell):
                     cell = self.normalize_merged_cell_link(cell.coordinate)
                 cell.hyperlink = link

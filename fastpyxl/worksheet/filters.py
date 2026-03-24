@@ -138,7 +138,10 @@ class CustomFilter(Serialisable):
             subtype = BlankFilter
         else:
             try:
-                float(self.val)
+                v = self.val
+                if v is None:
+                    raise ValueError("val required")
+                float(v)
                 subtype = NumberFilter
             except ValueError:
                 subtype = StringFilter
@@ -205,9 +208,12 @@ class StringFilter(CustomFilter):
 
     def _escape(self):
         """Escape wildcards ~, * ? when serialising"""
+        v = self.val
+        if v is None:
+            return ""
         if self.operator == "wildcard":
-            return self.val
-        return re.sub(r"~|\*|\?", r"~\g<0>", self.val)
+            return v
+        return re.sub(r"~|\*|\?", r"~\g<0>", v)
 
     @staticmethod
     def _unescape(value):
@@ -233,7 +239,9 @@ class StringFilter(CustomFilter):
         return op, term
 
     def to_tree(self, tagname=None, idx=None, namespace=None):
-        fmt = string_format_mapping[self.operator]
+        string_op = self.operator
+        assert string_op is not None
+        fmt = string_format_mapping[string_op]
         op = self.exclude and "notEqual" or "equal"
         value = fmt.format(self._escape())
         flt = CustomFilter(op, value)

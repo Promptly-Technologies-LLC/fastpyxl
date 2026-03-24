@@ -14,13 +14,13 @@ class TestDescriptor:
     def test_ctor(self):
         d = self.Descriptor('key', size=1)
         assert d.name == 'key'
-        assert d.size == 1
+        assert getattr(d, 'size') == 1
 
     def test_setter(self):
         d = self.Descriptor('key')
         client = self.Dummy()
         d.__set__(client, 42)
-        assert client.key == 42
+        assert getattr(client, 'key') == 42
 
 
 @pytest.fixture

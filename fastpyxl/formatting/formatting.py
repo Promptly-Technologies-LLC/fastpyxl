@@ -41,7 +41,8 @@ class ConditionalFormatting(Serialisable):
         """
         Check whether a certain cell is affected by the formatting
         """
-        return coord in self.sqref
+        sq = self.sqref
+        return sq is not None and coord in sq
 
 
 class ConditionalFormattingList:

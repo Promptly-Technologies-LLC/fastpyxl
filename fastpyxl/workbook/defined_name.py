@@ -92,13 +92,18 @@ class DefinedName(Serialisable):
             for part in tok.items:
                 if part.subtype == "RANGE":
                     m = SHEETRANGE_RE.match(part.value)
+                    if m is None:
+                        continue
                     sheetname = m.group('notquoted') or m.group('quoted')
                     yield sheetname, m.group('cells')
 
 
     @property
     def is_reserved(self):
-        m = RESERVED_REGEX.match(self.name)
+        name = self.name
+        if name is None:
+            return None
+        m = RESERVED_REGEX.match(name)
         if m:
             return m.group("name")
 

@@ -102,10 +102,15 @@ class MergedCellRange(CellRange):
          - The right MergedCells get the right border from the top left cell.
         """
 
+        sc = self.start_cell
+        assert sc is not None
+
         names = ['top', 'left', 'right', 'bottom']
 
+        start_border = sc.border or Border()
+
         for name in names:
-            side = getattr(self.start_cell.border, name)
+            side = getattr(start_border, name)
             if side and side.style is None:
                 continue # don't need to do anything if there is no border style
             border = Border(**{name:side})
@@ -117,9 +122,9 @@ class MergedCellRange(CellRange):
                     self.ws._cells[(cell.row, cell.column)] = cell
                 cell.border += border
 
-        protected = self.start_cell.protection is not None
+        protected = sc.protection is not None
         if protected:
-            protection = copy.copy(self.start_cell.protection)
+            protection = copy.copy(sc.protection)
         for coord in self.cells:
             cell = self.ws._cells.get(coord)
             if cell is None:

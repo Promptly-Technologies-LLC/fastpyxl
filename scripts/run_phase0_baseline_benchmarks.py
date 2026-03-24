@@ -54,6 +54,7 @@ def _measure(name: str, unit: str, iterations: int, fn) -> BenchmarkResult:
 def bench_object_construction(n: int = 100_000) -> float:
     for _ in range(n):
         Font(name="Calibri", sz=11, b=True, i=False)
+    return 0.0
 
 
 def bench_attribute_read(n: int = 300_000) -> float:
@@ -66,6 +67,7 @@ def bench_attribute_read(n: int = 300_000) -> float:
             sink += 1.0
     if sink < 0:
         raise RuntimeError("Unreachable sink guard")
+    return sink
 
 
 def bench_attribute_assignment(n: int = 150_000) -> float:
@@ -73,11 +75,13 @@ def bench_attribute_assignment(n: int = 150_000) -> float:
     for idx in range(n):
         f.sz = 10.0 + (idx % 5)
         f.b = bool(idx % 2)
+    return float(n)
 
 
 def bench_parse_workbook(path: Path) -> float:
     wb = load_workbook(path)
     wb.close()
+    return 0.0
 
 
 def bench_serialize_workbook() -> float:
@@ -87,6 +91,7 @@ def bench_serialize_workbook() -> float:
         ws.append([row, row * 2, row * 3, f"row-{row}"])
     buffer = io.BytesIO()
     wb.save(buffer)
+    return float(buffer.tell())
 
 
 def bench_load_save_roundtrip(path: Path) -> float:
@@ -94,6 +99,7 @@ def bench_load_save_roundtrip(path: Path) -> float:
         wb = load_workbook(path)
         wb.save(tmp.name)
         wb.close()
+    return 0.0
 
 
 def main() -> None:

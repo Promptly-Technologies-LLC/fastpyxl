@@ -619,7 +619,7 @@ class Worksheet(_WorkbookChild):
     @deprecated("Use ws.merged_cells.ranges")
     def merged_cell_ranges(self):
         """Return a copy of cell ranges"""
-        return self.merged_cells.ranges[:]
+        return self.merged_cells.sorted()
 
 
     def unmerge_cells(self, range_string=None, start_row=None, start_column=None, end_row=None, end_column=None):

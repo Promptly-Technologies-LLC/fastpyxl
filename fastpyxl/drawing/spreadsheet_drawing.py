@@ -1,5 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from typing import Any, cast
+
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
@@ -264,6 +266,12 @@ class SpreadsheetDrawing(Serialisable):
             anchors.append(anchor)
             self._rels.append(rel)
 
+        if self.oneCellAnchor is None:
+            self.oneCellAnchor = []
+        if self.twoCellAnchor is None:
+            self.twoCellAnchor = []
+        if self.absoluteAnchor is None:
+            self.absoluteAnchor = []
         for a in anchors:
             if isinstance(a, OneCellAnchor):
                 self.oneCellAnchor.append(a)
@@ -336,14 +344,20 @@ class SpreadsheetDrawing(Serialisable):
         Get relationship information for each chart and bind anchor to it
         """
         rels = []
-        anchors = self.absoluteAnchor + self.oneCellAnchor + self.twoCellAnchor
+        anchors = (self.absoluteAnchor or []) + (self.oneCellAnchor or []) + (self.twoCellAnchor or [])
         for anchor in anchors:
             if anchor.graphicFrame is not None:
                 graphic = anchor.graphicFrame.graphic
-                rel = graphic.graphicData.chart
+                if graphic is None:
+                    continue
+                gd = graphic.graphicData
+                if gd is None:
+                    continue
+                rel = gd.chart
                 if rel is not None:
-                    rel.anchor = anchor
-                    rel.anchor.graphicFrame = None
+                    r = cast(Any, rel)
+                    r.anchor = anchor
+                    r.anchor.graphicFrame = None
                     rels.append(rel)
         return rels
 
@@ -356,7 +370,7 @@ class SpreadsheetDrawing(Serialisable):
         Images that are not part of the XLSX package will be ignored.
         """
         rels = []
-        anchors = self.absoluteAnchor + self.oneCellAnchor + self.twoCellAnchor
+        anchors = (self.absoluteAnchor or []) + (self.oneCellAnchor or []) + (self.twoCellAnchor or [])
 
         for anchor in anchors:
             child = anchor.pic or anchor.groupShape and anchor.groupShape.pic

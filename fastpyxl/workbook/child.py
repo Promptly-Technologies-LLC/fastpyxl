@@ -59,7 +59,9 @@ class _WorkbookChild:
 
     @property
     def encoding(self):
-        return self._parent.encoding
+        parent = self._parent
+        assert parent is not None
+        return parent.encoding
 
 
     @property

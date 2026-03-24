@@ -1,5 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from typing import Any, cast
+
 from fastpyxl.compat import safe_string
 from fastpyxl.utils.indexed_list import IndexedList
 from fastpyxl.xml.functions import Element
@@ -82,11 +84,12 @@ class NestedSequence(Sequence):
         if self.count:
             container.set("count", str(len(obj)))
         for v in obj:
-            container.append(v.to_tree())
+            container.append(cast(Any, v).to_tree())
         return container
 
     def from_tree(self, node):
-        return [self.expected_type.from_tree(el) for el in node]
+        et = cast(Any, self).expected_type
+        return [et.from_tree(el) for el in node]
 
 
 class MultiSequence(Sequence):

@@ -166,8 +166,8 @@ class PlotArea(Serialisable):
 
     def to_tree(self, tagname=None, idx=None, namespace=None):
         del tagname, idx, namespace
-        ax_ids = {ax.axId for ax in self._axes}
-        for chart in self._charts:
+        ax_ids = {ax.axId for ax in (self._axes or [])}
+        for chart in self._charts or []:
             for _id, axis in chart._axes.items():
                 if _id not in ax_ids:
                     setattr(self, axis.tagname, axis)
@@ -177,8 +177,8 @@ class PlotArea(Serialisable):
     @classmethod
     def from_tree(cls, node):
         self = super().from_tree(node)
-        axes = dict((axis.axId, axis) for axis in self._axes)
-        for chart in self._charts:
+        axes = dict((axis.axId, axis) for axis in (self._axes or []))
+        for chart in self._charts or []:
             if isinstance(chart, (ScatterChart, BubbleChart)):
                 x, y = (axes[ax_id] for ax_id in chart.axId)
                 chart.x_axis = x
@@ -189,6 +189,8 @@ class PlotArea(Serialisable):
                 axis = axes.get(ax_id)
                 if axis is None and isinstance(chart, _3DBase):
                     chart.z_axis = None
+                    continue
+                if axis is None:
                     continue
                 if axis.tagname in ("catAx", "dateAx"):
                     chart.x_axis = axis

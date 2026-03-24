@@ -8,8 +8,8 @@ def compare_xml(generated, expected):
     """Use doctest checking from lxml for comparing XML trees. Returns diff if the two are not the same"""
     checker = LXMLOutputChecker()
 
-    class DummyDocTest():
-        pass
+    class DummyDocTest:
+        want: object = ""
 
     ob = DummyDocTest()
     ob.want = expected

@@ -112,7 +112,7 @@ class Manifest(Serialisable):
         Map content types to file extensions
         Skip parts without extensions
         """
-        exts = {os.path.splitext(part.PartName)[-1] for part in self.Override}
+        exts = {os.path.splitext(str(part.PartName))[-1] for part in self.Override}
         return [(ext[1:], mimetypes.types_map[True][ext]) for ext in sorted(exts) if ext]
 
 

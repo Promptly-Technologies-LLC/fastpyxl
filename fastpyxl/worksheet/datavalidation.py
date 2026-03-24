@@ -155,7 +155,8 @@ class DataValidation(Serialisable):
     def __contains__(self, cell):
         if hasattr(cell, "coordinate"):
             cell = cell.coordinate
-        return cell in self.sqref
+        sq = self.sqref
+        return sq is not None and cell in sq
 
 
 class DataValidationList(Serialisable):

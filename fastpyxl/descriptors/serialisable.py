@@ -40,7 +40,7 @@ class Serialisable(metaclass=MetaSerialisable):
     @classmethod
     def from_tree(cls, node):
         attrib = dict(node.attrib)
-        for key, ns in cls.__namespaced__:
+        for key, ns in cls.__namespaced__ or ():
             if ns in attrib:
                 attrib[key] = attrib[ns]
                 del attrib[ns]
@@ -56,7 +56,8 @@ class Serialisable(metaclass=MetaSerialisable):
                 attrib[n] = attrib[key]
                 del attrib[key]
 
-        if node.text and "attr_text" in cls.__attrs__:
+        cls_attrs = cls.__attrs__ or ()
+        if node.text and "attr_text" in cls_attrs:
             attrib["attr_text"] = node.text
 
         for el in node:
@@ -100,19 +101,19 @@ class Serialisable(metaclass=MetaSerialisable):
         namespace = getattr(self, "namespace", namespace)
 
         attrs = dict(self)
-        for key, ns in self.__namespaced__:
+        for key, ns in self.__namespaced__ or ():
             if key in attrs:
                 attrs[ns] = attrs[key]
                 del attrs[key]
 
         el = Element(tagname, attrs)
-        if "attr_text" in self.__attrs__:
+        if "attr_text" in (self.__attrs__ or ()):
             el.text = safe_string(getattr(self, "attr_text"))
 
-        for child_tag in self.__elements__:
+        for child_tag in self.__elements__ or ():
             desc = getattr(self.__class__, child_tag, None)
             obj = getattr(self, child_tag)
-            if hasattr(desc, "namespace") and hasattr(obj, "namespace"):
+            if desc is not None and hasattr(desc, "namespace") and hasattr(obj, "namespace"):
                 obj.namespace = desc.namespace
 
             if isinstance(obj, seq_types):
@@ -128,7 +129,8 @@ class Serialisable(metaclass=MetaSerialisable):
                 for node in nodes:
                     el.append(node)
             else:
-                if child_tag in self.__nested__:
+                if child_tag in (self.__nested__ or ()):
+                    assert desc is not None
                     node = desc.to_tree(child_tag, obj, namespace)
                 elif obj is None:
                     continue
@@ -139,7 +141,7 @@ class Serialisable(metaclass=MetaSerialisable):
         return el
 
     def __iter__(self):
-        for attr in self.__attrs__:
+        for attr in self.__attrs__ or ():
             value = getattr(self, attr)
             if attr.startswith("_"):
                 attr = attr[1:]
@@ -155,7 +157,7 @@ class Serialisable(metaclass=MetaSerialisable):
             return False
         elif not dict(self) == dict(other):
             return False
-        for el in self.__elements__:
+        for el in self.__elements__ or ():
             if getattr(self, el) != getattr(other, el):
                 return False
         return True
@@ -169,7 +171,7 @@ class Serialisable(metaclass=MetaSerialisable):
             self.__class__.__name__,
         )
         args = []
-        for k in self.__attrs__ + self.__elements__:
+        for k in (self.__attrs__ or ()) + (self.__elements__ or ()):
             v = getattr(self, k)
             if isinstance(v, Descriptor):
                 v = None
@@ -179,7 +181,7 @@ class Serialisable(metaclass=MetaSerialisable):
 
     def __hash__(self):
         fields = []
-        for attr in self.__attrs__ + self.__elements__:
+        for attr in (self.__attrs__ or ()) + (self.__elements__ or ()):
             val = getattr(self, attr)
             if isinstance(val, list):
                 val = tuple(val)
@@ -190,9 +192,9 @@ class Serialisable(metaclass=MetaSerialisable):
         if type(self) is not type(other):
             raise TypeError("Cannot combine instances of different types")
         vals = {}
-        for attr in self.__attrs__:
+        for attr in self.__attrs__ or ():
             vals[attr] = getattr(self, attr) or getattr(other, attr)
-        for el in self.__elements__:
+        for el in self.__elements__ or ():
             a = getattr(self, el)
             b = getattr(other, el)
             if a and b:
@@ -205,7 +207,7 @@ class Serialisable(metaclass=MetaSerialisable):
         xml = self.to_tree(tagname="dummy")
         cp = self.__class__.from_tree(xml)
         for k in self.__dict__:
-            if k not in self.__attrs__ + self.__elements__:
+            if k not in (self.__attrs__ or ()) + (self.__elements__ or ()):
                 v = copy(getattr(self, k))
                 setattr(cp, k, v)
         return cp

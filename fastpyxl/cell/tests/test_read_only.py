@@ -76,7 +76,7 @@ def test_read_only(dummy_sheet):
     with pytest.raises(AttributeError):
         cell.value = 10
     with pytest.raises(AttributeError):
-        cell.style = 1
+        setattr(cell, "style", 1)
 
 
 def test_equality():

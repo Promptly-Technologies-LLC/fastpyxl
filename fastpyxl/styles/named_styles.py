@@ -90,16 +90,19 @@ class NamedStyle(Serialisable):
         self._recalculate()
 
     def _recalculate(self):
-        self._style.fontId =  self._wb._fonts.add(self.font)
-        self._style.borderId = self._wb._borders.add(self.border)
-        self._style.fillId =  self._wb._fills.add(self.fill)
-        self._style.protectionId = self._wb._protections.add(self.protection)
-        self._style.alignmentId = self._wb._alignments.add(self.alignment)
+        wb = self._wb
+        if wb is None:
+            return
+        self._style.fontId = wb._fonts.add(self.font)
+        self._style.borderId = wb._borders.add(self.border)
+        self._style.fillId = wb._fills.add(self.fill)
+        self._style.protectionId = wb._protections.add(self.protection)
+        self._style.alignmentId = wb._alignments.add(self.alignment)
         fmt = self.number_format
         if fmt in BUILTIN_FORMATS_REVERSE:
             fmt = BUILTIN_FORMATS_REVERSE[fmt]
         else:
-            fmt = self._wb._number_formats.add(self.number_format) + (
+            fmt = wb._number_formats.add(self.number_format) + (
                   BUILTIN_FORMATS_MAX_SIZE)
         self._style.numFmtId = fmt
 

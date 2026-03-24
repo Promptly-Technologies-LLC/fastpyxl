@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import copy
 from keyword import kwlist
-from typing import Any
+from typing import Any, Callable, cast
 
 try:
     from typing import dataclass_transform
@@ -58,15 +58,16 @@ class MetaSerialisable(type):
                     aliases[key] = info.alias_target
 
         cls = super().__new__(mcls, name, bases, namespace)
+        c = cast(Any, cls)
 
         base_fields: dict[str, FieldInfo] = {}
         for base in reversed(cls.__mro__[1:]):
             base_fields.update(getattr(base, "__fields__", {}))
         base_fields.update(declared)
-        cls.__fields__ = base_fields
-        cls.__xml_field_map__ = {}
-        cls.__multi_sequence_tag_map__ = {}
-        cls.__attribute_xml_name_map__ = {}
+        c.__fields__ = base_fields
+        c.__xml_field_map__ = {}
+        c.__multi_sequence_tag_map__ = {}
+        c.__attribute_xml_name_map__ = {}
 
         attrs = []
         nested = []
@@ -74,14 +75,14 @@ class MetaSerialisable(type):
         namespaced = []
         all_aliases = dict(getattr(cls, "__aliases__", {}))
         all_aliases.update(aliases)
-        cls.__aliases__ = all_aliases
+        c.__aliases__ = all_aliases
 
-        for field in cls.__fields__.values():
+        for field in c.__fields__.values():
             if field.kind == "alias":
                 target = field.alias_target
                 if target:
                     setattr(
-                        cls,
+                        c,
                         field.name,
                         property(
                             lambda instance, t=target: getattr(instance, t),
@@ -89,12 +90,12 @@ class MetaSerialisable(type):
                         ),
                     )
                 continue
-            cls.__xml_field_map__[field.tag] = field
+            c.__xml_field_map__[field.tag] = field
             if field.kind == "attribute":
-                cls.__attribute_xml_name_map__[field.tag] = field.name
+                c.__attribute_xml_name_map__[field.tag] = field.name
             if field.kind == "multi_sequence":
                 for part_tag in (field.parts or {}):
-                    cls.__multi_sequence_tag_map__[part_tag] = field
+                    c.__multi_sequence_tag_map__[part_tag] = field
 
             if field.namespace:
                 namespaced.append((field.name, namespaced_tag(field.tag, field.namespace)))
@@ -109,45 +110,18 @@ class MetaSerialisable(type):
                 if field.serialize:
                     elements.append(field.name)
 
-        cls.__attrs__ = tuple(attrs)
-        cls.__nested__ = tuple(nested)
+        c.__attrs__ = tuple(attrs)
+        c.__nested__ = tuple(nested)
         override = namespace.get("xml_order")
         if override is not None:
             ordered = [el for el in override if el in elements]
             remaining = [el for el in elements if el not in ordered]
-            cls.__elements__ = tuple(ordered + remaining)
+            c.__elements__ = tuple(ordered + remaining)
         else:
-            cls.__elements__ = tuple(elements)
-        cls.__namespaced__ = tuple(namespaced)
-
-        if "__init__" not in namespace:
-            cls.__init__ = _build_init(cls.__fields__)
+            c.__elements__ = tuple(elements)
+        c.__namespaced__ = tuple(namespaced)
 
         return cls
-
-
-def _build_init(fields: dict[str, FieldInfo]):
-    # Precompute field order and skip aliases to reduce per-instance overhead.
-    init_fields: list[tuple[str, FieldInfo]] = [
-        (name, field) for name, field in fields.items() if field.kind != "alias"
-    ]
-
-    def __init__(self, **kwargs):
-        # Avoid routing through Serialisable.__setattr__ for construction:
-        # __setattr__ does field lookups on every call; here we already have the FieldInfo.
-        for name, field in init_fields:
-            if name in kwargs:
-                value = kwargs[name]
-            else:
-                default = field.default
-                if callable(default) and default in (list, dict, set, tuple):
-                    default = default()
-                value = default
-
-            value = _coerce(field, value)
-            object.__setattr__(self, name, value)
-
-    return __init__
 
 
 def _convert_scalar(expected_type: Any, value: Any):
@@ -198,8 +172,11 @@ def _coerce(field: FieldInfo, value: Any):
                 converted.append(item)
             else:
                 converted.append(_convert_scalar(field.expected_type, item))
-        container = field.container_factory or list
-        value = container(converted)
+        factory = field.container_factory
+        if factory is None or factory is list:
+            value = list(converted)
+        else:
+            value = cast(Callable[..., Any], factory)(converted)
 
     if field.validator is not None:
         field.validator(value)
@@ -221,6 +198,22 @@ class Serialisable(metaclass=MetaSerialisable):
     @property
     def tagname(self):
         raise NotImplementedError
+
+    def __init__(self, **kwargs: Any) -> None:
+        # Avoid routing through Serialisable.__setattr__: field lookups on every call;
+        # during construction we already resolve FieldInfo once per field.
+        for name, field in self.__class__.__fields__.items():
+            if field.kind == "alias":
+                continue
+            if name in kwargs:
+                value = kwargs[name]
+            else:
+                default = field.default
+                if callable(default) and default in (list, dict, set, tuple):
+                    default = default()
+                value = default
+            value = _coerce(field, value)
+            object.__setattr__(self, name, value)
 
     def __setattr__(self, name, value):
         field = self.__fields__.get(name)

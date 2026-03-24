@@ -142,7 +142,7 @@ def test_line_end_and_dash_stop_serialization():
     dash = DashStopList(ds=[DashStop(d=1000, sp=500), second])
     dash_xml = tostring(dash.to_tree("custDash"))
     dash_expected = """
-    <custDash>
+    <custDash xmlns="http://schemas.openxmlformats.org/drawingml/2006/main">
       <ds d="1000" sp="500"></ds>
       <ds d="2000" sp="1000"></ds>
     </custDash>

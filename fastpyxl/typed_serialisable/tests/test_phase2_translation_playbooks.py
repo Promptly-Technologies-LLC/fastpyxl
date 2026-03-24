@@ -54,7 +54,7 @@ def _convert_number_value(value: object) -> float | str | None:
         return None
     if value == "#N/A":
         return "#N/A"
-    return float(value)
+    return float(str(value))
 
 
 class NumberValueDemo(Serialisable):

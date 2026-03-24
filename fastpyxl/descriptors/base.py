@@ -7,6 +7,7 @@ http://chimera.labs.oreilly.com/books/1230000000393/ch08.html#_discussiuncion_13
 
 import datetime
 import re
+from typing import Any, cast
 
 from fastpyxl import DEBUG
 from fastpyxl.utils.datetime import from_ISO8601
@@ -79,10 +80,11 @@ class Max(Convertible):
         super().__init__(**kw)
 
     def __set__(self, instance, value):
+        s = cast(Any, self)
         if ((self.allow_none and value is not None) or not self.allow_none):
             value = _convert(self.expected_type, value)
-            if value > self.max:
-                raise ValueError("Max value is {0}".format(self.max))
+            if value > s.max:
+                raise ValueError("Max value is {0}".format(s.max))
         super().__set__(instance, value)
 
 
@@ -98,10 +100,11 @@ class Min(Convertible):
         super().__init__(**kw)
 
     def __set__(self, instance, value):
+        s = cast(Any, self)
         if ((self.allow_none and value is not None) or not self.allow_none):
             value = _convert(self.expected_type, value)
-            if value < self.min:
-                raise ValueError("Min value is {0}".format(self.min))
+            if value < s.min:
+                raise ValueError("Min value is {0}".format(s.min))
         super().__set__(instance, value)
 
 
@@ -117,10 +120,10 @@ class Set(Descriptor):
             raise TypeError("missing set of values")
         kw["values"] = set(kw["values"])
         super().__init__(name, **kw)
-        self.__doc__ = "Value must be one of {0}".format(self.values)
+        self.__doc__ = "Value must be one of {0}".format(cast(Any, self).values)
 
     def __set__(self, instance, value):
-        if value not in self.values:
+        if value not in cast(Any, self).values:
             raise ValueError(self.__doc__)
         super().__set__(instance, value)
 
@@ -130,7 +133,7 @@ class NoneSet(Set):
 
     def __init__(self, name=None, **kw):
         super().__init__(name, **kw)
-        self.values.add(None)
+        cast(Any, self).values.add(None)
 
     def __set__(self, instance, value):
         if value == "none":
@@ -179,8 +182,9 @@ class Length(Descriptor):
         super().__init__(**kw)
 
     def __set__(self, instance, value):
-        if len(value) != self.length:
-            raise ValueError("Value must be length {0}".format(self.length))
+        s = cast(Any, self)
+        if len(value) != s.length:
+            raise ValueError("Value must be length {0}".format(s.length))
         super().__set__(instance, value)
 
 
@@ -226,15 +230,17 @@ class MatchPattern(Descriptor):
             raise TypeError("missing pattern value")
 
         super().__init__(name, **kw)
-        self.test_pattern = re.compile(self.pattern, re.VERBOSE)
+        s = cast(Any, self)
+        s.test_pattern = re.compile(s.pattern, re.VERBOSE)
 
     def __set__(self, instance, value):
+        s = cast(Any, self)
         if value is None and not self.allow_none:
             raise ValueError("Value must not be none")
 
         if ((self.allow_none and value is not None) or not self.allow_none):
-            if not self.test_pattern.match(value):
-                raise ValueError("Value does not match pattern {0}".format(self.pattern))
+            if not s.test_pattern.match(value):
+                raise ValueError("Value does not match pattern {0}".format(s.pattern))
 
         super().__set__(instance, value)
 

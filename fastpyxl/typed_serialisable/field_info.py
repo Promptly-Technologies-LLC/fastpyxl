@@ -28,7 +28,7 @@ class FieldInfo:
     namespace: str | None = None
     hyphenated: bool = False
     count: bool = False
-    container_factory: Callable[[], Any] | type | None = list
+    container_factory: Callable[..., Any] | type | None = list
     validator: Callable[[Any], None] | None = None
     converter: Callable[[Any], Any] | None = None
     parser: Callable[[Any], Any] | None = None

@@ -6,6 +6,8 @@ from fastpyxl.descriptors import (
     String,
     Strict,
 )
+from typing import cast
+
 from fastpyxl.utils import (
     get_column_letter,
     range_to_tuple,
@@ -77,8 +79,8 @@ class Reference(Strict):
 
     def __len__(self):
         if self.min_row == self.max_row:
-            return 1 + self.max_col - self.min_col
-        return 1 + self.max_row - self.min_row
+            return 1 + cast(int, self.max_col) - cast(int, self.min_col)
+        return 1 + cast(int, self.max_row) - cast(int, self.min_row)
 
 
     def __eq__(self, other):
@@ -90,7 +92,7 @@ class Reference(Strict):
         """
         Return all rows in the range
         """
-        for row in range(self.min_row, self.max_row+1):
+        for row in range(cast(int, self.min_row), cast(int, self.max_row) + 1):
             yield Reference(self.worksheet, self.min_col, row, self.max_col, row)
 
 
@@ -99,7 +101,7 @@ class Reference(Strict):
         """
         Return all columns in the range
         """
-        for col in range(self.min_col, self.max_col+1):
+        for col in range(cast(int, self.min_col), cast(int, self.max_col) + 1):
             yield Reference(self.worksheet, col, self.min_row, col, self.max_row)
 
 
@@ -109,12 +111,14 @@ class Reference(Strict):
         """
         cell = "{0}{1}".format(get_column_letter(self.min_col), self.min_row)
         if self.min_row == self.max_row:
-            self.min_col += 1
+            self.min_col = cast(int, self.min_col) + 1
         else:
-            self.min_row += 1
+            self.min_row = cast(int, self.min_row) + 1
         return cell
 
 
     @property
     def sheetname(self):
-        return quote_sheetname(self.worksheet.title)
+        ws = self.worksheet
+        assert ws is not None
+        return quote_sheetname(ws.title)

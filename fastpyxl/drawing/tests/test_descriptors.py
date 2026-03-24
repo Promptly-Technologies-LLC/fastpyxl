@@ -1,5 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+from typing import Any, cast
+
 
 def test_color_descriptor():
     from ..colors import ColorChoiceDescriptor
@@ -10,4 +12,4 @@ def test_color_descriptor():
 
     style = DummyStyle()
     style.value = "efefef"
-    style.value.RGB == "efefef"
+    assert cast(Any, style.value).RGB == "efefef"

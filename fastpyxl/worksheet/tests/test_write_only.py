@@ -201,10 +201,14 @@ def test_write_only_cell(WriteOnlyWorksheet):
 
 
 def test_hyperlink(WriteOnlyWorksheet):
+    from fastpyxl.worksheet.hyperlink import Hyperlink
+
     ws = WriteOnlyWorksheet
     cell = WriteOnlyCell(ws, 'should have hyperlink')
     cell.hyperlink = 'http://bbc.co.uk'
     ws.append([])
     ws.append([cell])
-    assert cell.hyperlink.ref == "A2"
+    h = cell.hyperlink
+    assert isinstance(h, Hyperlink)
+    assert h.ref == "A2"
     ws.close()

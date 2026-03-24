@@ -190,7 +190,7 @@ class ExcelReader:
     def read_chartsheet(self, sheet, rel):
         sheet_path = rel.target
         rels_path = get_rels_path(sheet_path)
-        rels = []
+        rels = RelationshipList()
         if rels_path in self.valid_files:
             rels = get_dependents(self.archive, rels_path)
 

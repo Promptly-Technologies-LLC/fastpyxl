@@ -1,6 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 import pytest
 
+from datetime import datetime
 from io import BytesIO
 from zipfile import ZipFile
 
@@ -8,7 +9,7 @@ from fastpyxl.packaging.manifest import Manifest
 from fastpyxl.xml.functions import fromstring, tostring
 from fastpyxl.tests.helper import compare_xml
 
-from ..record import Text
+from ..record import Boolean, DateTimeField, Error, Missing, Number, Text
 
 
 @pytest.fixture
@@ -73,6 +74,77 @@ class TestSharedItems:
         items = SharedItems.from_tree(node)
         s = [Text(v="Stanford"), Text(v="Cal"), Text(v="UCLA")]
         assert items == SharedItems(_fields=s)
+
+    def test_mixed_tag_items_golden(self, SharedItems):
+        fields = [
+            Number(v=42),
+            Text(v="East"),
+            Missing(),
+            Boolean(v=True),
+            Error(v="#DIV/0!"),
+            DateTimeField(v=datetime(2016, 3, 24)),
+        ]
+        items = SharedItems(_fields=fields)
+        xml = tostring(items.to_tree())
+        expected = """
+        <sharedItems count="6">
+          <n v="42"/>
+          <s v="East"/>
+          <m/>
+          <b v="1"/>
+          <e v="#DIV/0!"/>
+          <d v="2016-03-24T00:00:00"/>
+        </sharedItems>
+        """
+        diff = compare_xml(xml, expected)
+        assert diff is None, diff
+
+        src = """
+        <sharedItems count="6">
+          <n v="42"/>
+          <s v="East"/>
+          <m/>
+          <b v="1"/>
+          <e v="#DIV/0!"/>
+          <d v="2016-03-24T00:00:00"/>
+        </sharedItems>
+        """
+        assert SharedItems.from_tree(fromstring(src)) == SharedItems(_fields=fields)
+
+        fields_perm = [
+            Error(v="#DIV/0!"),
+            Number(v=42),
+            DateTimeField(v=datetime(2016, 3, 24)),
+            Missing(),
+            Text(v="East"),
+            Boolean(v=True),
+        ]
+        src_perm = """
+        <sharedItems count="6">
+          <e v="#DIV/0!"/>
+          <n v="42"/>
+          <d v="2016-03-24T00:00:00"/>
+          <m/>
+          <s v="East"/>
+          <b v="1"/>
+        </sharedItems>
+        """
+        xml_perm = tostring(SharedItems.from_tree(fromstring(src_perm)).to_tree())
+        expected_perm = """
+        <sharedItems count="6">
+          <e v="#DIV/0!"/>
+          <n v="42"/>
+          <d v="2016-03-24T00:00:00"/>
+          <m/>
+          <s v="East"/>
+          <b v="1"/>
+        </sharedItems>
+        """
+        diff_perm = compare_xml(xml_perm, expected_perm)
+        assert diff_perm is None, diff_perm
+        assert SharedItems.from_tree(fromstring(src_perm)) == SharedItems(
+            _fields=fields_perm
+        )
 
 
 @pytest.fixture

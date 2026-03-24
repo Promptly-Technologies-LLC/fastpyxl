@@ -1,18 +1,11 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Sequence,
-)
-from fastpyxl.descriptors.sequence import (
-    MultiSequence,
-    MultiSequencePart,
-)
 from fastpyxl.descriptors.excel import ExtensionList
 
 from fastpyxl.xml.constants import SHEET_MAIN_NS
 from fastpyxl.xml.functions import tostring
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 from .fields import (
     Boolean,
@@ -30,14 +23,17 @@ class Record(Serialisable):
 
     tagname = "r"
 
-    _fields = MultiSequence()
-    m = MultiSequencePart(expected_type=Missing, store="_fields")
-    n = MultiSequencePart(expected_type=Number, store="_fields")
-    b = MultiSequencePart(expected_type=Boolean, store="_fields")
-    e = MultiSequencePart(expected_type=Error, store="_fields")
-    s = MultiSequencePart(expected_type=Text,  store="_fields")
-    d = MultiSequencePart(expected_type=DateTimeField, store="_fields")
-    x = MultiSequencePart(expected_type=Index, store="_fields")
+    _fields: list[Missing | Number | Boolean | Error | Text | DateTimeField | Index] = Field.multi_sequence(
+        parts={
+            "m": Missing,
+            "n": Number,
+            "b": Boolean,
+            "e": Error,
+            "s": Text,
+            "d": DateTimeField,
+            "x": Index,
+        }
+    )
 
 
     def __init__(self,
@@ -62,11 +58,10 @@ class RecordList(Serialisable):
 
     tagname ="pivotCacheRecords"
 
-    r = Sequence(expected_type=Record, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    r: list[Record] | None = Field.sequence(expected_type=Record, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ('r', )
-    __attrs__ = ('count', )
+    xml_order = ("r",)
 
     def __init__(self,
                  count=None,
@@ -80,6 +75,10 @@ class RecordList(Serialisable):
     @property
     def count(self):
         return len(self.r)
+
+    def __iter__(self):
+        yield from super().__iter__()
+        yield "count", str(self.count)
 
 
     def to_tree(self):

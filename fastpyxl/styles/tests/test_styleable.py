@@ -39,6 +39,7 @@ def Workbook():
         _alignments = IndexedList()
         _number_formats = IndexedList()
         _named_styles = NamedStyleList()
+        _cell_styles = IndexedList()
 
         def add_named_style(self, style):
             self._named_styles.append(style)
@@ -70,6 +71,20 @@ def test_has_style(StyleableObject):
     assert not so.has_style
     so.number_format= 'dd'
     assert so.has_style
+
+
+def test_style_descriptor_registration_deferred_until_style_id(StyleableObject):
+    from ..fonts import Font
+
+    so = StyleableObject
+    wb = so.parent.parent
+    before = len(wb._fonts)
+
+    so.font = Font(name="Calibri")
+    assert len(wb._fonts) == before
+
+    _ = so.style_id
+    assert len(wb._fonts) == before + 1
 
 
 class TestNamedStyle:

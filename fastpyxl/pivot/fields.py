@@ -1,22 +1,16 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    DateTime,
-    Bool,
-    Float,
-    String,
-    Integer,
-    Sequence,
-)
+from datetime import datetime
+
 from fastpyxl.descriptors.excel import HexBinary
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 class Index(Serialisable):
 
     tagname = "x"
 
-    v = Integer(allow_none=True)
+    v: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  v=0,
@@ -28,9 +22,9 @@ class Tuple(Serialisable):
 
     tagname = "tpl"
 
-    fld = Integer(allow_none=True)
-    hier = Integer(allow_none=True)
-    item = Integer()
+    fld: int | None = Field.attribute(expected_type=int, allow_none=True)
+    hier: int | None = Field.attribute(expected_type=int, allow_none=True)
+    item: int | None = Field.attribute(expected_type=int, allow_none=False)
 
     def __init__(self,
                  fld=None,
@@ -46,10 +40,10 @@ class TupleList(Serialisable):
 
     tagname = "tpls"
 
-    c = Integer(allow_none=True)
-    tpl = Typed(expected_type=Tuple, )
+    c: int | None = Field.attribute(expected_type=int, allow_none=True)
+    tpl: Tuple | None = Field.element(expected_type=Tuple, allow_none=True)
 
-    __elements__ = ('tpl',)
+    xml_order = ("tpl",)
 
     def __init__(self,
                  c=None,
@@ -63,21 +57,21 @@ class Missing(Serialisable):
 
     tagname = "m"
 
-    tpls = Sequence(expected_type=TupleList)
-    x = Sequence(expected_type=Index)
-    u = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    c = String(allow_none=True)
-    cp = Integer(allow_none=True)
-    _in = Integer(allow_none=True)
-    bc = HexBinary(allow_none=True)
-    fc = HexBinary(allow_none=True)
-    i = Bool(allow_none=True)
-    un = Bool(allow_none=True)
-    st = Bool(allow_none=True)
-    b = Bool(allow_none=True)
+    tpls: list[TupleList] = Field.sequence(expected_type=TupleList)
+    x: list[Index] = Field.sequence(expected_type=Index)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('tpls', 'x')
+    xml_order = ("tpls", "x")
 
     def __init__(self,
                  tpls=(),
@@ -113,22 +107,22 @@ class Number(Serialisable):
 
     tagname = "n"
 
-    tpls = Sequence(expected_type=TupleList)
-    x = Sequence(expected_type=Index)
-    v = Float()
-    u = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    c = String(allow_none=True)
-    cp = Integer(allow_none=True)
-    _in = Integer(allow_none=True)
-    bc = HexBinary(allow_none=True)
-    fc = HexBinary(allow_none=True)
-    i = Bool(allow_none=True)
-    un = Bool(allow_none=True)
-    st = Bool(allow_none=True)
-    b = Bool(allow_none=True)
+    tpls: list[TupleList] = Field.sequence(expected_type=TupleList)
+    x: list[Index] = Field.sequence(expected_type=Index)
+    v: float | None = Field.attribute(expected_type=float, allow_none=False)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('tpls', 'x')
+    xml_order = ("tpls", "x")
 
     def __init__(self,
                  tpls=(),
@@ -166,22 +160,22 @@ class Error(Serialisable):
 
     tagname = "e"
 
-    tpls = Typed(expected_type=TupleList, allow_none=True)
-    x = Sequence(expected_type=Index)
-    v = String()
-    u = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    c = String(allow_none=True)
-    cp = Integer(allow_none=True)
-    _in = Integer(allow_none=True)
-    bc = HexBinary(allow_none=True)
-    fc = HexBinary(allow_none=True)
-    i = Bool(allow_none=True)
-    un = Bool(allow_none=True)
-    st = Bool(allow_none=True)
-    b = Bool(allow_none=True)
+    tpls: TupleList | None = Field.element(expected_type=TupleList, allow_none=True)
+    x: list[Index] = Field.sequence(expected_type=Index)
+    v: str | None = Field.attribute(expected_type=str, allow_none=False)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('tpls', 'x')
+    xml_order = ("tpls", "x")
 
     def __init__(self,
                  tpls=None,
@@ -219,14 +213,14 @@ class Boolean(Serialisable):
 
     tagname = "b"
 
-    x = Sequence(expected_type=Index)
-    v = Bool()
-    u = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    c = String(allow_none=True)
-    cp = Integer(allow_none=True)
+    x: list[Index] = Field.sequence(expected_type=Index)
+    v: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
 
-    __elements__ = ('x',)
+    xml_order = ("x",)
 
     def __init__(self,
                  x=(),
@@ -248,22 +242,22 @@ class Text(Serialisable):
 
     tagname = "s"
 
-    tpls = Sequence(expected_type=TupleList)
-    x = Sequence(expected_type=Index)
-    v = String()
-    u = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    c = String(allow_none=True)
-    cp = Integer(allow_none=True)
-    _in = Integer(allow_none=True)
-    bc = HexBinary(allow_none=True)
-    fc = HexBinary(allow_none=True)
-    i = Bool(allow_none=True)
-    un = Bool(allow_none=True)
-    st = Bool(allow_none=True)
-    b = Bool(allow_none=True)
+    tpls: list[TupleList] = Field.sequence(expected_type=TupleList)
+    x: list[Index] = Field.sequence(expected_type=Index)
+    v: str | None = Field.attribute(expected_type=str, allow_none=False)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
+    _in: int | None = Field.attribute(expected_type=int, allow_none=True)
+    bc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    fc: HexBinary | None = Field.attribute(expected_type=HexBinary, allow_none=True)
+    i: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    un: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    st: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    b: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('tpls', 'x')
+    xml_order = ("tpls", "x")
 
     def __init__(self,
                  tpls=(),
@@ -301,14 +295,14 @@ class DateTimeField(Serialisable):
 
     tagname = "d"
 
-    x = Sequence(expected_type=Index)
-    v = DateTime()
-    u = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    c = String(allow_none=True)
-    cp = Integer(allow_none=True)
+    x: list[Index] = Field.sequence(expected_type=Index)
+    v: datetime | None = Field.attribute(expected_type=datetime, allow_none=False)
+    u: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cp: int | None = Field.attribute(expected_type=int, allow_none=True)
 
-    __elements__ = ('x',)
+    xml_order = ("x",)
 
     def __init__(self,
                  x=(),

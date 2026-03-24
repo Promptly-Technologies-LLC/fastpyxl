@@ -13,9 +13,11 @@ from fastpyxl.descriptors import (
     Sequence,
 )
 
-from fastpyxl.descriptors.excel import ExtensionList, Relation
+from fastpyxl.descriptors.excel import ExtensionList
 from fastpyxl.descriptors.sequence import NestedSequence
-from fastpyxl.xml.constants import SHEET_MAIN_NS
+from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.fields import Field
+from fastpyxl.xml.constants import REL_NS, SHEET_MAIN_NS
 from fastpyxl.xml.functions import tostring
 from fastpyxl.packaging.relationship import (
     RelationshipList,
@@ -29,11 +31,11 @@ from fastpyxl.worksheet.filters import (
 )
 
 
-class HierarchyUsage(Serialisable):
+class HierarchyUsage(TypedSerialisable):
 
     tagname = "hierarchyUsage"
 
-    hierarchyUsage = Integer()
+    hierarchyUsage: int | None = Field.attribute(expected_type=int, allow_none=False)
 
     def __init__(self,
                  hierarchyUsage=None,
@@ -41,14 +43,13 @@ class HierarchyUsage(Serialisable):
         self.hierarchyUsage = hierarchyUsage
 
 
-class ColHierarchiesUsage(Serialisable):
+class ColHierarchiesUsage(TypedSerialisable):
 
     tagname = "colHierarchiesUsage"
 
-    colHierarchyUsage = Sequence(expected_type=HierarchyUsage, )
+    colHierarchyUsage: list[HierarchyUsage] = Field.sequence(expected_type=HierarchyUsage)
 
-    __elements__ = ('colHierarchyUsage',)
-    __attrs__ = ('count', )
+    xml_order = ("colHierarchyUsage",)
 
     def __init__(self,
                  count=None,
@@ -61,15 +62,18 @@ class ColHierarchiesUsage(Serialisable):
     def count(self):
         return len(self.colHierarchyUsage)
 
+    def __iter__(self):
+        yield from super().__iter__()
+        yield "count", str(self.count)
 
-class RowHierarchiesUsage(Serialisable):
+
+class RowHierarchiesUsage(TypedSerialisable):
 
     tagname = "rowHierarchiesUsage"
 
-    rowHierarchyUsage = Sequence(expected_type=HierarchyUsage, )
+    rowHierarchyUsage: list[HierarchyUsage] = Field.sequence(expected_type=HierarchyUsage)
 
-    __elements__ = ('rowHierarchyUsage',)
-    __attrs__ = ('count', )
+    xml_order = ("rowHierarchyUsage",)
 
     def __init__(self,
                  count=None,
@@ -80,6 +84,10 @@ class RowHierarchiesUsage(Serialisable):
     @property
     def count(self):
         return len(self.rowHierarchyUsage)
+
+    def __iter__(self):
+        yield from super().__iter__()
+        yield "count", str(self.count)
 
 
 class PivotFilter(Serialisable):
@@ -159,24 +167,24 @@ class PivotFilters(Serialisable):
         self.filter = filter
 
 
-class PivotTableStyle(Serialisable):
+class PivotTableStyle(TypedSerialisable):
 
     tagname = "pivotTableStyleInfo"
 
-    name = String(allow_none=True)
-    showRowHeaders = Bool()
-    showColHeaders = Bool()
-    showRowStripes = Bool()
-    showColStripes = Bool()
-    showLastColumn = Bool()
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    showRowHeaders: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showColHeaders: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showRowStripes: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showColStripes: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showLastColumn: bool | None = Field.attribute(expected_type=bool, allow_none=False)
 
     def __init__(self,
                  name=None,
-                 showRowHeaders=None,
-                 showColHeaders=None,
-                 showRowStripes=None,
-                 showColStripes=None,
-                 showLastColumn=None,
+                 showRowHeaders=False,
+                 showColHeaders=False,
+                 showRowStripes=False,
+                 showColStripes=False,
+                 showLastColumn=False,
                 ):
         self.name = name
         self.showRowHeaders = showRowHeaders
@@ -186,14 +194,17 @@ class PivotTableStyle(Serialisable):
         self.showLastColumn = showLastColumn
 
 
-class MemberList(Serialisable):
+class MemberList(TypedSerialisable):
 
     tagname = "members"
 
-    level = Integer(allow_none=True)
-    member = NestedSequence(expected_type=String, attribute="name")
+    level: int | None = Field.attribute(expected_type=int, allow_none=True)
+    member: list[str] = Field.sequence(
+        expected_type=str,
+        primitive_attribute="name",
+    )
 
-    __elements__ = ('member',)
+    xml_order = ("member",)
 
     def __init__(self,
                  count=None,
@@ -207,20 +218,24 @@ class MemberList(Serialisable):
     def count(self):
         return len(self.member)
 
+    def __iter__(self):
+        yield from super().__iter__()
+        yield "count", str(self.count)
 
-class MemberProperty(Serialisable):
+
+class MemberProperty(TypedSerialisable):
 
     tagname = "mps"
 
-    name = String(allow_none=True)
-    showCell = Bool(allow_none=True)
-    showTip = Bool(allow_none=True)
-    showAsCaption = Bool(allow_none=True)
-    nameLen = Integer(allow_none=True)
-    pPos = Integer(allow_none=True)
-    pLen = Integer(allow_none=True)
-    level = Integer(allow_none=True)
-    field = Integer()
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    showCell: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showTip: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showAsCaption: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    nameLen: int | None = Field.attribute(expected_type=int, allow_none=True)
+    pPos: int | None = Field.attribute(expected_type=int, allow_none=True)
+    pLen: int | None = Field.attribute(expected_type=int, allow_none=True)
+    level: int | None = Field.attribute(expected_type=int, allow_none=True)
+    field: int | None = Field.attribute(expected_type=int, allow_none=False)
 
     def __init__(self,
                  name=None,
@@ -297,30 +312,30 @@ class PivotHierarchy(Serialisable):
         self.extLst = extLst
 
 
-class Reference(Serialisable):
+class Reference(TypedSerialisable):
 
     tagname = "reference"
 
-    field = Integer(allow_none=True)
-    selected = Bool(allow_none=True)
-    byPosition = Bool(allow_none=True)
-    relative = Bool(allow_none=True)
-    defaultSubtotal = Bool(allow_none=True)
-    sumSubtotal = Bool(allow_none=True)
-    countASubtotal = Bool(allow_none=True)
-    avgSubtotal = Bool(allow_none=True)
-    maxSubtotal = Bool(allow_none=True)
-    minSubtotal = Bool(allow_none=True)
-    productSubtotal = Bool(allow_none=True)
-    countSubtotal = Bool(allow_none=True)
-    stdDevSubtotal = Bool(allow_none=True)
-    stdDevPSubtotal = Bool(allow_none=True)
-    varSubtotal = Bool(allow_none=True)
-    varPSubtotal = Bool(allow_none=True)
-    x = Sequence(expected_type=Index)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    field: int | None = Field.attribute(expected_type=int, allow_none=True)
+    selected: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    byPosition: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    relative: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    defaultSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sumSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    countASubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    avgSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    maxSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    minSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    productSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    countSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    stdDevSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    stdDevPSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    varSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    varPSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    x: list[int] = Field.sequence(expected_type=int, primitive_attribute="v")
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ('x',)
+    xml_order = ("x",)
 
     def __init__(self,
                  field=None,
@@ -360,6 +375,7 @@ class Reference(Serialisable):
         self.varSubtotal = varSubtotal
         self.varPSubtotal = varPSubtotal
         self.x = x
+        self.extLst = extLst
 
 
     @property
@@ -367,27 +383,26 @@ class Reference(Serialisable):
         return len(self.field)
 
 
-class PivotArea(Serialisable):
+class PivotArea(TypedSerialisable):
 
     tagname = "pivotArea"
 
-    references = NestedSequence(expected_type=Reference, count=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-    field = Integer(allow_none=True)
-    type = NoneSet(values=(['normal', 'data', 'all', 'origin', 'button',
-                            'topEnd', 'topRight']))
-    dataOnly = Bool(allow_none=True)
-    labelOnly = Bool(allow_none=True)
-    grandRow = Bool(allow_none=True)
-    grandCol = Bool(allow_none=True)
-    cacheIndex = Bool(allow_none=True)
-    outline = Bool(allow_none=True)
-    offset = String(allow_none=True)
-    collapsedLevelsAreSubtotals = Bool(allow_none=True)
-    axis = NoneSet(values=(['axisRow', 'axisCol', 'axisPage', 'axisValues']))
-    fieldPosition = Integer(allow_none=True)
+    references: list[Reference] = Field.nested_sequence(expected_type=Reference, count=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    field: int | None = Field.attribute(expected_type=int, allow_none=True)
+    type: str | None = Field.attribute(expected_type=str, allow_none=False)
+    dataOnly: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    labelOnly: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    grandRow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    grandCol: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    cacheIndex: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    outline: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    offset: str | None = Field.attribute(expected_type=str, allow_none=True)
+    collapsedLevelsAreSubtotals: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    axis: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fieldPosition: int | None = Field.attribute(expected_type=int, allow_none=True)
 
-    __elements__ = ('references',)
+    xml_order = ("references",)
 
     def __init__(self,
                  references=(),
@@ -421,16 +436,16 @@ class PivotArea(Serialisable):
         self.fieldPosition = fieldPosition
 
 
-class ChartFormat(Serialisable):
+class ChartFormat(TypedSerialisable):
 
     tagname = "chartFormat"
 
-    chart = Integer()
-    format = Integer()
-    series = Bool()
-    pivotArea = Typed(expected_type=PivotArea, )
+    chart: int | None = Field.attribute(expected_type=int, allow_none=False)
+    format: int | None = Field.attribute(expected_type=int, allow_none=False)
+    series: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    pivotArea: PivotArea | None = Field.element(expected_type=PivotArea, allow_none=False)
 
-    __elements__ = ('pivotArea',)
+    xml_order = ("pivotArea",)
 
     def __init__(self,
                  chart=None,
@@ -444,17 +459,17 @@ class ChartFormat(Serialisable):
         self.pivotArea = pivotArea
 
 
-class ConditionalFormat(Serialisable):
+class ConditionalFormat(TypedSerialisable):
 
     tagname = "conditionalFormat"
 
-    scope = Set(values=(['selection', 'data', 'field']))
-    type = NoneSet(values=(['all', 'row', 'column']))
-    priority = Integer()
-    pivotAreas = NestedSequence(expected_type=PivotArea)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    scope: str | None = Field.attribute(expected_type=str, allow_none=False)
+    type: str | None = Field.attribute(expected_type=str, allow_none=True)
+    priority: int | None = Field.attribute(expected_type=int, allow_none=False)
+    pivotAreas: list[PivotArea] = Field.nested_sequence(expected_type=PivotArea)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ('pivotAreas',)
+    xml_order = ("pivotAreas",)
 
     def __init__(self,
                  scope="selection",
@@ -470,13 +485,11 @@ class ConditionalFormat(Serialisable):
         self.extLst = extLst
 
 
-class ConditionalFormatList(Serialisable):
+class ConditionalFormatList(TypedSerialisable):
 
     tagname = "conditionalFormats"
 
-    conditionalFormat = Sequence(expected_type=ConditionalFormat)
-
-    __attrs__ = ("count",)
+    conditionalFormat: list[ConditionalFormat] = Field.sequence(expected_type=ConditionalFormat)
 
     def __init__(self, conditionalFormat=(), count=None):
         self.conditionalFormat = conditionalFormat
@@ -494,7 +507,8 @@ class ConditionalFormatList(Serialisable):
             for area in fmt.pivotAreas:
                 for ref in area.references:
                     for field in ref.x:
-                        key = (field.v, fmt.priority)
+                        value = field.v if hasattr(field, "v") else field
+                        key = (value, fmt.priority)
                         fmts[key] = fmt
 
         return fmts
@@ -540,22 +554,26 @@ class ConditionalFormatList(Serialisable):
     def count(self):
         return len(self.conditionalFormat)
 
+    def __iter__(self):
+        yield from super().__iter__()
+        yield "count", str(self.count)
+
 
     def to_tree(self, tagname=None):
         self._dedupe()
         return super().to_tree(tagname)
 
 
-class Format(Serialisable):
+class Format(TypedSerialisable):
 
     tagname = "format"
 
-    action = NoneSet(values=(['blank', 'formatting', 'drill', 'formula']))
-    dxfId = Integer(allow_none=True)
-    pivotArea = Typed(expected_type=PivotArea, )
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    action: str | None = Field.attribute(expected_type=str, allow_none=False)
+    dxfId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    pivotArea: PivotArea | None = Field.element(expected_type=PivotArea, allow_none=False)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ('pivotArea',)
+    xml_order = ("pivotArea",)
 
     def __init__(self,
                  action="formatting",
@@ -569,23 +587,20 @@ class Format(Serialisable):
         self.extLst = extLst
 
 
-class DataField(Serialisable):
+class DataField(TypedSerialisable):
 
     tagname = "dataField"
 
-    name = String(allow_none=True)
-    fld = Integer()
-    subtotal = Set(values=(['average', 'count', 'countNums', 'max', 'min',
-                            'product', 'stdDev', 'stdDevp', 'sum', 'var', 'varp']))
-    showDataAs = Set(values=(['normal', 'difference', 'percent',
-                              'percentDiff', 'runTotal', 'percentOfRow', 'percentOfCol',
-                              'percentOfTotal', 'index']))
-    baseField = Integer()
-    baseItem = Integer()
-    numFmtId = Integer(allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fld: int | None = Field.attribute(expected_type=int, allow_none=False)
+    subtotal: str | None = Field.attribute(expected_type=str, allow_none=False)
+    showDataAs: str | None = Field.attribute(expected_type=str, allow_none=False)
+    baseField: int | None = Field.attribute(expected_type=int, allow_none=False)
+    baseItem: int | None = Field.attribute(expected_type=int, allow_none=False)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ()
+    xml_order = ()
 
 
     def __init__(self,
@@ -608,18 +623,18 @@ class DataField(Serialisable):
         self.extLst = extLst
 
 
-class PageField(Serialisable):
+class PageField(TypedSerialisable):
 
     tagname = "pageField"
 
-    fld = Integer()
-    item = Integer(allow_none=True)
-    hier = Integer(allow_none=True)
-    name = String(allow_none=True)
-    cap = String(allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    fld: int | None = Field.attribute(expected_type=int, allow_none=False)
+    item: int | None = Field.attribute(expected_type=int, allow_none=True)
+    hier: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    cap: str | None = Field.attribute(expected_type=str, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
 
-    __elements__ = ()
+    xml_order = ()
 
     def __init__(self,
                  fld=None,
@@ -637,18 +652,16 @@ class PageField(Serialisable):
         self.extLst = extLst
 
 
-class RowColItem(Serialisable):
+class RowColItem(TypedSerialisable):
 
     tagname = "i"
 
-    t = Set(values=(['data', 'default', 'sum', 'countA', 'avg', 'max', 'min',
-                     'product', 'count', 'stdDev', 'stdDevP', 'var', 'varP', 'grand',
-                     'blank']))
-    r = Integer()
-    i = Integer()
-    x = Sequence(expected_type=Index, attribute="v")
+    t: str | None = Field.attribute(expected_type=str, allow_none=False)
+    r: int | None = Field.attribute(expected_type=int, allow_none=False)
+    i: int | None = Field.attribute(expected_type=int, allow_none=False)
+    x: list[int] = Field.sequence(expected_type=int, primitive_attribute="v")
 
-    __elements__ = ('x',)
+    xml_order = ("x",)
 
     def __init__(self,
                  t="data",
@@ -662,11 +675,11 @@ class RowColItem(Serialisable):
         self.x = x
 
 
-class RowColField(Serialisable):
+class RowColField(TypedSerialisable):
 
     tagname = "field"
 
-    x = Integer()
+    x: int | None = Field.attribute(expected_type=int, allow_none=False)
 
     def __init__(self,
                  x=None,
@@ -674,11 +687,11 @@ class RowColField(Serialisable):
         self.x = x
 
 
-class AutoSortScope(Serialisable):
+class AutoSortScope(TypedSerialisable):
 
-    pivotArea = Typed(expected_type=PivotArea, )
+    pivotArea: PivotArea | None = Field.element(expected_type=PivotArea, allow_none=False)
 
-    __elements__ = ('pivotArea',)
+    xml_order = ("pivotArea",)
 
     def __init__(self,
                  pivotArea=None,
@@ -686,23 +699,21 @@ class AutoSortScope(Serialisable):
         self.pivotArea = pivotArea
 
 
-class FieldItem(Serialisable):
+class FieldItem(TypedSerialisable):
 
     tagname = "item"
 
-    n = String(allow_none=True)
-    t = Set(values=(['data', 'default', 'sum', 'countA', 'avg', 'max', 'min',
-                     'product', 'count', 'stdDev', 'stdDevP', 'var', 'varP', 'grand',
-                     'blank']))
-    h = Bool(allow_none=True)
-    s = Bool(allow_none=True)
-    sd = Bool(allow_none=True)
-    f = Bool(allow_none=True)
-    m = Bool(allow_none=True)
-    c = Bool(allow_none=True)
-    x = Integer(allow_none=True)
-    d = Bool(allow_none=True)
-    e = Bool(allow_none=True)
+    n: str | None = Field.attribute(expected_type=str, allow_none=True)
+    t: str | None = Field.attribute(expected_type=str, allow_none=False)
+    h: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    s: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sd: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    f: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    m: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    c: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    x: int | None = Field.attribute(expected_type=int, allow_none=True)
+    d: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    e: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
     def __init__(self,
                  n=None,
@@ -730,63 +741,63 @@ class FieldItem(Serialisable):
         self.e = e
 
 
-class PivotField(Serialisable):
+class PivotField(TypedSerialisable):
 
     tagname = "pivotField"
 
-    items = NestedSequence(expected_type=FieldItem, count=True)
-    autoSortScope = Typed(expected_type=AutoSortScope, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-    name = String(allow_none=True)
-    axis = NoneSet(values=(['axisRow', 'axisCol', 'axisPage', 'axisValues']))
-    dataField = Bool(allow_none=True)
-    subtotalCaption = String(allow_none=True)
-    showDropDowns = Bool(allow_none=True)
-    hiddenLevel = Bool(allow_none=True)
-    uniqueMemberProperty = String(allow_none=True)
-    compact = Bool(allow_none=True)
-    allDrilled = Bool(allow_none=True)
-    numFmtId = Integer(allow_none=True)
-    outline = Bool(allow_none=True)
-    subtotalTop = Bool(allow_none=True)
-    dragToRow = Bool(allow_none=True)
-    dragToCol = Bool(allow_none=True)
-    multipleItemSelectionAllowed = Bool(allow_none=True)
-    dragToPage = Bool(allow_none=True)
-    dragToData = Bool(allow_none=True)
-    dragOff = Bool(allow_none=True)
-    showAll = Bool(allow_none=True)
-    insertBlankRow = Bool(allow_none=True)
-    serverField = Bool(allow_none=True)
-    insertPageBreak = Bool(allow_none=True)
-    autoShow = Bool(allow_none=True)
-    topAutoShow = Bool(allow_none=True)
-    hideNewItems = Bool(allow_none=True)
-    measureFilter = Bool(allow_none=True)
-    includeNewItemsInFilter = Bool(allow_none=True)
-    itemPageCount = Integer(allow_none=True)
-    sortType = Set(values=(['manual', 'ascending', 'descending']))
-    dataSourceSort = Bool(allow_none=True)
-    nonAutoSortDefault = Bool(allow_none=True)
-    rankBy = Integer(allow_none=True)
-    defaultSubtotal = Bool(allow_none=True)
-    sumSubtotal = Bool(allow_none=True)
-    countASubtotal = Bool(allow_none=True)
-    avgSubtotal = Bool(allow_none=True)
-    maxSubtotal = Bool(allow_none=True)
-    minSubtotal = Bool(allow_none=True)
-    productSubtotal = Bool(allow_none=True)
-    countSubtotal = Bool(allow_none=True)
-    stdDevSubtotal = Bool(allow_none=True)
-    stdDevPSubtotal = Bool(allow_none=True)
-    varSubtotal = Bool(allow_none=True)
-    varPSubtotal = Bool(allow_none=True)
-    showPropCell = Bool(allow_none=True)
-    showPropTip = Bool(allow_none=True)
-    showPropAsCaption = Bool(allow_none=True)
-    defaultAttributeDrillState = Bool(allow_none=True)
+    items: list[FieldItem] = Field.nested_sequence(expected_type=FieldItem, count=True)
+    autoSortScope: AutoSortScope | None = Field.element(expected_type=AutoSortScope, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    axis: str | None = Field.attribute(expected_type=str, allow_none=True)
+    dataField: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    subtotalCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    showDropDowns: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    hiddenLevel: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    uniqueMemberProperty: str | None = Field.attribute(expected_type=str, allow_none=True)
+    compact: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    allDrilled: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    numFmtId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    outline: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    subtotalTop: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToRow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToCol: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    multipleItemSelectionAllowed: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToPage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToData: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragOff: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showAll: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    insertBlankRow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    serverField: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    insertPageBreak: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoShow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    topAutoShow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    hideNewItems: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    measureFilter: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    includeNewItemsInFilter: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    itemPageCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    sortType: str | None = Field.attribute(expected_type=str, allow_none=False)
+    dataSourceSort: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    nonAutoSortDefault: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    rankBy: int | None = Field.attribute(expected_type=int, allow_none=True)
+    defaultSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    sumSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    countASubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    avgSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    maxSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    minSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    productSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    countSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    stdDevSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    stdDevPSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    varSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    varPSubtotal: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showPropCell: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showPropTip: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showPropAsCaption: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    defaultAttributeDrillState: bool | None = Field.attribute(expected_type=bool, allow_none=True)
 
-    __elements__ = ('items', 'autoSortScope',)
+    xml_order = ("items", "autoSortScope")
 
     def __init__(self,
                  items=(),
@@ -891,18 +902,19 @@ class PivotField(Serialisable):
         self.showPropTip = showPropTip
         self.showPropAsCaption = showPropAsCaption
         self.defaultAttributeDrillState = defaultAttributeDrillState
+        self.extLst = extLst
 
 
-class Location(Serialisable):
+class Location(TypedSerialisable):
 
     tagname = "location"
 
-    ref = String()
-    firstHeaderRow = Integer()
-    firstDataRow = Integer()
-    firstDataCol = Integer()
-    rowPageCount = Integer(allow_none=True)
-    colPageCount = Integer(allow_none=True)
+    ref: str | None = Field.attribute(expected_type=str, allow_none=False)
+    firstHeaderRow: int | None = Field.attribute(expected_type=int, allow_none=False)
+    firstDataRow: int | None = Field.attribute(expected_type=int, allow_none=False)
+    firstDataCol: int | None = Field.attribute(expected_type=int, allow_none=False)
+    rowPageCount: int | None = Field.attribute(expected_type=int, allow_none=True)
+    colPageCount: int | None = Field.attribute(expected_type=int, allow_none=True)
 
     def __init__(self,
                  ref=None,
@@ -920,7 +932,7 @@ class Location(Serialisable):
         self.colPageCount = colPageCount
 
 
-class TableDefinition(Serialisable):
+class TableDefinition(TypedSerialisable):
 
     mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotTable+xml"
     rel_type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotTable"
@@ -930,98 +942,111 @@ class TableDefinition(Serialisable):
     tagname = "pivotTableDefinition"
     cache = None
 
-    name = String()
-    cacheId = Integer()
-    dataOnRows = Bool()
-    dataPosition = Integer(allow_none=True)
-    dataCaption = String()
-    grandTotalCaption = String(allow_none=True)
-    errorCaption = String(allow_none=True)
-    showError = Bool()
-    missingCaption = String(allow_none=True)
-    showMissing = Bool()
-    pageStyle = String(allow_none=True)
-    pivotTableStyle = String(allow_none=True)
-    vacatedStyle = String(allow_none=True)
-    tag = String(allow_none=True)
-    updatedVersion = Integer()
-    minRefreshableVersion = Integer()
-    asteriskTotals = Bool()
-    showItems = Bool()
-    editData = Bool()
-    disableFieldList = Bool()
-    showCalcMbrs = Bool()
-    visualTotals = Bool()
-    showMultipleLabel = Bool()
-    showDataDropDown = Bool()
-    showDrill = Bool()
-    printDrill = Bool()
-    showMemberPropertyTips = Bool()
-    showDataTips = Bool()
-    enableWizard = Bool()
-    enableDrill = Bool()
-    enableFieldProperties = Bool()
-    preserveFormatting = Bool()
-    useAutoFormatting = Bool()
-    pageWrap = Integer()
-    pageOverThenDown = Bool()
-    subtotalHiddenItems = Bool()
-    rowGrandTotals = Bool()
-    colGrandTotals = Bool()
-    fieldPrintTitles = Bool()
-    itemPrintTitles = Bool()
-    mergeItem = Bool()
-    showDropZones = Bool()
-    createdVersion = Integer()
-    indent = Integer()
-    showEmptyRow = Bool()
-    showEmptyCol = Bool()
-    showHeaders = Bool()
-    compact = Bool()
-    outline = Bool()
-    outlineData = Bool()
-    compactData = Bool()
-    published = Bool()
-    gridDropZones = Bool()
-    immersive = Bool()
-    multipleFieldFilters = Bool()
-    chartFormat = Integer()
-    rowHeaderCaption = String(allow_none=True)
-    colHeaderCaption = String(allow_none=True)
-    fieldListSortAscending = Bool()
-    mdxSubqueries = Bool()
-    customListSort = Bool(allow_none=True)
-    autoFormatId = Integer(allow_none=True)
-    applyNumberFormats = Bool()
-    applyBorderFormats = Bool()
-    applyFontFormats = Bool()
-    applyPatternFormats = Bool()
-    applyAlignmentFormats = Bool()
-    applyWidthHeightFormats = Bool()
-    location = Typed(expected_type=Location, )
-    pivotFields = NestedSequence(expected_type=PivotField, count=True)
-    rowFields = NestedSequence(expected_type=RowColField, count=True)
-    rowItems = NestedSequence(expected_type=RowColItem, count=True)
-    colFields = NestedSequence(expected_type=RowColField, count=True)
-    colItems = NestedSequence(expected_type=RowColItem, count=True)
-    pageFields = NestedSequence(expected_type=PageField, count=True)
-    dataFields = NestedSequence(expected_type=DataField, count=True)
-    formats = NestedSequence(expected_type=Format, count=True)
-    conditionalFormats = Typed(expected_type=ConditionalFormatList, allow_none=True)
-    chartFormats = NestedSequence(expected_type=ChartFormat, count=True)
-    pivotHierarchies = NestedSequence(expected_type=PivotHierarchy, count=True)
-    pivotTableStyleInfo = Typed(expected_type=PivotTableStyle, allow_none=True)
-    filters = NestedSequence(expected_type=PivotFilter, count=True)
-    rowHierarchiesUsage = Typed(expected_type=RowHierarchiesUsage, allow_none=True)
-    colHierarchiesUsage = Typed(expected_type=ColHierarchiesUsage, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
-    id = Relation()
+    name: str | None = Field.attribute(expected_type=str, allow_none=False)
+    cacheId: int | None = Field.attribute(expected_type=int, allow_none=False)
+    dataOnRows: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    dataPosition: int | None = Field.attribute(expected_type=int, allow_none=True)
+    dataCaption: str | None = Field.attribute(expected_type=str, allow_none=False)
+    grandTotalCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    errorCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    showError: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    missingCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    showMissing: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    pageStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    pivotTableStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    vacatedStyle: str | None = Field.attribute(expected_type=str, allow_none=True)
+    tag: str | None = Field.attribute(expected_type=str, allow_none=True)
+    updatedVersion: int | None = Field.attribute(expected_type=int, allow_none=False)
+    minRefreshableVersion: int | None = Field.attribute(expected_type=int, allow_none=False)
+    asteriskTotals: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showItems: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    editData: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    disableFieldList: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showCalcMbrs: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    visualTotals: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showMultipleLabel: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showDataDropDown: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showDrill: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    printDrill: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showMemberPropertyTips: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showDataTips: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    enableWizard: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    enableDrill: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    enableFieldProperties: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    preserveFormatting: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    useAutoFormatting: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    pageWrap: int | None = Field.attribute(expected_type=int, allow_none=False)
+    pageOverThenDown: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    subtotalHiddenItems: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    rowGrandTotals: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    colGrandTotals: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    fieldPrintTitles: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    itemPrintTitles: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    mergeItem: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showDropZones: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    createdVersion: int | None = Field.attribute(expected_type=int, allow_none=False)
+    indent: int | None = Field.attribute(expected_type=int, allow_none=False)
+    showEmptyRow: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showEmptyCol: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    showHeaders: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    compact: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    outline: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    outlineData: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    compactData: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    published: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    gridDropZones: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    immersive: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    multipleFieldFilters: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    chartFormat: int | None = Field.attribute(expected_type=int, allow_none=False)
+    rowHeaderCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    colHeaderCaption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    fieldListSortAscending: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    mdxSubqueries: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    customListSort: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    autoFormatId: int | None = Field.attribute(expected_type=int, allow_none=True)
+    applyNumberFormats: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    applyBorderFormats: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    applyFontFormats: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    applyPatternFormats: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    applyAlignmentFormats: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    applyWidthHeightFormats: bool | None = Field.attribute(expected_type=bool, allow_none=False)
+    location: Location | None = Field.element(expected_type=Location, allow_none=False)
+    pivotFields: list[PivotField] = Field.nested_sequence(expected_type=PivotField, count=True)
+    rowFields: list[RowColField] = Field.nested_sequence(expected_type=RowColField, count=True)
+    rowItems: list[RowColItem] = Field.nested_sequence(expected_type=RowColItem, count=True)
+    colFields: list[RowColField] = Field.nested_sequence(expected_type=RowColField, count=True)
+    colItems: list[RowColItem] = Field.nested_sequence(expected_type=RowColItem, count=True)
+    pageFields: list[PageField] = Field.nested_sequence(expected_type=PageField, count=True)
+    dataFields: list[DataField] = Field.nested_sequence(expected_type=DataField, count=True)
+    formats: list[Format] = Field.nested_sequence(expected_type=Format, count=True)
+    conditionalFormats: ConditionalFormatList | None = Field.element(expected_type=ConditionalFormatList, allow_none=True)
+    chartFormats: list[ChartFormat] = Field.nested_sequence(expected_type=ChartFormat, count=True)
+    pivotHierarchies: list[PivotHierarchy] = Field.nested_sequence(expected_type=PivotHierarchy, count=True)
+    pivotTableStyleInfo: PivotTableStyle | None = Field.element(expected_type=PivotTableStyle, allow_none=True)
+    filters: list[PivotFilter] = Field.nested_sequence(expected_type=PivotFilter, count=True)
+    rowHierarchiesUsage: RowHierarchiesUsage | None = Field.element(expected_type=RowHierarchiesUsage, allow_none=True)
+    colHierarchiesUsage: ColHierarchiesUsage | None = Field.element(expected_type=ColHierarchiesUsage, allow_none=True)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True)
+    id: str | None = Field.attribute(expected_type=str, allow_none=True, namespace=REL_NS)
 
-    __elements__ = ('location', 'pivotFields', 'rowFields', 'rowItems',
-                    'colFields', 'colItems', 'pageFields', 'dataFields', 'formats',
-                    'conditionalFormats', 'chartFormats', 'pivotHierarchies',
-                    'pivotTableStyleInfo', 'filters', 'rowHierarchiesUsage',
-                    'colHierarchiesUsage',)
+    xml_order = (
+        "location",
+        "pivotFields",
+        "rowFields",
+        "rowItems",
+        "colFields",
+        "colItems",
+        "pageFields",
+        "dataFields",
+        "formats",
+        "conditionalFormats",
+        "chartFormats",
+        "pivotHierarchies",
+        "pivotTableStyleInfo",
+        "filters",
+        "rowHierarchiesUsage",
+        "colHierarchiesUsage",
+    )
 
     def __init__(self,
                  name=None,
@@ -1078,12 +1103,12 @@ class TableDefinition(Serialisable):
                  published=False,
                  gridDropZones=False,
                  immersive=True,
-                 multipleFieldFilters=None,
+                 multipleFieldFilters=False,
                  chartFormat=0,
                  rowHeaderCaption=None,
                  colHeaderCaption=None,
-                 fieldListSortAscending=None,
-                 mdxSubqueries=None,
+                 fieldListSortAscending=False,
+                 mdxSubqueries=False,
                  customListSort=None,
                  autoFormatId=None,
                  applyNumberFormats=False,

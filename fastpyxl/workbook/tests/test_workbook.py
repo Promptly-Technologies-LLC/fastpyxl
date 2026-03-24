@@ -1,6 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 import datetime
+from io import BytesIO
 
 # package imports
 from fastpyxl.workbook.defined_name import DefinedName
@@ -323,4 +324,33 @@ class TestCopy:
         wb = Workbook()
         with pytest.raises(ValueError):
             wb.epoch = datetime.datetime(1970, 1, 1)
+
+
+class TestStyleMaterialization:
+
+    def test_materialize_pending_registers_shared_tables(self, Workbook):
+        from fastpyxl.styles import Font
+
+        wb = Workbook()
+        cell = wb.active["A1"]
+        nfonts = len(wb._fonts)
+        cell.font = Font(bold=True)
+        assert len(wb._fonts) == nfonts
+
+        wb.materialize_pending_style_components(cell)
+        assert len(wb._fonts) == nfonts + 1
+
+    def test_save_prepares_styles_before_sheet_xml(self, Workbook):
+        from fastpyxl import load_workbook
+        from fastpyxl.styles import Font
+
+        wb = Workbook()
+        ws = wb.active
+        ws["A1"].font = Font(name="Courier", sz=11)
+        buf = BytesIO()
+        wb.save(buf)
+        buf.seek(0)
+        wb2 = load_workbook(buf)
+        assert wb2.active["A1"].font.name == "Courier"
+        assert wb2.active["A1"].font.size == 11
 

@@ -396,6 +396,58 @@ class Workbook:
         return [s.name for s in self._named_styles]
 
 
+    def materialize_pending_style_components(self, styleable) -> None:
+        """Register shared style parts for *styleable* from deferred assignments.
+
+        Styling attributes on cells and dimensions defer pushing fonts, fills,
+        borders, number formats, alignments, and protections into the workbook
+        until this method runs or until
+        :attr:`~fastpyxl.styles.styleable.StyleableObject.style_id` is read.
+
+        Saving a workbook calls this automatically for every standard worksheet,
+        in the same order as sheet XML serialization, so shared-table indices
+        stay stable. Write-only streams still resolve styles when each row is
+        written.
+        """
+        styleable._ensure_style_array()
+        styleable._apply_pending_styles()
+
+
+    def _materialize_sheet_style_components(self, ws: Worksheet) -> None:
+        from collections import defaultdict
+
+        from fastpyxl.styles.styleable import StyleableObject
+
+        def col_sorter(value):
+            value.reindex()
+            vmin = value.min
+            return vmin if vmin is not None else 0
+
+        for col in sorted(ws.column_dimensions.values(), key=col_sorter):
+            if isinstance(col, StyleableObject):
+                self.materialize_pending_style_components(col)
+
+        rows = defaultdict(list)
+        for (row, _col), cell in sorted(ws._cells.items()):
+            rows[row].append(cell)
+        for row in ws.row_dimensions.keys() - rows.keys():
+            rows[row] = []
+
+        for row_idx, row_cells in sorted(rows.items()):
+            rd = ws.row_dimensions.get(row_idx)
+            if rd is not None and isinstance(rd, StyleableObject):
+                self.materialize_pending_style_components(rd)
+            for cell in row_cells:
+                if isinstance(cell, StyleableObject):
+                    self.materialize_pending_style_components(cell)
+
+
+    def _materialize_workbook_style_components_before_save(self) -> None:
+        for ws in self.worksheets:
+            if isinstance(ws, Worksheet):
+                self._materialize_sheet_style_components(ws)
+
+
     def copy_worksheet(self, from_worksheet):
         """Copy an existing worksheet in the current workbook
 

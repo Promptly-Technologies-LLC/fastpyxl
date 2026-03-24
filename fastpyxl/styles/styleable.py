@@ -20,9 +20,10 @@ class StyleDescriptor:
         self.key = key
 
     def __set__(self, instance, value):
-        if hasattr(instance, "_pending_styles"):
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
             instance._ensure_style_array()
-            instance._pending_styles[self.key] = (self.collection, value)
+            pending_styles[self.key] = (self.collection, value)
             return
         coll = getattr(instance.parent.parent, self.collection)
         if not getattr(instance, "_style"):
@@ -54,9 +55,10 @@ class NumberFormatDescriptor:
     collection = '_number_formats'
 
     def __set__(self, instance, value):
-        if hasattr(instance, "_pending_styles"):
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
             instance._ensure_style_array()
-            instance._pending_styles[self.key] = (self.collection, value)
+            pending_styles[self.key] = (self.collection, value)
             return
         coll = getattr(instance.parent.parent, self.collection)
         if value in BUILTIN_FORMATS_REVERSE:

@@ -74,6 +74,8 @@ class ExcelWriter:
             custom_override = CustomOverride()
             self.manifest.append(custom_override)
 
+        self.workbook._materialize_workbook_style_components_before_save()
+
         self._write_worksheets()
         self._write_chartsheets()
         self._write_images()

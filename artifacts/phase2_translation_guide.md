@@ -101,6 +101,20 @@ class WorkbookStyleRegistry:
         ...
 ```
 
+**Workbook integration (current fastpyxl):** Assignment to style attributes on
+`StyleableObject` (cells, row/column dimensions) stores values in a pending map.
+Those values are pushed into the workbook’s shared font/fill/border/number-format
+tables when either:
+
+- `StyleableObject.style_id` is read (for example while writing `<c s="…">`), or
+- `Workbook.materialize_pending_style_components(obj)` runs, or
+- the workbook save pipeline runs `Workbook._materialize_workbook_style_components_before_save()` (before worksheet XML is written).
+
+Inspecting `wb._fonts`, `wb._fills`, and similar lists *after* assigning a cell
+style but *before* any of the above may show fewer entries than after save.
+Named styles still register via `NamedStyleDescriptor` on assignment (`add_named_style`);
+only the shared “differential parts” tables use the deferred path above.
+
 ## Regression Coverage
 
 Executable examples for each hard case are in:

@@ -21,6 +21,11 @@ def test_descriptor(Worksheet):
         def __init__(self):
             self._style = StyleArray()
             self.parent = Worksheet
+            self._pending_styles = {}
+
+        def _ensure_style_array(self):
+            if self._style is None:
+                self._style = StyleArray()
 
     styled = Styled()
     styled.font = Font()

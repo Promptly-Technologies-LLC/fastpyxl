@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 

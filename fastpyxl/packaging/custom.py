@@ -27,7 +27,7 @@ from fastpyxl.xml.constants import (
 )
 from fastpyxl.xml.functions import Element
 
-from .core import NestedDateTime, _datetime_converter
+from .core import _datetime_converter
 
 
 def _filetime_nested_renderer(tagname, value, namespace=None):

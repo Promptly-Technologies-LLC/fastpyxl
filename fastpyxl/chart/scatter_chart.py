@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.descriptors.excel import ExtensionList
 
 from ._chart import ChartBase
-from .axis import NumericAxis, TextAxis
+from .axis import NumericAxis
 from .series import XYSeries
 from .label import DataLabelList
 

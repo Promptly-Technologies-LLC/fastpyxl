@@ -2,7 +2,6 @@
 
 from fastpyxl.descriptors.excel import (
     ExtensionList,
-    Guid,
 )
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError

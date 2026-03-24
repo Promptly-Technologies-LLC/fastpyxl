@@ -12,7 +12,6 @@ from .borders import Border
 from .alignment import Alignment
 from .protection import Protection
 from .numbers import (
-    NumberFormatDescriptor,
     BUILTIN_FORMATS_MAX_SIZE,
     BUILTIN_FORMATS_REVERSE,
 )

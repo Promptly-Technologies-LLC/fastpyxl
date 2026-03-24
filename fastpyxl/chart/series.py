@@ -151,6 +151,8 @@ class Series(Serialisable):
 
     tagname = "ser"
 
+    _serialize_element_order: tuple[str, ...] | None = None
+
     idx: int | None = Field.nested_value(expected_type=int, allow_none=True)
     order: int | None = Field.nested_value(expected_type=int, allow_none=True)
     tx: SeriesLabel | None = Field.element(expected_type=SeriesLabel, allow_none=True)

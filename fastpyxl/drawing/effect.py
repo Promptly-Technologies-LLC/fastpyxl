@@ -2,12 +2,8 @@
 
 from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.descriptors import (
-    Typed,
-    String,
     Set,
-    Bool,
     Integer,
-    Float,
 )
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError

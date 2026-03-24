@@ -1,4 +1,3 @@
-import pytest
 
 from fastpyxl.tests.helper import compare_xml
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable

@@ -10,7 +10,7 @@ import datetime
 from fastpyxl.packaging.core import DocumentProperties
 from fastpyxl.packaging.relationship import Relationship
 from fastpyxl.packaging.extended import ExtendedProperties
-from fastpyxl.packaging.manifest import Manifest, Override
+from fastpyxl.packaging.manifest import Manifest
 from fastpyxl.packaging.custom import CustomPropertyList, IntProperty, StringProperty
 from fastpyxl.packaging.workbook import ChildSheet, FileRecoveryProperties, PivotCache
 from fastpyxl.workbook.function_group import FunctionGroup, FunctionGroupList
@@ -26,7 +26,6 @@ from fastpyxl.styles.colors import Color
 from fastpyxl.tests.helper import compare_xml
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
 from fastpyxl.xml.functions import fromstring, tostring
-from fastpyxl import __version__
 
 
 def test_relationship_migrated_to_typed_base():

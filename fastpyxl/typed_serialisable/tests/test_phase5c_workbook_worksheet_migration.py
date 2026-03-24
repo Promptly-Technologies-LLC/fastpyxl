@@ -1,10 +1,7 @@
 import importlib
 import pkgutil
 
-import fastpyxl.cell as cell_pkg
 import fastpyxl.comments as comments_pkg
-import fastpyxl.formatting as formatting_pkg
-import fastpyxl.styles as styles_pkg
 import fastpyxl.worksheet as worksheet_pkg
 from fastpyxl.packaging.workbook import WorkbookPackage
 from fastpyxl.tests.helper import compare_xml

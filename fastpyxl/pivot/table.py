@@ -14,7 +14,6 @@ from fastpyxl.packaging.relationship import (
     Relationship,
     get_rels_path
 )
-from .fields import Index
 
 from fastpyxl.worksheet.filters import (
     AutoFilter,

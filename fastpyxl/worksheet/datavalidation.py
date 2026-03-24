@@ -61,9 +61,6 @@ def expand_cell_ranges(range_string):
     return set(chain(*cells))
 
 
-from .cell_range import MultiCellRange
-
-
 class DataValidation(Serialisable):
 
     tagname = "dataValidation"

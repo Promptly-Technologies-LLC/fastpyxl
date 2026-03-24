@@ -24,7 +24,6 @@ from ._3d import (
     FIELD_FLOOR,
     FIELD_SIDE_WALL,
     FIELD_VIEW3D,
-    _3DBase,
 )
 from .plotarea import PlotArea
 from .title import Title, title_from_value

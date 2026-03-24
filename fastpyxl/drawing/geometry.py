@@ -10,7 +10,6 @@ from fastpyxl.descriptors import (
     Set,
     NoneSet,
     String,
-    Alias,
 )
 from fastpyxl.descriptors.excel import Coordinate, Percentage
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList

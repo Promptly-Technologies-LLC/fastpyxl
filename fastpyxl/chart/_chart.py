@@ -11,12 +11,10 @@ from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from ._3d import _3DBase
 from .data_source import AxDataSource, NumRef
-from .layout import Layout
 from .legend import Legend
 from .reference import Reference
 from .series_factory import SeriesFactory
 from .series import attribute_mapping
-from .shapes import GraphicalProperties
 from .title import title_from_value
 
 

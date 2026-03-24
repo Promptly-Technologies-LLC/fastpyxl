@@ -1,0 +1,160 @@
+# Copyright (c) 2010-2024 fastpyxl
+
+from fastpyxl.compat import safe_string
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+from fastpyxl.typed_serialisable.parse import normalize_attrib
+from fastpyxl.utils.protection import hash_password
+
+
+class WorkbookProtection(Serialisable):
+
+    _workbook_password, _revisions_password = None, None
+
+    tagname = "workbookPr"
+
+    workbook_password = AliasField("workbookPassword", default=None)
+    workbookPasswordCharacterSet: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    revision_password = AliasField("revisionsPassword", default=None)
+    revisionsPasswordCharacterSet: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    lockStructure: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    lock_structure = AliasField("lockStructure", default=None)
+    lockWindows: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    lock_windows = AliasField("lockWindows", default=None)
+    lockRevision: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    lock_revision = AliasField("lockRevision", default=None)
+    revisionsAlgorithmName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    revisionsHashValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    revisionsSaltValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    revisionsSpinCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    workbookAlgorithmName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    workbookHashValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    workbookSaltValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    workbookSpinCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+
+    def __init__(self,
+                 workbookPassword=None,
+                 workbookPasswordCharacterSet=None,
+                 revisionsPassword=None,
+                 revisionsPasswordCharacterSet=None,
+                 lockStructure=None,
+                 lockWindows=None,
+                 lockRevision=None,
+                 revisionsAlgorithmName=None,
+                 revisionsHashValue=None,
+                 revisionsSaltValue=None,
+                 revisionsSpinCount=None,
+                 workbookAlgorithmName=None,
+                 workbookHashValue=None,
+                 workbookSaltValue=None,
+                 workbookSpinCount=None,
+                ):
+        if workbookPassword is not None:
+            self.workbookPassword = workbookPassword
+        self.workbookPasswordCharacterSet = workbookPasswordCharacterSet
+        if revisionsPassword is not None:
+            self.revisionsPassword = revisionsPassword
+        self.revisionsPasswordCharacterSet = revisionsPasswordCharacterSet
+        self.lockStructure = lockStructure
+        self.lockWindows = lockWindows
+        self.lockRevision = lockRevision
+        self.revisionsAlgorithmName = revisionsAlgorithmName
+        self.revisionsHashValue = revisionsHashValue
+        self.revisionsSaltValue = revisionsSaltValue
+        self.revisionsSpinCount = revisionsSpinCount
+        self.workbookAlgorithmName = workbookAlgorithmName
+        self.workbookHashValue = workbookHashValue
+        self.workbookSaltValue = workbookSaltValue
+        self.workbookSpinCount = workbookSpinCount
+
+    def __iter__(self):
+        yield from super().__iter__()
+        if self._workbook_password is not None:
+            yield "workbookPassword", safe_string(self._workbook_password)
+        if self._revisions_password is not None:
+            yield "revisionsPassword", safe_string(self._revisions_password)
+
+    def set_workbook_password(self, value='', already_hashed=False):
+        """Set a password on this workbook."""
+        if not already_hashed:
+            value = hash_password(value)
+        self._workbook_password = value
+
+    @property
+    def workbookPassword(self):
+        """Return the workbook password value, regardless of hash."""
+        return self._workbook_password
+
+    @workbookPassword.setter
+    def workbookPassword(self, value):
+        """Set a workbook password directly, forcing a hash step."""
+        self.set_workbook_password(value)
+
+    def set_revisions_password(self, value='', already_hashed=False):
+        """Set a revision password on this workbook."""
+        if not already_hashed:
+            value = hash_password(value)
+        self._revisions_password = value
+
+    @property
+    def revisionsPassword(self):
+        """Return the revisions password value, regardless of hash."""
+        return self._revisions_password
+
+    @revisionsPassword.setter
+    def revisionsPassword(self, value):
+        """Set a revisions password directly, forcing a hash step."""
+        self.set_revisions_password(value)
+
+    @classmethod
+    def from_tree(cls, node):
+        """Don't hash passwords when deserialising from XML"""
+        attrib = dict(node.attrib)
+        for key, ns_key in cls.__namespaced__:
+            if ns_key in attrib:
+                attrib[key] = attrib.pop(ns_key)
+        attrib = normalize_attrib(attrib)
+        for xml_name, py_name in cls.__attribute_xml_name_map__.items():
+            if xml_name in attrib and py_name not in attrib:
+                attrib[py_name] = attrib.pop(xml_name)
+        wb_raw = attrib.pop("workbookPassword", None)
+        rev_raw = attrib.pop("revisionsPassword", None)
+        self = cls(**attrib)
+        if wb_raw is not None:
+            self.set_workbook_password(wb_raw, already_hashed=True)
+        if rev_raw is not None:
+            self.set_revisions_password(rev_raw, already_hashed=True)
+        return self
+
+# Backwards compatibility
+DocumentSecurity = WorkbookProtection
+
+
+class FileSharing(Serialisable):
+
+    tagname = "fileSharing"
+
+    readOnlyRecommended: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    userName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    reservationPassword: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    algorithmName: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    hashValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    saltValue: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    spinCount: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+
+    def __init__(self,
+                 readOnlyRecommended=None,
+                 userName=None,
+                 reservationPassword=None,
+                 algorithmName=None,
+                 hashValue=None,
+                 saltValue=None,
+                 spinCount=None,
+                ):
+        self.readOnlyRecommended = readOnlyRecommended
+        self.userName = userName
+        self.reservationPassword = reservationPassword
+        self.algorithmName = algorithmName
+        self.hashValue = hashValue
+        self.saltValue = saltValue
+        self.spinCount = spinCount

@@ -1,5 +1,5 @@
-from openpyxl import Workbook
-from openpyxl.chart import BarChart, Series, Reference
+from fastpyxl import Workbook
+from fastpyxl.chart import BarChart, Reference
 
 wb = Workbook(write_only=True)
 ws = wb.create_sheet()

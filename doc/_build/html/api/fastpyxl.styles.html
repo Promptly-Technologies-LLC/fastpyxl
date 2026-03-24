@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.styles package &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.styles.tests package" href="fastpyxl.styles.tests.html" />
+    <link rel="prev" title="fastpyxl.reader.workbook module" href="fastpyxl.reader.workbook.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">fastpyxl.styles package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.styles package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.styles.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.styles">
+<span id="fastpyxl-styles-package"></span><h1>fastpyxl.styles package<a class="headerlink" href="#module-fastpyxl.styles" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.tests.html">fastpyxl.styles.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.tests.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.conftest.html">fastpyxl.styles.tests.conftest module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.conftest.html#fastpyxl.styles.tests.conftest.datadir"><code class="docutils literal notranslate"><span class="pre">datadir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_alignments.html">fastpyxl.styles.tests.test_alignments module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_alignments.html#fastpyxl.styles.tests.test_alignments.Alignment"><code class="docutils literal notranslate"><span class="pre">Alignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_alignments.html#fastpyxl.styles.tests.test_alignments.test_alias"><code class="docutils literal notranslate"><span class="pre">test_alias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_alignments.html#fastpyxl.styles.tests.test_alignments.test_default"><code class="docutils literal notranslate"><span class="pre">test_default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_alignments.html#fastpyxl.styles.tests.test_alignments.test_round_trip"><code class="docutils literal notranslate"><span class="pre">test_round_trip()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_borders.html">fastpyxl.styles.tests.test_borders module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_borders.html#fastpyxl.styles.tests.test_borders.Border"><code class="docutils literal notranslate"><span class="pre">Border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_borders.html#fastpyxl.styles.tests.test_borders.Side"><code class="docutils literal notranslate"><span class="pre">Side()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_borders.html#fastpyxl.styles.tests.test_borders.TestBorder"><code class="docutils literal notranslate"><span class="pre">TestBorder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html">fastpyxl.styles.tests.test_cell_style module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html#fastpyxl.styles.tests.test_cell_style.CellStyle"><code class="docutils literal notranslate"><span class="pre">CellStyle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html#fastpyxl.styles.tests.test_cell_style.CellStyleList"><code class="docutils literal notranslate"><span class="pre">CellStyleList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html#fastpyxl.styles.tests.test_cell_style.StyleArray"><code class="docutils literal notranslate"><span class="pre">StyleArray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html#fastpyxl.styles.tests.test_cell_style.TestCellStyle"><code class="docutils literal notranslate"><span class="pre">TestCellStyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html#fastpyxl.styles.tests.test_cell_style.TestCellStyleList"><code class="docutils literal notranslate"><span class="pre">TestCellStyleList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_cell_style.html#fastpyxl.styles.tests.test_cell_style.TestStyleArray"><code class="docutils literal notranslate"><span class="pre">TestStyleArray</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_colors.html">fastpyxl.styles.tests.test_colors module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_colors.html#fastpyxl.styles.tests.test_colors.ColorList"><code class="docutils literal notranslate"><span class="pre">ColorList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_colors.html#fastpyxl.styles.tests.test_colors.TestColor"><code class="docutils literal notranslate"><span class="pre">TestColor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_colors.html#fastpyxl.styles.tests.test_colors.TestColorList"><code class="docutils literal notranslate"><span class="pre">TestColorList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_colors.html#fastpyxl.styles.tests.test_colors.test_argb"><code class="docutils literal notranslate"><span class="pre">test_argb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_colors.html#fastpyxl.styles.tests.test_colors.test_color_descriptor"><code class="docutils literal notranslate"><span class="pre">test_color_descriptor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_differential.html">fastpyxl.styles.tests.test_differential module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_differential.html#fastpyxl.styles.tests.test_differential.DifferentialStyle"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_differential.html#fastpyxl.styles.tests.test_differential.DifferentialStyleList"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_differential.html#fastpyxl.styles.tests.test_differential.TestDifferentialStyleList"><code class="docutils literal notranslate"><span class="pre">TestDifferentialStyleList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_differential.html#fastpyxl.styles.tests.test_differential.test_parse"><code class="docutils literal notranslate"><span class="pre">test_parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_differential.html#fastpyxl.styles.tests.test_differential.test_serialise"><code class="docutils literal notranslate"><span class="pre">test_serialise()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html">fastpyxl.styles.tests.test_fills module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.GradientFill"><code class="docutils literal notranslate"><span class="pre">GradientFill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.PatternFill"><code class="docutils literal notranslate"><span class="pre">PatternFill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.Stop"><code class="docutils literal notranslate"><span class="pre">Stop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.TestGradientFill"><code class="docutils literal notranslate"><span class="pre">TestGradientFill</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.TestPatternFill"><code class="docutils literal notranslate"><span class="pre">TestPatternFill</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.TestStop"><code class="docutils literal notranslate"><span class="pre">TestStop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.test_create_empty_fill"><code class="docutils literal notranslate"><span class="pre">test_create_empty_fill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fills.html#fastpyxl.styles.tests.test_fills.test_read_fills"><code class="docutils literal notranslate"><span class="pre">test_read_fills()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_fonts.html">fastpyxl.styles.tests.test_fonts module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fonts.html#fastpyxl.styles.tests.test_fonts.Font"><code class="docutils literal notranslate"><span class="pre">Font()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_fonts.html#fastpyxl.styles.tests.test_fonts.TestFont"><code class="docutils literal notranslate"><span class="pre">TestFont</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html">fastpyxl.styles.tests.test_named_style module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html#fastpyxl.styles.tests.test_named_style.NamedStyle"><code class="docutils literal notranslate"><span class="pre">NamedStyle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html#fastpyxl.styles.tests.test_named_style.NamedStyleList"><code class="docutils literal notranslate"><span class="pre">NamedStyleList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html#fastpyxl.styles.tests.test_named_style.TestNamedCellStyle"><code class="docutils literal notranslate"><span class="pre">TestNamedCellStyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html#fastpyxl.styles.tests.test_named_style.TestNamedCellStyleList"><code class="docutils literal notranslate"><span class="pre">TestNamedCellStyleList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html#fastpyxl.styles.tests.test_named_style.TestNamedStyle"><code class="docutils literal notranslate"><span class="pre">TestNamedStyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_named_style.html#fastpyxl.styles.tests.test_named_style.TestNamedStyleList"><code class="docutils literal notranslate"><span class="pre">TestNamedStyleList</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html">fastpyxl.styles.tests.test_number_style module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html#fastpyxl.styles.tests.test_number_style.test_builtin_format"><code class="docutils literal notranslate"><span class="pre">test_builtin_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html#fastpyxl.styles.tests.test_number_style.test_datetime"><code class="docutils literal notranslate"><span class="pre">test_datetime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html#fastpyxl.styles.tests.test_number_style.test_is_date_format"><code class="docutils literal notranslate"><span class="pre">test_is_date_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html#fastpyxl.styles.tests.test_number_style.test_is_timedelta_format"><code class="docutils literal notranslate"><span class="pre">test_is_timedelta_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html#fastpyxl.styles.tests.test_number_style.test_number_descriptor"><code class="docutils literal notranslate"><span class="pre">test_number_descriptor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_number_style.html#fastpyxl.styles.tests.test_number_style.test_strip_quotes"><code class="docutils literal notranslate"><span class="pre">test_strip_quotes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_protection.html">fastpyxl.styles.tests.test_protection module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_protection.html#fastpyxl.styles.tests.test_protection.Protection"><code class="docutils literal notranslate"><span class="pre">Protection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_protection.html#fastpyxl.styles.tests.test_protection.test_default"><code class="docutils literal notranslate"><span class="pre">test_default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_protection.html#fastpyxl.styles.tests.test_protection.test_round_trip"><code class="docutils literal notranslate"><span class="pre">test_round_trip()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html">fastpyxl.styles.tests.test_proxy module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.dummy_object"><code class="docutils literal notranslate"><span class="pre">dummy_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.proxy"><code class="docutils literal notranslate"><span class="pre">proxy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.test_add"><code class="docutils literal notranslate"><span class="pre">test_add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.test_copy"><code class="docutils literal notranslate"><span class="pre">test_copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.test_ctor"><code class="docutils literal notranslate"><span class="pre">test_ctor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.test_non_writable"><code class="docutils literal notranslate"><span class="pre">test_non_writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_proxy.html#fastpyxl.styles.tests.test_proxy.test_repr"><code class="docutils literal notranslate"><span class="pre">test_repr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html">fastpyxl.styles.tests.test_styleable module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.StyleableObject"><code class="docutils literal notranslate"><span class="pre">StyleableObject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.TestNamedStyle"><code class="docutils literal notranslate"><span class="pre">TestNamedStyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.Workbook"><code class="docutils literal notranslate"><span class="pre">Workbook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.Worksheet"><code class="docutils literal notranslate"><span class="pre">Worksheet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.test_descriptor"><code class="docutils literal notranslate"><span class="pre">test_descriptor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.test_has_style"><code class="docutils literal notranslate"><span class="pre">test_has_style()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_styleable.html#fastpyxl.styles.tests.test_styleable.test_style_descriptor_registration_deferred_until_style_id"><code class="docutils literal notranslate"><span class="pre">test_style_descriptor_registration_deferred_until_style_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html">fastpyxl.styles.tests.test_stylesheet module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.Stylesheet"><code class="docutils literal notranslate"><span class="pre">Stylesheet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.TestStylesheet"><code class="docutils literal notranslate"><span class="pre">TestStylesheet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.test_no_default_style"><code class="docutils literal notranslate"><span class="pre">test_no_default_style()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.test_no_styles"><code class="docutils literal notranslate"><span class="pre">test_no_styles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.test_no_stylesheet"><code class="docutils literal notranslate"><span class="pre">test_no_stylesheet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.test_simple_styles"><code class="docutils literal notranslate"><span class="pre">test_simple_styles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_stylesheet.html#fastpyxl.styles.tests.test_stylesheet.test_write_worksheet"><code class="docutils literal notranslate"><span class="pre">test_write_worksheet()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html">fastpyxl.styles.tests.test_table module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html#fastpyxl.styles.tests.test_table.TableStyle"><code class="docutils literal notranslate"><span class="pre">TableStyle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html#fastpyxl.styles.tests.test_table.TableStyleElement"><code class="docutils literal notranslate"><span class="pre">TableStyleElement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html#fastpyxl.styles.tests.test_table.TableStyleList"><code class="docutils literal notranslate"><span class="pre">TableStyleList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html#fastpyxl.styles.tests.test_table.TestTableStyle"><code class="docutils literal notranslate"><span class="pre">TestTableStyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html#fastpyxl.styles.tests.test_table.TestTableStyleElement"><code class="docutils literal notranslate"><span class="pre">TestTableStyleElement</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.styles.tests.test_table.html#fastpyxl.styles.tests.test_table.TestTableStyleList"><code class="docutils literal notranslate"><span class="pre">TestTableStyleList</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.alignment.html">fastpyxl.styles.alignment module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment"><code class="docutils literal notranslate"><span class="pre">Alignment</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.horizontal"><code class="docutils literal notranslate"><span class="pre">Alignment.horizontal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.indent"><code class="docutils literal notranslate"><span class="pre">Alignment.indent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.justifyLastLine"><code class="docutils literal notranslate"><span class="pre">Alignment.justifyLastLine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.readingOrder"><code class="docutils literal notranslate"><span class="pre">Alignment.readingOrder</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.relativeIndent"><code class="docutils literal notranslate"><span class="pre">Alignment.relativeIndent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.shrinkToFit"><code class="docutils literal notranslate"><span class="pre">Alignment.shrinkToFit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.shrink_to_fit"><code class="docutils literal notranslate"><span class="pre">Alignment.shrink_to_fit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.tagname"><code class="docutils literal notranslate"><span class="pre">Alignment.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.textRotation"><code class="docutils literal notranslate"><span class="pre">Alignment.textRotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.text_rotation"><code class="docutils literal notranslate"><span class="pre">Alignment.text_rotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.vertical"><code class="docutils literal notranslate"><span class="pre">Alignment.vertical</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.wrapText"><code class="docutils literal notranslate"><span class="pre">Alignment.wrapText</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.alignment.html#fastpyxl.styles.alignment.Alignment.wrap_text"><code class="docutils literal notranslate"><span class="pre">Alignment.wrap_text</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.borders.html">fastpyxl.styles.borders module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border"><code class="docutils literal notranslate"><span class="pre">Border</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.bottom"><code class="docutils literal notranslate"><span class="pre">Border.bottom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.diagonal"><code class="docutils literal notranslate"><span class="pre">Border.diagonal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.diagonalDown"><code class="docutils literal notranslate"><span class="pre">Border.diagonalDown</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.diagonalUp"><code class="docutils literal notranslate"><span class="pre">Border.diagonalUp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.end"><code class="docutils literal notranslate"><span class="pre">Border.end</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.horizontal"><code class="docutils literal notranslate"><span class="pre">Border.horizontal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.left"><code class="docutils literal notranslate"><span class="pre">Border.left</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.outline"><code class="docutils literal notranslate"><span class="pre">Border.outline</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.right"><code class="docutils literal notranslate"><span class="pre">Border.right</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.start"><code class="docutils literal notranslate"><span class="pre">Border.start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.tagname"><code class="docutils literal notranslate"><span class="pre">Border.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.top"><code class="docutils literal notranslate"><span class="pre">Border.top</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.vertical"><code class="docutils literal notranslate"><span class="pre">Border.vertical</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Border.xml_order"><code class="docutils literal notranslate"><span class="pre">Border.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Side"><code class="docutils literal notranslate"><span class="pre">Side</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Side.border_style"><code class="docutils literal notranslate"><span class="pre">Side.border_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Side.color"><code class="docutils literal notranslate"><span class="pre">Side.color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.borders.html#fastpyxl.styles.borders.Side.style"><code class="docutils literal notranslate"><span class="pre">Side.style</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.builtins.html">fastpyxl.styles.builtins module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.cell_style.html">fastpyxl.styles.cell_style module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.ArrayDescriptor"><code class="docutils literal notranslate"><span class="pre">ArrayDescriptor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle"><code class="docutils literal notranslate"><span class="pre">CellStyle</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.alignment"><code class="docutils literal notranslate"><span class="pre">CellStyle.alignment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.applyAlignment"><code class="docutils literal notranslate"><span class="pre">CellStyle.applyAlignment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.applyProtection"><code class="docutils literal notranslate"><span class="pre">CellStyle.applyProtection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.borderId"><code class="docutils literal notranslate"><span class="pre">CellStyle.borderId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.extLst"><code class="docutils literal notranslate"><span class="pre">CellStyle.extLst</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.fillId"><code class="docutils literal notranslate"><span class="pre">CellStyle.fillId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.fontId"><code class="docutils literal notranslate"><span class="pre">CellStyle.fontId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.from_array"><code class="docutils literal notranslate"><span class="pre">CellStyle.from_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.numFmtId"><code class="docutils literal notranslate"><span class="pre">CellStyle.numFmtId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.pivotButton"><code class="docutils literal notranslate"><span class="pre">CellStyle.pivotButton</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.protection"><code class="docutils literal notranslate"><span class="pre">CellStyle.protection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.quotePrefix"><code class="docutils literal notranslate"><span class="pre">CellStyle.quotePrefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.tagname"><code class="docutils literal notranslate"><span class="pre">CellStyle.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.to_array"><code class="docutils literal notranslate"><span class="pre">CellStyle.to_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.xfId"><code class="docutils literal notranslate"><span class="pre">CellStyle.xfId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyle.xml_order"><code class="docutils literal notranslate"><span class="pre">CellStyle.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyleList"><code class="docutils literal notranslate"><span class="pre">CellStyleList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyleList.count"><code class="docutils literal notranslate"><span class="pre">CellStyleList.count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyleList.tagname"><code class="docutils literal notranslate"><span class="pre">CellStyleList.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.CellStyleList.xf"><code class="docutils literal notranslate"><span class="pre">CellStyleList.xf</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray"><code class="docutils literal notranslate"><span class="pre">StyleArray</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.alignmentId"><code class="docutils literal notranslate"><span class="pre">StyleArray.alignmentId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.borderId"><code class="docutils literal notranslate"><span class="pre">StyleArray.borderId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.fillId"><code class="docutils literal notranslate"><span class="pre">StyleArray.fillId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.fontId"><code class="docutils literal notranslate"><span class="pre">StyleArray.fontId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.numFmtId"><code class="docutils literal notranslate"><span class="pre">StyleArray.numFmtId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.pivotButton"><code class="docutils literal notranslate"><span class="pre">StyleArray.pivotButton</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.protectionId"><code class="docutils literal notranslate"><span class="pre">StyleArray.protectionId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.quotePrefix"><code class="docutils literal notranslate"><span class="pre">StyleArray.quotePrefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.tagname"><code class="docutils literal notranslate"><span class="pre">StyleArray.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.cell_style.html#fastpyxl.styles.cell_style.StyleArray.xfId"><code class="docutils literal notranslate"><span class="pre">StyleArray.xfId</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.colors.html">fastpyxl.styles.colors module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color"><code class="docutils literal notranslate"><span class="pre">Color</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.auto"><code class="docutils literal notranslate"><span class="pre">Color.auto</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.index"><code class="docutils literal notranslate"><span class="pre">Color.index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.indexed"><code class="docutils literal notranslate"><span class="pre">Color.indexed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.rgb"><code class="docutils literal notranslate"><span class="pre">Color.rgb</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.tagname"><code class="docutils literal notranslate"><span class="pre">Color.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.theme"><code class="docutils literal notranslate"><span class="pre">Color.theme</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.tint"><code class="docutils literal notranslate"><span class="pre">Color.tint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.type"><code class="docutils literal notranslate"><span class="pre">Color.type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.Color.value"><code class="docutils literal notranslate"><span class="pre">Color.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorDescriptor"><code class="docutils literal notranslate"><span class="pre">ColorDescriptor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorDescriptor.expected_type"><code class="docutils literal notranslate"><span class="pre">ColorDescriptor.expected_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorList"><code class="docutils literal notranslate"><span class="pre">ColorList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorList.index"><code class="docutils literal notranslate"><span class="pre">ColorList.index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorList.indexedColors"><code class="docutils literal notranslate"><span class="pre">ColorList.indexedColors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorList.mruColors"><code class="docutils literal notranslate"><span class="pre">ColorList.mruColors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.ColorList.tagname"><code class="docutils literal notranslate"><span class="pre">ColorList.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.RGB"><code class="docutils literal notranslate"><span class="pre">RGB</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.RGB.expected_type"><code class="docutils literal notranslate"><span class="pre">RGB.expected_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.RgbColor"><code class="docutils literal notranslate"><span class="pre">RgbColor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.RgbColor.rgb"><code class="docutils literal notranslate"><span class="pre">RgbColor.rgb</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.colors.html#fastpyxl.styles.colors.RgbColor.tagname"><code class="docutils literal notranslate"><span class="pre">RgbColor.tagname</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.differential.html">fastpyxl.styles.differential module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.alignment"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.alignment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.border"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.border</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.fill"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.fill</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.font"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.numFmt"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.numFmt</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.protection"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.protection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.tagname"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyle.xml_order"><code class="docutils literal notranslate"><span class="pre">DifferentialStyle.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList.add"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList.append"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList.count"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList.count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList.dxf"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList.dxf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList.styles"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList.styles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.differential.html#fastpyxl.styles.differential.DifferentialStyleList.tagname"><code class="docutils literal notranslate"><span class="pre">DifferentialStyleList.tagname</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.fills.html">fastpyxl.styles.fills module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Fill"><code class="docutils literal notranslate"><span class="pre">Fill</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Fill.from_tree"><code class="docutils literal notranslate"><span class="pre">Fill.from_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Fill.tagname"><code class="docutils literal notranslate"><span class="pre">Fill.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill"><code class="docutils literal notranslate"><span class="pre">GradientFill</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.bottom"><code class="docutils literal notranslate"><span class="pre">GradientFill.bottom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.degree"><code class="docutils literal notranslate"><span class="pre">GradientFill.degree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.fill_type"><code class="docutils literal notranslate"><span class="pre">GradientFill.fill_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.left"><code class="docutils literal notranslate"><span class="pre">GradientFill.left</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.right"><code class="docutils literal notranslate"><span class="pre">GradientFill.right</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.stop"><code class="docutils literal notranslate"><span class="pre">GradientFill.stop</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.tagname"><code class="docutils literal notranslate"><span class="pre">GradientFill.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.to_tree"><code class="docutils literal notranslate"><span class="pre">GradientFill.to_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.top"><code class="docutils literal notranslate"><span class="pre">GradientFill.top</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.GradientFill.type"><code class="docutils literal notranslate"><span class="pre">GradientFill.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill"><code class="docutils literal notranslate"><span class="pre">PatternFill</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.bgColor"><code class="docutils literal notranslate"><span class="pre">PatternFill.bgColor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.end_color"><code class="docutils literal notranslate"><span class="pre">PatternFill.end_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.fgColor"><code class="docutils literal notranslate"><span class="pre">PatternFill.fgColor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.fill_type"><code class="docutils literal notranslate"><span class="pre">PatternFill.fill_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.patternType"><code class="docutils literal notranslate"><span class="pre">PatternFill.patternType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.start_color"><code class="docutils literal notranslate"><span class="pre">PatternFill.start_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.tagname"><code class="docutils literal notranslate"><span class="pre">PatternFill.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.PatternFill.to_tree"><code class="docutils literal notranslate"><span class="pre">PatternFill.to_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Stop"><code class="docutils literal notranslate"><span class="pre">Stop</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Stop.color"><code class="docutils literal notranslate"><span class="pre">Stop.color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Stop.position"><code class="docutils literal notranslate"><span class="pre">Stop.position</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fills.html#fastpyxl.styles.fills.Stop.tagname"><code class="docutils literal notranslate"><span class="pre">Stop.tagname</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.fonts.html">fastpyxl.styles.fonts module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font"><code class="docutils literal notranslate"><span class="pre">Font</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.UNDERLINE_DOUBLE"><code class="docutils literal notranslate"><span class="pre">Font.UNDERLINE_DOUBLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.UNDERLINE_DOUBLE_ACCOUNTING"><code class="docutils literal notranslate"><span class="pre">Font.UNDERLINE_DOUBLE_ACCOUNTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.UNDERLINE_SINGLE"><code class="docutils literal notranslate"><span class="pre">Font.UNDERLINE_SINGLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.UNDERLINE_SINGLE_ACCOUNTING"><code class="docutils literal notranslate"><span class="pre">Font.UNDERLINE_SINGLE_ACCOUNTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.b"><code class="docutils literal notranslate"><span class="pre">Font.b</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.bold"><code class="docutils literal notranslate"><span class="pre">Font.bold</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.charset"><code class="docutils literal notranslate"><span class="pre">Font.charset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.color"><code class="docutils literal notranslate"><span class="pre">Font.color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.condense"><code class="docutils literal notranslate"><span class="pre">Font.condense</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.extend"><code class="docutils literal notranslate"><span class="pre">Font.extend</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.family"><code class="docutils literal notranslate"><span class="pre">Font.family</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.from_tree"><code class="docutils literal notranslate"><span class="pre">Font.from_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.i"><code class="docutils literal notranslate"><span class="pre">Font.i</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.italic"><code class="docutils literal notranslate"><span class="pre">Font.italic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.name"><code class="docutils literal notranslate"><span class="pre">Font.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.outline"><code class="docutils literal notranslate"><span class="pre">Font.outline</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.scheme"><code class="docutils literal notranslate"><span class="pre">Font.scheme</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.shadow"><code class="docutils literal notranslate"><span class="pre">Font.shadow</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.size"><code class="docutils literal notranslate"><span class="pre">Font.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.strike"><code class="docutils literal notranslate"><span class="pre">Font.strike</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.strikethrough"><code class="docutils literal notranslate"><span class="pre">Font.strikethrough</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.sz"><code class="docutils literal notranslate"><span class="pre">Font.sz</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.tagname"><code class="docutils literal notranslate"><span class="pre">Font.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.u"><code class="docutils literal notranslate"><span class="pre">Font.u</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.underline"><code class="docutils literal notranslate"><span class="pre">Font.underline</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.vertAlign"><code class="docutils literal notranslate"><span class="pre">Font.vertAlign</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.fonts.html#fastpyxl.styles.fonts.Font.xml_order"><code class="docutils literal notranslate"><span class="pre">Font.xml_order</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.named_styles.html">fastpyxl.styles.named_styles module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle"><code class="docutils literal notranslate"><span class="pre">NamedStyle</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.alignment"><code class="docutils literal notranslate"><span class="pre">NamedStyle.alignment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.as_name"><code class="docutils literal notranslate"><span class="pre">NamedStyle.as_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.as_tuple"><code class="docutils literal notranslate"><span class="pre">NamedStyle.as_tuple()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.as_xf"><code class="docutils literal notranslate"><span class="pre">NamedStyle.as_xf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.bind"><code class="docutils literal notranslate"><span class="pre">NamedStyle.bind()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.border"><code class="docutils literal notranslate"><span class="pre">NamedStyle.border</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.builtinId"><code class="docutils literal notranslate"><span class="pre">NamedStyle.builtinId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.fill"><code class="docutils literal notranslate"><span class="pre">NamedStyle.fill</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.font"><code class="docutils literal notranslate"><span class="pre">NamedStyle.font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.hidden"><code class="docutils literal notranslate"><span class="pre">NamedStyle.hidden</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.name"><code class="docutils literal notranslate"><span class="pre">NamedStyle.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.number_format"><code class="docutils literal notranslate"><span class="pre">NamedStyle.number_format</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.protection"><code class="docutils literal notranslate"><span class="pre">NamedStyle.protection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.tagname"><code class="docutils literal notranslate"><span class="pre">NamedStyle.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyle.xml_order"><code class="docutils literal notranslate"><span class="pre">NamedStyle.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyleList"><code class="docutils literal notranslate"><span class="pre">NamedStyleList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyleList.append"><code class="docutils literal notranslate"><span class="pre">NamedStyleList.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.named_styles.html#fastpyxl.styles.named_styles.NamedStyleList.names"><code class="docutils literal notranslate"><span class="pre">NamedStyleList.names</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.numbers.html">fastpyxl.styles.numbers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormat"><code class="docutils literal notranslate"><span class="pre">NumberFormat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormat.formatCode"><code class="docutils literal notranslate"><span class="pre">NumberFormat.formatCode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormat.numFmtId"><code class="docutils literal notranslate"><span class="pre">NumberFormat.numFmtId</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormatDescriptor"><code class="docutils literal notranslate"><span class="pre">NumberFormatDescriptor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormatList"><code class="docutils literal notranslate"><span class="pre">NumberFormatList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormatList.count"><code class="docutils literal notranslate"><span class="pre">NumberFormatList.count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.NumberFormatList.numFmt"><code class="docutils literal notranslate"><span class="pre">NumberFormatList.numFmt</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.builtin_format_code"><code class="docutils literal notranslate"><span class="pre">builtin_format_code()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.builtin_format_id"><code class="docutils literal notranslate"><span class="pre">builtin_format_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.is_builtin"><code class="docutils literal notranslate"><span class="pre">is_builtin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.is_date_format"><code class="docutils literal notranslate"><span class="pre">is_date_format()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.is_datetime"><code class="docutils literal notranslate"><span class="pre">is_datetime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.numbers.html#fastpyxl.styles.numbers.is_timedelta_format"><code class="docutils literal notranslate"><span class="pre">is_timedelta_format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.protection.html">fastpyxl.styles.protection module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.protection.html#fastpyxl.styles.protection.Protection"><code class="docutils literal notranslate"><span class="pre">Protection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.protection.html#fastpyxl.styles.protection.Protection.hidden"><code class="docutils literal notranslate"><span class="pre">Protection.hidden</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.protection.html#fastpyxl.styles.protection.Protection.locked"><code class="docutils literal notranslate"><span class="pre">Protection.locked</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.protection.html#fastpyxl.styles.protection.Protection.tagname"><code class="docutils literal notranslate"><span class="pre">Protection.tagname</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.proxy.html">fastpyxl.styles.proxy module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.proxy.html#fastpyxl.styles.proxy.StyleProxy"><code class="docutils literal notranslate"><span class="pre">StyleProxy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.proxy.html#fastpyxl.styles.proxy.StyleProxy.copy"><code class="docutils literal notranslate"><span class="pre">StyleProxy.copy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.styleable.html">fastpyxl.styles.styleable module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.NamedStyleDescriptor"><code class="docutils literal notranslate"><span class="pre">NamedStyleDescriptor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.NamedStyleDescriptor.collection"><code class="docutils literal notranslate"><span class="pre">NamedStyleDescriptor.collection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.NamedStyleDescriptor.key"><code class="docutils literal notranslate"><span class="pre">NamedStyleDescriptor.key</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.NumberFormatDescriptor"><code class="docutils literal notranslate"><span class="pre">NumberFormatDescriptor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.NumberFormatDescriptor.collection"><code class="docutils literal notranslate"><span class="pre">NumberFormatDescriptor.collection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.NumberFormatDescriptor.key"><code class="docutils literal notranslate"><span class="pre">NumberFormatDescriptor.key</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleArrayDescriptor"><code class="docutils literal notranslate"><span class="pre">StyleArrayDescriptor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleDescriptor"><code class="docutils literal notranslate"><span class="pre">StyleDescriptor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject"><code class="docutils literal notranslate"><span class="pre">StyleableObject</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.alignment"><code class="docutils literal notranslate"><span class="pre">StyleableObject.alignment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.border"><code class="docutils literal notranslate"><span class="pre">StyleableObject.border</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.fill"><code class="docutils literal notranslate"><span class="pre">StyleableObject.fill</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.font"><code class="docutils literal notranslate"><span class="pre">StyleableObject.font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.has_style"><code class="docutils literal notranslate"><span class="pre">StyleableObject.has_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.number_format"><code class="docutils literal notranslate"><span class="pre">StyleableObject.number_format</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.parent"><code class="docutils literal notranslate"><span class="pre">StyleableObject.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.pivotButton"><code class="docutils literal notranslate"><span class="pre">StyleableObject.pivotButton</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.protection"><code class="docutils literal notranslate"><span class="pre">StyleableObject.protection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.quotePrefix"><code class="docutils literal notranslate"><span class="pre">StyleableObject.quotePrefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.style"><code class="docutils literal notranslate"><span class="pre">StyleableObject.style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.styleable.html#fastpyxl.styles.styleable.StyleableObject.style_id"><code class="docutils literal notranslate"><span class="pre">StyleableObject.style_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.stylesheet.html">fastpyxl.styles.stylesheet module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet"><code class="docutils literal notranslate"><span class="pre">Stylesheet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.borders"><code class="docutils literal notranslate"><span class="pre">Stylesheet.borders</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.cellStyleXfs"><code class="docutils literal notranslate"><span class="pre">Stylesheet.cellStyleXfs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.cellStyles"><code class="docutils literal notranslate"><span class="pre">Stylesheet.cellStyles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.cellXfs"><code class="docutils literal notranslate"><span class="pre">Stylesheet.cellXfs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.colors"><code class="docutils literal notranslate"><span class="pre">Stylesheet.colors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.custom_formats"><code class="docutils literal notranslate"><span class="pre">Stylesheet.custom_formats</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.dxfs"><code class="docutils literal notranslate"><span class="pre">Stylesheet.dxfs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.extLst"><code class="docutils literal notranslate"><span class="pre">Stylesheet.extLst</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.fills"><code class="docutils literal notranslate"><span class="pre">Stylesheet.fills</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.fonts"><code class="docutils literal notranslate"><span class="pre">Stylesheet.fonts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.from_tree"><code class="docutils literal notranslate"><span class="pre">Stylesheet.from_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.numFmts"><code class="docutils literal notranslate"><span class="pre">Stylesheet.numFmts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.tableStyles"><code class="docutils literal notranslate"><span class="pre">Stylesheet.tableStyles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.tagname"><code class="docutils literal notranslate"><span class="pre">Stylesheet.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.to_tree"><code class="docutils literal notranslate"><span class="pre">Stylesheet.to_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.Stylesheet.xml_order"><code class="docutils literal notranslate"><span class="pre">Stylesheet.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.apply_stylesheet"><code class="docutils literal notranslate"><span class="pre">apply_stylesheet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.stylesheet.html#fastpyxl.styles.stylesheet.write_stylesheet"><code class="docutils literal notranslate"><span class="pre">write_stylesheet()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.styles.table.html">fastpyxl.styles.table module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle"><code class="docutils literal notranslate"><span class="pre">TableStyle</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle.count"><code class="docutils literal notranslate"><span class="pre">TableStyle.count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle.name"><code class="docutils literal notranslate"><span class="pre">TableStyle.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle.pivot"><code class="docutils literal notranslate"><span class="pre">TableStyle.pivot</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle.table"><code class="docutils literal notranslate"><span class="pre">TableStyle.table</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle.tableStyleElement"><code class="docutils literal notranslate"><span class="pre">TableStyle.tableStyleElement</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyle.tagname"><code class="docutils literal notranslate"><span class="pre">TableStyle.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleElement"><code class="docutils literal notranslate"><span class="pre">TableStyleElement</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleElement.dxfId"><code class="docutils literal notranslate"><span class="pre">TableStyleElement.dxfId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleElement.size"><code class="docutils literal notranslate"><span class="pre">TableStyleElement.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleElement.tagname"><code class="docutils literal notranslate"><span class="pre">TableStyleElement.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleElement.type"><code class="docutils literal notranslate"><span class="pre">TableStyleElement.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleList"><code class="docutils literal notranslate"><span class="pre">TableStyleList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleList.count"><code class="docutils literal notranslate"><span class="pre">TableStyleList.count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleList.defaultPivotStyle"><code class="docutils literal notranslate"><span class="pre">TableStyleList.defaultPivotStyle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleList.defaultTableStyle"><code class="docutils literal notranslate"><span class="pre">TableStyleList.defaultTableStyle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleList.tableStyle"><code class="docutils literal notranslate"><span class="pre">TableStyleList.tableStyle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.table.html#fastpyxl.styles.table.TableStyleList.tagname"><code class="docutils literal notranslate"><span class="pre">TableStyleList.tagname</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.reader.workbook.html" class="btn btn-neutral float-left" title="fastpyxl.reader.workbook module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.styles.tests.html" class="btn btn-neutral float-right" title="fastpyxl.styles.tests package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

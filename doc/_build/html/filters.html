@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using filters and sorts &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=851b9b12"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Print Settings" href="print_settings.html" />
+    <link rel="prev" title="Worksheet Tables" href="worksheet_tables.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            fastpyxl
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using filters and sorts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-filters">Advanced filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#customfilter">CustomFilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#numberfilters">NumberFilters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#blankfilters">BlankFilters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stringfilters">StringFilters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dategroupitem">DateGroupItem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using filters and sorts</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/filters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-filters-and-sorts">
+<h1>Using filters and sorts<a class="headerlink" href="#using-filters-and-sorts" title="Link to this heading"></a></h1>
+<p>It’s possible to filter single range of values in a worksheet by adding an autofilter. If you need to filter multiple ranges, you can use tables and apply a separate filter for each table.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Filters and sorts can only be configured by fastpyxl but will need to be applied in applications like Excel. This is because they actually rearrange, format and hide rows in the range.</p>
+</div>
+<p>To add a filter you define a range and then add columns. You set the range over which the filter by setting the <code class="docutils literal notranslate"><span class="pre">ref</span></code> attribute. Filters are then applied to columns in the range using a zero-based index, eg. in a range from A1:H10, colId 1 refers to column B. Fastpyxl does not check the validity of such assignments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.filters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FilterColumn</span><span class="p">,</span>
+    <span class="n">Filters</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;Fruit&quot;</span><span class="p">,</span> <span class="s2">&quot;Quantity&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Kiwi&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Grape&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Apple&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Peach&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Pomegranate&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Pear&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Tangerine&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Blueberry&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Mango&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Watermelon&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Blackberry&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Orange&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Raspberry&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="n">filters</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">auto_filter</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;A1:B15&quot;</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">FilterColumn</span><span class="p">(</span><span class="n">colId</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># for column A</span>
+<span class="n">col</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">Filters</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Kiwi&quot;</span><span class="p">,</span> <span class="s2">&quot;Apple&quot;</span><span class="p">,</span> <span class="s2">&quot;Mango&quot;</span><span class="p">])</span> <span class="c1"># add selected values</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">filterColumn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="c1"># add filter to the worksheet</span>
+
+<span class="n">ws</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">add_sort_condition</span><span class="p">(</span><span class="s2">&quot;B2:B15&quot;</span><span class="p">)</span>
+
+<span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;filtered.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will add the relevant instructions to the file but will <strong>neither actually filter nor sort</strong>.</p>
+<img alt="&quot;Filter and sort prepared but not executed for a range of cells&quot;" src="_images/filters.png" />
+<section id="advanced-filters">
+<h2>Advanced filters<a class="headerlink" href="#advanced-filters" title="Link to this heading"></a></h2>
+<p>The following predefined filters can be used: <code class="docutils literal notranslate"><span class="pre">CustomFilter,</span> <span class="pre">DateGroupItem,</span> <span class="pre">DynamicFilter,</span> <span class="pre">ColorFilter,</span> <span class="pre">IconFilter</span> <span class="pre">and</span> <span class="pre">Top10</span></code> <code class="docutils literal notranslate"><span class="pre">ColorFilter,</span> <span class="pre">IconFilter</span> <span class="pre">and</span> <span class="pre">Top10</span></code> all interact with conditional formats.</p>
+<p>The signature and structure of the different kinds of filter varies significantly. As such it makes sense to familiarise yourself with either the fastpyxl source code or the OOXML specification.</p>
+<section id="customfilter">
+<h3>CustomFilter<a class="headerlink" href="#customfilter" title="Link to this heading"></a></h3>
+<p>CustomFilters can have one or two conditions which will operate either independently (the default), or combined by setting the <code class="docutils literal notranslate"><span class="pre">and_</span></code> attribute. Filter can use the following operators: <code class="docutils literal notranslate"><span class="pre">equal,</span> <span class="pre">lessThan,</span> <span class="pre">lessThanOrEqual,</span> <span class="pre">notEqual,</span> <span class="pre">greaterThanOrEqual,</span> <span class="pre">greaterThan</span></code>.</p>
+<p>Filter values &lt; 10 and &gt; 90:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomFilter</span><span class="p">,</span> <span class="n">CustomFilters</span>
+<span class="n">flt1</span> <span class="o">=</span> <span class="n">CustomFilter</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="s2">&quot;lessThan&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">flt2</span> <span class="o">=</span> <span class="n">CustomFilter</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="s2">&quot;greaterThan&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">cfs</span> <span class="o">=</span> <span class="n">CustomFilters</span><span class="p">(</span><span class="n">customFilter</span><span class="o">=</span><span class="p">[</span><span class="n">flt1</span><span class="p">,</span> <span class="n">flt2</span><span class="p">])</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">FilterColumn</span><span class="p">(</span><span class="n">colId</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">customFilters</span><span class="o">=</span><span class="n">cfs</span><span class="p">)</span> <span class="c1"># apply to **third** column in the range</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To combine the filters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cfs</span><span class="o">.</span><span class="n">and_</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>In addition, Excel has non-standardised functionality for pattern matching with strings. The options in Excel: begins with, ends with, contains and their negatives are all implemented using the <code class="docutils literal notranslate"><span class="pre">equal</span></code> (or for negatives <code class="docutils literal notranslate"><span class="pre">notEqual</span></code>) operator and wildcard in the value. For this to work properly, the value is always a string.</p>
+<p>For example: for “begins with a”, is actually <code class="docutils literal notranslate"><span class="pre">a*</span></code>; for “ends with a”, <code class="docutils literal notranslate"><span class="pre">*a</span></code>; and for “contains a””,  <code class="docutils literal notranslate"><span class="pre">*a*</span></code>. <code class="docutils literal notranslate"><span class="pre">?</span></code> can be used to represent a single character. In regular expressions <code class="docutils literal notranslate"><span class="pre">*</span></code> is called <em>greedy</em> and <code class="docutils literal notranslate"><span class="pre">?</span></code> <em>non-greedy</em>. Wildcards are escaped with the <code class="docutils literal notranslate"><span class="pre">~</span></code> (tilde) so that <code class="docutils literal notranslate"><span class="pre">contains</span> <span class="pre">~*``is</span> <span class="pre">serialised</span> <span class="pre">as</span> <span class="pre">``~~~*</span></code>.</p>
+<p>To simplify creating filters in client code, Fastpyxl provides three specialised filters: <code class="docutils literal notranslate"><span class="pre">NumberFilter</span></code>; <code class="docutils literal notranslate"><span class="pre">BlankFilter</span></code> and <code class="docutils literal notranslate"><span class="pre">StringFilter</span></code>. These filters are all used only when <strong>creating</strong> filters. For convenience, you can use the the <code class="docutils literal notranslate"><span class="pre">CustomFilter.convert()</span></code> method to convert from a CustomFilter to a more specific filter.</p>
+</section>
+<section id="numberfilters">
+<h3>NumberFilters<a class="headerlink" href="#numberfilters" title="Link to this heading"></a></h3>
+<p>NumericFilters differ from CustomFilters only in that they are explicitly numerical:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">NumberFilter</span><span class="p">,</span> <span class="n">CustomerFilter</span>
+<span class="n">flt1</span> <span class="o">=</span> <span class="n">CustomFilter</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="s2">&quot;lessThan&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">flt1</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="s2">&quot;10&quot;</span>
+<span class="n">flt2</span> <span class="o">=</span> <span class="n">NumberFilter</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="s2">&quot;lessThan&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">flt2</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="mf">10.0</span>
+</pre></div>
+</div>
+</section>
+<section id="blankfilters">
+<h3>BlankFilters<a class="headerlink" href="#blankfilters" title="Link to this heading"></a></h3>
+<p>BlankFilters are used for excluding blanks and are not editable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlankFilter</span>
+<span class="n">blank</span> <span class="o">=</span> <span class="n">BlankFilter</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="stringfilters">
+<h3>StringFilters<a class="headerlink" href="#stringfilters" title="Link to this heading"></a></h3>
+<p>StringFilters have the folowing operators: <code class="docutils literal notranslate"><span class="pre">contains</span></code> <code class="docutils literal notranslate"><span class="pre">startwith</span></code> <code class="docutils literal notranslate"><span class="pre">endswith</span></code> and <code class="docutils literal notranslate"><span class="pre">wildcard</span></code>. To apply the filter in the negative, set the exclude attribue to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Fastpyxl handles escaping automatically:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringFilter</span>
+<span class="n">fil</span> <span class="o">=</span> <span class="n">StringFilter</span><span class="p">(</span><span class="s2">&quot;contains&quot;</span><span class="p">,</span> <span class="s2">&quot;xml&quot;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>StringFilters with the wildcard operator are the same as CustomFilters. This allows for allows for more sophisticated uses of the wildcards such as <code class="docutils literal notranslate"><span class="pre">c?n</span></code> which would match the terms <code class="docutils literal notranslate"><span class="pre">cancan</span></code> and <code class="docutils literal notranslate"><span class="pre">contains</span></code>, but not <code class="docutils literal notranslate"><span class="pre">curtains</span></code>; or <code class="docutils literal notranslate"><span class="pre">c*n</span></code> which would match all terms. Fastpyxl does <strong>not</strong> escape filters that use the wildcard operator.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The wildcard syntax allows for even more sophisticated patterns with multiple wildcards. This functionality cannot be easily expressed using StringFilters and is not a design goal.</p>
+</div>
+</section>
+<section id="dategroupitem">
+<h3>DateGroupItem<a class="headerlink" href="#dategroupitem" title="Link to this heading"></a></h3>
+<p>Date filters can be set to allow filtering by different datetime criteria such as year, month or hour. As they are similar to lists of values you can have multiple items.</p>
+<p>To filter by the month of March:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">DateGroupItem</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">DateGroupItem</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dateTimeGrouping</span><span class="o">=</span><span class="s2">&quot;month&quot;</span><span class="p">)</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">FilterColumn</span><span class="p">(</span><span class="n">colId</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># second column</span>
+<span class="n">col</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">dateGroupItem</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">DateGroupItem</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">1984</span><span class="p">,</span> <span class="n">dateTimeGrouping</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">)</span> <span class="c1"># add another element</span>
+<span class="n">col</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">dateGroupItem</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="worksheet_tables.html" class="btn btn-neutral float-left" title="Worksheet Tables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="print_settings.html" class="btn btn-neutral float-right" title="Print Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

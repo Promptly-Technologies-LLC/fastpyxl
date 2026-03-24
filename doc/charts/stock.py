@@ -1,15 +1,13 @@
-from datetime import date
 
-from openpyxl import Workbook
+from fastpyxl import Workbook
 
-from openpyxl.chart import (
+from fastpyxl.chart import (
     BarChart,
     StockChart,
     Reference,
-    Series,
 )
-from openpyxl.chart.axis import DateAxis, ChartLines
-from openpyxl.chart.updown_bars import UpDownBars
+from fastpyxl.chart.axis import ChartLines
+from fastpyxl.chart.updown_bars import UpDownBars
 
 wb = Workbook()
 ws = wb.active
@@ -41,7 +39,7 @@ c1.title = "High-low-close"
 c1.hiLowLines = ChartLines()
 
 # Excel is broken and needs a cache of values in order to display hiLoLines :-/
-from openpyxl.chart.data_source import NumData, NumVal
+from fastpyxl.chart.data_source import NumData, NumVal
 pts = [NumVal(idx=i) for i in range(len(data) - 1)]
 cache = NumData(pt=pts)
 c1.series[-1].val.numRef.numCache = cache

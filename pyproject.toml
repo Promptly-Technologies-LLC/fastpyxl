@@ -1,0 +1,107 @@
+[project]
+name = "fastpyxl"
+version = "3.1.5"
+description = "A high-performance Python library to read/write Excel 2010 xlsx/xlsm files"
+readme = "README.rst"
+license = "MIT"
+license-files = ["LICENCE.rst"]
+requires-python = ">=3.11"
+authors = [
+    { name = "See AUTHORS", email = "charlie.clark@clark-consulting.eu" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "et_xmlfile",
+]
+
+[project.urls]
+Documentation = "https://fastpyxl.readthedocs.io/en/stable/"
+Source = "https://github.com/fastpyxl/fastpyxl"
+Tracker = "https://github.com/fastpyxl/fastpyxl/issues"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "lxml",
+    "pillow",
+    "pandas",
+    "ruff>=0.15.7",
+    "ty>=0.0.24",
+    "pytest-cov>=5.0.0",
+]
+docs = [
+    "lxml",
+    "sphinx",
+    "pandas",
+    "sphinx_rtd_theme",
+]
+
+[build-system]
+requires = ["setuptools>=77.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["fastpyxl*"]
+exclude = ["*.tests", "scratchpad*"]
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["E402", "E501", "E101"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"conftest.py" = ["F401"]
+"**/tests/*" = ["F811"]
+"doc/*" = ["F401"]
+
+[tool.ty.rules]
+# Phase 8: enabled invalid-assignment, unresolved-attribute, invalid-argument-type,
+# unsupported-operator (via python-version), not-iterable, not-subscriptable,
+# call-non-callable, no-matching-overload, index-out-of-bounds.
+# Optional deps (lxml, defusedxml) and legacy pytest (py.path) lack type stubs
+unresolved-import = "ignore"
+# Intentional LSP violations: narrowed to_tree/from_tree/__set__ signatures
+invalid-method-override = "ignore"
+# Python 2 compat code wrapped in try/except
+unresolved-reference = "ignore"
+[tool.ty.environment]
+# Serialisable uses @dataclass_transform; under 3.11, ty enforces dataclass field order unless Field/AliasField calls pass explicit default=.
+python-version = "3.11"
+# Optional dependencies that may not be installed
+extra-paths = []
+
+[tool.ty.src]
+exclude = ["doc/"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --showlocals"
+norecursedirs = ["lib", "include", "fastpyxl/Issues", "local"]
+python_files = ["test_*.py"]
+markers = [
+    "pil_required: PIL required to run test",
+    "pil_not_installed: Run test only if PIL is not installed",
+    "not_py33: Do not run test on Python 3",
+    "lxml_required: lxml required to run test",
+    "defusedxml_required: lxml required to run test",
+    "lxml_buffering: lxml >= 3.4.0 required",
+    "no_lxml: do not use lxml",
+    "pandas_required: Pandas required for the test",
+    "numpy_required: Numpy required for the test",
+    "no_pypy: do not run on pypy",
+]
+filterwarnings = [
+    "error",
+    "ignore::FutureWarning",
+    "ignore::pytest.PytestUnraisableExceptionWarning",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]

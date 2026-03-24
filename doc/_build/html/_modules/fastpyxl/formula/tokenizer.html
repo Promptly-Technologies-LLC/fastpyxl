@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.formula.tokenizer &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.formula.tokenizer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.formula.tokenizer</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains a tokenizer for Excel formulae.</span>
+
+<span class="sd">The tokenizer is based on the Javascript tokenizer found at</span>
+<span class="sd">http://ewbi.blogs.com/develops/2004/12/excel_formula_p.html written by Eric</span>
+<span class="sd">Bachtal</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+
+<div class="viewcode-block" id="TokenizerError">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.TokenizerError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TokenizerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all Tokenizer errors.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="Tokenizer">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Tokenizer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="p">:</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A tokenizer for Excel worksheet formulae.</span>
+
+<span class="sd">    Converts a str string representing an Excel formula (in A1 notation)</span>
+<span class="sd">    into a sequence of `Token` objects.</span>
+
+<span class="sd">    `formula`: The str string to tokenize</span>
+
+<span class="sd">    Tokenizer defines a method `._parse()` to parse the formula into tokens,</span>
+<span class="sd">    which can then be accessed through the `.items` attribute.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SN_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^[1-9](</span><span class="se">\\</span><span class="s2">.[0-9]+)?[Ee]$&quot;</span><span class="p">)</span>  <span class="c1"># Scientific notation</span>
+    <span class="n">WSPACE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[ \n]+&quot;</span><span class="p">)</span>
+    <span class="n">STRING_REGEXES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Inside a string, all characters are treated as literals, except for</span>
+        <span class="c1"># the quote character used to start the string. That character, when</span>
+        <span class="c1"># doubled is treated as a single character in the string. If an</span>
+        <span class="c1"># unmatched quote appears, the string is terminated.</span>
+        <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;&quot;(?:[^&quot;]*&quot;&quot;)*[^&quot;]*&quot;(?!&quot;)&#39;</span><span class="p">),</span>
+        <span class="s2">&quot;&#39;&quot;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&#39;(?:[^&#39;]*&#39;&#39;)*[^&#39;]*&#39;(?!&#39;)&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="n">ERROR_CODES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;#NULL!&quot;</span><span class="p">,</span> <span class="s2">&quot;#DIV/0!&quot;</span><span class="p">,</span> <span class="s2">&quot;#VALUE!&quot;</span><span class="p">,</span> <span class="s2">&quot;#REF!&quot;</span><span class="p">,</span> <span class="s2">&quot;#NAME?&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;#NUM!&quot;</span><span class="p">,</span> <span class="s2">&quot;#N/A&quot;</span><span class="p">,</span> <span class="s2">&quot;#GETTING_DATA&quot;</span><span class="p">)</span>
+    <span class="n">TOKEN_ENDERS</span> <span class="o">=</span> <span class="s1">&#39;,;}) +-*/^&amp;=&gt;&lt;%&#39;</span>  <span class="c1"># Each of these characters, marks the</span>
+                                       <span class="c1"># end of an operand token</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formula</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formula</span> <span class="o">=</span> <span class="n">formula</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token_stack</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Used to keep track of arrays, functions, and</span>
+                               <span class="c1"># parentheses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># How many chars have we read</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Used to build up token values char by char</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Populate self.items with the tokens from the formula.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c1"># Already parsed!</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Token</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">LITERAL</span><span class="p">))</span>
+            <span class="k">return</span>
+        <span class="n">consumers</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s1">&#39;&quot;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_string</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_brackets</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_error</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_whitespace</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_whitespace</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;+-*/^&amp;=&gt;&lt;%&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_operator</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;{(&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_opener</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;)}&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_closer</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;;,&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_separator</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">dispatcher</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># maps chars to the specific parsing function</span>
+        <span class="k">for</span> <span class="n">chars</span><span class="p">,</span> <span class="n">consumer</span> <span class="ow">in</span> <span class="n">consumers</span><span class="p">:</span>
+            <span class="n">dispatcher</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">chars</span><span class="p">,</span> <span class="n">consumer</span><span class="p">))</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_scientific_notation</span><span class="p">():</span>  <span class="c1"># May consume one character</span>
+                <span class="k">continue</span>
+            <span class="n">curr_char</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">curr_char</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TOKEN_ENDERS</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">curr_char</span> <span class="ow">in</span> <span class="n">dispatcher</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+=</span> <span class="n">dispatcher</span><span class="p">[</span><span class="n">curr_char</span><span class="p">]()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># TODO: this can probably be sped up using a regex to get to</span>
+                <span class="c1"># the next interesting character</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_char</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse a &quot;-delimited string or &#39;-delimited link.</span>
+
+<span class="sd">        The offset must be pointing to either a single quote (&quot;&#39;&quot;) or double</span>
+<span class="sd">        quote (&#39;&quot;&#39;) character. The strings are parsed according to Excel</span>
+<span class="sd">        rules where to escape the delimiter you just double it up. E.g.,</span>
+<span class="sd">        &quot;abc&quot;&quot;def&quot; in Excel is parsed as &#39;abc&quot;def&#39; in Python.</span>
+
+<span class="sd">        Returns the number of characters matched. (Does not update</span>
+<span class="sd">        self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assert_empty_token</span><span class="p">(</span><span class="n">can_follow</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">delim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">delim</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">STRING_REGEXES</span><span class="p">[</span><span class="n">delim</span><span class="p">]</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">subtype</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span> <span class="k">if</span> <span class="n">delim</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span> <span class="k">else</span> <span class="s1">&#39;link&#39;</span>
+            <span class="k">raise</span> <span class="n">TokenizerError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reached end of formula while parsing </span><span class="si">{</span><span class="n">subtype</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">delim</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Token</span><span class="o">.</span><span class="n">make_operand</span><span class="p">(</span><span class="n">match</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_brackets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consume all the text between square brackets [].</span>
+
+<span class="sd">        Returns the number of characters matched. (Does not update</span>
+<span class="sd">        self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;[&#39;</span>
+        <span class="n">lefts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span>
+                 <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\[&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:])]</span>
+        <span class="n">rights</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span>
+                  <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\]&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:])]</span>
+
+        <span class="n">open_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">open_close</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lefts</span> <span class="o">+</span> <span class="n">rights</span><span class="p">):</span>
+            <span class="n">open_count</span> <span class="o">+=</span> <span class="n">open_close</span>
+            <span class="k">if</span> <span class="n">open_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">outer_right</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">outer_right</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">outer_right</span>
+
+        <span class="k">raise</span> <span class="n">TokenizerError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encountered unmatched &#39;[&#39; in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consume the text following a &#39;#&#39; as an error.</span>
+
+<span class="sd">        Looks for a match in self.ERROR_CODES and returns the number of</span>
+<span class="sd">        characters matched. (Does not update self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assert_empty_token</span><span class="p">(</span><span class="n">can_follow</span><span class="o">=</span><span class="s1">&#39;!&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span>
+        <span class="n">subformula</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">err</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_CODES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subformula</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Token</span><span class="o">.</span><span class="n">make_operand</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">)</span> <span class="o">+</span> <span class="n">err</span><span class="p">))</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">[:]</span>
+                <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">TokenizerError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid error code at position </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2"> in &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_whitespace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consume a string of consecutive spaces.</span>
+
+<span class="sd">        Returns the number of spaces found. (Does not update self.offset).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Token</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">],</span> <span class="n">Token</span><span class="o">.</span><span class="n">WSPACE</span><span class="p">))</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">WSPACE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:])</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_operator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consume the characters constituting an operator.</span>
+
+<span class="sd">        Returns the number of characters consumed. (Does not update</span>
+<span class="sd">        self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&gt;&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Token</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="n">Token</span><span class="o">.</span><span class="n">OP_IN</span>
+            <span class="p">))</span>
+            <span class="k">return</span> <span class="mi">2</span>
+        <span class="n">curr_char</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span>  <span class="c1"># guaranteed to be 1 char</span>
+        <span class="k">assert</span> <span class="n">curr_char</span> <span class="ow">in</span> <span class="s1">&#39;%*/^&amp;=&gt;&lt;+-&#39;</span>
+        <span class="k">if</span> <span class="n">curr_char</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_POST</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">curr_char</span> <span class="ow">in</span> <span class="s2">&quot;*/^&amp;=&gt;&lt;&quot;</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="n">curr_char</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_IN</span><span class="p">)</span>
+        <span class="c1"># From here on, curr_char is guaranteed to be in &#39;+-&#39;</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="n">curr_char</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_PRE</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span>
+                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">Token</span><span class="o">.</span><span class="n">WSPACE</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">is_infix</span> <span class="o">=</span> <span class="n">prev</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">prev</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="n">Token</span><span class="o">.</span><span class="n">CLOSE</span>
+                <span class="ow">or</span> <span class="n">prev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_POST</span>
+                <span class="ow">or</span> <span class="n">prev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Token</span><span class="o">.</span><span class="n">OPERAND</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_infix</span><span class="p">:</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="n">curr_char</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_IN</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="n">curr_char</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_PRE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_opener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consumes a ( or { character.</span>
+
+<span class="sd">        Returns the number of characters consumed. (Does not update</span>
+<span class="sd">        self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;{&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;{&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_empty_token</span><span class="p">()</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+            <span class="n">token_value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">[:]</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="n">token_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_closer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consumes a } or ) character.</span>
+
+<span class="sd">        Returns the number of characters consumed. (Does not update</span>
+<span class="sd">        self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">)</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span><span class="o">.</span><span class="n">get_closer</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">TokenizerError</span><span class="p">(</span>
+                <span class="s2">&quot;Mismatched ( and { pair in &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_separator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consumes a ; or , character.</span>
+
+<span class="sd">        Returns the number of characters consumed. (Does not update</span>
+<span class="sd">        self.offset)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">curr_char</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">curr_char</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">curr_char</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">make_separator</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">top_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_IN</span><span class="p">)</span>  <span class="c1"># Range Union operator</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">top_type</span> <span class="o">==</span> <span class="n">Token</span><span class="o">.</span><span class="n">PAREN</span><span class="p">:</span>
+                    <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">Token</span><span class="o">.</span><span class="n">OP_IN</span><span class="p">)</span>  <span class="c1"># Range Union operator</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">make_separator</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="Tokenizer.check_scientific_notation">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Tokenizer.check_scientific_notation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_scientific_notation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consumes a + or - character if part of a number in sci. notation.</span>
+
+<span class="sd">        Returns True if the character was consumed and self.offset was</span>
+<span class="sd">        updated, False otherwise.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">curr_char</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">curr_char</span> <span class="ow">in</span> <span class="s1">&#39;+-&#39;</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">SN_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">))):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_char</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Tokenizer.assert_empty_token">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Tokenizer.assert_empty_token">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">assert_empty_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">can_follow</span><span class="o">=</span><span class="p">()):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure that there&#39;s no token currently being parsed.</span>
+
+<span class="sd">        Or if there is a token being parsed, it must end with a character in</span>
+<span class="sd">        can_follow.</span>
+
+<span class="sd">        If there are unconsumed token contents, it means we hit an unexpected</span>
+<span class="sd">        token transition. In this case, we raise a TokenizerError</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">can_follow</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TokenizerError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected character at position </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2"> in &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">formula</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tokenizer.save_token">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Tokenizer.save_token">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If there&#39;s a token being parsed, add it to the item list.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Token</span><span class="o">.</span><span class="n">make_operand</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">)))</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">[:]</span></div>
+
+
+<div class="viewcode-block" id="Tokenizer.render">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Tokenizer.render">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the parsed tokens back to a string.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Token</span><span class="o">.</span><span class="n">LITERAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Token">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Token">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Token</span><span class="p">:</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A token in an Excel formula.</span>
+
+<span class="sd">    Tokens have three attributes:</span>
+
+<span class="sd">    * `value`: The string value parsed that led to this token</span>
+<span class="sd">    * `type`: A string identifying the type of token</span>
+<span class="sd">    * `subtype`: A string identifying subtype of the token (optional, and</span>
+<span class="sd">                 defaults to &quot;&quot;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;subtype&#39;</span><span class="p">]</span>
+
+    <span class="n">LITERAL</span> <span class="o">=</span> <span class="s2">&quot;LITERAL&quot;</span>
+    <span class="n">OPERAND</span> <span class="o">=</span> <span class="s2">&quot;OPERAND&quot;</span>
+    <span class="n">FUNC</span> <span class="o">=</span> <span class="s2">&quot;FUNC&quot;</span>
+    <span class="n">ARRAY</span> <span class="o">=</span> <span class="s2">&quot;ARRAY&quot;</span>
+    <span class="n">PAREN</span> <span class="o">=</span> <span class="s2">&quot;PAREN&quot;</span>
+    <span class="n">SEP</span> <span class="o">=</span> <span class="s2">&quot;SEP&quot;</span>
+    <span class="n">OP_PRE</span> <span class="o">=</span> <span class="s2">&quot;OPERATOR-PREFIX&quot;</span>
+    <span class="n">OP_IN</span> <span class="o">=</span> <span class="s2">&quot;OPERATOR-INFIX&quot;</span>
+    <span class="n">OP_POST</span> <span class="o">=</span> <span class="s2">&quot;OPERATOR-POSTFIX&quot;</span>
+    <span class="n">WSPACE</span> <span class="o">=</span> <span class="s2">&quot;WHITE-SPACE&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">type_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtype</span> <span class="o">=</span> <span class="n">subtype</span>
+
+    <span class="c1"># Literal operands:</span>
+    <span class="c1">#</span>
+    <span class="c1"># Literal operands are always of type &#39;OPERAND&#39; and can be of subtype</span>
+    <span class="c1"># &#39;TEXT&#39; (for text strings), &#39;NUMBER&#39; (for all numeric types), &#39;LOGICAL&#39;</span>
+    <span class="c1"># (for TRUE and FALSE), &#39;ERROR&#39; (for literal error values), or &#39;RANGE&#39;</span>
+    <span class="c1"># (for all range references).</span>
+
+    <span class="n">TEXT</span> <span class="o">=</span> <span class="s1">&#39;TEXT&#39;</span>
+    <span class="n">NUMBER</span> <span class="o">=</span> <span class="s1">&#39;NUMBER&#39;</span>
+    <span class="n">LOGICAL</span> <span class="o">=</span> <span class="s1">&#39;LOGICAL&#39;</span>
+    <span class="n">ERROR</span> <span class="o">=</span> <span class="s1">&#39;ERROR&#39;</span>
+    <span class="n">RANGE</span> <span class="o">=</span> <span class="s1">&#39;RANGE&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> </span><span class="si">{2}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Token.make_operand">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Token.make_operand">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_operand</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an operand token.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">):</span>
+            <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">TEXT</span>
+        <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+            <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ERROR</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">):</span>
+            <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">LOGICAL</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NUMBER</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">RANGE</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">OPERAND</span><span class="p">,</span> <span class="n">subtype</span><span class="p">)</span></div>
+
+
+
+    <span class="c1"># Subexpresssions</span>
+    <span class="c1">#</span>
+    <span class="c1"># There are 3 types of `Subexpressions`: functions, array literals, and</span>
+    <span class="c1"># parentheticals. Subexpressions have &#39;OPEN&#39; and &#39;CLOSE&#39; tokens. &#39;OPEN&#39;</span>
+    <span class="c1"># is used when parsing the initial expression token (i.e., &#39;(&#39; or &#39;{&#39;)</span>
+    <span class="c1"># and &#39;CLOSE&#39; is used when parsing the closing expression token (&#39;}&#39; or</span>
+    <span class="c1"># &#39;)&#39;).</span>
+
+    <span class="n">OPEN</span> <span class="o">=</span> <span class="s2">&quot;OPEN&quot;</span>
+    <span class="n">CLOSE</span> <span class="o">=</span> <span class="s2">&quot;CLOSE&quot;</span>
+
+<div class="viewcode-block" id="Token.make_subexp">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Token.make_subexp">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_subexp</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a subexpression token.</span>
+
+<span class="sd">        `value`: The value of the token</span>
+<span class="sd">        `func`: If True, force the token to be of type FUNC</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">,</span> <span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">func</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;.+</span><span class="se">\\</span><span class="s1">(|</span><span class="se">\\</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">FUNC</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="ow">in</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">ARRAY</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="ow">in</span> <span class="s1">&#39;()&#39;</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">PAREN</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">FUNC</span>
+        <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">CLOSE</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="s1">&#39;)}&#39;</span> <span class="k">else</span> <span class="bp">cls</span><span class="o">.</span><span class="n">OPEN</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">subtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Token.get_closer">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Token.get_closer">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_closer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a closing token that matches this token&#39;s type.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FUNC</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">PAREN</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">OPEN</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;}&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY</span> <span class="k">else</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_subexp</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">FUNC</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Separator tokens</span>
+    <span class="c1">#</span>
+    <span class="c1"># Argument separators always have type &#39;SEP&#39; and can have one of two</span>
+    <span class="c1"># subtypes: &#39;ARG&#39;, &#39;ROW&#39;. &#39;ARG&#39; is used for the &#39;,&#39; token, when used to</span>
+    <span class="c1"># delimit either function arguments or array elements. &#39;ROW&#39; is used for</span>
+    <span class="c1"># the &#39;;&#39; token, which is always used to delimit rows in an array</span>
+    <span class="c1"># literal.</span>
+
+    <span class="n">ARG</span> <span class="o">=</span> <span class="s2">&quot;ARG&quot;</span>
+    <span class="n">ROW</span> <span class="o">=</span> <span class="s2">&quot;ROW&quot;</span>
+
+<div class="viewcode-block" id="Token.make_separator">
+<a class="viewcode-back" href="../../../api/fastpyxl.formula.tokenizer.html#fastpyxl.formula.tokenizer.Token.make_separator">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_separator</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a separator token&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;;&#39;</span><span class="p">)</span>
+        <span class="n">subtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ARG</span> <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;,&#39;</span> <span class="k">else</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ROW</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">SEP</span><span class="p">,</span> <span class="n">subtype</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

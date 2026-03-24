@@ -1,0 +1,391 @@
+# Copyright (c) 2010-2024 fastpyxl
+
+from typing import Any, cast
+
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
+from fastpyxl.typed_serialisable.fields import AliasField, Field
+
+from fastpyxl.packaging.relationship import (
+    Relationship,
+    RelationshipList,
+)
+from fastpyxl.utils import coordinate_to_tuple
+from fastpyxl.utils.units import (
+    cm_to_EMU,
+    pixels_to_EMU,
+)
+from fastpyxl.drawing.image import Image
+
+from fastpyxl.xml.constants import SHEET_DRAWING_NS
+
+from fastpyxl.chart._chart import ChartBase
+from .xdr import (
+    XDRPoint2D,
+    XDRPositiveSize2D,
+)
+from .fill import Blip
+from .connector import Shape
+from .graphic import (
+    GroupShape,
+    GraphicFrame,
+    )
+from .geometry import PresetGeometry2D
+from .picture import PictureFrame
+from .relation import ChartRelation
+
+
+class AnchorClientData(Serialisable):
+
+    fLocksWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    fPrintsWithSheet: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+
+    def __init__(self,
+                 fLocksWithSheet=None,
+                 fPrintsWithSheet=None,
+                 ):
+        self.fLocksWithSheet = fLocksWithSheet
+        self.fPrintsWithSheet = fPrintsWithSheet
+
+
+class AnchorMarker(Serialisable):
+
+    tagname = "marker"
+
+    col: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    colOff: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    row: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+    rowOff: int | None = Field.nested_text(expected_type=int, allow_none=True, default=None)
+
+    def __init__(self,
+                 col=0,
+                 colOff=0,
+                 row=0,
+                 rowOff=0,
+                 ):
+        self.col = col
+        self.colOff = colOff
+        self.row = row
+        self.rowOff = rowOff
+
+
+class _AnchorBase(Serialisable):
+
+    #one of
+    sp: Shape | None = Field.element(expected_type=Shape, allow_none=True, default=None)
+    shape = AliasField("sp", default=None)
+    grpSp: GroupShape | None = Field.element(expected_type=GroupShape, allow_none=True, default=None)
+    groupShape = AliasField("grpSp", default=None)
+    graphicFrame: GraphicFrame | None = Field.element(expected_type=GraphicFrame, allow_none=True, default=None)
+    cxnSp: Shape | None = Field.element(expected_type=Shape, allow_none=True, default=None)
+    connectionShape = AliasField("cxnSp", default=None)
+    pic: PictureFrame | None = Field.element(expected_type=PictureFrame, allow_none=True, default=None)
+    contentPart: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    clientData: AnchorClientData | None = Field.element(expected_type=AnchorClientData, allow_none=True, default=None)
+
+    xml_order = ('sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
+
+    def __init__(self,
+                 clientData=None,
+                 sp=None,
+                 grpSp=None,
+                 graphicFrame=None,
+                 cxnSp=None,
+                 pic=None,
+                 contentPart=None
+                 ):
+        if clientData is None:
+            clientData = AnchorClientData()
+        self.clientData = clientData
+        self.sp = sp
+        self.grpSp = grpSp
+        self.graphicFrame = graphicFrame
+        self.cxnSp = cxnSp
+        self.pic = pic
+        self.contentPart = contentPart
+
+
+class AbsoluteAnchor(_AnchorBase):
+
+    tagname = "absoluteAnchor"
+
+    pos: XDRPoint2D | None = Field.element(expected_type=XDRPoint2D, allow_none=True, default=None)
+    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True, default=None)
+
+    xml_order = ('pos', 'ext', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
+
+    def __init__(self,
+                 pos=None,
+                 ext=None,
+                 **kw
+                ):
+        if pos is None:
+            pos = XDRPoint2D(x=0, y=0)
+        self.pos = pos
+        if ext is None:
+            ext = XDRPositiveSize2D(cx=0, cy=0)
+        self.ext = ext
+        super().__init__(**kw)
+
+
+class OneCellAnchor(_AnchorBase):
+
+    tagname = "oneCellAnchor"
+
+    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True, default=None)
+    ext: XDRPositiveSize2D | None = Field.element(expected_type=XDRPositiveSize2D, allow_none=True, default=None)
+
+    xml_order = ('_from', 'ext', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
+
+
+    def __init__(self,
+                 _from=None,
+                 ext=None,
+                 **kw
+                ):
+        if _from is None:
+            _from = AnchorMarker()
+        self._from = _from
+        if ext is None:
+            ext = XDRPositiveSize2D(cx=0, cy=0)
+        self.ext = ext
+        super().__init__(**kw)
+
+
+class TwoCellAnchor(_AnchorBase):
+
+    tagname = "twoCellAnchor"
+
+    editAs: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ('twoCell', 'oneCell', 'absolute'), "editAs"), default=None,
+    )
+    _from: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True, default=None)
+    to: AnchorMarker | None = Field.element(expected_type=AnchorMarker, allow_none=True, default=None)
+
+    xml_order = ('_from', 'to', 'sp', 'grpSp', 'graphicFrame', 'cxnSp', 'pic', 'contentPart', 'clientData')
+
+    def __init__(self,
+                 editAs=None,
+                 _from=None,
+                 to=None,
+                 **kw
+                 ):
+        self.editAs = editAs
+        if _from is None:
+            _from = AnchorMarker()
+        self._from = _from
+        if to is None:
+            to = AnchorMarker()
+        self.to = to
+        super().__init__(**kw)
+
+
+def _check_anchor(obj):
+    """
+    Check whether an object has an existing Anchor object
+    If not create a OneCellAnchor using the provided coordinate
+    """
+    anchor = obj.anchor
+    if not isinstance(anchor, _AnchorBase):
+        row, col = coordinate_to_tuple(anchor.upper())
+        anchor = OneCellAnchor()
+        frm = anchor._from
+        assert frm is not None
+        frm.row = row - 1
+        frm.col = col - 1
+        ext = anchor.ext
+        assert ext is not None
+        if isinstance(obj, ChartBase):
+            ext.width = cm_to_EMU(obj.width)
+            ext.height = cm_to_EMU(obj.height)
+        elif isinstance(obj, Image):
+            ext.width = pixels_to_EMU(obj.width)
+            ext.height = pixels_to_EMU(obj.height)
+    return anchor
+
+
+class SpreadsheetDrawing(Serialisable):
+
+    tagname = "wsDr"
+    mime_type = "application/vnd.openxmlformats-officedocument.drawing+xml"
+    _rel_type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing"
+    _path = PartName="/xl/drawings/drawing{0}.xml"
+    _id = None
+
+    twoCellAnchor: list[TwoCellAnchor] | None = Field.sequence(expected_type=TwoCellAnchor, allow_none=True, default=list)
+    oneCellAnchor: list[OneCellAnchor] | None = Field.sequence(expected_type=OneCellAnchor, allow_none=True, default=list)
+    absoluteAnchor: list[AbsoluteAnchor] | None = Field.sequence(expected_type=AbsoluteAnchor, allow_none=True, default=list)
+
+    xml_order = ("twoCellAnchor", "oneCellAnchor", "absoluteAnchor")
+
+    def __init__(self,
+                 twoCellAnchor=(),
+                 oneCellAnchor=(),
+                 absoluteAnchor=(),
+                 ):
+        self.twoCellAnchor = list(twoCellAnchor)
+        self.oneCellAnchor = list(oneCellAnchor)
+        self.absoluteAnchor = list(absoluteAnchor)
+        self.charts = []
+        self.images = []
+        self._rels = []
+
+
+    def __hash__(self):
+        """
+        Just need to check for identity
+        """
+        return id(self)
+
+
+    def __bool__(self):
+        return bool(self.charts) or bool(self.images)
+
+
+
+    def _write(self):
+        """
+        create required structure and the serialise
+        """
+        anchors = []
+        for idx, obj in enumerate(self.charts + self.images, 1):
+            anchor = _check_anchor(obj)
+            if isinstance(obj, ChartBase):
+                rel = Relationship(type="chart", Target=obj.path)
+                anchor.graphicFrame = self._chart_frame(idx)
+            elif isinstance(obj, Image):
+                rel = Relationship(type="image", Target=obj.path)
+                child = anchor.pic or anchor.groupShape and anchor.groupShape.pic
+                if not child:
+                    anchor.pic = self._picture_frame(idx)
+                else:
+                    child.blipFill.blip.embed = "rId{0}".format(idx)
+
+            anchors.append(anchor)
+            self._rels.append(rel)
+
+        if self.oneCellAnchor is None:
+            self.oneCellAnchor = []
+        if self.twoCellAnchor is None:
+            self.twoCellAnchor = []
+        if self.absoluteAnchor is None:
+            self.absoluteAnchor = []
+        for a in anchors:
+            if isinstance(a, OneCellAnchor):
+                self.oneCellAnchor.append(a)
+            elif isinstance(a, TwoCellAnchor):
+                self.twoCellAnchor.append(a)
+            else:
+                self.absoluteAnchor.append(a)
+
+        tree = self.to_tree()
+        tree.set('xmlns', SHEET_DRAWING_NS)
+        return tree
+
+
+    def _chart_frame(self, idx):
+        chart_rel = ChartRelation(f"rId{idx}")
+        frame = GraphicFrame()
+        nv_pr = frame.nvGraphicFramePr
+        assert nv_pr is not None
+        nv = nv_pr.cNvPr
+        assert nv is not None
+        nv.id = idx
+        nv.name = "Chart {0}".format(idx)
+        graphic = frame.graphic
+        assert graphic is not None
+        gdata = graphic.graphicData
+        assert gdata is not None
+        gdata.chart = chart_rel
+        return frame
+
+
+    def _picture_frame(self, idx):
+        pic = PictureFrame()
+        nv_pic = pic.nvPicPr
+        assert nv_pic is not None
+        cnv = nv_pic.cNvPr
+        assert cnv is not None
+        cnv.descr = "Picture"
+        cnv.id = idx
+        cnv.name = "Image {0}".format(idx)
+
+        blip_fill = pic.blipFill
+        assert blip_fill is not None
+        blip_fill.blip = Blip()
+        assert blip_fill.blip is not None
+        blip_fill.blip.embed = "rId{0}".format(idx)
+        blip_fill.blip.cstate = "print"
+
+        sp_pr = pic.spPr
+        assert sp_pr is not None
+        sp_pr.prstGeom = PresetGeometry2D(prst="rect")
+        sp_pr.ln = None
+        return pic
+
+
+    def _write_rels(self):
+        rels = RelationshipList()
+        for r in self._rels:
+            rels.append(r)
+        return rels.to_tree()
+
+
+    @property
+    def path(self):
+        return self._path.format(self._id)
+
+
+    @property
+    def _chart_rels(self):
+        """
+        Get relationship information for each chart and bind anchor to it
+        """
+        rels = []
+        anchors = (self.absoluteAnchor or []) + (self.oneCellAnchor or []) + (self.twoCellAnchor or [])
+        for anchor in anchors:
+            if anchor.graphicFrame is not None:
+                graphic = anchor.graphicFrame.graphic
+                if graphic is None:
+                    continue
+                gd = graphic.graphicData
+                if gd is None:
+                    continue
+                rel = gd.chart
+                if rel is not None:
+                    r = cast(Any, rel)
+                    r.anchor = anchor
+                    r.anchor.graphicFrame = None
+                    rels.append(rel)
+        return rels
+
+
+    @property
+    def _blip_rels(self):
+        """
+        Get relationship information for each blip and bind anchor to it
+
+        Images that are not part of the XLSX package will be ignored.
+        """
+        rels = []
+        anchors = (self.absoluteAnchor or []) + (self.oneCellAnchor or []) + (self.twoCellAnchor or [])
+
+        for anchor in anchors:
+            child = anchor.pic or anchor.groupShape and anchor.groupShape.pic
+            if child and child.blipFill:
+                rel = child.blipFill.blip
+                if rel is not None and rel.embed:
+                    rel.anchor = anchor
+                    rels.append(rel)
+
+        return rels
+
+
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value

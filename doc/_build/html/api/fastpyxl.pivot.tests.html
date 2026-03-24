@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.pivot.tests package &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.pivot.tests.conftest module" href="fastpyxl.pivot.tests.conftest.html" />
+    <link rel="prev" title="fastpyxl.pivot package" href="fastpyxl.pivot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="fastpyxl.pivot.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.pivot.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.pivot.tests package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.pivot.tests.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.pivot.tests">
+<span id="fastpyxl-pivot-tests-package"></span><h1>fastpyxl.pivot.tests package<a class="headerlink" href="#module-fastpyxl.pivot.tests" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.pivot.tests.conftest.html">fastpyxl.pivot.tests.conftest module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.conftest.html#fastpyxl.pivot.tests.conftest.datadir"><code class="docutils literal notranslate"><span class="pre">datadir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html">fastpyxl.pivot.tests.test_cache module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheDefinition"><code class="docutils literal notranslate"><span class="pre">CacheDefinition()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheField"><code class="docutils literal notranslate"><span class="pre">CacheField()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheHierarchy"><code class="docutils literal notranslate"><span class="pre">CacheHierarchy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheSource"><code class="docutils literal notranslate"><span class="pre">CacheSource()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CalculatedItem"><code class="docutils literal notranslate"><span class="pre">CalculatedItem()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CalculatedMember"><code class="docutils literal notranslate"><span class="pre">CalculatedMember()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.Consolidation"><code class="docutils literal notranslate"><span class="pre">Consolidation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.DummyCache"><code class="docutils literal notranslate"><span class="pre">DummyCache()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.FieldGroup"><code class="docutils literal notranslate"><span class="pre">FieldGroup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.FieldUsage"><code class="docutils literal notranslate"><span class="pre">FieldUsage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.GroupItems"><code class="docutils literal notranslate"><span class="pre">GroupItems()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.GroupLevel"><code class="docutils literal notranslate"><span class="pre">GroupLevel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.GroupMember"><code class="docutils literal notranslate"><span class="pre">GroupMember()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.LevelGroup"><code class="docutils literal notranslate"><span class="pre">LevelGroup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.MeasureDimensionMap"><code class="docutils literal notranslate"><span class="pre">MeasureDimensionMap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.MeasureGroup"><code class="docutils literal notranslate"><span class="pre">MeasureGroup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.OLAPKPI"><code class="docutils literal notranslate"><span class="pre">OLAPKPI()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.OLAPSet"><code class="docutils literal notranslate"><span class="pre">OLAPSet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.PageItem"><code class="docutils literal notranslate"><span class="pre">PageItem()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.PivotDimension"><code class="docutils literal notranslate"><span class="pre">PivotDimension()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.RangePr"><code class="docutils literal notranslate"><span class="pre">RangePr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.RangeSet"><code class="docutils literal notranslate"><span class="pre">RangeSet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.ServerFormat"><code class="docutils literal notranslate"><span class="pre">ServerFormat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.SharedItems"><code class="docutils literal notranslate"><span class="pre">SharedItems()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheField"><code class="docutils literal notranslate"><span class="pre">TestCacheField</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheField.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCacheField.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheField.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCacheField.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheHierarchy"><code class="docutils literal notranslate"><span class="pre">TestCacheHierarchy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheHierarchy.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCacheHierarchy.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheHierarchy.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCacheHierarchy.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheSource"><code class="docutils literal notranslate"><span class="pre">TestCacheSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheSource.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCacheSource.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheSource.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCacheSource.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedItem"><code class="docutils literal notranslate"><span class="pre">TestCalculatedItem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedItem.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCalculatedItem.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedItem.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCalculatedItem.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedMember"><code class="docutils literal notranslate"><span class="pre">TestCalculatedMember</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedMember.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestCalculatedMember.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedMember.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestCalculatedMember.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestConsolidation"><code class="docutils literal notranslate"><span class="pre">TestConsolidation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestConsolidation.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestConsolidation.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestConsolidation.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestConsolidation.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldGroup"><code class="docutils literal notranslate"><span class="pre">TestFieldGroup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldGroup.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestFieldGroup.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldGroup.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestFieldGroup.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldUsage"><code class="docutils literal notranslate"><span class="pre">TestFieldUsage</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldUsage.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestFieldUsage.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldUsage.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestFieldUsage.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupItems"><code class="docutils literal notranslate"><span class="pre">TestGroupItems</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupItems.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupItems.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupItems.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupItems.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupLevel"><code class="docutils literal notranslate"><span class="pre">TestGroupLevel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupLevel.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupLevel.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupLevel.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupLevel.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupMember"><code class="docutils literal notranslate"><span class="pre">TestGroupMember</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupMember.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestGroupMember.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupMember.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestGroupMember.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestLevelGroup"><code class="docutils literal notranslate"><span class="pre">TestLevelGroup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestLevelGroup.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLevelGroup.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestLevelGroup.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLevelGroup.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureDimensionMap"><code class="docutils literal notranslate"><span class="pre">TestMeasureDimensionMap</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureDimensionMap.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestMeasureDimensionMap.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureDimensionMap.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestMeasureDimensionMap.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureGroup"><code class="docutils literal notranslate"><span class="pre">TestMeasureGroup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureGroup.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestMeasureGroup.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureGroup.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestMeasureGroup.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPKPI"><code class="docutils literal notranslate"><span class="pre">TestOLAPKPI</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPKPI.from_xml"><code class="docutils literal notranslate"><span class="pre">TestOLAPKPI.from_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPKPI.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestOLAPKPI.test_ctor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPSet"><code class="docutils literal notranslate"><span class="pre">TestOLAPSet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPSet.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestOLAPSet.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPSet.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestOLAPSet.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPageItem"><code class="docutils literal notranslate"><span class="pre">TestPageItem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPageItem.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPageItem.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPageItem.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPageItem.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition"><code class="docutils literal notranslate"><span class="pre">TestPivotCacheDefinition</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_path"><code class="docutils literal notranslate"><span class="pre">TestPivotCacheDefinition.test_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_read"><code class="docutils literal notranslate"><span class="pre">TestPivotCacheDefinition.test_read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_read_tuple_cache"><code class="docutils literal notranslate"><span class="pre">TestPivotCacheDefinition.test_read_tuple_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_to_tree"><code class="docutils literal notranslate"><span class="pre">TestPivotCacheDefinition.test_to_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_write"><code class="docutils literal notranslate"><span class="pre">TestPivotCacheDefinition.test_write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotDimension"><code class="docutils literal notranslate"><span class="pre">TestPivotDimension</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotDimension.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPivotDimension.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotDimension.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPivotDimension.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangePr"><code class="docutils literal notranslate"><span class="pre">TestRangePr</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangePr.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRangePr.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangePr.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRangePr.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangeSet"><code class="docutils literal notranslate"><span class="pre">TestRangeSet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangeSet.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRangeSet.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangeSet.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRangeSet.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestServerFormat"><code class="docutils literal notranslate"><span class="pre">TestServerFormat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestServerFormat.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestServerFormat.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestServerFormat.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestServerFormat.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems"><code class="docutils literal notranslate"><span class="pre">TestSharedItems</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestSharedItems.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestSharedItems.test_from_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems.test_mixed_tag_items_golden"><code class="docutils literal notranslate"><span class="pre">TestSharedItems.test_mixed_tag_items_golden()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestWorksheetSource"><code class="docutils literal notranslate"><span class="pre">TestWorksheetSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestWorksheetSource.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestWorksheetSource.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestWorksheetSource.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestWorksheetSource.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.WorksheetSource"><code class="docutils literal notranslate"><span class="pre">WorksheetSource()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html">fastpyxl.pivot.tests.test_fields module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.Boolean"><code class="docutils literal notranslate"><span class="pre">Boolean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.DateTimeField"><code class="docutils literal notranslate"><span class="pre">DateTimeField()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.Error"><code class="docutils literal notranslate"><span class="pre">Error()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.Index"><code class="docutils literal notranslate"><span class="pre">Index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.Missing"><code class="docutils literal notranslate"><span class="pre">Missing()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.Number"><code class="docutils literal notranslate"><span class="pre">Number()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestBoolean"><code class="docutils literal notranslate"><span class="pre">TestBoolean</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestBoolean.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestBoolean.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestBoolean.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestBoolean.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestDateTimeField"><code class="docutils literal notranslate"><span class="pre">TestDateTimeField</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestDateTimeField.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestDateTimeField.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestDateTimeField.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestDateTimeField.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestError"><code class="docutils literal notranslate"><span class="pre">TestError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestError.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestError.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestError.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestError.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestIndex"><code class="docutils literal notranslate"><span class="pre">TestIndex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestIndex.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestIndex.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestIndex.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestIndex.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestMissing"><code class="docutils literal notranslate"><span class="pre">TestMissing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestMissing.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestMissing.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestMissing.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestMissing.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestNumber"><code class="docutils literal notranslate"><span class="pre">TestNumber</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestNumber.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestNumber.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestNumber.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestNumber.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestText"><code class="docutils literal notranslate"><span class="pre">TestText</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestText.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestText.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestText.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestText.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestTupleList"><code class="docutils literal notranslate"><span class="pre">TestTupleList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestTupleList.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestTupleList.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TestTupleList.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestTupleList.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.Text"><code class="docutils literal notranslate"><span class="pre">Text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_fields.html#fastpyxl.pivot.tests.test_fields.TupleList"><code class="docutils literal notranslate"><span class="pre">TupleList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html">fastpyxl.pivot.tests.test_record module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.Record"><code class="docutils literal notranslate"><span class="pre">Record()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.RecordList"><code class="docutils literal notranslate"><span class="pre">RecordList()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecord"><code class="docutils literal notranslate"><span class="pre">TestRecord</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecord.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRecord.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecord.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRecord.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecordList"><code class="docutils literal notranslate"><span class="pre">TestRecordList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecordList.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRecordList.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecordList.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRecordList.test_from_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_record.html#fastpyxl.pivot.tests.test_record.TestRecordList.test_write"><code class="docutils literal notranslate"><span class="pre">TestRecordList.test_write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html">fastpyxl.pivot.tests.test_table module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.Autofilter"><code class="docutils literal notranslate"><span class="pre">Autofilter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.ChartFormat"><code class="docutils literal notranslate"><span class="pre">ChartFormat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.ConditionalFormat"><code class="docutils literal notranslate"><span class="pre">ConditionalFormat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.ConditionalFormatList"><code class="docutils literal notranslate"><span class="pre">ConditionalFormatList()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.DataField"><code class="docutils literal notranslate"><span class="pre">DataField()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.DummyPivotTable"><code class="docutils literal notranslate"><span class="pre">DummyPivotTable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.FieldItem"><code class="docutils literal notranslate"><span class="pre">FieldItem()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.Format"><code class="docutils literal notranslate"><span class="pre">Format()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.Location"><code class="docutils literal notranslate"><span class="pre">Location()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.PageField"><code class="docutils literal notranslate"><span class="pre">PageField()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.PivotArea"><code class="docutils literal notranslate"><span class="pre">PivotArea()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.PivotField"><code class="docutils literal notranslate"><span class="pre">PivotField()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.PivotFilter"><code class="docutils literal notranslate"><span class="pre">PivotFilter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.PivotTableStyle"><code class="docutils literal notranslate"><span class="pre">PivotTableStyle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.Reference"><code class="docutils literal notranslate"><span class="pre">Reference()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.RowColItem"><code class="docutils literal notranslate"><span class="pre">RowColItem()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TableDefinition"><code class="docutils literal notranslate"><span class="pre">TableDefinition()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestChartFormat"><code class="docutils literal notranslate"><span class="pre">TestChartFormat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestChartFormat.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestChartFormat.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestChartFormat.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestChartFormat.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormat"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormat.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormat.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormat.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormat.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormatList"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormatList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormatList.test_by_priority"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormatList.test_by_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormatList.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormatList.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormatList.test_dedupe"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormatList.test_dedupe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestConditionalFormatList.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestConditionalFormatList.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestDataField"><code class="docutils literal notranslate"><span class="pre">TestDataField</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestDataField.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestDataField.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestDataField.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestDataField.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestFieldItem"><code class="docutils literal notranslate"><span class="pre">TestFieldItem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestFieldItem.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestFieldItem.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestFieldItem.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestFieldItem.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestFormat"><code class="docutils literal notranslate"><span class="pre">TestFormat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestFormat.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestFormat.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestFormat.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestFormat.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestLocation"><code class="docutils literal notranslate"><span class="pre">TestLocation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestLocation.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestLocation.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestLocation.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestLocation.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPageField"><code class="docutils literal notranslate"><span class="pre">TestPageField</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPageField.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPageField.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPageField.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPageField.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotArea"><code class="docutils literal notranslate"><span class="pre">TestPivotArea</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotArea.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPivotArea.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotArea.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPivotArea.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotField"><code class="docutils literal notranslate"><span class="pre">TestPivotField</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotField.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPivotField.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotField.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPivotField.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotFilter"><code class="docutils literal notranslate"><span class="pre">TestPivotFilter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotFilter.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPivotFilter.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotFilter.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPivotFilter.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableDefinition"><code class="docutils literal notranslate"><span class="pre">TestPivotTableDefinition</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableDefinition.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPivotTableDefinition.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableDefinition.test_formatted_fields"><code class="docutils literal notranslate"><span class="pre">TestPivotTableDefinition.test_formatted_fields()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableDefinition.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPivotTableDefinition.test_from_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableDefinition.test_write"><code class="docutils literal notranslate"><span class="pre">TestPivotTableDefinition.test_write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableStyle"><code class="docutils literal notranslate"><span class="pre">TestPivotTableStyle</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableStyle.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestPivotTableStyle.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableStyle.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestPivotTableStyle.test_from_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestPivotTableStyle.test_no_name"><code class="docutils literal notranslate"><span class="pre">TestPivotTableStyle.test_no_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestReference"><code class="docutils literal notranslate"><span class="pre">TestReference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestReference.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestReference.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestReference.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestReference.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestRowColItem"><code class="docutils literal notranslate"><span class="pre">TestRowColItem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestRowColItem.test_ctor"><code class="docutils literal notranslate"><span class="pre">TestRowColItem.test_ctor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.tests.test_table.html#fastpyxl.pivot.tests.test_table.TestRowColItem.test_from_xml"><code class="docutils literal notranslate"><span class="pre">TestRowColItem.test_from_xml()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.pivot.html" class="btn btn-neutral float-left" title="fastpyxl.pivot package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.pivot.tests.conftest.html" class="btn btn-neutral float-right" title="fastpyxl.pivot.tests.conftest module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

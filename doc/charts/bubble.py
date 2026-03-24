@@ -2,8 +2,8 @@
 Sample bubble chart
 """
 
-from openpyxl import Workbook
-from openpyxl.chart import Series, Reference, BubbleChart
+from fastpyxl import Workbook
+from fastpyxl.chart import Series, Reference, BubbleChart
 
 wb = Workbook()
 ws = wb.active

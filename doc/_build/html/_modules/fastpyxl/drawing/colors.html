@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.drawing.colors &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.drawing.colors</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.drawing.colors</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.serialisable</span><span class="w"> </span><span class="kn">import</span> <span class="n">Serialisable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Alias</span><span class="p">,</span>
+    <span class="n">Typed</span><span class="p">,</span>
+    <span class="n">Integer</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
+    <span class="n">MinMax</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.nested</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">NestedNoneSet</span><span class="p">,</span>
+    <span class="n">NestedValue</span><span class="p">,</span>
+    <span class="n">NestedInteger</span><span class="p">,</span>
+    <span class="n">EmptyTag</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">RGB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.xml.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">DRAWING_NS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Serialisable</span> <span class="k">as</span> <span class="n">TypedSerialisable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldValidationError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.fields</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasField</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.excel</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtensionList</span> <span class="k">as</span> <span class="n">OfficeArtExtensionList</span>
+
+<span class="n">PRESET_COLORS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;aliceBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;antiqueWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;aqua&#39;</span><span class="p">,</span> <span class="s1">&#39;aquamarine&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;azure&#39;</span><span class="p">,</span> <span class="s1">&#39;beige&#39;</span><span class="p">,</span> <span class="s1">&#39;bisque&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;blanchedAlmond&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;blueViolet&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;burlyWood&#39;</span><span class="p">,</span> <span class="s1">&#39;cadetBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;chartreuse&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;coral&#39;</span><span class="p">,</span> <span class="s1">&#39;cornflowerBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;cornsilk&#39;</span><span class="p">,</span> <span class="s1">&#39;crimson&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;darkBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;darkCyan&#39;</span><span class="p">,</span> <span class="s1">&#39;darkGoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;darkGray&#39;</span><span class="p">,</span> <span class="s1">&#39;darkGrey&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;darkGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkKhaki&#39;</span><span class="p">,</span> <span class="s1">&#39;darkMagenta&#39;</span><span class="p">,</span> <span class="s1">&#39;darkOliveGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkOrange&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;darkOrchid&#39;</span><span class="p">,</span> <span class="s1">&#39;darkRed&#39;</span><span class="p">,</span> <span class="s1">&#39;darkSalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;darkSeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkSlateBlue&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;darkSlateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;darkSlateGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;darkTurquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;darkViolet&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dkBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;dkCyan&#39;</span><span class="p">,</span> <span class="s1">&#39;dkGoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;dkGray&#39;</span><span class="p">,</span> <span class="s1">&#39;dkGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;dkGreen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dkKhaki&#39;</span><span class="p">,</span> <span class="s1">&#39;dkMagenta&#39;</span><span class="p">,</span> <span class="s1">&#39;dkOliveGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;dkOrange&#39;</span><span class="p">,</span> <span class="s1">&#39;dkOrchid&#39;</span><span class="p">,</span> <span class="s1">&#39;dkRed&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dkSalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;dkSeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;dkSlateBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;dkSlateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;dkSlateGrey&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dkTurquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;dkViolet&#39;</span><span class="p">,</span> <span class="s1">&#39;deepPink&#39;</span><span class="p">,</span> <span class="s1">&#39;deepSkyBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;dimGray&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dimGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;dodgerBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;firebrick&#39;</span><span class="p">,</span> <span class="s1">&#39;floralWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;forestGreen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;fuchsia&#39;</span><span class="p">,</span> <span class="s1">&#39;gainsboro&#39;</span><span class="p">,</span> <span class="s1">&#39;ghostWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;goldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;greenYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;honeydew&#39;</span><span class="p">,</span> <span class="s1">&#39;hotPink&#39;</span><span class="p">,</span> <span class="s1">&#39;indianRed&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;indigo&#39;</span><span class="p">,</span> <span class="s1">&#39;ivory&#39;</span><span class="p">,</span> <span class="s1">&#39;khaki&#39;</span><span class="p">,</span> <span class="s1">&#39;lavender&#39;</span><span class="p">,</span> <span class="s1">&#39;lavenderBlush&#39;</span><span class="p">,</span> <span class="s1">&#39;lawnGreen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lemonChiffon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightCoral&#39;</span><span class="p">,</span> <span class="s1">&#39;lightCyan&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lightGoldenrodYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;lightGray&#39;</span><span class="p">,</span> <span class="s1">&#39;lightGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;lightGreen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lightPink&#39;</span><span class="p">,</span> <span class="s1">&#39;lightSalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightSeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;lightSkyBlue&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lightSlateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;lightSlateGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;lightSteelBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightYellow&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ltBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;ltCoral&#39;</span><span class="p">,</span> <span class="s1">&#39;ltCyan&#39;</span><span class="p">,</span> <span class="s1">&#39;ltGoldenrodYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;ltGray&#39;</span><span class="p">,</span> <span class="s1">&#39;ltGrey&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ltGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;ltPink&#39;</span><span class="p">,</span> <span class="s1">&#39;ltSalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;ltSeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;ltSkyBlue&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ltSlateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;ltSlateGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;ltSteelBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;ltYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;lime&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;limeGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;linen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;maroon&#39;</span><span class="p">,</span> <span class="s1">&#39;medAquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;medBlue&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;medOrchid&#39;</span><span class="p">,</span> <span class="s1">&#39;medPurple&#39;</span><span class="p">,</span> <span class="s1">&#39;medSeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;medSlateBlue&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;medSpringGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;medTurquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;medVioletRed&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumAquamarine&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mediumBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumOrchid&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumPurple&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumSeaGreen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mediumSlateBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumSpringGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumTurquoise&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mediumVioletRed&#39;</span><span class="p">,</span> <span class="s1">&#39;midnightBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;mintCream&#39;</span><span class="p">,</span> <span class="s1">&#39;mistyRose&#39;</span><span class="p">,</span> <span class="s1">&#39;moccasin&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;navajoWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="s1">&#39;oldLace&#39;</span><span class="p">,</span> <span class="s1">&#39;olive&#39;</span><span class="p">,</span> <span class="s1">&#39;oliveDrab&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;orangeRed&#39;</span><span class="p">,</span> <span class="s1">&#39;orchid&#39;</span><span class="p">,</span> <span class="s1">&#39;paleGoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;paleGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;paleTurquoise&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;paleVioletRed&#39;</span><span class="p">,</span> <span class="s1">&#39;papayaWhip&#39;</span><span class="p">,</span> <span class="s1">&#39;peachPuff&#39;</span><span class="p">,</span> <span class="s1">&#39;peru&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;plum&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;powderBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;rosyBrown&#39;</span><span class="p">,</span> <span class="s1">&#39;royalBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;saddleBrown&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;sandyBrown&#39;</span><span class="p">,</span> <span class="s1">&#39;seaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;seaShell&#39;</span><span class="p">,</span> <span class="s1">&#39;sienna&#39;</span><span class="p">,</span> <span class="s1">&#39;silver&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;skyBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;slateBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;slateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;slateGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">,</span> <span class="s1">&#39;springGreen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;steelBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;tan&#39;</span><span class="p">,</span> <span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="s1">&#39;thistle&#39;</span><span class="p">,</span> <span class="s1">&#39;tomato&#39;</span><span class="p">,</span> <span class="s1">&#39;turquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;violet&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;wheat&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;whiteSmoke&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;yellowGreen&#39;</span>
+    <span class="p">]</span>
+
+
+<span class="n">SCHEME_COLORS</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bg1&#39;</span><span class="p">,</span> <span class="s1">&#39;tx1&#39;</span><span class="p">,</span> <span class="s1">&#39;bg2&#39;</span><span class="p">,</span> <span class="s1">&#39;tx2&#39;</span><span class="p">,</span> <span class="s1">&#39;accent1&#39;</span><span class="p">,</span> <span class="s1">&#39;accent2&#39;</span><span class="p">,</span> <span class="s1">&#39;accent3&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;accent4&#39;</span><span class="p">,</span> <span class="s1">&#39;accent5&#39;</span><span class="p">,</span> <span class="s1">&#39;accent6&#39;</span><span class="p">,</span> <span class="s1">&#39;hlink&#39;</span><span class="p">,</span> <span class="s1">&#39;folHlink&#39;</span><span class="p">,</span> <span class="s1">&#39;phClr&#39;</span><span class="p">,</span> <span class="s1">&#39;dk1&#39;</span><span class="p">,</span> <span class="s1">&#39;lt1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;dk2&#39;</span><span class="p">,</span> <span class="s1">&#39;lt2&#39;</span>
+                <span class="p">]</span>
+
+
+<div class="viewcode-block" id="Transform">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.Transform">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Transform</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="SystemColor">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.SystemColor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SystemColor</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;sysClr&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="c1"># color transform options</span>
+    <span class="n">tint</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">shade</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Transform</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Transform</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Transform</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alphaOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alphaMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hue</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hueOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hueMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sat</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">satOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">satMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lum</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lumOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lumMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">redOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">redMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">green</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">greenOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">greenMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">blue</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">blueOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">blueMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Transform</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">invGamma</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Transform</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">val</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span> <span class="p">[</span><span class="s1">&#39;scrollBar&#39;</span><span class="p">,</span> <span class="s1">&#39;background&#39;</span><span class="p">,</span> <span class="s1">&#39;activeCaption&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;inactiveCaption&#39;</span><span class="p">,</span> <span class="s1">&#39;menu&#39;</span><span class="p">,</span> <span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="s1">&#39;windowFrame&#39;</span><span class="p">,</span> <span class="s1">&#39;menuText&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;windowText&#39;</span><span class="p">,</span> <span class="s1">&#39;captionText&#39;</span><span class="p">,</span> <span class="s1">&#39;activeBorder&#39;</span><span class="p">,</span> <span class="s1">&#39;inactiveBorder&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;appWorkspace&#39;</span><span class="p">,</span> <span class="s1">&#39;highlight&#39;</span><span class="p">,</span> <span class="s1">&#39;highlightText&#39;</span><span class="p">,</span> <span class="s1">&#39;btnFace&#39;</span><span class="p">,</span> <span class="s1">&#39;btnShadow&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;grayText&#39;</span><span class="p">,</span> <span class="s1">&#39;btnText&#39;</span><span class="p">,</span> <span class="s1">&#39;inactiveCaptionText&#39;</span><span class="p">,</span> <span class="s1">&#39;btnHighlight&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;3dDkShadow&#39;</span><span class="p">,</span> <span class="s1">&#39;3dLight&#39;</span><span class="p">,</span> <span class="s1">&#39;infoText&#39;</span><span class="p">,</span> <span class="s1">&#39;infoBk&#39;</span><span class="p">,</span> <span class="s1">&#39;hotLight&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;gradientActiveCaption&#39;</span><span class="p">,</span> <span class="s1">&#39;gradientInactiveCaption&#39;</span><span class="p">,</span> <span class="s1">&#39;menuHighlight&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;menuBar&#39;</span><span class="p">]</span> <span class="p">)</span>
+              <span class="p">)</span>
+    <span class="n">lastClr</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">__elements__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;tint&#39;</span><span class="p">,</span> <span class="s1">&#39;shade&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">,</span> <span class="s1">&#39;inv&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;alphaOff&quot;</span><span class="p">,</span> <span class="s2">&quot;alphaMod&quot;</span><span class="p">,</span> <span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="s2">&quot;hueOff&quot;</span><span class="p">,</span> <span class="s2">&quot;hueMod&quot;</span><span class="p">,</span> <span class="s2">&quot;hueOff&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;satOff&quot;</span><span class="p">,</span> <span class="s2">&quot;satMod&quot;</span><span class="p">,</span> <span class="s2">&quot;lum&quot;</span><span class="p">,</span> <span class="s2">&quot;lumOff&quot;</span><span class="p">,</span> <span class="s2">&quot;lumMod&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;redOff&quot;</span><span class="p">,</span> <span class="s2">&quot;redMod&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;greenOff&quot;</span><span class="p">,</span> <span class="s2">&quot;greenMod&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;blueOff&quot;</span><span class="p">,</span> <span class="s2">&quot;blueMod&quot;</span><span class="p">,</span> <span class="s2">&quot;gamma&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;invGamma&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">val</span><span class="o">=</span><span class="s2">&quot;windowText&quot;</span><span class="p">,</span>
+                 <span class="n">lastClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">tint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">shade</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">comp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">inv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">gray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">alphaOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">alphaMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hueOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hueMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">sat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">satOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">satMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lumOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lumMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">red</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">redOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">redMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">green</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">greenOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">greenMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blueOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blueMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">gamma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">invGamma</span><span class="o">=</span><span class="kc">None</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastClr</span> <span class="o">=</span> <span class="n">lastClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tint</span> <span class="o">=</span> <span class="n">tint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shade</span> <span class="o">=</span> <span class="n">shade</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">comp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inv</span> <span class="o">=</span> <span class="n">inv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gray</span> <span class="o">=</span> <span class="n">gray</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphaOff</span> <span class="o">=</span> <span class="n">alphaOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphaMod</span> <span class="o">=</span> <span class="n">alphaMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="o">=</span> <span class="n">hue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hueOff</span> <span class="o">=</span> <span class="n">hueOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hueMod</span> <span class="o">=</span> <span class="n">hueMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sat</span> <span class="o">=</span> <span class="n">sat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">satOff</span> <span class="o">=</span> <span class="n">satOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">satMod</span> <span class="o">=</span> <span class="n">satMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lum</span> <span class="o">=</span> <span class="n">lum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lumOff</span> <span class="o">=</span> <span class="n">lumOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lumMod</span> <span class="o">=</span> <span class="n">lumMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">red</span> <span class="o">=</span> <span class="n">red</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redOff</span> <span class="o">=</span> <span class="n">redOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redMod</span> <span class="o">=</span> <span class="n">redMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">green</span> <span class="o">=</span> <span class="n">green</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">greenOff</span> <span class="o">=</span> <span class="n">greenOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">greenMod</span> <span class="o">=</span> <span class="n">greenMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blue</span> <span class="o">=</span> <span class="n">blue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blueOff</span> <span class="o">=</span> <span class="n">blueOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blueMod</span> <span class="o">=</span> <span class="n">blueMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invGamma</span> <span class="o">=</span> <span class="n">invGamma</span></div>
+
+
+
+<div class="viewcode-block" id="HSLColor">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.HSLColor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HSLColor</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;hslClr&quot;</span>
+
+    <span class="n">hue</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sat</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_range_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">lum</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_range_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;lum&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1">#TODO add color transform options</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">hue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">sat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="o">=</span> <span class="n">hue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sat</span> <span class="o">=</span> <span class="n">sat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lum</span> <span class="o">=</span> <span class="n">lum</span></div>
+
+
+
+
+<div class="viewcode-block" id="RGBPercent">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.RGBPercent">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RGBPercent</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;rgbClr&quot;</span>
+
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_range_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_range_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_range_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1">#TODO add color transform options</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">g</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g</span> <span class="o">=</span> <span class="n">g</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span></div>
+
+
+
+<div class="viewcode-block" id="SchemeColor">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.SchemeColor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SchemeColor</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;schemeClr&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">tint</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">shade</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">EmptyTag</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alphaOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alphaMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hue</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hueOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hueMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sat</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">satOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">satMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lum</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lumOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lumMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">redOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">redMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">green</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">greenOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">greenMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">blue</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">blueOff</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">blueMod</span> <span class="o">=</span> <span class="n">NestedInteger</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">EmptyTag</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">invGamma</span> <span class="o">=</span> <span class="n">EmptyTag</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;bg1&#39;</span><span class="p">,</span> <span class="s1">&#39;tx1&#39;</span><span class="p">,</span> <span class="s1">&#39;bg2&#39;</span><span class="p">,</span> <span class="s1">&#39;tx2&#39;</span><span class="p">,</span> <span class="s1">&#39;accent1&#39;</span><span class="p">,</span> <span class="s1">&#39;accent2&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;accent3&#39;</span><span class="p">,</span> <span class="s1">&#39;accent4&#39;</span><span class="p">,</span> <span class="s1">&#39;accent5&#39;</span><span class="p">,</span> <span class="s1">&#39;accent6&#39;</span><span class="p">,</span> <span class="s1">&#39;hlink&#39;</span><span class="p">,</span> <span class="s1">&#39;folHlink&#39;</span><span class="p">,</span> <span class="s1">&#39;phClr&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;dk1&#39;</span><span class="p">,</span> <span class="s1">&#39;lt1&#39;</span><span class="p">,</span> <span class="s1">&#39;dk2&#39;</span><span class="p">,</span> <span class="s1">&#39;lt2&#39;</span><span class="p">]))</span>
+
+    <span class="n">__elements__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;tint&#39;</span><span class="p">,</span> <span class="s1">&#39;shade&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">,</span> <span class="s1">&#39;inv&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;alphaOff&#39;</span><span class="p">,</span> <span class="s1">&#39;alphaMod&#39;</span><span class="p">,</span> <span class="s1">&#39;hue&#39;</span><span class="p">,</span> <span class="s1">&#39;hueOff&#39;</span><span class="p">,</span> <span class="s1">&#39;hueMod&#39;</span><span class="p">,</span> <span class="s1">&#39;sat&#39;</span><span class="p">,</span> <span class="s1">&#39;satOff&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;satMod&#39;</span><span class="p">,</span> <span class="s1">&#39;lum&#39;</span><span class="p">,</span> <span class="s1">&#39;lumMod&#39;</span><span class="p">,</span> <span class="s1">&#39;lumOff&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;redOff&#39;</span><span class="p">,</span> <span class="s1">&#39;redMod&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;greenOff&#39;</span><span class="p">,</span> <span class="s1">&#39;greenMod&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;blueOff&#39;</span><span class="p">,</span> <span class="s1">&#39;blueMod&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;invGamma&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">tint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">shade</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">comp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">inv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">gray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">alphaOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">alphaMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hueOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hueMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">sat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">satOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">satMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lumOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">lumMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">red</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">redOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">redMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">green</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">greenOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">greenMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blueOff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blueMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">gamma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">invGamma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tint</span> <span class="o">=</span> <span class="n">tint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shade</span> <span class="o">=</span> <span class="n">shade</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">comp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inv</span> <span class="o">=</span> <span class="n">inv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gray</span> <span class="o">=</span> <span class="n">gray</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphaOff</span> <span class="o">=</span> <span class="n">alphaOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphaMod</span> <span class="o">=</span> <span class="n">alphaMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="o">=</span> <span class="n">hue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hueOff</span> <span class="o">=</span> <span class="n">hueOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hueMod</span> <span class="o">=</span> <span class="n">hueMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sat</span> <span class="o">=</span> <span class="n">sat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">satOff</span> <span class="o">=</span> <span class="n">satOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">satMod</span> <span class="o">=</span> <span class="n">satMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lum</span> <span class="o">=</span> <span class="n">lum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lumOff</span> <span class="o">=</span> <span class="n">lumOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lumMod</span> <span class="o">=</span> <span class="n">lumMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">red</span> <span class="o">=</span> <span class="n">red</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redOff</span> <span class="o">=</span> <span class="n">redOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redMod</span> <span class="o">=</span> <span class="n">redMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">green</span> <span class="o">=</span> <span class="n">green</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">greenOff</span> <span class="o">=</span> <span class="n">greenOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">greenMod</span> <span class="o">=</span> <span class="n">greenMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blue</span> <span class="o">=</span> <span class="n">blue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blueOff</span> <span class="o">=</span> <span class="n">blueOff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blueMod</span> <span class="o">=</span> <span class="n">blueMod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invGamma</span> <span class="o">=</span> <span class="n">invGamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="ColorChoice">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoice">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ColorChoice</span><span class="p">(</span><span class="n">TypedSerialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;colorChoice&quot;</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">DRAWING_NS</span>
+
+    <span class="n">scrgbClr</span><span class="p">:</span> <span class="n">RGBPercent</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">RGBPercent</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">RGBPercent</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;scrgbClr&quot;</span><span class="p">)</span>
+    <span class="n">srgbClr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">nested_value</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">RGB</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s2">&quot;srgbClr&quot;</span><span class="p">)</span>
+    <span class="n">hslClr</span><span class="p">:</span> <span class="n">HSLColor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">HSLColor</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sysClr</span><span class="p">:</span> <span class="n">SystemColor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">SystemColor</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">schemeClr</span><span class="p">:</span> <span class="n">SchemeColor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">SchemeColor</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prstClr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">nested_value</span><span class="p">(</span>
+        <span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum_converter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">PRESET_COLORS</span><span class="p">,</span> <span class="s2">&quot;prstClr&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;scrgbClr&#39;</span><span class="p">,</span> <span class="s1">&#39;srgbClr&#39;</span><span class="p">,</span> <span class="s1">&#39;hslClr&#39;</span><span class="p">,</span> <span class="s1">&#39;sysClr&#39;</span><span class="p">,</span> <span class="s1">&#39;schemeClr&#39;</span><span class="p">,</span> <span class="s1">&#39;prstClr&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">scrgbClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">srgbClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hslClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">sysClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">schemeClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">prstClr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrgbClr</span> <span class="o">=</span> <span class="n">scrgbClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">srgbClr</span> <span class="o">=</span> <span class="n">srgbClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hslClr</span> <span class="o">=</span> <span class="n">hslClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sysClr</span> <span class="o">=</span> <span class="n">sysClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schemeClr</span> <span class="o">=</span> <span class="n">schemeClr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prstClr</span> <span class="o">=</span> <span class="n">prstClr</span></div>
+
+
+<span class="n">_COLOR_SET</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;dk1&#39;</span><span class="p">,</span> <span class="s1">&#39;lt1&#39;</span><span class="p">,</span> <span class="s1">&#39;dk2&#39;</span><span class="p">,</span> <span class="s1">&#39;lt2&#39;</span><span class="p">,</span> <span class="s1">&#39;accent1&#39;</span><span class="p">,</span> <span class="s1">&#39;accent2&#39;</span><span class="p">,</span> <span class="s1">&#39;accent3&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;accent4&#39;</span><span class="p">,</span> <span class="s1">&#39;accent5&#39;</span><span class="p">,</span> <span class="s1">&#39;accent6&#39;</span><span class="p">,</span> <span class="s1">&#39;hlink&#39;</span><span class="p">,</span> <span class="s1">&#39;folHlink&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ColorMapping">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorMapping">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ColorMapping</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;clrMapOvr&quot;</span>
+
+    <span class="n">bg1</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">tx1</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">bg2</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">tx2</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">accent1</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">accent2</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">accent3</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">accent4</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">accent5</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">accent6</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">hlink</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">folHlink</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">_COLOR_SET</span><span class="p">)</span>
+    <span class="n">extLst</span> <span class="o">=</span> <span class="n">Typed</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">OfficeArtExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">bg1</span><span class="o">=</span><span class="s2">&quot;lt1&quot;</span><span class="p">,</span>
+                 <span class="n">tx1</span><span class="o">=</span><span class="s2">&quot;dk1&quot;</span><span class="p">,</span>
+                 <span class="n">bg2</span><span class="o">=</span><span class="s2">&quot;lt2&quot;</span><span class="p">,</span>
+                 <span class="n">tx2</span><span class="o">=</span><span class="s2">&quot;dk2&quot;</span><span class="p">,</span>
+                 <span class="n">accent1</span><span class="o">=</span><span class="s2">&quot;accent1&quot;</span><span class="p">,</span>
+                 <span class="n">accent2</span><span class="o">=</span><span class="s2">&quot;accent2&quot;</span><span class="p">,</span>
+                 <span class="n">accent3</span><span class="o">=</span><span class="s2">&quot;accent3&quot;</span><span class="p">,</span>
+                 <span class="n">accent4</span><span class="o">=</span><span class="s2">&quot;accent4&quot;</span><span class="p">,</span>
+                 <span class="n">accent5</span><span class="o">=</span><span class="s2">&quot;accent5&quot;</span><span class="p">,</span>
+                 <span class="n">accent6</span><span class="o">=</span><span class="s2">&quot;accent6&quot;</span><span class="p">,</span>
+                 <span class="n">hlink</span><span class="o">=</span><span class="s2">&quot;hlink&quot;</span><span class="p">,</span>
+                 <span class="n">folHlink</span><span class="o">=</span><span class="s2">&quot;folHlink&quot;</span><span class="p">,</span>
+                 <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg1</span> <span class="o">=</span> <span class="n">bg1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx1</span> <span class="o">=</span> <span class="n">tx1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg2</span> <span class="o">=</span> <span class="n">bg2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx2</span> <span class="o">=</span> <span class="n">tx2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent1</span> <span class="o">=</span> <span class="n">accent1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent2</span> <span class="o">=</span> <span class="n">accent2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent3</span> <span class="o">=</span> <span class="n">accent3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent4</span> <span class="o">=</span> <span class="n">accent4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent5</span> <span class="o">=</span> <span class="n">accent5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent6</span> <span class="o">=</span> <span class="n">accent6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hlink</span> <span class="o">=</span> <span class="n">hlink</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folHlink</span> <span class="o">=</span> <span class="n">folHlink</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span></div>
+
+
+
+<div class="viewcode-block" id="ColorChoiceDescriptor">
+<a class="viewcode-back" href="../../../api/fastpyxl.drawing.colors.html#fastpyxl.drawing.colors.ColorChoiceDescriptor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ColorChoiceDescriptor</span><span class="p">(</span><span class="n">Typed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Objects can choose from 7 different kinds of color system.</span>
+<span class="sd">    Assume RGBHex if a string is passed in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expected_type</span> <span class="o">=</span> <span class="n">ColorChoice</span>
+    <span class="n">allow_none</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">ColorChoice</span><span class="p">(</span><span class="n">srgbClr</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">namespace</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__set__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_range_converter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">numeric</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+    <span class="k">if</span> <span class="n">numeric</span> <span class="o">&lt;</span> <span class="n">min_value</span> <span class="ow">or</span> <span class="n">numeric</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numeric</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_enum_converter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">allowed_values</span><span class="p">,</span> <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_values</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

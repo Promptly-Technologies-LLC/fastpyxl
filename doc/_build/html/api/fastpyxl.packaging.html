@@ -1,0 +1,594 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.packaging package &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.packaging.tests package" href="fastpyxl.packaging.tests.html" />
+    <link rel="prev" title="fastpyxl.formula.translate module" href="fastpyxl.formula.translate.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">fastpyxl.packaging package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.packaging package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.packaging.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.packaging">
+<span id="fastpyxl-packaging-package"></span><h1>fastpyxl.packaging package<a class="headerlink" href="#module-fastpyxl.packaging" title="Link to this heading"></a></h1>
+<p>Stuff related to Office OpenXML packaging: relationships, archive, content types.</p>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.tests.html">fastpyxl.packaging.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.tests.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.conftest.html">fastpyxl.packaging.tests.conftest module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.conftest.html#fastpyxl.packaging.tests.conftest.datadir"><code class="docutils literal notranslate"><span class="pre">datadir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html">fastpyxl.packaging.tests.test_core module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.SampleProperties"><code class="docutils literal notranslate"><span class="pre">SampleProperties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.dcterms_prefix"><code class="docutils literal notranslate"><span class="pre">dcterms_prefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.test_ctor"><code class="docutils literal notranslate"><span class="pre">test_ctor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.test_from_tree"><code class="docutils literal notranslate"><span class="pre">test_from_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.test_qualified_datetime"><code class="docutils literal notranslate"><span class="pre">test_qualified_datetime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.test_qualified_datetime_ns"><code class="docutils literal notranslate"><span class="pre">test_qualified_datetime_ns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_core.html#fastpyxl.packaging.tests.test_core.test_settable_times"><code class="docutils literal notranslate"><span class="pre">test_settable_times()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html">fastpyxl.packaging.tests.test_custom module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html#fastpyxl.packaging.tests.test_custom.CustomDocumentProperty"><code class="docutils literal notranslate"><span class="pre">CustomDocumentProperty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html#fastpyxl.packaging.tests.test_custom.CustomDocumentPropertyList"><code class="docutils literal notranslate"><span class="pre">CustomDocumentPropertyList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html#fastpyxl.packaging.tests.test_custom.CustomPropertyList"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html#fastpyxl.packaging.tests.test_custom.TestCustomDocumentProperty"><code class="docutils literal notranslate"><span class="pre">TestCustomDocumentProperty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html#fastpyxl.packaging.tests.test_custom.TestCustomDocumentProperyList"><code class="docutils literal notranslate"><span class="pre">TestCustomDocumentProperyList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_custom.html#fastpyxl.packaging.tests.test_custom.TestTypedPropertyList"><code class="docutils literal notranslate"><span class="pre">TestTypedPropertyList</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_extended.html">fastpyxl.packaging.tests.test_extended module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_extended.html#fastpyxl.packaging.tests.test_extended.ExtendedProperties"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_extended.html#fastpyxl.packaging.tests.test_extended.TestExtendedProperties"><code class="docutils literal notranslate"><span class="pre">TestExtendedProperties</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_interface.html">fastpyxl.packaging.tests.test_interface module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_interface.html#fastpyxl.packaging.tests.test_interface.test_interface"><code class="docutils literal notranslate"><span class="pre">test_interface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html">fastpyxl.packaging.tests.test_manifest module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html#fastpyxl.packaging.tests.test_manifest.FileExtension"><code class="docutils literal notranslate"><span class="pre">FileExtension()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html#fastpyxl.packaging.tests.test_manifest.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html#fastpyxl.packaging.tests.test_manifest.Override"><code class="docutils literal notranslate"><span class="pre">Override()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html#fastpyxl.packaging.tests.test_manifest.TestFileExtension"><code class="docutils literal notranslate"><span class="pre">TestFileExtension</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html#fastpyxl.packaging.tests.test_manifest.TestManifest"><code class="docutils literal notranslate"><span class="pre">TestManifest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_manifest.html#fastpyxl.packaging.tests.test_manifest.TestOverride"><code class="docutils literal notranslate"><span class="pre">TestOverride</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_pivot.html">fastpyxl.packaging.tests.test_pivot module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_pivot.html#fastpyxl.packaging.tests.test_pivot.PivotCache"><code class="docutils literal notranslate"><span class="pre">PivotCache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_pivot.html#fastpyxl.packaging.tests.test_pivot.TestPivotCache"><code class="docutils literal notranslate"><span class="pre">TestPivotCache</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html">fastpyxl.packaging.tests.test_relationship module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.Relationship"><code class="docutils literal notranslate"><span class="pre">Relationship()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.RelationshipList"><code class="docutils literal notranslate"><span class="pre">RelationshipList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.TestRelationshipList"><code class="docutils literal notranslate"><span class="pre">TestRelationshipList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.test_ctor"><code class="docutils literal notranslate"><span class="pre">test_ctor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.test_get_dependents"><code class="docutils literal notranslate"><span class="pre">test_get_dependents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.test_get_external_link"><code class="docutils literal notranslate"><span class="pre">test_get_external_link()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_relationship.html#fastpyxl.packaging.tests.test_relationship.test_sequence"><code class="docutils literal notranslate"><span class="pre">test_sequence()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.tests.test_workbook.html">fastpyxl.packaging.tests.test_workbook module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_workbook.html#fastpyxl.packaging.tests.test_workbook.TestWorkbookPackage"><code class="docutils literal notranslate"><span class="pre">TestWorkbookPackage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_workbook.html#fastpyxl.packaging.tests.test_workbook.WorkbookPackage"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.packaging.tests.test_workbook.html#fastpyxl.packaging.tests.test_workbook.test_read_workbook_code_name"><code class="docutils literal notranslate"><span class="pre">test_read_workbook_code_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.core.html">fastpyxl.packaging.core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties"><code class="docutils literal notranslate"><span class="pre">DocumentProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.category"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.category</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.contentStatus"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.contentStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.created"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.created</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.creator"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.creator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.description"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.description</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.identifier"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.identifier</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.keywords"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.keywords</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.language"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.language</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.lastModifiedBy"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.lastModifiedBy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.lastPrinted"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.lastPrinted</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.last_modified_by"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.last_modified_by</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.modified"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.modified</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.namespace"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.namespace</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.revision"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.revision</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.subject"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.subject</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.tagname"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.title"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.version"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.DocumentProperties.xml_order"><code class="docutils literal notranslate"><span class="pre">DocumentProperties.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.NestedDateTime"><code class="docutils literal notranslate"><span class="pre">NestedDateTime</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.NestedDateTime.expected_type"><code class="docutils literal notranslate"><span class="pre">NestedDateTime.expected_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.NestedDateTime.to_tree"><code class="docutils literal notranslate"><span class="pre">NestedDateTime.to_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.QualifiedDateTime"><code class="docutils literal notranslate"><span class="pre">QualifiedDateTime</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.core.html#fastpyxl.packaging.core.QualifiedDateTime.to_tree"><code class="docutils literal notranslate"><span class="pre">QualifiedDateTime.to_tree()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.custom.html">fastpyxl.packaging.custom module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.BoolProperty"><code class="docutils literal notranslate"><span class="pre">BoolProperty</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.BoolProperty.value"><code class="docutils literal notranslate"><span class="pre">BoolProperty.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.CustomPropertyList"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.CustomPropertyList.append"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.CustomPropertyList.from_tree"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList.from_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.CustomPropertyList.names"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList.names</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.CustomPropertyList.props"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList.props</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.CustomPropertyList.to_tree"><code class="docutils literal notranslate"><span class="pre">CustomPropertyList.to_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.DateTimeProperty"><code class="docutils literal notranslate"><span class="pre">DateTimeProperty</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.DateTimeProperty.value"><code class="docutils literal notranslate"><span class="pre">DateTimeProperty.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.FloatProperty"><code class="docutils literal notranslate"><span class="pre">FloatProperty</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.FloatProperty.value"><code class="docutils literal notranslate"><span class="pre">FloatProperty.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.IntProperty"><code class="docutils literal notranslate"><span class="pre">IntProperty</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.IntProperty.value"><code class="docutils literal notranslate"><span class="pre">IntProperty.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.LinkProperty"><code class="docutils literal notranslate"><span class="pre">LinkProperty</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.LinkProperty.value"><code class="docutils literal notranslate"><span class="pre">LinkProperty.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.NestedBoolText"><code class="docutils literal notranslate"><span class="pre">NestedBoolText</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.StringProperty"><code class="docutils literal notranslate"><span class="pre">StringProperty</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.custom.html#fastpyxl.packaging.custom.StringProperty.value"><code class="docutils literal notranslate"><span class="pre">StringProperty.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.extended.html">fastpyxl.packaging.extended module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.DigSigBlob"><code class="docutils literal notranslate"><span class="pre">DigSigBlob</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.AppVersion"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.AppVersion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Application"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Application</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Characters"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Characters</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.CharactersWithSpaces"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.CharactersWithSpaces</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Company"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Company</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.DigSig"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.DigSig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.DocSecurity"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.DocSecurity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.HLinks"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.HLinks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.HeadingPairs"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.HeadingPairs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.HiddenSlides"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.HiddenSlides</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.HyperlinkBase"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.HyperlinkBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.HyperlinksChanged"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.HyperlinksChanged</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Lines"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Lines</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.LinksUpToDate"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.LinksUpToDate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.MMClips"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.MMClips</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Manager"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Manager</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Notes"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Notes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Pages"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Pages</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Paragraphs"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Paragraphs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.PresentationFormat"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.PresentationFormat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.ScaleCrop"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.ScaleCrop</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.SharedDoc"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.SharedDoc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Slides"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Slides</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Template"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Template</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.TitlesOfParts"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.TitlesOfParts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.TotalTime"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.TotalTime</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.Words"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.Words</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.tagname"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.to_tree"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.to_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.ExtendedProperties.xml_order"><code class="docutils literal notranslate"><span class="pre">ExtendedProperties.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.VectorLpstr"><code class="docutils literal notranslate"><span class="pre">VectorLpstr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.extended.html#fastpyxl.packaging.extended.VectorVariant"><code class="docutils literal notranslate"><span class="pre">VectorVariant</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.interface.html">fastpyxl.packaging.interface module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.interface.html#fastpyxl.packaging.interface.ISerialisableFile"><code class="docutils literal notranslate"><span class="pre">ISerialisableFile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.interface.html#fastpyxl.packaging.interface.ISerialisableFile.id"><code class="docutils literal notranslate"><span class="pre">ISerialisableFile.id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.manifest.html">fastpyxl.packaging.manifest module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.FileExtension"><code class="docutils literal notranslate"><span class="pre">FileExtension</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.FileExtension.ContentType"><code class="docutils literal notranslate"><span class="pre">FileExtension.ContentType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.FileExtension.Extension"><code class="docutils literal notranslate"><span class="pre">FileExtension.Extension</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.FileExtension.tagname"><code class="docutils literal notranslate"><span class="pre">FileExtension.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.Default"><code class="docutils literal notranslate"><span class="pre">Manifest.Default</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.Override"><code class="docutils literal notranslate"><span class="pre">Manifest.Override</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.append"><code class="docutils literal notranslate"><span class="pre">Manifest.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.extensions"><code class="docutils literal notranslate"><span class="pre">Manifest.extensions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.filenames"><code class="docutils literal notranslate"><span class="pre">Manifest.filenames</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.find"><code class="docutils literal notranslate"><span class="pre">Manifest.find()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.findall"><code class="docutils literal notranslate"><span class="pre">Manifest.findall()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.path"><code class="docutils literal notranslate"><span class="pre">Manifest.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.tagname"><code class="docutils literal notranslate"><span class="pre">Manifest.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.to_tree"><code class="docutils literal notranslate"><span class="pre">Manifest.to_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Manifest.xml_order"><code class="docutils literal notranslate"><span class="pre">Manifest.xml_order</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Override"><code class="docutils literal notranslate"><span class="pre">Override</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Override.ContentType"><code class="docutils literal notranslate"><span class="pre">Override.ContentType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Override.PartName"><code class="docutils literal notranslate"><span class="pre">Override.PartName</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.manifest.html#fastpyxl.packaging.manifest.Override.tagname"><code class="docutils literal notranslate"><span class="pre">Override.tagname</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.relationship.html">fastpyxl.packaging.relationship module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship"><code class="docutils literal notranslate"><span class="pre">Relationship</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.Id"><code class="docutils literal notranslate"><span class="pre">Relationship.Id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.Target"><code class="docutils literal notranslate"><span class="pre">Relationship.Target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.TargetMode"><code class="docutils literal notranslate"><span class="pre">Relationship.TargetMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.Type"><code class="docutils literal notranslate"><span class="pre">Relationship.Type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.id"><code class="docutils literal notranslate"><span class="pre">Relationship.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.tagname"><code class="docutils literal notranslate"><span class="pre">Relationship.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.Relationship.target"><code class="docutils literal notranslate"><span class="pre">Relationship.target</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList"><code class="docutils literal notranslate"><span class="pre">RelationshipList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.append"><code class="docutils literal notranslate"><span class="pre">RelationshipList.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.expected_type"><code class="docutils literal notranslate"><span class="pre">RelationshipList.expected_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.find"><code class="docutils literal notranslate"><span class="pre">RelationshipList.find()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.get"><code class="docutils literal notranslate"><span class="pre">RelationshipList.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.tagname"><code class="docutils literal notranslate"><span class="pre">RelationshipList.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.to_dict"><code class="docutils literal notranslate"><span class="pre">RelationshipList.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.RelationshipList.to_tree"><code class="docutils literal notranslate"><span class="pre">RelationshipList.to_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.get_dependents"><code class="docutils literal notranslate"><span class="pre">get_dependents()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.get_rel"><code class="docutils literal notranslate"><span class="pre">get_rel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.relationship.html#fastpyxl.packaging.relationship.get_rels_path"><code class="docutils literal notranslate"><span class="pre">get_rels_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastpyxl.packaging.workbook.html">fastpyxl.packaging.workbook module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.ChildSheet"><code class="docutils literal notranslate"><span class="pre">ChildSheet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.ChildSheet.id"><code class="docutils literal notranslate"><span class="pre">ChildSheet.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.ChildSheet.name"><code class="docutils literal notranslate"><span class="pre">ChildSheet.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.ChildSheet.sheetId"><code class="docutils literal notranslate"><span class="pre">ChildSheet.sheetId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.ChildSheet.state"><code class="docutils literal notranslate"><span class="pre">ChildSheet.state</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.ChildSheet.tagname"><code class="docutils literal notranslate"><span class="pre">ChildSheet.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.FileRecoveryProperties"><code class="docutils literal notranslate"><span class="pre">FileRecoveryProperties</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.FileRecoveryProperties.autoRecover"><code class="docutils literal notranslate"><span class="pre">FileRecoveryProperties.autoRecover</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.FileRecoveryProperties.crashSave"><code class="docutils literal notranslate"><span class="pre">FileRecoveryProperties.crashSave</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.FileRecoveryProperties.dataExtractLoad"><code class="docutils literal notranslate"><span class="pre">FileRecoveryProperties.dataExtractLoad</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.FileRecoveryProperties.repairLoad"><code class="docutils literal notranslate"><span class="pre">FileRecoveryProperties.repairLoad</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.FileRecoveryProperties.tagname"><code class="docutils literal notranslate"><span class="pre">FileRecoveryProperties.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.PivotCache"><code class="docutils literal notranslate"><span class="pre">PivotCache</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.PivotCache.cacheId"><code class="docutils literal notranslate"><span class="pre">PivotCache.cacheId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.PivotCache.id"><code class="docutils literal notranslate"><span class="pre">PivotCache.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.PivotCache.tagname"><code class="docutils literal notranslate"><span class="pre">PivotCache.tagname</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.Ignorable"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.Ignorable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.active"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.bookViews"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.bookViews</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.calcPr"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.calcPr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.conformance"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.conformance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.customWorkbookViews"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.customWorkbookViews</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.definedNames"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.definedNames</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.extLst"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.extLst</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.externalReferences"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.externalReferences</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.fileRecoveryPr"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.fileRecoveryPr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.fileSharing"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.fileSharing</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.fileVersion"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.fileVersion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.functionGroups"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.functionGroups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.oleSize"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.oleSize</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.pivotCaches"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.pivotCaches</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.properties"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.properties</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.sheets"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.sheets</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.smartTagPr"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.smartTagPr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.smartTagTypes"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.smartTagTypes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.tagname"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.tagname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.to_tree"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.to_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.webPublishObjects"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.webPublishObjects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.webPublishing"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.webPublishing</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.workbookPr"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.workbookPr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.workbookProtection"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.workbookProtection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.workbook.html#fastpyxl.packaging.workbook.WorkbookPackage.xml_order"><code class="docutils literal notranslate"><span class="pre">WorkbookPackage.xml_order</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.formula.translate.html" class="btn btn-neutral float-left" title="fastpyxl.formula.translate module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.packaging.tests.html" class="btn btn-neutral float-right" title="fastpyxl.packaging.tests package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

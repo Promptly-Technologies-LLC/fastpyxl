@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=851b9b12"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simple usage" href="usage.html" />
+    <link rel="prev" title="fastpyxl - A high-performance Python library to read/write Excel 2010 xlsx/xlsm files" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            fastpyxl
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-a-checkout">Working with a checkout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-workbook">Create a workbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#playing-with-data">Playing with data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-one-cell">Accessing one cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-many-cells">Accessing many cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#values-only">Values only</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-storage">Data storage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#saving-to-a-file">Saving to a file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saving-as-a-stream">Saving as a stream</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-from-a-file">Loading from a file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#errors-loading-workbooks">Errors loading workbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Install fastpyxl using pip. It is advisable to do this in a Python virtualenv
+without system packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install fastpyxl
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is support for the popular <a class="reference external" href="http://lxml.de">lxml</a> library which will be used if it
+is installed. This is particular useful when creating large files.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To be able to include images (jpeg, png, bmp,…) into an fastpyxl file,
+you will also need the “pillow” library that can be installed with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pillow
+</pre></div>
+</div>
+<p>or browse <a class="reference external" href="https://pypi.python.org/pypi/Pillow/">https://pypi.python.org/pypi/Pillow/</a>, pick the latest version
+and head to the bottom of the page for Windows binaries.</p>
+</div>
+<section id="working-with-a-checkout">
+<h3>Working with a checkout<a class="headerlink" href="#working-with-a-checkout" title="Link to this heading"></a></h3>
+<p>Sometimes you might want to work with the checkout of a particular version.
+This may be the case if bugs have been fixed but a release has not yet been
+made.</p>
+<pre class="literal-block">$ uv pip install -e &quot;git+https://github.com/fastpyxl/fastpyxl&#64;v3.1#egg=fastpyxl&quot;</pre>
+</section>
+</section>
+<section id="create-a-workbook">
+<h2>Create a workbook<a class="headerlink" href="#create-a-workbook" title="Link to this heading"></a></h2>
+<p>There is no need to create a file on the filesystem to get started with fastpyxl.
+Just import the <code class="xref py py-class docutils literal notranslate"><span class="pre">Workbook</span></code> class and start work:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>A workbook is always created with at least one worksheet. You can get it by
+using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Workbook.active</span></code> property:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is set to 0 by default. Unless you modify its value, you will always
+get the first worksheet by using this method.</p>
+</div>
+<p>You can create new worksheets using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workbook.create_sheet()</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws1</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="s2">&quot;Mysheet&quot;</span><span class="p">)</span> <span class="c1"># insert at the end (default)</span>
+<span class="go"># or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws2</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="s2">&quot;Mysheet&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># insert at first position</span>
+<span class="go"># or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws3</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="s2">&quot;Mysheet&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># insert at the penultimate position</span>
+</pre></div>
+</div>
+<p>Sheets are given a name automatically when they are created.
+They are numbered in sequence (Sheet, Sheet1, Sheet2, …).
+You can change this name at any time with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Worksheet.title</span></code> property:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;New Title&quot;</span>
+</pre></div>
+</div>
+<p>Once you gave a worksheet a name, you can get it as a key of the workbook:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws3</span> <span class="o">=</span> <span class="n">wb</span><span class="p">[</span><span class="s2">&quot;New Title&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can review the names of all worksheets of the workbook with the
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Workbook.sheetname</span></code> attribute</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">wb</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">)</span>
+<span class="go">[&#39;Sheet2&#39;, &#39;New Title&#39;, &#39;Sheet1&#39;]</span>
+</pre></div>
+</div>
+<p>You can loop through worksheets</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="n">wb</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can create copies of worksheets <strong>within a single workbook</strong>:</p>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workbook.copy_worksheet()</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">copy_worksheet</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only cells (including values, styles, hyperlinks and comments) and
+certain worksheet attributes (including dimensions, format and
+properties) are copied. All other workbook / worksheet attributes
+are not copied - e.g. Images, Charts.</p>
+<p>You also <strong>cannot</strong> copy worksheets between workbooks. You cannot copy
+a worksheet if the workbook is open in <cite>read-only</cite> or <cite>write-only</cite>
+mode.</p>
+</div>
+</section>
+<section id="playing-with-data">
+<h2>Playing with data<a class="headerlink" href="#playing-with-data" title="Link to this heading"></a></h2>
+<section id="accessing-one-cell">
+<h3>Accessing one cell<a class="headerlink" href="#accessing-one-cell" title="Link to this heading"></a></h3>
+<p>Now we know how to get a worksheet, we can start modifying cells content.
+Cells can be accessed directly as keys of the worksheet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A4&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This will return the cell at A4, or create one if it does not exist yet.
+Values can be directly assigned:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>There is also the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Worksheet.cell()</span></code> method.</p>
+<p>This provides access to cells using row and column notation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When a worksheet is created in memory, it contains no <cite>cells</cite>. They are
+created when first accessed.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Because of this feature, scrolling through cells instead of accessing them
+directly will create them all in memory, even if you don’t assign them a value.</p>
+<p>Something like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">):</span>
+<span class="gp">... </span>           <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will create 100x100 cells in memory, for nothing.</p>
+</div>
+</section>
+<section id="accessing-many-cells">
+<h3>Accessing many cells<a class="headerlink" href="#accessing-many-cells" title="Link to this heading"></a></h3>
+<p>Ranges of cells can be accessed using slicing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cell_range</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">:</span><span class="s1">&#39;C2&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Ranges of rows or columns can be obtained similarly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">colC</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col_range</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C:D&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row10</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row_range</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can also use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Worksheet.iter_rows()</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+<span class="gp">... </span>       <span class="nb">print</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+<span class="go">&lt;Cell Sheet1.A1&gt;</span>
+<span class="go">&lt;Cell Sheet1.B1&gt;</span>
+<span class="go">&lt;Cell Sheet1.C1&gt;</span>
+<span class="go">&lt;Cell Sheet1.A2&gt;</span>
+<span class="go">&lt;Cell Sheet1.B2&gt;</span>
+<span class="go">&lt;Cell Sheet1.C2&gt;</span>
+</pre></div>
+</div>
+<p>Likewise the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Worksheet.iter_cols()</span></code> method will return columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_cols</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+<span class="go">&lt;Cell Sheet1.A1&gt;</span>
+<span class="go">&lt;Cell Sheet1.A2&gt;</span>
+<span class="go">&lt;Cell Sheet1.B1&gt;</span>
+<span class="go">&lt;Cell Sheet1.B2&gt;</span>
+<span class="go">&lt;Cell Sheet1.C1&gt;</span>
+<span class="go">&lt;Cell Sheet1.C2&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For performance reasons the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Worksheet.iter_cols()</span></code> method is not available in read-only mode.</p>
+</div>
+<p>If you need to iterate through all the rows or columns of a file, you can instead use the
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Worksheet.rows</span></code> property:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C9&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;hello world&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
+<span class="go">((&lt;Cell Sheet.A1&gt;, &lt;Cell Sheet.B1&gt;, &lt;Cell Sheet.C1&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A2&gt;, &lt;Cell Sheet.B2&gt;, &lt;Cell Sheet.C2&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A3&gt;, &lt;Cell Sheet.B3&gt;, &lt;Cell Sheet.C3&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A4&gt;, &lt;Cell Sheet.B4&gt;, &lt;Cell Sheet.C4&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A5&gt;, &lt;Cell Sheet.B5&gt;, &lt;Cell Sheet.C5&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A6&gt;, &lt;Cell Sheet.B6&gt;, &lt;Cell Sheet.C6&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A7&gt;, &lt;Cell Sheet.B7&gt;, &lt;Cell Sheet.C7&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A8&gt;, &lt;Cell Sheet.B8&gt;, &lt;Cell Sheet.C8&gt;),</span>
+<span class="go">(&lt;Cell Sheet.A9&gt;, &lt;Cell Sheet.B9&gt;, &lt;Cell Sheet.C9&gt;))</span>
+</pre></div>
+</div>
+<p>or the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Worksheet.columns</span></code> property:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">tuple</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="go">((&lt;Cell Sheet.A1&gt;,</span>
+<span class="go">&lt;Cell Sheet.A2&gt;,</span>
+<span class="go">&lt;Cell Sheet.A3&gt;,</span>
+<span class="go">&lt;Cell Sheet.A4&gt;,</span>
+<span class="go">&lt;Cell Sheet.A5&gt;,</span>
+<span class="go">&lt;Cell Sheet.A6&gt;,</span>
+<span class="go">...</span>
+<span class="go">&lt;Cell Sheet.B7&gt;,</span>
+<span class="go">&lt;Cell Sheet.B8&gt;,</span>
+<span class="go">&lt;Cell Sheet.B9&gt;),</span>
+<span class="go">(&lt;Cell Sheet.C1&gt;,</span>
+<span class="go">&lt;Cell Sheet.C2&gt;,</span>
+<span class="go">&lt;Cell Sheet.C3&gt;,</span>
+<span class="go">&lt;Cell Sheet.C4&gt;,</span>
+<span class="go">&lt;Cell Sheet.C5&gt;,</span>
+<span class="go">&lt;Cell Sheet.C6&gt;,</span>
+<span class="go">&lt;Cell Sheet.C7&gt;,</span>
+<span class="go">&lt;Cell Sheet.C8&gt;,</span>
+<span class="go">&lt;Cell Sheet.C9&gt;))</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For performance reasons the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Worksheet.columns</span></code> property is not available in read-only mode.</p>
+</div>
+</section>
+<section id="values-only">
+<h3>Values only<a class="headerlink" href="#values-only" title="Link to this heading"></a></h3>
+<p>If you just want the values from a worksheet you can use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Worksheet.values</span></code> property.
+This iterates over all the rows in a worksheet but returns just the cell values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+   <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+     <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Both <code class="xref py py-meth docutils literal notranslate"><span class="pre">Worksheet.iter_rows()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">Worksheet.iter_cols()</span></code> can
+take the <code class="code docutils literal notranslate"><span class="pre">values_only</span></code> parameter to return just the cell’s value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">values_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="go">(None, None, None)</span>
+<span class="go">(None, None, None)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="data-storage">
+<h2>Data storage<a class="headerlink" href="#data-storage" title="Link to this heading"></a></h2>
+<p>Once we have a <code class="xref py py-class docutils literal notranslate"><span class="pre">Cell</span></code>, we can assign it a value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="go">&#39;hello, world&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">3.14</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="go">3.14</span>
+</pre></div>
+</div>
+<section id="saving-to-a-file">
+<h3>Saving to a file<a class="headerlink" href="#saving-to-a-file" title="Link to this heading"></a></h3>
+<p>The simplest and safest way to save a workbook is by using the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">Workbook.save()</span></code> method of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Workbook</span></code> object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;balances.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This operation will overwrite existing files without warning.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The filename extension is not forced to be xlsx or xlsm, although you might have
+some trouble opening it directly with another application if you don’t
+use an official extension.</p>
+<p>As OOXML files are basically ZIP files, you can also  open it with your
+favourite ZIP archive manager.</p>
+</div>
+<p>If required, you can specify the attribute <cite>wb.template=True</cite>, to save a workbook
+as a template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="s1">&#39;document.xlsx&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;document_template.xltx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="saving-as-a-stream">
+<h3>Saving as a stream<a class="headerlink" href="#saving-as-a-stream" title="Link to this heading"></a></h3>
+<p>If you want to save the file to a stream, e.g. when using a web application
+such as Pyramid, Flask or Django then you can simply provide a
+<code class="xref py py-func docutils literal notranslate"><span class="pre">NamedTemporaryFile()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTemporaryFile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+<span class="go">        wb.save(tmp.name)</span>
+<span class="go">        tmp.seek(0)</span>
+<span class="go">        stream = tmp.read()</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You should monitor the data attributes and document extensions
+for saving documents in the document templates and vice versa,
+otherwise the result table engine can not open the document.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following will fail:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="s1">&#39;document.xlsx&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Need to save with the extension *.xlsx</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;new_document.xlsm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># MS Excel can&#39;t open the document</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Need specify attribute keep_vba=True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="s1">&#39;document.xlsm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;new_document.xlsm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># MS Excel will not open the document</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="s1">&#39;document.xltm&#39;</span><span class="p">,</span> <span class="n">keep_vba</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># If we need a template document, then we must specify extension as *.xltm.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;new_document.xlsm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># MS Excel will not open the document</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="loading-from-a-file">
+<h2>Loading from a file<a class="headerlink" href="#loading-from-a-file" title="Link to this heading"></a></h2>
+<p>You can use the <code class="xref py py-func docutils literal notranslate"><span class="pre">fastpyxl.load_workbook()</span></code> to open an existing workbook:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_workbook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wb</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;empty_book.xlsx&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sheet_ranges</span> <span class="o">=</span> <span class="n">wb</span><span class="p">[</span><span class="s1">&#39;range names&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sheet_ranges</span><span class="p">[</span><span class="s1">&#39;D18&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are several flags that can be used in load_workbook.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><cite>data_only</cite> controls whether cells with formulae have either the</dt><dd><p>formula (default) or the value stored the last time Excel read the sheet.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>keep_vba</cite> controls whether any Visual Basic elements are preserved or</dt><dd><p>not (default). If they are preserved they are still not editable.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>read-only</cite> opens workbooks in a read-only mode. This uses much less</dt><dd><p>memory and is faster but not all features are available (charts, images,
+etc.)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>rich_text</cite> controls whether any rich-text formatting in cells is</dt><dd><p>preserved. The default is <cite>False</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>keep_links</cite> controls whether data cached from external workbooks is</dt><dd><p>preserved.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>fastpyxl does currently not read all possible items in an Excel file so
+shapes will be lost from existing files if they are opened and saved with
+the same name.</p>
+</div>
+</section>
+<section id="errors-loading-workbooks">
+<h2>Errors loading workbooks<a class="headerlink" href="#errors-loading-workbooks" title="Link to this heading"></a></h2>
+<p>Sometimes fastpyxl will fail to open a workbook. This is usually because there is something wrong with the file.
+If this is the case then fastpyxl will try and provide some more information. Fastpyxl follows the OOXML specification closely and will reject files that do not because they are invalid. When this happens you can use the exception from fastpyxl to inform the developers of whichever application or library produced the file. As the OOXML specification is publicly available it is important that developers follow it.</p>
+<p>You can find the spec by searching for ECMA-376, most of the implementation specifics are in Part 4.</p>
+<p>This ends the tutorial for now, you can proceed to the <a class="reference internal" href="usage.html"><span class="doc">Simple usage</span></a> section</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="fastpyxl - A high-performance Python library to read/write Excel 2010 xlsx/xlsm files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Simple usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

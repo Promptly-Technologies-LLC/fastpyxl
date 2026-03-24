@@ -1,0 +1,1212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.worksheet.worksheet &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.worksheet.worksheet</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.worksheet.worksheet</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="sd">&quot;&quot;&quot;Worksheet is the 2nd-level container in Excel.&quot;&quot;&quot;</span>
+
+
+<span class="c1"># Python stdlib imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">inspect</span><span class="w"> </span><span class="kn">import</span> <span class="n">isgenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
+
+<span class="c1"># compatibility imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.compat</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">deprecated</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># package imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">column_index_from_string</span><span class="p">,</span>
+    <span class="n">get_column_letter</span><span class="p">,</span>
+    <span class="n">range_boundaries</span><span class="p">,</span>
+    <span class="n">coordinate_to_tuple</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cell</span><span class="p">,</span> <span class="n">MergedCell</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.formatting.formatting</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConditionalFormattingList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.packaging.relationship</span><span class="w"> </span><span class="kn">import</span> <span class="n">RelationshipList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.workbook.child</span><span class="w"> </span><span class="kn">import</span> <span class="n">_WorkbookChild</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.workbook.defined_name</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DefinedNameDict</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.formula.translate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Translator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.datavalidation</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataValidationList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.page</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">PrintPageSetup</span><span class="p">,</span>
+    <span class="n">PageMargins</span><span class="p">,</span>
+    <span class="n">PrintOptions</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.dimensions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ColumnDimension</span><span class="p">,</span>
+    <span class="n">RowDimension</span><span class="p">,</span>
+    <span class="n">DimensionHolder</span><span class="p">,</span>
+    <span class="n">SheetFormatProperties</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.protection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SheetProtection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoFilter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.views</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Pane</span><span class="p">,</span>
+    <span class="n">Selection</span><span class="p">,</span>
+    <span class="n">SheetViewList</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.cell_range</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiCellRange</span><span class="p">,</span> <span class="n">CellRange</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.merge</span><span class="w"> </span><span class="kn">import</span> <span class="n">MergedCellRange</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.properties</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorksheetProperties</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.pagebreak</span><span class="w"> </span><span class="kn">import</span> <span class="n">RowBreak</span><span class="p">,</span> <span class="n">ColBreak</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.scenario</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScenarioList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">TableList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.formula</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayFormula</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.print_settings</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">PrintTitles</span><span class="p">,</span>
+    <span class="n">ColRange</span><span class="p">,</span>
+    <span class="n">RowRange</span><span class="p">,</span>
+    <span class="n">PrintArea</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Worksheet">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Worksheet</span><span class="p">(</span><span class="n">_WorkbookChild</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a worksheet.</span>
+
+<span class="sd">    Do not create worksheets yourself,</span>
+<span class="sd">    use :func:`fastpyxl.workbook.Workbook.create_sheet` instead</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_rel_type</span> <span class="o">=</span> <span class="s2">&quot;worksheet&quot;</span>
+    <span class="n">_path</span> <span class="o">=</span> <span class="s2">&quot;/xl/worksheets/sheet</span><span class="si">{0}</span><span class="s2">.xml&quot;</span>
+    <span class="n">mime_type</span> <span class="o">=</span> <span class="s2">&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml&quot;</span>
+
+    <span class="n">BREAK_NONE</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">BREAK_ROW</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">BREAK_COLUMN</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="n">SHEETSTATE_VISIBLE</span> <span class="o">=</span> <span class="s1">&#39;visible&#39;</span>
+    <span class="n">SHEETSTATE_HIDDEN</span> <span class="o">=</span> <span class="s1">&#39;hidden&#39;</span>
+    <span class="n">SHEETSTATE_VERYHIDDEN</span> <span class="o">=</span> <span class="s1">&#39;veryHidden&#39;</span>
+
+    <span class="c1"># Paper size</span>
+    <span class="n">PAPERSIZE_LETTER</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+    <span class="n">PAPERSIZE_LETTER_SMALL</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+    <span class="n">PAPERSIZE_TABLOID</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+    <span class="n">PAPERSIZE_LEDGER</span> <span class="o">=</span> <span class="s1">&#39;4&#39;</span>
+    <span class="n">PAPERSIZE_LEGAL</span> <span class="o">=</span> <span class="s1">&#39;5&#39;</span>
+    <span class="n">PAPERSIZE_STATEMENT</span> <span class="o">=</span> <span class="s1">&#39;6&#39;</span>
+    <span class="n">PAPERSIZE_EXECUTIVE</span> <span class="o">=</span> <span class="s1">&#39;7&#39;</span>
+    <span class="n">PAPERSIZE_A3</span> <span class="o">=</span> <span class="s1">&#39;8&#39;</span>
+    <span class="n">PAPERSIZE_A4</span> <span class="o">=</span> <span class="s1">&#39;9&#39;</span>
+    <span class="n">PAPERSIZE_A4_SMALL</span> <span class="o">=</span> <span class="s1">&#39;10&#39;</span>
+    <span class="n">PAPERSIZE_A5</span> <span class="o">=</span> <span class="s1">&#39;11&#39;</span>
+
+    <span class="c1"># Page orientation</span>
+    <span class="n">ORIENTATION_PORTRAIT</span> <span class="o">=</span> <span class="s1">&#39;portrait&#39;</span>
+    <span class="n">ORIENTATION_LANDSCAPE</span> <span class="o">=</span> <span class="s1">&#39;landscape&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">_WorkbookChild</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_dimensions</span> <span class="o">=</span> <span class="n">DimensionHolder</span><span class="p">(</span><span class="n">worksheet</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                              <span class="n">default_factory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_dimensions</span> <span class="o">=</span> <span class="n">DimensionHolder</span><span class="p">(</span><span class="n">worksheet</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                                 <span class="n">default_factory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_column</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_breaks</span> <span class="o">=</span> <span class="n">RowBreak</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col_breaks</span> <span class="o">=</span> <span class="n">ColBreak</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_images</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rels</span> <span class="o">=</span> <span class="n">RelationshipList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drawing</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_comments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">=</span> <span class="n">MultiCellRange</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tables</span> <span class="o">=</span> <span class="n">TableList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pivots</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_validations</span> <span class="o">=</span> <span class="n">DataValidationList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hyperlinks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_state</span> <span class="o">=</span> <span class="s1">&#39;visible&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span> <span class="o">=</span> <span class="n">PrintPageSetup</span><span class="p">(</span><span class="n">worksheet</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print_options</span> <span class="o">=</span> <span class="n">PrintOptions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print_rows</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print_cols</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print_area</span> <span class="o">=</span> <span class="n">PrintArea</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page_margins</span> <span class="o">=</span> <span class="n">PageMargins</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span> <span class="o">=</span> <span class="n">SheetViewList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protection</span> <span class="o">=</span> <span class="n">SheetProtection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defined_names</span> <span class="o">=</span> <span class="n">DefinedNameDict</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_filter</span> <span class="o">=</span> <span class="n">AutoFilter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditional_formatting</span> <span class="o">=</span> <span class="n">ConditionalFormattingList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legacy_drawing</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_properties</span> <span class="o">=</span> <span class="n">WorksheetProperties</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_format</span> <span class="o">=</span> <span class="n">SheetFormatProperties</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scenarios</span> <span class="o">=</span> <span class="n">ScenarioList</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sheet_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">active</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sqref</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">active_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">activeCell</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">array_formulae</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of cells with array formulae and the cells in array&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;f&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">ArrayFormula</span><span class="p">):</span>
+                    <span class="n">result</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">coordinate</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">ref</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_gridlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span><span class="o">.</span><span class="n">showGridLines</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">freeze_panes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span><span class="o">.</span><span class="n">pane</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">topLeftCell</span>
+
+
+    <span class="nd">@freeze_panes</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">freeze_panes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topLeftCell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topLeftCell</span><span class="p">,</span> <span class="n">Cell</span><span class="p">):</span>
+            <span class="n">topLeftCell</span> <span class="o">=</span> <span class="n">topLeftCell</span><span class="o">.</span><span class="n">coordinate</span>
+        <span class="k">if</span> <span class="n">topLeftCell</span> <span class="o">==</span> <span class="s1">&#39;A1&#39;</span><span class="p">:</span>
+            <span class="n">topLeftCell</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">topLeftCell</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span><span class="o">.</span><span class="n">pane</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span>
+
+        <span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">coordinate_to_tuple</span><span class="p">(</span><span class="n">topLeftCell</span><span class="p">)</span>
+
+        <span class="n">view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_view</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">pane</span> <span class="o">=</span> <span class="n">Pane</span><span class="p">(</span><span class="n">topLeftCell</span><span class="o">=</span><span class="n">topLeftCell</span><span class="p">,</span>
+                        <span class="n">activePane</span><span class="o">=</span><span class="s2">&quot;topRight&quot;</span><span class="p">,</span>
+                        <span class="n">state</span><span class="o">=</span><span class="s2">&quot;frozen&quot;</span><span class="p">)</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pane</span> <span class="o">=</span> <span class="s2">&quot;topRight&quot;</span>
+
+        <span class="k">if</span> <span class="n">column</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">xSplit</span> <span class="o">=</span> <span class="n">column</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">ySplit</span> <span class="o">=</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">activePane</span> <span class="o">=</span> <span class="s1">&#39;bottomLeft&#39;</span>
+            <span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pane</span> <span class="o">=</span> <span class="s2">&quot;bottomLeft&quot;</span>
+            <span class="k">if</span> <span class="n">column</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pane</span> <span class="o">=</span> <span class="s2">&quot;bottomRight&quot;</span>
+                <span class="n">view</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">activePane</span> <span class="o">=</span> <span class="s1">&#39;bottomRight&#39;</span>
+
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">column</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">sel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+            <span class="n">sel</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Selection</span><span class="p">(</span><span class="n">pane</span><span class="o">=</span><span class="s2">&quot;topRight&quot;</span><span class="p">,</span> <span class="n">activeCell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sqref</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+            <span class="n">sel</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Selection</span><span class="p">(</span><span class="n">pane</span><span class="o">=</span><span class="s2">&quot;bottomLeft&quot;</span><span class="p">,</span> <span class="n">activeCell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sqref</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+            <span class="n">view</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">sel</span>
+
+
+<div class="viewcode-block" id="Worksheet.cell">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a cell object based on the given coordinates.</span>
+
+<span class="sd">        Usage: cell(row=15, column=1, value=5)</span>
+
+<span class="sd">        Calling `cell` creates cells in memory when they</span>
+<span class="sd">        are first accessed.</span>
+
+<span class="sd">        :param row: row index of the cell (e.g. 4)</span>
+<span class="sd">        :type row: int</span>
+
+<span class="sd">        :param column: column index of the cell (e.g. 3)</span>
+<span class="sd">        :type column: int</span>
+
+<span class="sd">        :param value: value of the cell (e.g. 5)</span>
+<span class="sd">        :type value: numeric or time or string or bool or none</span>
+
+<span class="sd">        :rtype: fastpyxl.cell.cell.Cell</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Row or column values must be at least 1&quot;</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cell</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">return</span> <span class="n">cell</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method for getting a cell from a worksheet.</span>
+<span class="sd">        Will create a new cell if one doesn&#39;t already exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="mi">1048577</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Row numbers must be between 1 and 1048576. Row number supplied was </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">coordinate</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">coordinate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="n">Cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">coordinate</span><span class="p">]</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method for adding cell objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">col_idx</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cell</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convenience access by Excel style coordinates</span>
+
+<span class="sd">        The key can be a single cell coordinate &#39;A1&#39;, a range of cells &#39;A1:D25&#39;,</span>
+<span class="sd">        individual rows or columns &#39;A&#39;, 4 or ranges of rows or columns &#39;A:D&#39;,</span>
+<span class="sd">        4:10.</span>
+
+<span class="sd">        Single cells will always be created if they do not exist.</span>
+
+<span class="sd">        Returns either a single cell or a tuple of rows or columns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">key</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">stop</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> is not a valid coordinate or range&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span>
+                      <span class="p">)</span>
+        <span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span> <span class="o">=</span> <span class="n">range_boundaries</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> is not a valid coordinate or range&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">min_row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iter_cols</span><span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">max_col</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">min_col</span> <span class="o">==</span> <span class="n">max_col</span><span class="p">:</span>
+                <span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">cols</span>
+        <span class="k">if</span> <span class="n">min_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">min_col</span><span class="o">=</span><span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="n">min_row</span><span class="p">,</span>
+                                        <span class="n">max_col</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_column</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="n">max_row</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">min_row</span> <span class="o">==</span> <span class="n">max_row</span><span class="p">:</span>
+                <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">rows</span>
+        <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cell</span><span class="p">(</span><span class="n">min_row</span><span class="p">,</span> <span class="n">min_col</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="n">min_row</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="n">min_col</span><span class="p">,</span>
+                                    <span class="n">max_row</span><span class="o">=</span><span class="n">max_row</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="n">max_col</span><span class="p">))</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">()</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">coordinate_to_tuple</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)]</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The minimum row index containing data (1-based)</span>
+
+<span class="sd">        :type: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_row</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="n">min_row</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">min_row</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The maximum row index containing data (1-based)</span>
+
+<span class="sd">        :type: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_row</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="n">max_row</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">max_row</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min_column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The minimum column index containing data (1-based)</span>
+
+<span class="sd">        :type: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_col</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="n">min_col</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_col</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The maximum column index containing data (1-based)</span>
+
+<span class="sd">        :type: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_col</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="n">max_col</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">max_col</span>
+
+
+<div class="viewcode-block" id="Worksheet.calculate_dimension">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.calculate_dimension">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the minimum bounding range for all cells containing data (ex. &#39;A1:M24&#39;)</span>
+
+<span class="sd">        :rtype: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="n">cols</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="n">max_row</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+            <span class="n">max_col</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+            <span class="n">min_col</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+            <span class="n">min_row</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;A1:A1&quot;</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">get_column_letter</span><span class="p">(</span><span class="n">min_col</span><span class="p">)</span><span class="si">}{</span><span class="n">min_row</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">get_column_letter</span><span class="p">(</span><span class="n">max_col</span><span class="p">)</span><span class="si">}{</span><span class="n">max_row</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the result of :func:`calculate_dimension`&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_dimension</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Worksheet.iter_rows">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.iter_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iter_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Produces cells from the worksheet, by row. Specify the iteration range</span>
+<span class="sd">        using indices of rows and columns.</span>
+
+<span class="sd">        If no indices are specified the range starts at A1.</span>
+
+<span class="sd">        If no cells are in the worksheet an empty tuple will be returned.</span>
+
+<span class="sd">        :param min_col: smallest column index (1-based index)</span>
+<span class="sd">        :type min_col: int</span>
+
+<span class="sd">        :param min_row: smallest row index (1-based index)</span>
+<span class="sd">        :type min_row: int</span>
+
+<span class="sd">        :param max_col: largest column index (1-based index)</span>
+<span class="sd">        :type max_col: int</span>
+
+<span class="sd">        :param max_row: largest row index (1-based index)</span>
+<span class="sd">        :type max_row: int</span>
+
+<span class="sd">        :param values_only: whether only cell values should be returned</span>
+<span class="sd">        :type values_only: bool</span>
+
+<span class="sd">        :rtype: generator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span> <span class="p">]):</span>
+            <span class="k">return</span> <span class="nb">iter</span><span class="p">(())</span>
+
+
+        <span class="n">min_col</span> <span class="o">=</span> <span class="n">min_col</span> <span class="ow">or</span> <span class="mi">1</span>
+        <span class="n">min_row</span> <span class="o">=</span> <span class="n">min_row</span> <span class="ow">or</span> <span class="mi">1</span>
+        <span class="n">max_col</span> <span class="o">=</span> <span class="n">max_col</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_column</span>
+        <span class="n">max_row</span> <span class="o">=</span> <span class="n">max_row</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_row</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells_by_row</span><span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span><span class="p">,</span> <span class="n">values_only</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_cells_by_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span><span class="p">,</span> <span class="n">values_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_row</span><span class="p">,</span> <span class="n">max_row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">max_col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">values_only</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Produces all cells in the worksheet, by row (see :func:`iter_rows`)</span>
+
+<span class="sd">        :type: generator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Produces all cell values in the worksheet, by row</span>
+
+<span class="sd">        :type: generator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">values_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">row</span>
+
+
+<div class="viewcode-block" id="Worksheet.iter_cols">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.iter_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iter_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Produces cells from the worksheet, by column. Specify the iteration range</span>
+<span class="sd">        using indices of rows and columns.</span>
+
+<span class="sd">        If no indices are specified the range starts at A1.</span>
+
+<span class="sd">        If no cells are in the worksheet an empty tuple will be returned.</span>
+
+<span class="sd">        :param min_col: smallest column index (1-based index)</span>
+<span class="sd">        :type min_col: int</span>
+
+<span class="sd">        :param min_row: smallest row index (1-based index)</span>
+<span class="sd">        :type min_row: int</span>
+
+<span class="sd">        :param max_col: largest column index (1-based index)</span>
+<span class="sd">        :type max_col: int</span>
+
+<span class="sd">        :param max_row: largest row index (1-based index)</span>
+<span class="sd">        :type max_row: int</span>
+
+<span class="sd">        :param values_only: whether only cell values should be returned</span>
+<span class="sd">        :type values_only: bool</span>
+
+<span class="sd">        :rtype: generator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="nb">iter</span><span class="p">(())</span>
+
+        <span class="n">min_col</span> <span class="o">=</span> <span class="n">min_col</span> <span class="ow">or</span> <span class="mi">1</span>
+        <span class="n">min_row</span> <span class="o">=</span> <span class="n">min_row</span> <span class="ow">or</span> <span class="mi">1</span>
+        <span class="n">max_col</span> <span class="o">=</span> <span class="n">max_col</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_column</span>
+        <span class="n">max_row</span> <span class="o">=</span> <span class="n">max_row</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_row</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells_by_col</span><span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span><span class="p">,</span> <span class="n">values_only</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_cells_by_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_col</span><span class="p">,</span> <span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">,</span> <span class="n">max_row</span><span class="p">,</span> <span class="n">values_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get cells by column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">max_col</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_row</span><span class="p">,</span> <span class="n">max_row</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">values_only</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Produces all cells in the worksheet, by column  (see :func:`iter_cols`)&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cols</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">column_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of column ranges where more than one column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cd</span><span class="o">.</span><span class="n">range</span> <span class="k">for</span> <span class="n">cd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_dimensions</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">cd</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">cd</span><span class="o">.</span><span class="n">max</span> <span class="o">&gt;</span> <span class="n">cd</span><span class="o">.</span><span class="n">min</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Worksheet.set_printer_settings">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.set_printer_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_printer_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paper_size</span><span class="p">,</span> <span class="n">orientation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set printer settings &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="o">.</span><span class="n">paperSize</span> <span class="o">=</span> <span class="n">paper_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.add_data_validation">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.add_data_validation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_data_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_validation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Add a data-validation object to the sheet.  The data-validation</span>
+<span class="sd">            object defines the type of data-validation to be applied and the</span>
+<span class="sd">            cell or range of cells it should apply to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_validations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_validation</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.add_chart">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.add_chart">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chart</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a chart to the sheet</span>
+<span class="sd">        Optionally provide a cell for the top-left anchor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">anchor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">chart</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="n">anchor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chart</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.add_image">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.add_image">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an image to the sheet.</span>
+<span class="sd">        Optionally provide a cell for the top-left anchor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">anchor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="n">anchor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.add_table">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.add_table">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for duplicate name in definedNames and other worksheet tables</span>
+<span class="sd">        before adding table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_duplicate_name</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Table with name </span><span class="si">{0}</span><span class="s2"> already exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_get_cell&quot;</span><span class="p">):</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;In write-only mode you must add table columns manually&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tables</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">table</span><span class="p">)</span></div>
+
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tables</span>
+
+
+<div class="viewcode-block" id="Worksheet.add_pivot">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.add_pivot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_pivot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pivot</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pivots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pivot</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.merge_cells">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.merge_cells">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">range_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Set merge on a cell range.  Range is a cell range (e.g. A1:E1) &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">range_string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="n">range_string</span><span class="o">=</span><span class="n">range_string</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="n">start_column</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="n">start_row</span><span class="p">,</span>
+                      <span class="n">max_col</span><span class="o">=</span><span class="n">end_column</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="n">end_row</span><span class="p">)</span>
+            <span class="n">range_string</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span>
+        <span class="n">mcr</span> <span class="o">=</span> <span class="n">MergedCellRange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">range_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">merged_cells</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mcr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clean_merge_range</span><span class="p">(</span><span class="n">mcr</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_clean_merge_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mcr</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove all but the top left-cell from a range of merged cells</span>
+<span class="sd">        and recreate the lost border information.</span>
+<span class="sd">        Borders are then applied</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="n">mcr</span><span class="o">.</span><span class="n">cells</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span> <span class="c1"># skip first cell</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">MergedCell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+        <span class="n">mcr</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Use ws.merged_cells.ranges&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merged_cell_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a copy of cell ranges&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">merged_cells</span><span class="o">.</span><span class="n">sorted</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Worksheet.unmerge_cells">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.unmerge_cells">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unmerge_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">range_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Remove merge on a cell range.  Range is a cell range (e.g. A1:E1) &quot;&quot;&quot;</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="n">range_string</span><span class="o">=</span><span class="n">range_string</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="n">start_column</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="n">start_row</span><span class="p">,</span>
+                      <span class="n">max_col</span><span class="o">=</span><span class="n">end_column</span><span class="p">,</span> <span class="n">max_row</span><span class="o">=</span><span class="n">end_row</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cr</span><span class="o">.</span><span class="n">coord</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">merged_cells</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cell range </span><span class="si">{0}</span><span class="s2"> is not merged&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cr</span><span class="o">.</span><span class="n">coord</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">merged_cells</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cr</span><span class="p">)</span>
+
+        <span class="n">cells</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">cells</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span> <span class="c1"># skip first cell</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)]</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.append">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.append">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Appends a group of values at the bottom of the current sheet.</span>
+
+<span class="sd">        * If it&#39;s a list: all values are added in order, starting from the first column</span>
+<span class="sd">        * If it&#39;s a dict: values are assigned to the columns indicated by the keys (numbers or letters)</span>
+
+<span class="sd">        :param iterable: list, range or generator, or dict containing values to append</span>
+<span class="sd">        :type iterable: list|tuple|range|generator or dict</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">        * append([&#39;This is A1&#39;, &#39;This is B1&#39;, &#39;This is C1&#39;])</span>
+<span class="sd">        * **or** append({&#39;A&#39; : &#39;This is A1&#39;, &#39;C&#39; : &#39;This is C1&#39;})</span>
+<span class="sd">        * **or** append({1 : &#39;This is A1&#39;, 3 : &#39;This is C1&#39;})</span>
+
+<span class="sd">        :raise: TypeError when iterable is neither a list/tuple nor a dict</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">row_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">range</span><span class="p">))</span>
+            <span class="ow">or</span> <span class="n">isgenerator</span><span class="p">(</span><span class="n">iterable</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">Cell</span><span class="p">):</span>
+                    <span class="c1"># compatible with write-only mode</span>
+                    <span class="n">cell</span> <span class="o">=</span> <span class="n">content</span>
+                    <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">parent</span> <span class="ow">and</span> <span class="n">cell</span><span class="o">.</span><span class="n">parent</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cells cannot be copied from other worksheets&quot;</span><span class="p">)</span>
+                    <span class="n">cell</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+                    <span class="n">cell</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">col_idx</span>
+                    <span class="n">cell</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="n">row_idx</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cell</span> <span class="o">=</span> <span class="n">Cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col_idx</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[(</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cell</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">iterable</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col_idx</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">col_idx</span> <span class="o">=</span> <span class="n">column_index_from_string</span><span class="p">(</span><span class="n">col_idx</span><span class="p">)</span>
+                <span class="n">cell</span> <span class="o">=</span> <span class="n">Cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col_idx</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[(</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cell</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_invalid_row</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">=</span> <span class="n">row_idx</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_move_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move either rows or columns around by the offset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">reverse</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="c1"># start at the end if inserting</span>
+        <span class="n">row_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">col_offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># need to make affected ranges contiguous</span>
+        <span class="k">if</span> <span class="n">row_or_col</span> <span class="o">==</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="n">min_row</span><span class="p">)</span>
+            <span class="n">row_offset</span> <span class="o">=</span> <span class="n">offset</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_cols</span><span class="p">(</span><span class="n">min_col</span><span class="o">=</span><span class="n">min_col</span><span class="p">)</span>
+            <span class="n">col_offset</span> <span class="o">=</span> <span class="n">offset</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">min_row</span> <span class="ow">and</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">min_row</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">min_col</span> <span class="ow">and</span> <span class="n">column</span> <span class="o">&lt;</span> <span class="n">min_col</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_move_cell</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">row_offset</span><span class="p">,</span> <span class="n">col_offset</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Worksheet.insert_rows">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.insert_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Insert row or rows before row==idx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_row</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.insert_cols">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.insert_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Insert column or columns before col==idx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_col</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;column&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.delete_rows">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.delete_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete row or rows from row==idx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">remainder</span> <span class="o">=</span> <span class="n">_gutter</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_row</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_row</span><span class="o">=</span><span class="n">idx</span><span class="o">+</span><span class="n">amount</span><span class="p">,</span> <span class="n">offset</span><span class="o">=-</span><span class="n">amount</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">)</span>
+
+        <span class="c1"># calculating min and max col is an expensive operation, do it only once</span>
+        <span class="n">min_col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_column</span>
+        <span class="n">max_col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_column</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">remainder</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">max_col</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_row</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.delete_cols">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.delete_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete column or columns from col==idx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">remainder</span> <span class="o">=</span> <span class="n">_gutter</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_column</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_move_cells</span><span class="p">(</span><span class="n">min_col</span><span class="o">=</span><span class="n">idx</span><span class="o">+</span><span class="n">amount</span><span class="p">,</span> <span class="n">offset</span><span class="o">=-</span><span class="n">amount</span><span class="p">,</span> <span class="n">row_or_col</span><span class="o">=</span><span class="s2">&quot;column&quot;</span><span class="p">)</span>
+
+        <span class="c1"># calculating min and max row is an expensive operation, do it only once</span>
+        <span class="n">min_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_row</span>
+        <span class="n">max_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_row</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">remainder</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_row</span><span class="p">,</span> <span class="n">max_row</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="Worksheet.move_range">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.worksheet.html#fastpyxl.worksheet.worksheet.Worksheet.move_range">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell_range</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move a cell range by the number of rows and/or columns:</span>
+<span class="sd">        down if rows &gt; 0 and up if rows &lt; 0</span>
+<span class="sd">        right if cols &gt; 0 and left if cols &lt; 0</span>
+<span class="sd">        Existing cells will be overwritten.</span>
+<span class="sd">        Formulae and references will not be updated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cell_range</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">cell_range</span> <span class="o">=</span> <span class="n">CellRange</span><span class="p">(</span><span class="n">cell_range</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cell_range</span><span class="p">,</span> <span class="n">CellRange</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only CellRange objects can be moved&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rows</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">down</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">cols</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cell_range</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="n">down</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cell_range</span><span class="o">.</span><span class="n">cols</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="n">right</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">cells</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_move_cell</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">translate</span><span class="p">)</span>
+
+        <span class="c1"># rebase moved range</span>
+        <span class="n">cell_range</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">row_shift</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span> <span class="n">col_shift</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_move_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">row_offset</span><span class="p">,</span> <span class="n">col_offset</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move a cell from one place to another.</span>
+<span class="sd">        Delete at old index</span>
+<span class="sd">        Rebase coordinate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cell</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
+        <span class="n">new_row</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">row</span> <span class="o">+</span> <span class="n">row_offset</span>
+        <span class="n">new_col</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">column</span> <span class="o">+</span> <span class="n">col_offset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">new_row</span><span class="p">,</span> <span class="n">new_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[(</span><span class="n">cell</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">column</span><span class="p">)]</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="n">new_row</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">new_col</span>
+        <span class="k">if</span> <span class="n">translate</span> <span class="ow">and</span> <span class="n">cell</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;f&quot;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">Translator</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">coordinate</span><span class="p">)</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">translate_formula</span><span class="p">(</span><span class="n">row_delta</span><span class="o">=</span><span class="n">row_offset</span><span class="p">,</span> <span class="n">col_delta</span><span class="o">=</span><span class="n">col_offset</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_invalid_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Value must be a list, tuple, range or generator, or a dict. Supplied value is </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="n">iterable</span><span class="p">))</span>
+                        <span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension factory for column information&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">ColumnDimension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension factory for row information&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">RowDimension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_title_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rows to be printed at the top of every page (ex: &#39;1:3&#39;)&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_print_rows</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_print_rows</span><span class="p">)</span>
+
+
+    <span class="nd">@print_title_rows</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_title_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set rows to be printed on the top of every page</span>
+<span class="sd">        format `1:3`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_rows</span> <span class="o">=</span> <span class="n">RowRange</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_title_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Columns to be printed at the left side of every page (ex: &#39;A:C&#39;)&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_print_cols</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_print_cols</span><span class="p">)</span>
+
+
+    <span class="nd">@print_title_cols</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_title_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set cols to be printed on the left of every page</span>
+<span class="sd">        format ``A:C`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_cols</span> <span class="o">=</span> <span class="n">ColRange</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_titles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">titles</span> <span class="o">=</span> <span class="n">PrintTitles</span><span class="p">(</span><span class="n">cols</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_print_cols</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_print_rows</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The print area for the worksheet, or None if not set. To set, supply a range</span>
+<span class="sd">        like &#39;A1:D4&#39; or a list of ranges.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print_area</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_print_area</span><span class="p">)</span>
+
+
+    <span class="nd">@print_area</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Range of cells in the form A1:D4 or list of ranges. Print area can be cleared</span>
+<span class="sd">        by passing `None` or an empty list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_area</span> <span class="o">=</span> <span class="n">PrintArea</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_area</span> <span class="o">=</span> <span class="n">PrintArea</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_area</span> <span class="o">=</span> <span class="n">PrintArea</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gutter</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">max_val</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    When deleting rows and columns are deleted we rely on overwriting.</span>
+<span class="sd">    This may not be the case for a large offset on small set of cells:</span>
+<span class="sd">    range(cells_to_delete) &gt; range(cell_to_be_moved)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gutter</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">max_val</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">offset</span><span class="p">,</span> <span class="n">idx</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">idx</span><span class="o">+</span><span class="n">offset</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gutter</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

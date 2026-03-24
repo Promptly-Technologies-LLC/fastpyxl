@@ -1,17 +1,16 @@
-from openpyxl import Workbook
+from fastpyxl import Workbook
 
-from openpyxl.chart import (
+from fastpyxl.chart import (
     PieChart,
     Reference
 )
-from openpyxl.chart.series import DataPoint
-from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.drawing.fill import (
+from fastpyxl.chart.series import DataPoint
+from fastpyxl.chart.shapes import GraphicalProperties
+from fastpyxl.drawing.fill import (
     GradientFillProperties,
-    GradientStop,
-    LinearShadeProperties
+    GradientStop
 )
-from openpyxl.drawing.colors import SchemeColor
+from fastpyxl.drawing.colors import SchemeColor
 
 data = [
     ['Pie', 'Sold'],

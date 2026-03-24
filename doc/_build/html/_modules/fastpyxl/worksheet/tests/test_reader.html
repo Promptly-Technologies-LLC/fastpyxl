@@ -1,0 +1,1531 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.worksheet.tests.test_reader &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.worksheet.tests.test_reader</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.worksheet.tests.test_reader</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.named_styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedStyleList</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lxml.etree</span><span class="w"> </span><span class="kn">import</span> <span class="n">iterparse</span><span class="p">,</span> <span class="n">fromstring</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.xml.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">SHEET_MAIN_NS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils.indexed_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">IndexedList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.packaging.relationship</span><span class="w"> </span><span class="kn">import</span> <span class="n">Relationship</span><span class="p">,</span> <span class="n">RelationshipList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils.datetime</span><span class="w">  </span><span class="kn">import</span> <span class="n">CALENDAR_WINDOWS_1900</span><span class="p">,</span> <span class="n">CALENDAR_MAC_1904</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.styleable</span><span class="w"> </span><span class="kn">import</span> <span class="n">StyleArray</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.borders</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_BORDER</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.differential</span><span class="w"> </span><span class="kn">import</span> <span class="n">DifferentialStyle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.formula.translate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Translator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.cell.rich_text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextBlock</span><span class="p">,</span> <span class="n">CellRichText</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.cell.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">InlineFont</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..formula</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataTableFormula</span><span class="p">,</span> <span class="n">ArrayFormula</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..worksheet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Worksheet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..pagebreak</span><span class="w"> </span><span class="kn">import</span> <span class="n">Break</span><span class="p">,</span> <span class="n">RowBreak</span><span class="p">,</span> <span class="n">ColBreak</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..scenario</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScenarioList</span><span class="p">,</span> <span class="n">Scenario</span><span class="p">,</span> <span class="n">InputCells</span>
+
+<div class="viewcode-block" id="test_number_convesion">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.test_number_convesion">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;value, expected&quot;</span><span class="p">,</span>
+                         <span class="p">[</span>
+                             <span class="p">(</span><span class="s1">&#39;4.2&#39;</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;-42.000&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">42</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;0.9999&#39;</span><span class="p">,</span> <span class="mf">0.9999</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;99E-02&#39;</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;-1E3&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;1E-3&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s1">&#39;2e+2&#39;</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span>
+                         <span class="p">]</span>
+                         <span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_number_convesion</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.._reader</span><span class="w"> </span><span class="kn">import</span> <span class="n">_cast_number</span>
+    <span class="k">assert</span> <span class="n">_cast_number</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.Workbook">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Workbook</span><span class="p">():</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">DummyWorkbook</span><span class="p">:</span>
+
+        <span class="n">data_only</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_colors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;utf8&quot;</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="n">CALENDAR_WINDOWS_1900</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_differential_styles</span> <span class="o">=</span> <span class="p">[</span><span class="n">DifferentialStyle</span><span class="p">()]</span> <span class="o">*</span> <span class="mi">5</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shared_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fills</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_number_formats</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_borders</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">([</span><span class="n">DEFAULT_BORDER</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_alignments</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protection</span>
+            <span class="n">prot_1</span> <span class="o">=</span> <span class="n">Protection</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">prot_2</span> <span class="o">=</span> <span class="n">Protection</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_protections</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_protections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prot_1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_protections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prot_2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_named_styles</span> <span class="o">=</span> <span class="n">NamedStyleList</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vba_archive</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">23</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">StyleArray</span><span class="p">([</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">9</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">StyleArray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="c1">#fillId=4, borderId=6, alignmentId=1 ,protectionId=1))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">StyleArray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="c1">#fillId=4, borderId=6, alignmentId=0 ,protectionId=0))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">29</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">StyleArray</span><span class="p">([</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">9</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">StyleArray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="c1">#fillId=4, borderId=6, alignmentId=1))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheetnames</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_date_formats</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_timedelta_formats</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">create_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Worksheet</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">DummyWorkbook</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="WorkSheetParser">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.WorkSheetParser">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">WorkSheetParser</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Setup a parser instance with an empty source&quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.._reader</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkSheetParser</span>
+
+    <span class="n">styles</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">29</span><span class="p">):</span>
+        <span class="n">styles</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">StyleArray</span><span class="p">([</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">9</span><span class="p">)))</span>
+    <span class="n">styles</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">StyleArray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="c1">#fillId=4, borderId=6, number_format=14 alignmentId=1))</span>
+    <span class="n">date_formats</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+    <span class="n">timedelta_formats</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">30</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">WorkSheetParser</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">},</span> <span class="n">date_formats</span><span class="o">=</span><span class="n">date_formats</span><span class="p">,</span> <span class="n">timedelta_formats</span><span class="o">=</span><span class="n">timedelta_formats</span><span class="p">)</span></div>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">simplefilter</span>
+<span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TestWorksheetParser">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWorksheetParser</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestWorksheetParser.test_read_dimension">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_read_dimension">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;filename, expected&quot;</span><span class="p">,</span>
+                             <span class="p">[</span>
+                                 <span class="p">(</span><span class="s2">&quot;dimension.xml&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">30</span><span class="p">)),</span>
+                                 <span class="p">(</span><span class="s2">&quot;no_dimension.xml&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s2">&quot;invalid_dimension.xml&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">113</span><span class="p">)),</span>
+                              <span class="p">]</span>
+                             <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_read_dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">filename</span>
+
+        <span class="n">dimension</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_dimensions</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">dimension</span> <span class="o">==</span> <span class="n">expected</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_col_width">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_col_width">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_col_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;complex-styles-worksheet.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">iterparse</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;{</span><span class="si">%s</span><span class="s1">}col&#39;</span> <span class="o">%</span> <span class="n">SHEET_MAIN_NS</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+                <span class="n">parser</span><span class="o">.</span><span class="n">parse_column_dimensions</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+                                                 <span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;customWidth&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;31.1640625&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_hidden_col">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_hidden_col">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_hidden_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;col min=&quot;4&quot; max=&quot;4&quot; width=&quot;0&quot; hidden=&quot;1&quot; customWidth=&quot;1&quot;/&gt;&quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_column_dimensions</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="s1">&#39;D&#39;</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">column_dimensions</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;customWidth&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span><span class="s1">&#39;0&#39;</span><span class="p">,</span>
+                                                 <span class="s1">&#39;hidden&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;D&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_styled_col">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_styled_col">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_styled_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;complex-styles-worksheet.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">iterparse</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;{</span><span class="si">%s</span><span class="s1">}col&#39;</span> <span class="o">%</span> <span class="n">SHEET_MAIN_NS</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+                <span class="n">parser</span><span class="o">.</span><span class="n">parse_column_dimensions</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="s1">&#39;I&#39;</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">column_dimensions</span>
+        <span class="n">cd</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">cd</span> <span class="o">==</span>  <span class="p">{</span><span class="s1">&#39;customWidth&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">:</span><span class="s1">&#39;28&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_row_dimensions">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_row_dimensions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_row_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;row r=&quot;2&quot; spans=&quot;1:6&quot; /&gt;&quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="mi">2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_dimensions</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_hidden_row">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_hidden_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_hidden_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;row r=&quot;2&quot; spans=&quot;1:4&quot; hidden=&quot;1&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;spans&#39;</span><span class="p">:</span> <span class="s1">&#39;1:4&#39;</span><span class="p">,</span> <span class="s1">&#39;hidden&#39;</span><span class="p">:</span><span class="s1">&#39;1&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_styled_row">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_styled_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_styled_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;row r=&quot;23&quot; s=&quot;28&quot; spans=&quot;1:8&quot; /&gt;&quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">rd</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="s1">&#39;23&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">rd</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="s1">&#39;23&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="s1">&#39;28&#39;</span><span class="p">,</span> <span class="s1">&#39;spans&#39;</span><span class="p">:</span> <span class="s1">&#39;1:8&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_read_row_with_exponent">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_read_row_with_exponent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_read_row_with_exponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;row r=&quot;1.048573e6&quot; spans=&quot;1:8&quot; /&gt; &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_counter</span> <span class="o">==</span> <span class="mi">1048573</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_invalid_row_number">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_invalid_row_number">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_invalid_row_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;row r=&quot;1.5&quot; spans=&quot;1:8&quot; /&gt; &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_sheet_protection">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_sheet_protection">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_sheet_protection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheetProtection xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; password=&quot;DAA7&quot; sheet=&quot;1&quot; formatCells=&quot;0&quot; formatColumns=&quot;0&quot; formatRows=&quot;0&quot; insertColumns=&quot;0&quot; insertRows=&quot;0&quot; insertHyperlinks=&quot;0&quot; deleteColumns=&quot;0&quot; deleteRows=&quot;0&quot; sort=&quot;0&quot; autoFilter=&quot;0&quot; pivotTables=&quot;0&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_sheet_protection</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">protection</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span>
+            <span class="s1">&#39;autoFilter&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;deleteColumns&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;deleteRows&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;formatCells&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;formatColumns&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;formatRows&#39;</span><span class="p">:</span>
+            <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;insertColumns&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;insertHyperlinks&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;insertRows&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;objects&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;DAA7&#39;</span><span class="p">,</span> <span class="s1">&#39;pivotTables&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;scenarios&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;selectLockedCells&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;selectUnlockedCells&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;sheet&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">:</span>
+            <span class="s1">&#39;0&#39;</span>
+        <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_formula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_formula">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;str&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;f&gt;IF(TRUE, &quot;y&quot;, &quot;n&quot;)&lt;/f&gt;</span>
+<span class="s2">            &lt;v&gt;y&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;=IF(TRUE, &quot;y&quot;, &quot;n&quot;)&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_formula_data_only">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_formula_data_only">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_formula_data_only</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">data_only</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;f&gt;1+2&lt;/f&gt;</span>
+<span class="s2">            &lt;v&gt;3&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_string_formula_data_only">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_string_formula_data_only">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_string_formula_data_only</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">data_only</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;str&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;f&gt;IF(TRUE, &quot;y&quot;, &quot;n&quot;)&lt;/f&gt;</span>
+<span class="s2">            &lt;v&gt;y&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_number">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_number">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;1&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span></div>
+
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_datetime">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_datetime">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;d&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;2011-12-25T14:23:55&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">55</span><span class="p">)}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_timedelta">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_timedelta">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;n&quot; s=&quot;30&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;1.25&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">6</span><span class="p">)}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_mac_date">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_mac_date">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_mac_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">CALENDAR_MAC_1904</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;n&quot; s=&quot;29&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;41184&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_out_of_range_datetime">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_out_of_range_datetime">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="o">-</span><span class="mi">693595</span><span class="p">,</span>
+        <span class="mi">2958466</span><span class="p">,</span>
+                                       <span class="p">]</span>
+                             <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_out_of_range_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">,</span> <span class="n">recwarn</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;n&quot; s=&quot;29&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">recwarn</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_string">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;s&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;0&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_boolean">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_boolean">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A1&quot; t=&quot;b&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;1&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_inline_string">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_inline_string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_inline_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; r=&quot;A1&quot; s=&quot;0&quot; t=&quot;inlineStr&quot;&gt;</span>
+<span class="s2">          &lt;is&gt;</span>
+<span class="s2">          &lt;t&gt;ID&lt;/t&gt;</span>
+<span class="s2">          &lt;/is&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="s2">&quot;ID&quot;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_inline_richtext">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_inline_richtext">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_inline_richtext</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">rich_text</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; r=&quot;R2&quot; s=&quot;4&quot; t=&quot;inlineStr&quot;&gt;</span>
+<span class="s2">        &lt;is&gt;</span>
+<span class="s2">          &lt;r&gt;</span>
+<span class="s2">            &lt;rPr&gt;</span>
+<span class="s2">              &lt;sz val=&quot;8.0&quot; /&gt;</span>
+<span class="s2">            &lt;/rPr&gt;</span>
+<span class="s2">            &lt;t xml:space=&quot;preserve&quot;&gt;11 de September de 2014&lt;/t&gt;</span>
+<span class="s2">          &lt;/r&gt;</span>
+<span class="s2">          &lt;/is&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_cell</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="n">CellRichText</span><span class="p">(</span><span class="n">TextBlock</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">InlineFont</span><span class="p">(</span><span class="n">sz</span><span class="o">=</span><span class="s2">&quot;8.0&quot;</span><span class="p">),</span>
+                                           <span class="n">text</span><span class="o">=</span><span class="s2">&quot;11 de September de 2014&quot;</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span>
+                        <span class="mi">2</span><span class="p">,</span><span class="s1">&#39;style_id&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">expected</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_parse_richtext">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_parse_richtext">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parse_richtext</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.._reader</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_richtext_string</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;is&gt;</span>
+<span class="s2">          &lt;r&gt;</span>
+<span class="s2">            &lt;rPr&gt;</span>
+<span class="s2">              &lt;sz val=&quot;8.0&quot; /&gt;</span>
+<span class="s2">            &lt;/rPr&gt;</span>
+<span class="s2">            &lt;t xml:space=&quot;preserve&quot;&gt;11 de September de 2014&lt;/t&gt;</span>
+<span class="s2">          &lt;/r&gt;</span>
+<span class="s2">          &lt;/is&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">parse_richtext_string</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">==</span> <span class="n">CellRichText</span><span class="p">(</span>
+            <span class="n">TextBlock</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">InlineFont</span><span class="p">(</span><span class="n">sz</span><span class="o">=</span><span class="s2">&quot;8.0&quot;</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;11 de September de 2014&quot;</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_sheet_views">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_sheet_views">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_sheet_views</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheetViews xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;sheetView tabSelected=&quot;1&quot; zoomScale=&quot;200&quot; zoomScaleNormal=&quot;200&quot; zoomScalePageLayoutView=&quot;200&quot; workbookViewId=&quot;0&quot;&gt;</span>
+<span class="s2">            &lt;pane xSplit=&quot;5&quot; ySplit=&quot;19&quot; topLeftCell=&quot;F20&quot; activePane=&quot;bottomRight&quot; state=&quot;frozenSplit&quot;/&gt;</span>
+<span class="s2">            &lt;selection pane=&quot;topRight&quot; activeCell=&quot;F1&quot; sqref=&quot;F1&quot;/&gt;</span>
+<span class="s2">            &lt;selection pane=&quot;bottomLeft&quot; activeCell=&quot;A20&quot; sqref=&quot;A20&quot;/&gt;</span>
+<span class="s2">            &lt;selection pane=&quot;bottomRight&quot; activeCell=&quot;E22&quot; sqref=&quot;E22&quot;/&gt;</span>
+<span class="s2">          &lt;/sheetView&gt;</span>
+<span class="s2">        &lt;/sheetViews&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="n">view</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">sheetView</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">assert</span> <span class="n">view</span><span class="o">.</span><span class="n">zoomScale</span> <span class="o">==</span> <span class="mi">200</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_shared_formula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_shared_formula">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_shared_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;A9&quot; t=&quot;str&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;f t=&quot;shared&quot; si=&quot;0&quot;/&gt;</span>
+<span class="s2">          &lt;v&gt;9&lt;/v&gt;</span>
+<span class="s2">        &lt;/c&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">shared_formulae</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Translator</span><span class="p">(</span><span class="s2">&quot;=A4*B4&quot;</span><span class="p">,</span> <span class="s2">&quot;A1&quot;</span><span class="p">)</span>
+        <span class="n">formula</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_formula</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">formula</span> <span class="o">==</span> <span class="s2">&quot;=A12*B12&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_array_formula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_array_formula">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_array_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">,</span> <span class="n">datadir</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;C10&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;f t=&quot;array&quot; ref=&quot;C10:C14&quot;&gt;SUM(A10:A14*B10:B14)&lt;/f&gt;</span>
+<span class="s2">        &lt;/c&gt;&quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">formula</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_formula</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">ArrayFormula</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">formula</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="s2">&quot;C10:C14&quot;</span>
+        <span class="k">assert</span> <span class="n">formula</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s2">&quot;=SUM(A10:A14*B10:B14)&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_table_formula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_table_formula">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_table_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;c r=&quot;C9&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;f t=&quot;dataTable&quot; ref=&quot;C9:C24&quot; dt2D=&quot;0&quot; dtr=&quot;0&quot; r1=&quot;C4&quot;/&gt;</span>
+<span class="s2">          &lt;v&gt;1&lt;/v&gt;</span>
+<span class="s2">       &lt;/c&gt;&quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">formula</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_formula</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">DataTableFormula</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_extended_conditional_formatting">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_extended_conditional_formatting">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_extended_conditional_formatting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">,</span> <span class="n">recwarn</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;extLst&gt;</span>
+<span class="s2">            &lt;ext xmlns:x14=&quot;http://schemas.microsoft.com/office/spreadsheetml/2009/9/main&quot; uri=&quot;{78C0D931-6437-407d-A8EE-F0AAD7539E65}&quot;&gt;</span>
+<span class="s2">                &lt;x14:conditionalFormattings&gt;</span>
+<span class="s2">                    &lt;x14:conditionalFormatting xmlns:xm=&quot;http://schemas.microsoft.com/office/excel/2006/main&quot;&gt;</span>
+<span class="s2">                        &lt;x14:cfRule type=&quot;containsText&quot; priority=&quot;1&quot; operator=&quot;containsText&quot; id=&quot;{5F3BF262-1B4E-49BC-812D-8F5B1802CE0A}&quot;&gt;</span>
+<span class="s2">                            &lt;xm:f&gt;NOT(ISERROR(SEARCH($AA$7,A1)))&lt;/xm:f&gt;</span>
+<span class="s2">                            &lt;xm:f&gt;$AA$7&lt;/xm:f&gt;</span>
+<span class="s2">                            &lt;x14:dxf&gt;</span>
+<span class="s2">                                &lt;fill&gt;</span>
+<span class="s2">                                    &lt;patternFill&gt;</span>
+<span class="s2">                                        &lt;bgColor rgb=&quot;FF6699FF&quot;/&gt;</span>
+<span class="s2">                                    &lt;/patternFill&gt;</span>
+<span class="s2">                                &lt;/fill&gt;</span>
+<span class="s2">                            &lt;/x14:dxf&gt;</span>
+<span class="s2">                        &lt;/x14:cfRule&gt;</span>
+<span class="s2">                    &lt;/x14:conditionalFormatting&gt;</span>
+<span class="s2">                &lt;/x14:conditionalFormattings&gt;</span>
+<span class="s2">            &lt;/ext&gt;</span>
+<span class="s2">        &lt;/extLst&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_extensions</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">recwarn</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_bad_conditional_format_rule">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_bad_conditional_format_rule">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_bad_conditional_format_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">,</span> <span class="n">recwarn</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                &lt;conditionalFormatting sqref=&quot;G124:G144&quot;&gt;</span>
+<span class="s2">                    &lt;cfRule type=&quot;colorScale&quot; priority=&quot;1&quot;&gt;</span>
+<span class="s2">                        &lt;colorScale&gt;</span>
+<span class="s2">                            &lt;cfvo type=&quot;num&quot; val=&quot;&amp;quot;&amp;lt;&amp;gt;100%&amp;quot;&quot;/&gt;</span>
+<span class="s2">                            &lt;cfvo type=&quot;max&quot;/&gt;</span>
+<span class="s2">                            &lt;color rgb=&quot;FFFF7128&quot;/&gt;</span>
+<span class="s2">                            &lt;color rgb=&quot;FFFFEF9C&quot;/&gt;</span>
+<span class="s2">                        &lt;/colorScale&gt;</span>
+<span class="s2">                    &lt;/cfRule&gt;</span>
+<span class="s2">                &lt;/conditionalFormatting&gt;</span>
+<span class="s2">                &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_formatting</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">recwarn</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_cell_without_coordinates">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_cell_without_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cell_without_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;row r=&quot;1&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;c t=&quot;s&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;2&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c t=&quot;s&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;4&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c t=&quot;s&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;3&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c t=&quot;s&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;6&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c t=&quot;s&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;9&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">        &lt;/row&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">shared_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Whatever&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_counter</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">col_counter</span> <span class="o">==</span> <span class="mi">5</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_row_and_cell_without_coordinates">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_row_and_cell_without_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_row_and_cell_without_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;row xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;c&gt;</span>
+<span class="s2">            &lt;v&gt;2&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c&gt;</span>
+<span class="s2">            &lt;v&gt;4&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c&gt;</span>
+<span class="s2">            &lt;v&gt;3&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">        &lt;/row&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">max_row</span><span class="p">,</span> <span class="n">cells</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">expected_cell</span><span class="p">,</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">cells</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">expected_cell</span> <span class="o">==</span> <span class="n">cell</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_row_and_cell_skipping_coordinates">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_row_and_cell_skipping_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_row_and_cell_skipping_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;row xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;c&gt;</span>
+<span class="s2">            &lt;v&gt;1&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c r=&quot;D1&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;2&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c&gt;</span>
+<span class="s2">            &lt;v&gt;3&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">          &lt;c r=&quot;G1&quot;&gt;</span>
+<span class="s2">            &lt;v&gt;4&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">        &lt;/row&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">cells</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">expected_cell</span><span class="p">,</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">cells</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">expected_cell</span> <span class="o">==</span> <span class="n">cell</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_second_row_cell_index_without_coordinates">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_second_row_cell_index_without_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_second_row_cell_index_without_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;row xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;c&gt;</span>
+<span class="s2">            &lt;v&gt;2&lt;/v&gt;</span>
+<span class="s2">          &lt;/c&gt;</span>
+<span class="s2">        &lt;/row&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">max_row</span><span class="p">,</span> <span class="n">cells</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_row</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;style_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">expected_cell</span><span class="p">,</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">cells</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">expected_cell</span> <span class="o">==</span> <span class="n">cell</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_external_hyperlinks">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_external_hyperlinks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_external_hyperlinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;hyperlinks xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;hyperlink xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span>
+<span class="s2">           display=&quot;http://test.com&quot; r:id=&quot;rId1&quot; ref=&quot;A1&quot;/&gt;</span>
+<span class="s2">        &lt;/hyperlinks&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">hyperlinks</span><span class="o">.</span><span class="n">hyperlink</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_local_hyperlinks">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_local_hyperlinks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_local_hyperlinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">         &lt;hyperlinks xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">            &lt;hyperlink ref=&quot;B4:B7&quot; location=&quot;&#39;STP nn000TL-10, PKG 2.52&#39;!A1&quot; display=&quot;STP 10000TL-10&quot;/&gt;</span>
+<span class="s2">        &lt;/hyperlinks&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">hyperlinks</span><span class="o">.</span><span class="n">hyperlink</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_merge_cells">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_merge_cells">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merge_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;mergeCells&gt;</span>
+<span class="s2">            &lt;mergeCell ref=&quot;C2:F2&quot;/&gt;</span>
+<span class="s2">            &lt;mergeCell ref=&quot;B19:C20&quot;/&gt;</span>
+<span class="s2">            &lt;mergeCell ref=&quot;E19:G19&quot;/&gt;</span>
+<span class="s2">          &lt;/mergeCells&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">merged_cells</span><span class="o">.</span><span class="n">mergeCell</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_conditonal_formatting">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_conditonal_formatting">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_conditonal_formatting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;conditionalFormatting sqref=&quot;S1:S10&quot;&gt;</span>
+<span class="s2">            &lt;cfRule type=&quot;top10&quot; dxfId=&quot;25&quot; priority=&quot;12&quot; percent=&quot;1&quot; rank=&quot;10&quot;/&gt;</span>
+<span class="s2">        &lt;/conditionalFormatting&gt;</span>
+<span class="s2">        &lt;conditionalFormatting sqref=&quot;T1:T10&quot;&gt;</span>
+<span class="s2">          &lt;cfRule type=&quot;top10&quot; dxfId=&quot;24&quot; priority=&quot;11&quot; bottom=&quot;1&quot; rank=&quot;4&quot;/&gt;</span>
+<span class="s2">        &lt;/conditionalFormatting&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">formatting</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_sheet_properties">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_sheet_properties">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_sheet_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;sheetPr codeName=&quot;Sheet3&quot;&gt;</span>
+<span class="s2">          &lt;tabColor rgb=&quot;FF92D050&quot;/&gt;</span>
+<span class="s2">          &lt;outlinePr summaryBelow=&quot;1&quot; summaryRight=&quot;1&quot;/&gt;</span>
+<span class="s2">          &lt;pageSetUpPr/&gt;</span>
+<span class="s2">        &lt;/sheetPr&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">sheet_properties</span><span class="o">.</span><span class="n">tabColor</span><span class="o">.</span><span class="n">rgb</span> <span class="o">==</span> <span class="s2">&quot;FF92D050&quot;</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">sheet_properties</span><span class="o">.</span><span class="n">codeName</span> <span class="o">==</span> <span class="s2">&quot;Sheet3&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_sheet_format">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_sheet_format">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_sheet_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;sheetFormatPr defaultRowHeight=&quot;14.25&quot; baseColWidth=&quot;15&quot;/&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">sheet_format</span><span class="o">.</span><span class="n">defaultRowHeight</span> <span class="o">==</span> <span class="mf">14.25</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">sheet_format</span><span class="o">.</span><span class="n">baseColWidth</span> <span class="o">==</span> <span class="mi">15</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_tables">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_tables">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_tables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;tableParts count=&quot;1&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;</span>
+<span class="s2">          xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;&gt;</span>
+<span class="s2">            &lt;tablePart r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/tableParts&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">tablePart</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s2">&quot;rId1&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_auto_filter">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_auto_filter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_auto_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;autoFilter ref=&quot;A1:AK3237&quot;&gt;</span>
+<span class="s2">            &lt;sortState ref=&quot;A2:AM3269&quot;&gt;</span>
+<span class="s2">                &lt;sortCondition ref=&quot;B1:B3269&quot;/&gt;</span>
+<span class="s2">            &lt;/sortState&gt;</span>
+<span class="s2">          &lt;/autoFilter&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="s2">&quot;A1:AK3237&quot;</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">sortState</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="s2">&quot;A2:AM3269&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_page_row_break">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_page_row_break">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_page_row_break</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;rowBreaks count=&quot;1&quot; manualBreakCount=&quot;1&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">           &lt;brk id=&quot;15&quot; man=&quot;1&quot; max=&quot;16383&quot; min=&quot;0&quot;/&gt;</span>
+<span class="s2">        &lt;/rowBreaks&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">expected_pagebreak</span> <span class="o">=</span> <span class="n">RowBreak</span><span class="p">()</span>
+        <span class="n">expected_pagebreak</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Break</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_row_breaks</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_breaks</span> <span class="o">==</span> <span class="n">expected_pagebreak</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_col_break">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_col_break">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_col_break</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;colBreaks count=&quot;1&quot; manualBreakCount=&quot;1&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">          &lt;brk id=&quot;15&quot; man=&quot;1&quot; max=&quot;16383&quot; min=&quot;0&quot;/&gt;</span>
+<span class="s2">        &lt;/colBreaks&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">expected_pagebreak</span> <span class="o">=</span> <span class="n">ColBreak</span><span class="p">()</span>
+        <span class="n">expected_pagebreak</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Break</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_col_breaks</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">col_breaks</span> <span class="o">==</span> <span class="n">expected_pagebreak</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_scenarios">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_scenarios">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_scenarios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;scenarios current=&quot;0&quot; show=&quot;0&quot;&gt;</span>
+<span class="s2">        &lt;scenario name=&quot;Worst case&quot; locked=&quot;1&quot; user=&quot;User&quot; comment=&quot;comment&quot;&gt;</span>
+<span class="s2">          &lt;inputCells r=&quot;B2&quot; val=&quot;50000&quot; /&gt;</span>
+<span class="s2">        &lt;/scenario&gt;</span>
+<span class="s2">        &lt;/scenarios&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="n">InputCells</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="s2">&quot;B2&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="s2">&quot;50000&quot;</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">Scenario</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Worst case&quot;</span><span class="p">,</span> <span class="n">inputCells</span><span class="o">=</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">locked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;User&quot;</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;comment&quot;</span><span class="p">)</span>
+        <span class="n">scenarios</span> <span class="o">=</span> <span class="n">ScenarioList</span><span class="p">(</span><span class="n">scenario</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">current</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">scenarios</span> <span class="o">==</span> <span class="n">scenarios</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_legacy">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_legacy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_legacy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;legacyDrawing r:id=&quot;rId3&quot; xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;</span>
+<span class="s2">        xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">parse_legacy</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">legacy_drawing</span> <span class="o">==</span> <span class="s2">&quot;rId3&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetParser.test_custom_views_breaks">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetParser.test_custom_views_breaks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_custom_views_breaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkSheetParser</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;customSheetViews &gt;</span>
+<span class="s2">            &lt;customSheetView scale=&quot;70&quot;&gt;</span>
+<span class="s2">            &lt;selection activeCell=&quot;F14&quot; sqref=&quot;F14&quot;/&gt;</span>
+<span class="s2">            &lt;rowBreaks count=&quot;1&quot; manualBreakCount=&quot;1&quot;&gt;</span>
+<span class="s2">              &lt;brk id=&quot;1&quot; max=&quot;16383&quot; man=&quot;1&quot;/&gt;</span>
+<span class="s2">            &lt;/rowBreaks&gt;</span>
+<span class="s2">            &lt;pageMargins left=&quot;0.75&quot; right=&quot;0.75&quot; top=&quot;1&quot; bottom=&quot;1&quot; header=&quot;0.5&quot; footer=&quot;0.5&quot;/&gt;</span>
+<span class="s2">            &lt;pageSetup paperSize=&quot;9&quot; scale=&quot;50&quot; firstPageNumber=&quot;99&quot; orientation=&quot;landscape&quot; useFirstPageNumber=&quot;1&quot;/&gt;</span>
+<span class="s2">            &lt;headerFooter alignWithMargins=&quot;0&quot;/&gt;</span>
+<span class="s2">            &lt;/customSheetView&gt;</span>
+<span class="s2">        &lt;/customSheetViews&gt;</span>
+<span class="s2">        &lt;/sheet&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+            <span class="k">pass</span>
+        <span class="k">assert</span> <span class="n">parser</span><span class="o">.</span><span class="n">row_breaks</span> <span class="o">==</span> <span class="n">RowBreak</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="WorksheetReader">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.WorksheetReader">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">WorksheetReader</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.._reader</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorksheetReader</span>
+    <span class="k">return</span> <span class="n">WorksheetReader</span></div>
+
+
+
+<div class="viewcode-block" id="PrimedWorksheetReader">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.PrimedWorksheetReader">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">PrimedWorksheetReader</span><span class="p">(</span><span class="n">Workbook</span><span class="p">,</span> <span class="n">WorksheetReader</span><span class="p">,</span> <span class="n">datadir</span><span class="p">):</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="s2">&quot;Sheet&quot;</span><span class="p">)</span>
+    <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;complex-styles-worksheet.xml&quot;</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">WorksheetReader</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">wb</span><span class="o">.</span><span class="n">shared_strings</span><span class="p">,</span> <span class="n">data_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rich_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">reader</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWorksheetReader</span><span class="p">:</span>
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_cell">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_cell">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;C1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_array_formula">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_array_formula">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_array_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;E2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s2">&quot;=C2:C11*D2:D11&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_formatting">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_formatting">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_formatting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_formatting</span><span class="p">()</span>
+
+        <span class="n">fmts</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">conditional_formatting</span>
+        <span class="k">assert</span> <span class="n">fmts</span><span class="p">[</span><span class="s1">&#39;T1:T10&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dxf</span> <span class="o">==</span> <span class="n">DifferentialStyle</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fmts</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_merged">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_merged">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_merged_cells</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;G18:H18 G23:H24 A18:B18&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_normalize_merged_cell_link">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_normalize_merged_cell_link">[docs]</a>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="n">argnames</span><span class="o">=</span><span class="s2">&quot;input_coordinate,expected_coordinate&quot;</span><span class="p">,</span>
+                             <span class="n">argvalues</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;H18&quot;</span><span class="p">,</span> <span class="s2">&quot;G18&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;G18&quot;</span><span class="p">,</span> <span class="s2">&quot;G18&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;I18&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;H23&quot;</span><span class="p">,</span> <span class="s2">&quot;G23&quot;</span><span class="p">)])</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_normalize_merged_cell_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">,</span> <span class="n">input_coordinate</span><span class="p">,</span> <span class="n">expected_coordinate</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_merged_cells</span><span class="p">()</span>
+
+        <span class="n">normalized</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">normalize_merged_cell_link</span><span class="p">(</span><span class="n">input_coordinate</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">expected_coordinate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">normalized</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">normalized</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">==</span> <span class="n">expected_coordinate</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_external_hyperlinks">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_external_hyperlinks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_external_hyperlinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Relationship</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;hyperlink&quot;</span><span class="p">,</span> <span class="n">Id</span><span class="o">=</span><span class="s2">&quot;rId1&quot;</span><span class="p">,</span> <span class="n">Target</span><span class="o">=</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+        <span class="n">rels</span> <span class="o">=</span> <span class="n">RelationshipList</span><span class="p">()</span>
+        <span class="n">rels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">_rels</span> <span class="o">=</span> <span class="n">rels</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_hyperlinks</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;../&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_internal_hyperlinks">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_internal_hyperlinks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_internal_hyperlinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Relationship</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;hyperlink&quot;</span><span class="p">,</span> <span class="n">Id</span><span class="o">=</span><span class="s2">&quot;rId1&quot;</span><span class="p">,</span> <span class="n">Target</span><span class="o">=</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+        <span class="n">rels</span> <span class="o">=</span> <span class="n">RelationshipList</span><span class="p">()</span>
+        <span class="n">rels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">_rels</span> <span class="o">=</span> <span class="n">rels</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_hyperlinks</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span><span class="o">.</span><span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;&#39;STP nn000TL-10, PKG 2.52&#39;!A1&quot;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="s2">&quot;B4&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_merged_hyperlinks">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_merged_hyperlinks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_merged_hyperlinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Relationship</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;hyperlink&quot;</span><span class="p">,</span> <span class="n">Id</span><span class="o">=</span><span class="s2">&quot;rId1&quot;</span><span class="p">,</span> <span class="n">Target</span><span class="o">=</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+        <span class="n">rels</span> <span class="o">=</span> <span class="n">RelationshipList</span><span class="p">()</span>
+        <span class="n">rels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">_rels</span> <span class="o">=</span> <span class="n">rels</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_merged_cells</span><span class="p">()</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_hyperlinks</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">merged_cells</span> <span class="o">==</span> <span class="s2">&quot;G18:H18 G23:H24 A18:B18&quot;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;A18&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span><span class="o">.</span><span class="n">display</span> <span class="o">==</span> <span class="s1">&#39;http://test.com&#39;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s1">&#39;B18&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="c1"># Link referencing H24 should be placed on G23 because H24 is a merged cell</span>
+        <span class="c1"># and G23 is the top-left cell in the merged range</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;G23&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span><span class="o">.</span><span class="n">tooltip</span> <span class="o">==</span> <span class="s2">&quot;fastpyxl&quot;</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;H24&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hyperlink</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_tables">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_tables">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_tables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Relationship</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="n">Id</span><span class="o">=</span><span class="s2">&quot;rId1&quot;</span><span class="p">,</span> <span class="n">Target</span><span class="o">=</span><span class="s2">&quot;../tables/table1.xml&quot;</span><span class="p">)</span>
+        <span class="n">rels</span> <span class="o">=</span> <span class="n">RelationshipList</span><span class="p">()</span>
+        <span class="n">rels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">_rels</span> <span class="o">=</span> <span class="n">rels</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_tables</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">reader</span><span class="o">.</span><span class="n">tables</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;../tables/table1.xml&quot;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_cols">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_cols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_col_dimensions</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">ws</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_rows">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_row_dimensions</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">ws</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_properties">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_properties">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PrimedWorksheetReader</span><span class="p">):</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PrimedWorksheetReader</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">ws</span>
+
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_properties</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;page_margins&#39;</span><span class="p">,</span> <span class="s1">&#39;page_setup&#39;</span><span class="p">,</span> <span class="s1">&#39;views&#39;</span><span class="p">,</span> <span class="s1">&#39;sheet_format&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;legacy_drawing&#39;</span><span class="p">,</span> <span class="s1">&#39;protection&#39;</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">parser</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetReader.test_more_rows_than_cells">
+<a class="viewcode-back" href="../../../../api/fastpyxl.worksheet.tests.test_reader.html#fastpyxl.worksheet.tests.test_reader.TestWorksheetReader.test_more_rows_than_cells">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_more_rows_than_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Workbook</span><span class="p">,</span> <span class="n">WorksheetReader</span><span class="p">,</span> <span class="n">datadir</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">Workbook</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="s2">&quot;Sheet&quot;</span><span class="p">)</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">WorksheetReader</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s2">&quot;more_rows_than_cells.xml&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">bind_cells</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">_current_row</span> <span class="o">==</span> <span class="mi">3</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1448 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.pivot.tests.test_cache &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.pivot.tests.test_cache</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.pivot.tests.test_cache</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZipFile</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.packaging.manifest</span><span class="w"> </span><span class="kn">import</span> <span class="n">Manifest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.xml.functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">fromstring</span><span class="p">,</span> <span class="n">tostring</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.tests.helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">compare_xml</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..record</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">DateTimeField</span><span class="p">,</span> <span class="n">Error</span><span class="p">,</span> <span class="n">Missing</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Text</span>
+
+
+<div class="viewcode-block" id="CacheField">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheField">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CacheField</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheField</span>
+    <span class="k">return</span> <span class="n">CacheField</span></div>
+
+
+
+<div class="viewcode-block" id="TestCacheField">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheField">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCacheField</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestCacheField.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheField.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheField</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">CacheField</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;cacheField databaseField=&quot;1&quot; hierarchy=&quot;0&quot; level=&quot;0&quot; name=&quot;ID&quot; sqlType=&quot;0&quot; uniqueList=&quot;1&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestCacheField.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheField.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheField</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;cacheField name=&quot;ID&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">CacheField</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">field</span> <span class="o">==</span> <span class="n">CacheField</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SharedItems">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.SharedItems">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">SharedItems</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">SharedItems</span>
+    <span class="k">return</span> <span class="n">SharedItems</span></div>
+
+
+
+<div class="viewcode-block" id="TestSharedItems">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestSharedItems</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestSharedItems.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SharedItems</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;Stanford&quot;</span><span class="p">),</span> <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;Cal&quot;</span><span class="p">),</span> <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;UCLA&quot;</span><span class="p">)]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">SharedItems</span><span class="p">(</span><span class="n">_fields</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">items</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sharedItems count=&quot;3&quot;&gt;</span>
+<span class="s2">          &lt;s v=&quot;Stanford&quot;/&gt;</span>
+<span class="s2">          &lt;s v=&quot;Cal&quot;/&gt;</span>
+<span class="s2">          &lt;s v=&quot;UCLA&quot;/&gt;</span>
+<span class="s2">        &lt;/sharedItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestSharedItems.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SharedItems</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sharedItems count=&quot;3&quot;&gt;</span>
+<span class="s2">          &lt;s v=&quot;Stanford&quot;&gt;&lt;/s&gt;</span>
+<span class="s2">          &lt;s v=&quot;Cal&quot;&gt;&lt;/s&gt;</span>
+<span class="s2">          &lt;s v=&quot;UCLA&quot;&gt;&lt;/s&gt;</span>
+<span class="s2">        &lt;/sharedItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">SharedItems</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;Stanford&quot;</span><span class="p">),</span> <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;Cal&quot;</span><span class="p">),</span> <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;UCLA&quot;</span><span class="p">)]</span>
+        <span class="k">assert</span> <span class="n">items</span> <span class="o">==</span> <span class="n">SharedItems</span><span class="p">(</span><span class="n">_fields</span><span class="o">=</span><span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestSharedItems.test_mixed_tag_items_golden">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestSharedItems.test_mixed_tag_items_golden">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_mixed_tag_items_golden</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SharedItems</span><span class="p">):</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Number</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;East&quot;</span><span class="p">),</span>
+            <span class="n">Missing</span><span class="p">(),</span>
+            <span class="n">Boolean</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">Error</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;#DIV/0!&quot;</span><span class="p">),</span>
+            <span class="n">DateTimeField</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">24</span><span class="p">)),</span>
+        <span class="p">]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">SharedItems</span><span class="p">(</span><span class="n">_fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">items</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sharedItems count=&quot;6&quot;&gt;</span>
+<span class="s2">          &lt;n v=&quot;42&quot;/&gt;</span>
+<span class="s2">          &lt;s v=&quot;East&quot;/&gt;</span>
+<span class="s2">          &lt;m/&gt;</span>
+<span class="s2">          &lt;b v=&quot;1&quot;/&gt;</span>
+<span class="s2">          &lt;e v=&quot;#DIV/0!&quot;/&gt;</span>
+<span class="s2">          &lt;d v=&quot;2016-03-24T00:00:00&quot;/&gt;</span>
+<span class="s2">        &lt;/sharedItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sharedItems count=&quot;6&quot;&gt;</span>
+<span class="s2">          &lt;n v=&quot;42&quot;/&gt;</span>
+<span class="s2">          &lt;s v=&quot;East&quot;/&gt;</span>
+<span class="s2">          &lt;m/&gt;</span>
+<span class="s2">          &lt;b v=&quot;1&quot;/&gt;</span>
+<span class="s2">          &lt;e v=&quot;#DIV/0!&quot;/&gt;</span>
+<span class="s2">          &lt;d v=&quot;2016-03-24T00:00:00&quot;/&gt;</span>
+<span class="s2">        &lt;/sharedItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">SharedItems</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">))</span> <span class="o">==</span> <span class="n">SharedItems</span><span class="p">(</span><span class="n">_fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span>
+
+        <span class="n">fields_perm</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Error</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;#DIV/0!&quot;</span><span class="p">),</span>
+            <span class="n">Number</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+            <span class="n">DateTimeField</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">24</span><span class="p">)),</span>
+            <span class="n">Missing</span><span class="p">(),</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;East&quot;</span><span class="p">),</span>
+            <span class="n">Boolean</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="n">src_perm</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sharedItems count=&quot;6&quot;&gt;</span>
+<span class="s2">          &lt;e v=&quot;#DIV/0!&quot;/&gt;</span>
+<span class="s2">          &lt;n v=&quot;42&quot;/&gt;</span>
+<span class="s2">          &lt;d v=&quot;2016-03-24T00:00:00&quot;/&gt;</span>
+<span class="s2">          &lt;m/&gt;</span>
+<span class="s2">          &lt;s v=&quot;East&quot;/&gt;</span>
+<span class="s2">          &lt;b v=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/sharedItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">xml_perm</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">SharedItems</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">fromstring</span><span class="p">(</span><span class="n">src_perm</span><span class="p">))</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected_perm</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;sharedItems count=&quot;6&quot;&gt;</span>
+<span class="s2">          &lt;e v=&quot;#DIV/0!&quot;/&gt;</span>
+<span class="s2">          &lt;n v=&quot;42&quot;/&gt;</span>
+<span class="s2">          &lt;d v=&quot;2016-03-24T00:00:00&quot;/&gt;</span>
+<span class="s2">          &lt;m/&gt;</span>
+<span class="s2">          &lt;s v=&quot;East&quot;/&gt;</span>
+<span class="s2">          &lt;b v=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/sharedItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff_perm</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml_perm</span><span class="p">,</span> <span class="n">expected_perm</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff_perm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff_perm</span>
+        <span class="k">assert</span> <span class="n">SharedItems</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">fromstring</span><span class="p">(</span><span class="n">src_perm</span><span class="p">))</span> <span class="o">==</span> <span class="n">SharedItems</span><span class="p">(</span>
+            <span class="n">_fields</span><span class="o">=</span><span class="n">fields_perm</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="WorksheetSource">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.WorksheetSource">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">WorksheetSource</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorksheetSource</span>
+    <span class="k">return</span> <span class="n">WorksheetSource</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetSource">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestWorksheetSource">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWorksheetSource</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestWorksheetSource.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestWorksheetSource.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorksheetSource</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">WorksheetSource</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mydata&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;worksheetSource name=&quot;mydata&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorksheetSource.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestWorksheetSource.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorksheetSource</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;worksheetSource name=&quot;mydata&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">WorksheetSource</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ws</span> <span class="o">==</span> <span class="n">WorksheetSource</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mydata&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CacheSource">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheSource">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CacheSource</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheSource</span>
+    <span class="k">return</span> <span class="n">CacheSource</span></div>
+
+
+
+<div class="viewcode-block" id="TestCacheSource">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheSource">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCacheSource</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestCacheSource.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheSource.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheSource</span><span class="p">,</span> <span class="n">WorksheetSource</span><span class="p">):</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">WorksheetSource</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mydata&quot;</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">CacheSource</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;worksheet&quot;</span><span class="p">,</span> <span class="n">worksheetSource</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;cacheSource type=&quot;worksheet&quot;&gt;</span>
+<span class="s2">          &lt;worksheetSource name=&quot;mydata&quot;/&gt;</span>
+<span class="s2">        &lt;/cacheSource&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestCacheSource.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheSource.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheSource</span><span class="p">,</span> <span class="n">WorksheetSource</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;cacheSource type=&quot;worksheet&quot;&gt;</span>
+<span class="s2">          &lt;worksheetSource name=&quot;mydata&quot;/&gt;</span>
+<span class="s2">        &lt;/cacheSource&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">CacheSource</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">WorksheetSource</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mydata&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">source</span> <span class="o">==</span> <span class="n">CacheSource</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;worksheet&quot;</span><span class="p">,</span> <span class="n">worksheetSource</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CacheDefinition">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheDefinition">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CacheDefinition</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheDefinition</span>
+    <span class="k">return</span> <span class="n">CacheDefinition</span></div>
+
+
+
+<div class="viewcode-block" id="DummyCache">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.DummyCache">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">DummyCache</span><span class="p">(</span><span class="n">CacheDefinition</span><span class="p">,</span> <span class="n">WorksheetSource</span><span class="p">,</span> <span class="n">CacheSource</span><span class="p">,</span> <span class="n">CacheField</span><span class="p">):</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">WorksheetSource</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">)</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">CacheSource</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;worksheet&quot;</span><span class="p">,</span> <span class="n">worksheetSource</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">CacheField</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;field1&quot;</span><span class="p">)]</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="n">CacheDefinition</span><span class="p">(</span><span class="n">cacheSource</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">cacheFields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cache</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotCacheDefinition">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestPivotCacheDefinition</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestPivotCacheDefinition.test_read">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_read">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheDefinition</span><span class="p">,</span> <span class="n">datadir</span><span class="p">):</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pivotCacheDefinition.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+            <span class="n">xml</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="n">cache</span> <span class="o">=</span> <span class="n">CacheDefinition</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cache</span><span class="o">.</span><span class="n">recordCount</span> <span class="o">==</span> <span class="mi">17</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">cacheFields</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotCacheDefinition.test_read_tuple_cache">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_read_tuple_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_read_tuple_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheDefinition</span><span class="p">,</span> <span class="n">datadir</span><span class="p">):</span>
+        <span class="c1"># Different sample with use of tupleCache</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pivotCacheDefinitionTupleCache.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+            <span class="n">xml</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="n">cache</span> <span class="o">=</span> <span class="n">CacheDefinition</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cache</span><span class="o">.</span><span class="n">recordCount</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="n">cache</span><span class="o">.</span><span class="n">tupleCache</span><span class="o">.</span><span class="n">entries</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotCacheDefinition.test_to_tree">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_to_tree">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">DummyCache</span><span class="p">):</span>
+        <span class="n">cache</span> <span class="o">=</span> <span class="n">DummyCache</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;pivotCacheDefinition xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">               &lt;cacheSource type=&quot;worksheet&quot;&gt;</span>
+<span class="s2">                       &lt;worksheetSource name=&quot;Sheet1&quot;/&gt;</span>
+<span class="s2">               &lt;/cacheSource&gt;</span>
+<span class="s2">               &lt;cacheFields count=&quot;1&quot;&gt;</span>
+<span class="s2">                       &lt;cacheField databaseField=&quot;1&quot; hierarchy=&quot;0&quot; level=&quot;0&quot; name=&quot;field1&quot; sqlType=&quot;0&quot; uniqueList=&quot;1&quot;/&gt;</span>
+<span class="s2">               &lt;/cacheFields&gt;</span>
+<span class="s2">       &lt;/pivotCacheDefinition&gt;</span>
+<span class="s2">       &quot;&quot;&quot;</span>
+
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotCacheDefinition.test_path">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">DummyCache</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">DummyCache</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/xl/pivotCache/pivotCacheDefinition1.xml&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotCacheDefinition.test_write">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotCacheDefinition.test_write">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">DummyCache</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+        <span class="n">archive</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">Manifest</span><span class="p">()</span>
+
+        <span class="n">DummyCache</span><span class="o">.</span><span class="n">to_tree</span><span class="p">()</span>
+        <span class="n">DummyCache</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">archive</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="n">DummyCache</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+        <span class="k">assert</span> <span class="n">manifest</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">DummyCache</span><span class="o">.</span><span class="n">mime_type</span><span class="p">)</span></div>
+</div>
+
+
+
+
+<div class="viewcode-block" id="CacheHierarchy">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CacheHierarchy">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CacheHierarchy</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheHierarchy</span>
+    <span class="k">return</span> <span class="n">CacheHierarchy</span></div>
+
+
+
+<div class="viewcode-block" id="TestCacheHierarchy">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheHierarchy">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCacheHierarchy</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestCacheHierarchy.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheHierarchy.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheHierarchy</span><span class="p">):</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">CacheHierarchy</span><span class="p">(</span>
+            <span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval].[Date]&quot;</span><span class="p">,</span>
+            <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span>
+            <span class="n">attribute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">defaultMemberUniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval].[Date].[All]&quot;</span><span class="p">,</span>
+            <span class="n">allUniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval].[Date].[All]&quot;</span><span class="p">,</span>
+            <span class="n">dimensionUniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval]&quot;</span><span class="p">,</span>
+            <span class="n">memberValueDatatype</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+            <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;cacheHierarchy uniqueName=&quot;[Interval].[Date]&quot; caption=&quot;Date&quot; attribute=&quot;1&quot;</span>
+<span class="s2">        time=&quot;1&quot; defaultMemberUniqueName=&quot;[Interval].[Date].[All]&quot;</span>
+<span class="s2">        allUniqueName=&quot;[Interval].[Date].[All]&quot; dimensionUniqueName=&quot;[Interval]&quot;</span>
+<span class="s2">        count=&quot;0&quot; memberValueDatatype=&quot;7&quot;</span>
+<span class="s2">        hidden=&quot;0&quot; iconSet=&quot;0&quot; keyAttribute=&quot;0&quot; measure=&quot;0&quot; measures=&quot;0&quot;</span>
+<span class="s2">        oneField=&quot;0&quot; set=&quot;0&quot;</span>
+<span class="s2">        /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestCacheHierarchy.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCacheHierarchy.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CacheHierarchy</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;cacheHierarchy uniqueName=&quot;[Interval].[Date]&quot; caption=&quot;Date&quot; attribute=&quot;1&quot;</span>
+<span class="s2">        time=&quot;1&quot; defaultMemberUniqueName=&quot;[Interval].[Date].[All]&quot;</span>
+<span class="s2">        allUniqueName=&quot;[Interval].[Date].[All]&quot; dimensionUniqueName=&quot;[Interval]&quot;</span>
+<span class="s2">        displayFolder=&quot;&quot; count=&quot;0&quot; memberValueDatatype=&quot;7&quot; unbalanced=&quot;0&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">CacheHierarchy</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ch</span> <span class="o">==</span> <span class="n">CacheHierarchy</span><span class="p">(</span>
+            <span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval].[Date]&quot;</span><span class="p">,</span>
+            <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span>
+            <span class="n">attribute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">defaultMemberUniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval].[Date].[All]&quot;</span><span class="p">,</span>
+            <span class="n">allUniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval].[Date].[All]&quot;</span><span class="p">,</span>
+            <span class="n">dimensionUniqueName</span><span class="o">=</span><span class="s2">&quot;[Interval]&quot;</span><span class="p">,</span>
+            <span class="n">memberValueDatatype</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+            <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">unbalanced</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">displayFolder</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MeasureDimensionMap">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.MeasureDimensionMap">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">MeasureDimensionMap</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">MeasureDimensionMap</span>
+    <span class="k">return</span> <span class="n">MeasureDimensionMap</span></div>
+
+
+
+<div class="viewcode-block" id="TestMeasureDimensionMap">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureDimensionMap">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestMeasureDimensionMap</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestMeasureDimensionMap.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureDimensionMap.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MeasureDimensionMap</span><span class="p">):</span>
+        <span class="n">mdm</span> <span class="o">=</span> <span class="n">MeasureDimensionMap</span><span class="p">()</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">mdm</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;map /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestMeasureDimensionMap.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureDimensionMap.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MeasureDimensionMap</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;map /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">mdm</span> <span class="o">=</span> <span class="n">MeasureDimensionMap</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">mdm</span> <span class="o">==</span> <span class="n">MeasureDimensionMap</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MeasureGroup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.MeasureGroup">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">MeasureGroup</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">MeasureGroup</span>
+    <span class="k">return</span> <span class="n">MeasureGroup</span></div>
+
+
+
+<div class="viewcode-block" id="TestMeasureGroup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureGroup">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestMeasureGroup</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestMeasureGroup.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureGroup.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MeasureGroup</span><span class="p">):</span>
+        <span class="n">mg</span> <span class="o">=</span> <span class="n">MeasureGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;caption&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">mg</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;measureGroup name=&quot;a&quot; caption=&quot;caption&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestMeasureGroup.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestMeasureGroup.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MeasureGroup</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;measureGroup name=&quot;name&quot; caption=&quot;caption&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">mg</span> <span class="o">=</span> <span class="n">MeasureGroup</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">mg</span> <span class="o">==</span> <span class="n">MeasureGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;caption&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PivotDimension">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.PivotDimension">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">PivotDimension</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">PivotDimension</span>
+    <span class="k">return</span> <span class="n">PivotDimension</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotDimension">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotDimension">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestPivotDimension</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestPivotDimension.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotDimension.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PivotDimension</span><span class="p">):</span>
+        <span class="n">pd</span> <span class="o">=</span> <span class="n">PivotDimension</span><span class="p">(</span><span class="n">measure</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;caption&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;dimension caption=&quot;caption&quot; measure=&quot;1&quot; name=&quot;name&quot; uniqueName=&quot;name&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestPivotDimension.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPivotDimension.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PivotDimension</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;dimension caption=&quot;caption&quot; measure=&quot;1&quot; name=&quot;name&quot; uniqueName=&quot;name&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">pd</span> <span class="o">=</span> <span class="n">PivotDimension</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">pd</span> <span class="o">==</span> <span class="n">PivotDimension</span><span class="p">(</span><span class="n">measure</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;caption&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CalculatedMember">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CalculatedMember">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CalculatedMember</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalculatedMember</span>
+    <span class="k">return</span> <span class="n">CalculatedMember</span></div>
+
+
+
+<div class="viewcode-block" id="TestCalculatedMember">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedMember">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCalculatedMember</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestCalculatedMember.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedMember.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CalculatedMember</span><span class="p">):</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">CalculatedMember</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">mdx</span><span class="o">=</span><span class="s2">&quot;mdx&quot;</span><span class="p">,</span> <span class="n">memberName</span><span class="o">=</span><span class="s2">&quot;member&quot;</span><span class="p">,</span>
+                              <span class="n">hierarchy</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;parent&quot;</span><span class="p">,</span> <span class="n">solveOrder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">set</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;calculatedMember hierarchy=&quot;yes&quot; mdx=&quot;mdx&quot; memberName=&quot;member&quot; name=&quot;name&quot; parent=&quot;parent&quot; set=&quot;1&quot; solveOrder=&quot;1&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestCalculatedMember.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedMember.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CalculatedMember</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;calculatedMember mdx=&quot;mdx&quot; name=&quot;name&quot; set=&quot;1&quot; solveOrder=&quot;1&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">CalculatedMember</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cm</span> <span class="o">==</span> <span class="n">CalculatedMember</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">mdx</span><span class="o">=</span><span class="s2">&quot;mdx&quot;</span><span class="p">,</span> <span class="n">solveOrder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">set</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CalculatedItem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.CalculatedItem">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CalculatedItem</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalculatedItem</span>
+    <span class="k">return</span> <span class="n">CalculatedItem</span></div>
+
+
+
+<div class="viewcode-block" id="TestCalculatedItem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedItem">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCalculatedItem</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestCalculatedItem.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedItem.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CalculatedItem</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.pivot.cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">PivotArea</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">CalculatedItem</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s2">&quot;SUM(15)&quot;</span><span class="p">,</span> <span class="n">pivotArea</span><span class="o">=</span><span class="n">PivotArea</span><span class="p">(</span><span class="n">cacheIndex</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;calculatedItem formula=&quot;SUM(15)&quot;&gt;</span>
+<span class="s2">            &lt;pivotArea type=&quot;normal&quot; dataOnly=&quot;1&quot; cacheIndex=&quot;1&quot; outline=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/calculatedItem&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestCalculatedItem.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestCalculatedItem.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CalculatedItem</span><span class="p">,</span> <span class="n">datadir</span><span class="p">):</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;calculatedItem.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+            <span class="n">xml</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="n">CalculatedItem</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">formula</span> <span class="o">==</span> <span class="s2">&quot;SUM(15)&quot;</span>
+        <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">pivotArea</span><span class="o">.</span><span class="n">cacheIndex</span> <span class="o">==</span> <span class="mi">1</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ServerFormat">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.ServerFormat">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ServerFormat</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">ServerFormat</span>
+    <span class="k">return</span> <span class="n">ServerFormat</span></div>
+
+
+
+<div class="viewcode-block" id="TestServerFormat">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestServerFormat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestServerFormat</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestServerFormat.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestServerFormat.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ServerFormat</span><span class="p">):</span>
+        <span class="n">sf</span> <span class="o">=</span> <span class="n">ServerFormat</span><span class="p">(</span><span class="n">culture</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;serverFormat culture=&quot;x&quot; format=&quot;y&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestServerFormat.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestServerFormat.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ServerFormat</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;serverFormat  culture=&quot;x&quot; format=&quot;y&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">sf</span> <span class="o">=</span> <span class="n">ServerFormat</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">sf</span> <span class="o">==</span> <span class="n">ServerFormat</span><span class="p">(</span><span class="n">culture</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="OLAPSet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.OLAPSet">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">OLAPSet</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">OLAPSet</span>
+    <span class="k">return</span> <span class="n">OLAPSet</span></div>
+
+
+
+<div class="viewcode-block" id="TestOLAPSet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPSet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestOLAPSet</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestOLAPSet.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPSet.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">OLAPSet</span><span class="p">):</span>
+        <span class="n">olap_set</span> <span class="o">=</span> <span class="n">OLAPSet</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxRank</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">setDefinition</span><span class="o">=</span><span class="s2">&quot;TestSet&quot;</span><span class="p">,</span> <span class="n">queryFailed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">olap_set</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;set count=&quot;1&quot; maxRank=&quot;2&quot; setDefinition=&quot;TestSet&quot; queryFailed=&quot;0&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestOLAPSet.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPSet.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">OLAPSet</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;set count=&quot;3&quot; maxRank=&quot;5&quot; setDefinition=&quot;Other&quot; queryFailed=&quot;1&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">olap_set</span> <span class="o">=</span> <span class="n">OLAPSet</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">olap_set</span> <span class="o">==</span> <span class="n">OLAPSet</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">maxRank</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">setDefinition</span><span class="o">=</span><span class="s2">&quot;Other&quot;</span><span class="p">,</span> <span class="n">queryFailed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="OLAPKPI">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.OLAPKPI">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">OLAPKPI</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">OLAPKPI</span>
+    <span class="k">return</span> <span class="n">OLAPKPI</span></div>
+
+
+
+<div class="viewcode-block" id="TestOLAPKPI">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPKPI">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestOLAPKPI</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestOLAPKPI.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPKPI.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">OLAPKPI</span><span class="p">):</span>
+        <span class="n">kpi</span> <span class="o">=</span> <span class="n">OLAPKPI</span><span class="p">(</span><span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;TestKPI&quot;</span><span class="p">,</span>
+                      <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;TestCaption&quot;</span><span class="p">,</span>
+                      <span class="n">displayFolder</span><span class="o">=</span><span class="s2">&quot;Folder</span><span class="se">\\</span><span class="s2">Display&quot;</span><span class="p">,</span>
+                      <span class="n">measureGroup</span><span class="o">=</span><span class="s2">&quot;TestMeasure&quot;</span><span class="p">,</span>
+                      <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;TestParent&quot;</span><span class="p">,</span>
+                      <span class="n">value</span><span class="o">=</span><span class="s2">&quot;TestValue&quot;</span><span class="p">,</span>
+                      <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;[Measures].[Goals]&quot;</span><span class="p">,</span>
+                      <span class="n">status</span><span class="o">=</span><span class="s2">&quot;TestStatus&quot;</span><span class="p">,</span>
+                      <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;TestTrend&quot;</span><span class="p">,</span>
+                      <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                      <span class="n">time</span><span class="o">=</span><span class="s2">&quot;TestTime&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">kpi</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;kpi uniqueName=&quot;TestKPI&quot; caption=&quot;TestCaption&quot;</span>
+<span class="s2">        displayFolder=&quot;Folder</span><span class="se">\\</span><span class="s2">Display&quot; measureGroup=&quot;TestMeasure&quot;</span>
+<span class="s2">        parent=&quot;TestParent&quot; value=&quot;TestValue&quot; goal=&quot;[Measures].[Goals]&quot;</span>
+<span class="s2">        status=&quot;TestStatus&quot; trend=&quot;TestTrend&quot; weight=&quot;&quot; time=&quot;TestTime&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestOLAPKPI.from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestOLAPKPI.from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">OLAPKPI</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;kpi uniqueName=&quot;Growth in Customer Base&quot; caption=&quot;Growth in Customer Base&quot;</span>
+<span class="s2">            displayFolder=&quot;Customer Perspective</span><span class="se">\\</span><span class="s2">Expand Customer Base&quot;</span>
+<span class="s2">            measureGroup=&quot;Internet Sales&quot; value=&quot;[Measures].[Growth in Customer Base]&quot;</span>
+<span class="s2">            goal=&quot;[Measures].[Growth in Customer Base Goal]&quot;</span>
+<span class="s2">            status=&quot;[Measures].[Growth in Customer Base Status]&quot;</span>
+<span class="s2">            trend=&quot;[Measures].[Growth in Customer Base Trend]&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">kpi</span> <span class="o">=</span> <span class="n">OLAPKPI</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">kpi</span><span class="o">.</span><span class="n">trend</span> <span class="o">==</span> <span class="s2">&quot;[Measures].[Growth in Customer Base Trend]&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GroupMember">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.GroupMember">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">GroupMember</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupMember</span>
+    <span class="k">return</span> <span class="n">GroupMember</span></div>
+
+
+
+<div class="viewcode-block" id="TestGroupMember">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupMember">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestGroupMember</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestGroupMember.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupMember.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">GroupMember</span><span class="p">):</span>
+        <span class="n">member</span> <span class="o">=</span> <span class="n">GroupMember</span><span class="p">(</span><span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;[Product].[Product Categories].[Category]&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">member</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;groupMember group=&quot;0&quot; uniqueName=&quot;[Product].[Product Categories].[Category]&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestGroupMember.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupMember.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">GroupMember</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;groupMember uniqueName=&quot;[Product].[Product Categories]&quot; group=&quot;1&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">member</span> <span class="o">=</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">member</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="kc">True</span>
+        <span class="k">assert</span> <span class="n">member</span><span class="o">.</span><span class="n">uniqueName</span> <span class="o">==</span> <span class="s2">&quot;[Product].[Product Categories]&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="LevelGroup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.LevelGroup">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LevelGroup</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">LevelGroup</span>
+    <span class="k">return</span> <span class="n">LevelGroup</span></div>
+
+
+
+<div class="viewcode-block" id="TestLevelGroup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestLevelGroup">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestLevelGroup</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestLevelGroup.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestLevelGroup.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LevelGroup</span><span class="p">):</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">LevelGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;CategoryXl_Grp_1&quot;</span><span class="p">,</span>
+                           <span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;[Product].[Product Categories]&quot;</span><span class="p">,</span>
+                           <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Group1&quot;</span><span class="p">,</span>
+                           <span class="n">uniqueParent</span><span class="o">=</span><span class="s2">&quot;[Product].[Product Categories].[All Products]&quot;</span><span class="p">,</span>
+                           <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;group name=&quot;CategoryXl_Grp_1&quot; uniqueName=&quot;[Product].[Product Categories]&quot;</span>
+<span class="s2">            caption=&quot;Group1&quot; uniqueParent=&quot;[Product].[Product Categories].[All Products]&quot;</span>
+<span class="s2">            id=&quot;1&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestLevelGroup.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestLevelGroup.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LevelGroup</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;group name=&quot;Cat1&quot; uniqueName=&quot;[Product]&quot;</span>
+<span class="s2">            caption=&quot;CatGroup1&quot; uniqueParent=&quot;[Product].[Product Categories].[All Products]&quot;</span>
+<span class="s2">            id=&quot;4&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">LevelGroup</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">level</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Cat1&quot;</span>
+        <span class="k">assert</span> <span class="n">level</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="mi">4</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GroupLevel">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.GroupLevel">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">GroupLevel</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupLevel</span>
+    <span class="k">return</span> <span class="n">GroupLevel</span></div>
+
+
+
+<div class="viewcode-block" id="TestGroupLevel">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupLevel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestGroupLevel</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestGroupLevel.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupLevel.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">GroupLevel</span><span class="p">):</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">GroupLevel</span><span class="p">(</span><span class="n">uniqueName</span><span class="o">=</span><span class="s2">&quot;TestGroup&quot;</span><span class="p">,</span>
+                           <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;TestCaption&quot;</span><span class="p">,</span>
+                           <span class="n">user</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">customRollUp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;groupLevel uniqueName=&quot;TestGroup&quot; caption=&quot;TestCaption&quot;</span>
+<span class="s2">        user=&quot;1&quot; customRollUp=&quot;1&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestGroupLevel.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupLevel.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">GroupLevel</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;groupLevel uniqueName=&quot;[Product].[Product Categories].[Category]&quot;</span>
+<span class="s2">            caption=&quot;Category&quot;&gt;</span>
+<span class="s2">            &lt;groups count=&quot;1&quot;&gt;</span>
+<span class="s2">                &lt;group name=&quot;CategoryXl_Grp_1&quot; uniqueName=&quot;[Product].[Product</span>
+<span class="s2">                Categories].[Product Categories1].</span>
+<span class="s2">                [GROUPMEMBER.[CategoryXl_Grp_1]].[Product]].[Product Categories]].</span>
+<span class="s2">                [All Products]]]&quot; caption=&quot;Group1&quot; uniqueParent=&quot;[Product].</span>
+<span class="s2">                [Product Categories].[All Products]&quot; id=&quot;1&quot;&gt;</span>
+<span class="s2">                &lt;/group&gt;</span>
+<span class="s2">            &lt;/groups&gt;</span>
+<span class="s2">        &lt;/groupLevel&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">GroupLevel</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">group</span><span class="o">.</span><span class="n">caption</span> <span class="o">==</span> <span class="s2">&quot;Category&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FieldUsage">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.FieldUsage">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">FieldUsage</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldUsage</span>
+    <span class="k">return</span> <span class="n">FieldUsage</span></div>
+
+
+
+<div class="viewcode-block" id="TestFieldUsage">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldUsage">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestFieldUsage</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestFieldUsage.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldUsage.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FieldUsage</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">FieldUsage</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;fieldUsage x=&quot;5&quot; /&gt;&quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestFieldUsage.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldUsage.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FieldUsage</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;fieldUsage x=&quot;-1&quot;/&gt;&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">FieldUsage</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">field</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GroupItems">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.GroupItems">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">GroupItems</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupItems</span>
+    <span class="k">return</span> <span class="n">GroupItems</span></div>
+
+
+
+<div class="viewcode-block" id="TestGroupItems">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupItems">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestGroupItems</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestGroupItems.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupItems.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">GroupItems</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..record</span><span class="w"> </span><span class="kn">import</span> <span class="n">Text</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">GroupItems</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="p">[</span><span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;1-2&quot;</span><span class="p">),</span> <span class="n">Text</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="s2">&quot;3-4&quot;</span><span class="p">)])</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;groupItems count=&quot;2&quot;&gt;</span>
+<span class="s2">                &lt;s v=&quot;1-2&quot; /&gt;</span>
+<span class="s2">                &lt;s v=&quot;3-4&quot; /&gt;</span>
+<span class="s2">            &lt;/groupItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestGroupItems.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestGroupItems.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">GroupItems</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;groupItems count=&quot;4&quot;&gt;</span>
+<span class="s2">                &lt;s v=&quot;&amp;lt;1&quot;/&gt;</span>
+<span class="s2">                &lt;s v=&quot;1-2&quot;/&gt;</span>
+<span class="s2">                &lt;s v=&quot;3-4&quot;/&gt;</span>
+<span class="s2">                &lt;s v=&quot;&amp;gt;5&quot;/&gt;</span>
+<span class="s2">            &lt;/groupItems&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">GroupItems</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">group</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;&lt;1&quot;</span>
+        <span class="k">assert</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">4</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="RangePr">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.RangePr">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">RangePr</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RangePr</span>
+    <span class="k">return</span> <span class="n">RangePr</span></div>
+
+
+
+<div class="viewcode-block" id="TestRangePr">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangePr">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestRangePr</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestRangePr.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangePr.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">RangePr</span><span class="p">):</span>
+        <span class="n">rangepr</span> <span class="o">=</span> <span class="n">RangePr</span><span class="p">(</span><span class="n">startNum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">endNum</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">groupInterval</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">rangepr</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;rangePr autoStart=&quot;1&quot; autoEnd=&quot;1&quot; groupBy=&quot;range&quot; startNum=&quot;1&quot; endNum=&quot;4&quot; groupInterval=&quot;2&quot;/&gt;&quot;&quot;&quot;</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestRangePr.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangePr.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">RangePr</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;rangePr groupBy=&quot;months&quot; startDate=&quot;2002-01-01T00:00:00&quot;  endDate=&quot;2006-05-06T00:00:00&quot;/&gt;&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">rangepr</span> <span class="o">=</span> <span class="n">RangePr</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">rangepr</span><span class="o">.</span><span class="n">groupBy</span> <span class="o">==</span> <span class="s2">&quot;months&quot;</span>
+        <span class="k">assert</span> <span class="n">rangepr</span><span class="o">.</span><span class="n">startDate</span> <span class="o">==</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2002</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FieldGroup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.FieldGroup">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">FieldGroup</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldGroup</span>
+    <span class="k">return</span> <span class="n">FieldGroup</span></div>
+
+
+
+<div class="viewcode-block" id="TestFieldGroup">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldGroup">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestFieldGroup</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestFieldGroup.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldGroup.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FieldGroup</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">FieldGroup</span><span class="p">(</span><span class="n">par</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;fieldGroup par=&quot;4&quot; base=&quot;3&quot; /&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestFieldGroup.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestFieldGroup.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FieldGroup</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;fieldGroup base=&quot;0&quot;&gt;</span>
+<span class="s2">                &lt;rangePr startNum=&quot;1&quot; endNum=&quot;4&quot; groupInterval=&quot;2&quot;/&gt;</span>
+<span class="s2">                &lt;groupItems count=&quot;4&quot;&gt;</span>
+<span class="s2">                    &lt;s v=&quot;1-2&quot;/&gt;</span>
+<span class="s2">                    &lt;s v=&quot;3-4&quot;/&gt;</span>
+<span class="s2">                &lt;/groupItems&gt;</span>
+<span class="s2">            &lt;/fieldGroup&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">FieldGroup</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">field</span><span class="o">.</span><span class="n">base</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">groupItems</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="RangeSet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.RangeSet">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">RangeSet</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RangeSet</span>
+    <span class="k">return</span> <span class="n">RangeSet</span></div>
+
+
+
+<div class="viewcode-block" id="TestRangeSet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangeSet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestRangeSet</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestRangeSet.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangeSet.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">RangeSet</span><span class="p">):</span>
+        <span class="n">rangeset</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="n">i1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">i2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s2">&quot;A1:B3&quot;</span><span class="p">,</span> <span class="n">sheet</span><span class="o">=</span><span class="s2">&quot;Sheet2&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">rangeset</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;rangeSet i1=&quot;1&quot; i2=&quot;1&quot; ref=&quot;A1:B3&quot; sheet=&quot;Sheet2&quot;/&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestRangeSet.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestRangeSet.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">RangeSet</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;rangeSet i1=&quot;4&quot; i2=&quot;4&quot; ref=&quot;A1:B3&quot; sheet=&quot;Sheet5&quot; /&gt;&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">rangeset</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">rangeset</span><span class="o">.</span><span class="n">i1</span> <span class="o">==</span> <span class="mi">4</span>
+        <span class="k">assert</span> <span class="n">rangeset</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="s2">&quot;A1:B3&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PageItem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.PageItem">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">PageItem</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">PageItem</span>
+    <span class="k">return</span> <span class="n">PageItem</span></div>
+
+
+<div class="viewcode-block" id="TestPageItem">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPageItem">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestPageItem</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestPageItem.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPageItem.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PageItem</span><span class="p">):</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">PageItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;TestPage&quot;</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;pageItem name=&quot;TestPage&quot; /&gt;&quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestPageItem.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestPageItem.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PageItem</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;pageItem name=&quot;NewPage&quot; /&gt;&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">pageitem</span> <span class="o">=</span> <span class="n">PageItem</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">pageitem</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;NewPage&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Consolidation">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.Consolidation">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Consolidation</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">Consolidation</span>
+    <span class="k">return</span> <span class="n">Consolidation</span></div>
+
+
+
+<div class="viewcode-block" id="TestConsolidation">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestConsolidation">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestConsolidation</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TestConsolidation.test_ctor">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestConsolidation.test_ctor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ctor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Consolidation</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RangeSet</span>
+        <span class="n">cons</span> <span class="o">=</span> <span class="n">Consolidation</span><span class="p">(</span><span class="n">autoPage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rangeSets</span><span class="o">=</span><span class="p">[</span><span class="n">RangeSet</span><span class="p">(</span><span class="n">i1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s2">&quot;A1:B3&quot;</span><span class="p">)])</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">cons</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;consolidation autoPage=&quot;1&quot;&gt;</span>
+<span class="s2">            &lt;rangeSets count=&quot;1&quot;&gt;</span>
+<span class="s2">                &lt;rangeSet i1=&quot;1&quot; ref=&quot;A1:B3&quot;/&gt;</span>
+<span class="s2">            &lt;/rangeSets&gt;</span>
+<span class="s2">        &lt;/consolidation&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="TestConsolidation.test_from_xml">
+<a class="viewcode-back" href="../../../../api/fastpyxl.pivot.tests.test_cache.html#fastpyxl.pivot.tests.test_cache.TestConsolidation.test_from_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Consolidation</span><span class="p">):</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;consolidation&gt;</span>
+<span class="s2">            &lt;pages count=&quot;1&quot;&gt;</span>
+<span class="s2">                &lt;pageItem name=&quot;TestName&quot; /&gt;</span>
+<span class="s2">            &lt;/pages&gt;</span>
+<span class="s2">            &lt;rangeSets count=&quot;1&quot;&gt;</span>
+<span class="s2">                &lt;rangeSet i1=&quot;1&quot; ref=&quot;A1:B3&quot;/&gt;</span>
+<span class="s2">            &lt;/rangeSets&gt;</span>
+<span class="s2">        &lt;/consolidation&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">cons</span> <span class="o">=</span> <span class="n">Consolidation</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cons</span><span class="o">.</span><span class="n">autoPage</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cons</span><span class="o">.</span><span class="n">pages</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cons</span><span class="o">.</span><span class="n">rangeSets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

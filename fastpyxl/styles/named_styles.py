@@ -1,0 +1,272 @@
+# Copyright (c) 2010-2024 fastpyxl
+
+from fastpyxl.compat import safe_string
+
+from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
+
+from .fills import PatternFill, Fill
+from .fonts import Font
+from .borders import Border
+from .alignment import Alignment
+from .protection import Protection
+from .numbers import (
+    BUILTIN_FORMATS_MAX_SIZE,
+    BUILTIN_FORMATS_REVERSE,
+)
+from .cell_style import (
+    StyleArray,
+    CellStyle,
+)
+
+
+class NamedStyle(Serialisable):
+
+    """
+    Named and editable styles
+    """
+
+    tagname = "namedStyle"
+
+    font: Font | None = Field.element(expected_type=Font, default=None)
+    fill: Fill | None = Field.element(expected_type=Fill, default=None)
+    border: Border | None = Field.element(expected_type=Border, default=None)
+    alignment: Alignment | None = Field.element(expected_type=Alignment, default=None)
+    number_format: str | None = Field.nested_text(expected_type=str, allow_none=True, xml_name="number_format", default=None)
+    protection: Protection | None = Field.element(expected_type=Protection, default=None)
+    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    name: str | None = Field.attribute(expected_type=str, default=None)
+    _wb = None
+    _style = StyleArray()
+
+    xml_order = ("alignment", "border", "fill", "font", "number_format", "protection")
+
+    def __init__(self,
+                 name="Normal",
+                 font=None,
+                 fill=None,
+                 border=None,
+                 alignment=None,
+                 number_format=None,
+                 protection=None,
+                 builtinId=None,
+                 hidden=False,
+                 ):
+        self.name = name
+        self.font = font or Font()
+        self.fill = fill or PatternFill()
+        self.border = border or Border()
+        self.alignment = alignment or Alignment()
+        if number_format is None:
+            number_format = "General"
+        self.number_format = number_format
+        self.protection = protection or Protection()
+        self.builtinId = builtinId
+        self.hidden = hidden
+        self._wb = None
+        self._style = StyleArray()
+
+    def __setattr__(self, attr, value):
+        super().__setattr__(attr, value)
+        if getattr(self, '_wb', None) and attr in (
+           'font', 'fill', 'border', 'alignment', 'number_format', 'protection',
+            ):
+            self._recalculate()
+
+    def __iter__(self):
+        for key in ('name', 'builtinId', 'hidden', 'xfId'):
+            value = getattr(self, key, None)
+            if value is not None:
+                yield key, safe_string(value)
+
+    def bind(self, wb):
+        """
+        Bind a named style to a workbook
+        """
+        self._wb = wb
+        self._recalculate()
+
+    def _recalculate(self):
+        wb = self._wb
+        if wb is None:
+            return
+        self._style.fontId = wb._fonts.add(self.font)
+        self._style.borderId = wb._borders.add(self.border)
+        self._style.fillId = wb._fills.add(self.fill)
+        self._style.protectionId = wb._protections.add(self.protection)
+        self._style.alignmentId = wb._alignments.add(self.alignment)
+        fmt = self.number_format
+        if fmt in BUILTIN_FORMATS_REVERSE:
+            fmt = BUILTIN_FORMATS_REVERSE[fmt]
+        else:
+            fmt = wb._number_formats.add(self.number_format) + (
+                  BUILTIN_FORMATS_MAX_SIZE)
+        self._style.numFmtId = fmt
+
+    def as_tuple(self):
+        """Return a style array representing the current style"""
+        return self._style
+
+    def as_xf(self):
+        """
+        Return equivalent XfStyle
+        """
+        xf = CellStyle.from_array(self._style)
+        xf.xfId = None
+        xf.pivotButton = None
+        xf.quotePrefix = None
+        if self.alignment != Alignment():
+            xf.alignment = self.alignment
+        if self.protection != Protection():
+            xf.protection = self.protection
+        return xf
+
+    def as_name(self):
+        """
+        Return relevant named style
+
+        """
+        named = _NamedCellStyle(
+            name=self.name,
+            builtinId=self.builtinId,
+            hidden=self.hidden,
+            xfId=self._style.xfId
+        )
+        return named
+
+
+class NamedStyleList(list):
+    """
+    Named styles are editable and can be applied to multiple objects
+
+    As only the index is stored in referencing objects the order mus
+    be preserved.
+
+    Returns a list of NamedStyles
+    """
+
+    def __init__(self, iterable=()):
+        """
+        Allow a list of named styles to be passed in and index them.
+        """
+
+        for idx, s in enumerate(iterable, len(self)):
+            s._style.xfId = idx
+        super().__init__(iterable)
+
+    @property
+    def names(self):
+        return [s.name for s in self]
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return super().__getitem__(key)
+
+        for idx, name in enumerate(self.names):
+            if name == key:
+                return self[idx]
+
+        raise KeyError("No named style with the name{0} exists".format(key))
+
+    def append(self, style):
+        if not isinstance(style, NamedStyle):
+            raise TypeError("""Only NamedStyle instances can be added""")
+        elif style.name in self.names: # hotspot
+            raise ValueError("""Style {0} exists already""".format(style.name))
+        style._style.xfId = (len(self))
+        super().append(style)
+
+
+class _NamedCellStyle(Serialisable):
+
+    """
+    Pointer-based representation of named styles in XML
+    xfId refers to the corresponding CellStyleXfs
+
+    Not used in client code.
+    """
+
+    tagname = "cellStyle"
+
+    name: str | None = Field.attribute(expected_type=str, default=None)
+    xfId: int | None = Field.attribute(expected_type=int, default=None)
+    builtinId: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    iLevel: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    hidden: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    customBuiltin: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, serialize=False, default=None)
+
+    def __init__(self,
+                 name=None,
+                 xfId=None,
+                 builtinId=None,
+                 iLevel=None,
+                 hidden=None,
+                 customBuiltin=None,
+                 extLst=None,
+                ):
+        self.name = name
+        self.xfId = xfId
+        self.builtinId = builtinId
+        self.iLevel = iLevel
+        self.hidden = hidden
+        self.customBuiltin = customBuiltin
+        self.extLst = extLst
+
+
+class _NamedCellStyleList(Serialisable):
+    """
+    Container for named cell style objects
+
+    Not used in client code
+    """
+
+    tagname = "cellStyles"
+
+    cellStyle: list[_NamedCellStyle] = Field.sequence(expected_type=_NamedCellStyle, default=list)
+
+    xml_order = ("cellStyle",)
+
+    def __init__(self,
+                 count=None,
+                 cellStyle=(),
+                ):
+        del count
+        self.cellStyle = list(cellStyle)
+
+    @property
+    def count(self):
+        return len(self.cellStyle)
+
+    def __iter__(self):
+        yield "count", str(self.count)
+
+    def remove_duplicates(self):
+        """
+        Some applications contain duplicate definitions either by name or
+        referenced style.
+
+        As the references are 0-based indices, styles are sorted by
+        index.
+
+        Returns a list of style references with duplicates removed
+        """
+
+        def sort_fn(v):
+            return v.xfId
+
+        styles = []
+        names = set()
+        ids = set()
+
+        for ns in sorted(self.cellStyle, key=sort_fn):
+            if ns.xfId in ids or ns.name in names: # skip duplicates
+                continue
+            ids.add(ns.xfId)
+            names.add(ns.name)
+
+            styles.append(ns)
+
+        return styles

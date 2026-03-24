@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.workbook.tests.test_writer &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.workbook.tests.test_writer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.workbook.tests.test_writer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.tests.helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">compare_xml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.workbook.defined_name</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefinedName</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">quote_sheetname</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workbook</span>
+
+<div class="viewcode-block" id="Unicode_Workbook">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.Unicode_Workbook">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Unicode_Workbook</span><span class="p">():</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;D</span><span class="se">\xfc</span><span class="s2">sseldorf Sheet&quot;</span>
+    <span class="k">return</span> <span class="n">wb</span></div>
+
+
+
+<div class="viewcode-block" id="WorkbookWriter">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.WorkbookWriter">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">WorkbookWriter</span><span class="p">():</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.._writer</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkbookWriter</span>
+    <span class="k">return</span> <span class="n">WorkbookWriter</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWorkbookWriter</span><span class="p">:</span>
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_hidden_worksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_hidden_worksheet">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_hidden_worksheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">sheet_state</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">SHEETSTATE_HIDDEN</span>
+        <span class="n">wb</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">()</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;1&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;Sheet&quot; sheetId=&quot;1&quot; state=&quot;hidden&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;Sheet1&quot; sheetId=&quot;2&quot; state=&quot;visible&quot; r:id=&quot;rId2&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">          &lt;definedNames/&gt;</span>
+<span class="s2">          &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_workbook">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_workbook">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_workbook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">writer</span><span class="o">.</span><span class="n">rels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;workbook.xml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">expected</span><span class="p">:</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_workbook_code_name">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_workbook_code_name">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_workbook_code_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">wb</span><span class="o">.</span><span class="n">code_name</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;MyWB&#39;</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr codeName=&quot;MyWB&quot;/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;0&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;Sheet&quot; sheetId=&quot;1&quot; state=&quot;visible&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">        &lt;definedNames/&gt;</span>
+<span class="s2">        &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_print_area">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_print_area">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_print_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Unicode_Workbook</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Unicode_Workbook</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">print_area</span> <span class="o">=</span> <span class="s1">&#39;A1:D4&#39;</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span>
+<span class="s2">        xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;0&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;D&amp;#xFC;sseldorf Sheet&quot; sheetId=&quot;1&quot; state=&quot;visible&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">        &lt;definedNames&gt;</span>
+<span class="s2">          &lt;definedName localSheetId=&quot;0&quot; name=&quot;_xlnm.Print_Area&quot;&gt;&#39;D&amp;#xFC;sseldorf Sheet&#39;!$A$1:$D$4&lt;/definedName&gt;</span>
+<span class="s2">        &lt;/definedNames&gt;</span>
+<span class="s2">        &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_print_titles">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_print_titles">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_print_titles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Unicode_Workbook</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Unicode_Workbook</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">print_title_rows</span> <span class="o">=</span> <span class="s1">&#39;1:5&#39;</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span>
+<span class="s2">        xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;0&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;D&amp;#xFC;sseldorf Sheet&quot; sheetId=&quot;1&quot; state=&quot;visible&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">        &lt;definedNames&gt;</span>
+<span class="s2">          &lt;definedName localSheetId=&quot;0&quot; name=&quot;_xlnm.Print_Titles&quot;&gt;&#39;D&amp;#xFC;sseldorf Sheet&#39;!$1:$5&lt;/definedName&gt;</span>
+<span class="s2">        &lt;/definedNames&gt;</span>
+<span class="s2">        &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_autofilter">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_autofilter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_autofilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Unicode_Workbook</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Unicode_Workbook</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;A1:A10&quot;</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">auto_filter</span><span class="o">.</span><span class="n">add_filter_column</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Kiwi&quot;</span><span class="p">,</span> <span class="s2">&quot;Apple&quot;</span><span class="p">,</span> <span class="s2">&quot;Mango&quot;</span><span class="p">])</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span>
+<span class="s2">        xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;0&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;D&amp;#xFC;sseldorf Sheet&quot; sheetId=&quot;1&quot; state=&quot;visible&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">        &lt;definedNames&gt;</span>
+<span class="s2">        &lt;definedName localSheetId=&quot;0&quot; hidden=&quot;1&quot; name=&quot;_xlnm._FilterDatabase&quot;&gt;&#39;D&amp;#xFC;sseldorf Sheet&#39;!$A$1:$A$10&lt;/definedName&gt;</span>
+<span class="s2">        &lt;/definedNames&gt;</span>
+<span class="s2">        &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_defined_name_global">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_defined_name_global">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_defined_name_global</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Unicode_Workbook</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Unicode_Workbook</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">DefinedName</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;MyConstant&quot;</span><span class="p">,</span> <span class="n">attr_text</span><span class="o">=</span><span class="s2">&quot;3.14&quot;</span><span class="p">)</span>
+        <span class="n">wb</span><span class="o">.</span><span class="n">defined_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span>
+<span class="s2">        xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;0&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;D&amp;#xFC;sseldorf Sheet&quot; sheetId=&quot;1&quot; state=&quot;visible&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">        &lt;definedNames&gt;</span>
+<span class="s2">        &lt;definedName name=&quot;MyConstant&quot;&gt;3.14&lt;/definedName&gt;</span>
+<span class="s2">        &lt;/definedNames&gt;</span>
+<span class="s2">        &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_defined_name_locall">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_defined_name_locall">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_defined_name_locall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Unicode_Workbook</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Unicode_Workbook</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">quote_sheetname</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">title</span><span class="p">)</span><span class="si">}</span><span class="s2">!$A$1:$A$10&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">DefinedName</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;MyReference&quot;</span><span class="p">,</span> <span class="n">attr_text</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+        <span class="n">ws</span><span class="o">.</span><span class="n">defined_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;workbook xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span>
+<span class="s2">        xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;</span>
+<span class="s2">        &lt;workbookPr/&gt;</span>
+<span class="s2">        &lt;workbookProtection/&gt;</span>
+<span class="s2">        &lt;bookViews&gt;</span>
+<span class="s2">          &lt;workbookView activeTab=&quot;0&quot; autoFilterDateGrouping=&quot;1&quot; firstSheet=&quot;0&quot; minimized=&quot;0&quot; showHorizontalScroll=&quot;1&quot; showSheetTabs=&quot;1&quot; showVerticalScroll=&quot;1&quot; tabRatio=&quot;600&quot; visibility=&quot;visible&quot;/&gt;</span>
+<span class="s2">        &lt;/bookViews&gt;</span>
+<span class="s2">        &lt;sheets&gt;</span>
+<span class="s2">          &lt;sheet name=&quot;D&amp;#xFC;sseldorf Sheet&quot; sheetId=&quot;1&quot; state=&quot;visible&quot; r:id=&quot;rId1&quot;/&gt;</span>
+<span class="s2">        &lt;/sheets&gt;</span>
+<span class="s2">        &lt;definedNames&gt;</span>
+<span class="s2">        &lt;definedName localSheetId=&quot;0&quot; name=&quot;MyReference&quot;&gt;&#39;D&amp;#xFC;sseldorf Sheet&#39;!$A$1:$A$10&lt;/definedName&gt;</span>
+<span class="s2">        &lt;/definedNames&gt;</span>
+<span class="s2">        &lt;calcPr calcId=&quot;124519&quot; fullCalcOnLoad=&quot;1&quot;/&gt;</span>
+<span class="s2">        &lt;/workbook&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="TestWorkbookWriter.test_workbook_protection">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.TestWorkbookWriter.test_workbook_protection">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_workbook_protection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datadir</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...workbook.protection</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkbookProtection</span>
+
+        <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+        <span class="n">wb</span><span class="o">.</span><span class="n">security</span> <span class="o">=</span> <span class="n">WorkbookProtection</span><span class="p">(</span><span class="n">lockStructure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">wb</span><span class="o">.</span><span class="n">security</span><span class="o">.</span><span class="n">set_workbook_password</span><span class="p">(</span><span class="s1">&#39;ABCD&#39;</span><span class="p">,</span> <span class="n">already_hashed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;workbook_protection.xml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">expected</span><span class="p">:</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+</div>
+
+
+
+
+<div class="viewcode-block" id="test_write_hidden_single_worksheet">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.test_write_hidden_single_worksheet">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_write_hidden_single_worksheet</span><span class="p">():</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">sheet_state</span> <span class="o">=</span> <span class="s2">&quot;hidden&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.._writer</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_active_sheet</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
+        <span class="n">get_active_sheet</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="test_write_workbook_rels">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.test_write_workbook_rels">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;vba, filename&quot;</span><span class="p">,</span>
+                         <span class="p">[</span>
+                             <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;workbook.xml.rels&#39;</span><span class="p">,),</span>
+                             <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;workbook_vba.xml.rels&#39;</span><span class="p">),</span>
+                         <span class="p">]</span>
+                         <span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_write_workbook_rels</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="n">vba</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">WorkbookWriter</span><span class="p">):</span>
+    <span class="n">datadir</span><span class="o">.</span><span class="n">chdir</span><span class="p">()</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">wb</span><span class="o">.</span><span class="n">vba_archive</span> <span class="o">=</span> <span class="n">vba</span>
+
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+    <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write_rels</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">expected</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+
+
+<div class="viewcode-block" id="test_write_root_rels">
+<a class="viewcode-back" href="../../../../api/fastpyxl.workbook.tests.test_writer.html#fastpyxl.workbook.tests.test_writer.test_write_root_rels">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_write_root_rels</span><span class="p">(</span><span class="n">WorkbookWriter</span><span class="p">):</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">WorkbookWriter</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+
+    <span class="n">xml</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">write_root_rels</span><span class="p">()</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &lt;Relationships xmlns=&quot;http://schemas.openxmlformats.org/package/2006/relationships&quot;&gt;</span>
+<span class="s2">      &lt;Relationship Id=&quot;rId1&quot; Target=&quot;xl/workbook.xml&quot; Type=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument&quot;/&gt;</span>
+<span class="s2">      &lt;Relationship Id=&quot;rId2&quot; Target=&quot;docProps/core.xml&quot; Type=&quot;http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties&quot;/&gt;</span>
+<span class="s2">      &lt;Relationship Id=&quot;rId3&quot; Target=&quot;docProps/app.xml&quot; Type=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties&quot;/&gt;</span>
+<span class="s2">    &lt;/Relationships&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">compare_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">diff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

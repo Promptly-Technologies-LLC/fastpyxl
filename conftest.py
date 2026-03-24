@@ -1,4 +1,6 @@
-# Copyright (c) 2010-2024 openpyxl
+# Copyright (c) 2010-2024 fastpyxl
+
+from typing import Any
 
 import pytest
 import platform
@@ -7,15 +9,17 @@ import platform
 
 
 def pytest_runtest_setup(item):
-    from openpyxl import DEFUSEDXML, LXML
+    from fastpyxl import DEFUSEDXML, LXML
     if isinstance(item, pytest.Function):
+        pil_image: Any
         try:
-            from PIL import Image
+            from PIL import Image as _pil_image
+            pil_image = _pil_image
         except ImportError:
-            Image = False
-        if item.get_closest_marker("pil_required") and Image is False:
+            pil_image = False
+        if item.get_closest_marker("pil_required") and pil_image is False:
             pytest.skip("PIL must be installed")
-        elif item.get_closest_marker("pil_not_installed") and Image:
+        elif item.get_closest_marker("pil_not_installed") and pil_image:
             pytest.skip("PIL is installed")
         elif item.get_closest_marker("not_py33"):
             pytest.skip("Ordering is not a given in Python 3")
@@ -30,17 +34,17 @@ def pytest_runtest_setup(item):
             if LIBXML_VERSION < (3, 4, 0, 0):
                 pytest.skip("LXML >= 3.4 is required")
         elif item.get_closest_marker("no_lxml"):
-            from openpyxl import LXML
+            from fastpyxl import LXML
             if LXML:
                 pytest.skip("LXML has a different interface")
         elif item.get_closest_marker("numpy_required"):
-            from openpyxl import NUMPY
+            from fastpyxl import NUMPY
             if not NUMPY:
                 pytest.skip("Numpy must be installed")
         elif item.get_closest_marker("pandas_required"):
             try:
                 import pandas
-            except ImportError as e:
+            except ImportError:
                 pytest.skip("Pandas must be installed")
         elif item.get_closest_marker("no_pypy"):
             if platform.python_implementation() == "PyPy":

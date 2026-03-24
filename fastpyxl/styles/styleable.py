@@ -1,0 +1,204 @@
+# Copyright (c) 2010-2024 fastpyxl
+
+from copy import copy
+
+from .numbers import (
+    BUILTIN_FORMATS,
+    BUILTIN_FORMATS_MAX_SIZE,
+    BUILTIN_FORMATS_REVERSE,
+)
+from .proxy import StyleProxy
+from .cell_style import StyleArray
+from .named_styles import NamedStyle
+from .builtins import styles
+
+
+class StyleDescriptor:
+
+    def __init__(self, collection, key):
+        self.collection = collection
+        self.key = key
+
+    def __set__(self, instance, value):
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
+            instance._ensure_style_array()
+            pending_styles[self.key] = (self.collection, value)
+            return
+        coll = getattr(instance.parent.parent, self.collection)
+        if not getattr(instance, "_style"):
+            instance._style = StyleArray()
+        setattr(instance._style, self.key, coll.add(value))
+
+
+    def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
+            pending = pending_styles.get(self.key)
+            if pending is not None:
+                _, value = pending
+                return StyleProxy(value)
+        coll = getattr(instance.parent.parent, self.collection)
+        if hasattr(instance, "_ensure_style_array"):
+            instance._ensure_style_array()
+        elif not getattr(instance, "_style"):
+            instance._style = StyleArray()
+        idx = getattr(instance._style, self.key)
+        return StyleProxy(coll[idx])
+
+
+class NumberFormatDescriptor:
+
+    key = "numFmtId"
+    collection = '_number_formats'
+
+    def __set__(self, instance, value):
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
+            instance._ensure_style_array()
+            pending_styles[self.key] = (self.collection, value)
+            return
+        coll = getattr(instance.parent.parent, self.collection)
+        if value in BUILTIN_FORMATS_REVERSE:
+            idx = BUILTIN_FORMATS_REVERSE[value]
+        else:
+            idx = coll.add(value) + BUILTIN_FORMATS_MAX_SIZE
+        if not getattr(instance, "_style"):
+            instance._style = StyleArray()
+        setattr(instance._style, self.key, idx)
+
+
+    def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
+            pending = pending_styles.get(self.key)
+            if pending is not None:
+                _, value = pending
+                return value
+        if hasattr(instance, "_ensure_style_array"):
+            instance._ensure_style_array()
+        elif not getattr(instance, "_style"):
+            instance._style = StyleArray()
+        idx = getattr(instance._style, self.key)
+        if idx < BUILTIN_FORMATS_MAX_SIZE:
+            return BUILTIN_FORMATS.get(idx, "General")
+        coll = getattr(instance.parent.parent, self.collection)
+        return coll[idx - BUILTIN_FORMATS_MAX_SIZE]
+
+
+class NamedStyleDescriptor:
+
+    key = "xfId"
+    collection = "_named_styles"
+
+
+    def __set__(self, instance, value):
+        if not getattr(instance, "_style"):
+            instance._style = StyleArray()
+        coll = getattr(instance.parent.parent, self.collection)
+        if isinstance(value, NamedStyle):
+            style = value
+            if style not in coll:
+                instance.parent.parent.add_named_style(style)
+        elif value not in coll.names:
+            if value in styles: # is it builtin?
+                style = styles[value]
+                if style not in coll:
+                    instance.parent.parent.add_named_style(style)
+            else:
+                raise ValueError("{0} is not a known style".format(value))
+        else:
+            style = coll[value]
+        instance._style = copy(style.as_tuple())
+
+
+    def __get__(self, instance, cls):
+        if not getattr(instance, "_style"):
+            instance._style = StyleArray()
+        idx = getattr(instance._style, self.key)
+        coll = getattr(instance.parent.parent, self.collection)
+        return coll.names[idx]
+
+
+class StyleArrayDescriptor:
+
+    def __init__(self, key):
+        self.key = key
+
+    def __set__(self, instance, value):
+        if instance._style is None:
+            instance._style = StyleArray()
+        setattr(instance._style, self.key, value)
+
+
+    def __get__(self, instance, cls):
+        if instance._style is None:
+            return False
+        return bool(getattr(instance._style, self.key))
+
+
+class StyleableObject:
+    """
+    Base class for styleble objects implementing proxy and lookup functions
+    """
+
+    font = StyleDescriptor('_fonts', "fontId")
+    fill = StyleDescriptor('_fills', "fillId")
+    border = StyleDescriptor('_borders', "borderId")
+    number_format = NumberFormatDescriptor()
+    protection = StyleDescriptor('_protections', "protectionId")
+    alignment = StyleDescriptor('_alignments', "alignmentId")
+    style = NamedStyleDescriptor()
+    quotePrefix = StyleArrayDescriptor('quotePrefix')
+    pivotButton = StyleArrayDescriptor('pivotButton')
+
+    __slots__ = ('parent', '_style', '_pending_styles')
+
+    def __init__(self, sheet, style_array=None):
+        self.parent = sheet
+        if style_array is not None:
+            style_array = StyleArray(style_array)
+        self._style = style_array
+        self._pending_styles = {}
+
+    def _ensure_style_array(self):
+        if self._style is None:
+            self._style = StyleArray()
+
+    def _apply_pending_styles(self):
+        if not self._pending_styles:
+            return
+        wb = self.parent.parent
+        for key, (collection, value) in self._pending_styles.items():
+            if key == "numFmtId":
+                if value in BUILTIN_FORMATS_REVERSE:
+                    idx = BUILTIN_FORMATS_REVERSE[value]
+                else:
+                    coll = getattr(wb, collection)
+                    idx = coll.add(value) + BUILTIN_FORMATS_MAX_SIZE
+            else:
+                coll = getattr(wb, collection)
+                idx = coll.add(value)
+            setattr(self._style, key, idx)
+        self._pending_styles.clear()
+
+
+    @property
+    def style_id(self):
+        self._ensure_style_array()
+        self._apply_pending_styles()
+        return self.parent.parent._cell_styles.add(self._style)
+
+
+    @property
+    def has_style(self):
+        if self._pending_styles:
+            return True
+        if self._style is None:
+            return False
+        return any(self._style)
+

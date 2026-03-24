@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.workbook.workbook &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.workbook.workbook</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.workbook.workbook</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="sd">&quot;&quot;&quot;Workbook is the top-level container for all document information.&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZipFile</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.worksheet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Worksheet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet._read_only</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReadOnlyWorksheet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet._write_only</span><span class="w"> </span><span class="kn">import</span> <span class="n">WriteOnlyWorksheet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.worksheet.copier</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorksheetCopy</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">quote_sheetname</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils.indexed_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">IndexedList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils.datetime</span><span class="w">  </span><span class="kn">import</span> <span class="n">WINDOWS_EPOCH</span><span class="p">,</span> <span class="n">MAC_EPOCH</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReadOnlyWorkbookException</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.writer.excel</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_workbook</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.cell_style</span><span class="w"> </span><span class="kn">import</span> <span class="n">StyleArray</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.named_styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedStyle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.differential</span><span class="w"> </span><span class="kn">import</span> <span class="n">DifferentialStyleList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.alignment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alignment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.borders</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_BORDER</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.fills</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_EMPTY_FILL</span><span class="p">,</span> <span class="n">DEFAULT_GRAY_FILL</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_FONT</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.protection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">COLOR_INDEX</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.named_styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedStyleList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">TableStyleList</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.chartsheet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chartsheet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.defined_name</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefinedName</span><span class="p">,</span> <span class="n">DefinedNameDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.packaging.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentProperties</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.packaging.custom</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomPropertyList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.packaging.relationship</span><span class="w"> </span><span class="kn">import</span> <span class="n">RelationshipList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.child</span><span class="w"> </span><span class="kn">import</span> <span class="n">_WorkbookChild</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.protection</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentSecurity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.properties</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalcProperties</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.views</span><span class="w"> </span><span class="kn">import</span> <span class="n">BookView</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.xml.constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">XLSM</span><span class="p">,</span>
+    <span class="n">XLSX</span><span class="p">,</span>
+    <span class="n">XLTM</span><span class="p">,</span>
+    <span class="n">XLTX</span>
+<span class="p">)</span>
+
+<span class="n">INTEGER_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,)</span>
+
+<div class="viewcode-block" id="Workbook">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Workbook</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Workbook is the container for all other parts of the document.&quot;&quot;&quot;</span>
+
+    <span class="n">_read_only</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_data_only</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/xl/workbook.xml&quot;</span>
+    <span class="n">_archive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ZipFile</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">write_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">iso_dates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pivots</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_active_sheet_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defined_names</span> <span class="o">=</span> <span class="n">DefinedNameDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_external_links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">DocumentProperties</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom_doc_props</span> <span class="o">=</span> <span class="n">CustomPropertyList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">security</span> <span class="o">=</span> <span class="n">DocumentSecurity</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__write_only</span> <span class="o">=</span> <span class="n">write_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shared_strings</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_styles</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">loaded_theme</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vba_archive</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_template</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">WINDOWS_EPOCH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iso_dates</span> <span class="o">=</span> <span class="n">iso_dates</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_only</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Worksheet</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rels</span> <span class="o">=</span> <span class="n">RelationshipList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculation</span> <span class="o">=</span> <span class="n">CalcProperties</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span> <span class="o">=</span> <span class="p">[</span><span class="n">BookView</span><span class="p">()]</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bootstrap styles&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DEFAULT_FONT</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alignments</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">([</span><span class="n">Alignment</span><span class="p">()])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_borders</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_borders</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DEFAULT_BORDER</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fills</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fills</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DEFAULT_EMPTY_FILL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fills</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DEFAULT_GRAY_FILL</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_number_formats</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_date_formats</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timedelta_formats</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_protections</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">([</span><span class="n">Protection</span><span class="p">()])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="o">=</span> <span class="n">COLOR_INDEX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cell_styles</span> <span class="o">=</span> <span class="n">IndexedList</span><span class="p">([</span><span class="n">StyleArray</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named_styles</span> <span class="o">=</span> <span class="n">NamedStyleList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_named_style</span><span class="p">(</span><span class="n">NamedStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">DEFAULT_FONT</span><span class="p">),</span> <span class="n">border</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">DEFAULT_BORDER</span><span class="p">),</span> <span class="n">builtinId</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table_styles</span> <span class="o">=</span> <span class="n">TableStyleList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_differential_styles</span> <span class="o">=</span> <span class="n">DifferentialStyleList</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epoch</span> <span class="o">==</span> <span class="n">WINDOWS_EPOCH</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">WINDOWS_EPOCH</span>
+        <span class="k">return</span> <span class="n">MAC_EPOCH</span>
+
+
+    <span class="nd">@epoch</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">WINDOWS_EPOCH</span><span class="p">,</span> <span class="n">MAC_EPOCH</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The epoch must be either 1900 or 1904&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_epoch</span> <span class="o">=</span> <span class="n">value</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_only</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">data_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_only</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__write_only</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">excel_base_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the currently active sheet or None</span>
+
+<span class="sd">        :type: :class:`fastpyxl.worksheet.worksheet.Worksheet`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_active_sheet_index</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="nd">@active</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the active sheet&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">_WorkbookChild</span><span class="p">,</span> <span class="n">INTEGER_TYPES</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Value must be either a worksheet, chartsheet or numerical index&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">INTEGER_TYPES</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_active_sheet_index</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">return</span>
+            <span class="c1">#if self._sheets and 0 &lt;= value &lt; len(self._sheets):</span>
+                <span class="c1">#value = self._sheets[value]</span>
+            <span class="c1">#else:</span>
+                <span class="c1">#raise ValueError(&quot;Sheet index is outside the range of possible values&quot;, value)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Worksheet is not in the workbook&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">sheet_state</span> <span class="o">!=</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only visible sheets can be made active&quot;</span><span class="p">)</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_active_sheet_index</span> <span class="o">=</span> <span class="n">idx</span>
+
+
+<div class="viewcode-block" id="Workbook.create_sheet">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.create_sheet">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a worksheet (at an optional index).</span>
+
+<span class="sd">        :param title: optional title of the sheet</span>
+<span class="sd">        :type title: str</span>
+<span class="sd">        :param index: optional position at which the sheet will be inserted</span>
+<span class="sd">        :type index: int</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ReadOnlyWorkbookException</span><span class="p">(</span><span class="s1">&#39;Cannot create new sheet in a read-only workbook&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_only</span> <span class="p">:</span>
+            <span class="n">new_ws</span> <span class="o">=</span> <span class="n">WriteOnlyWorksheet</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_ws</span> <span class="o">=</span> <span class="n">Worksheet</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_sheet</span><span class="p">(</span><span class="n">sheet</span><span class="o">=</span><span class="n">new_ws</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_ws</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an worksheet (at an optional index).&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="p">(</span><span class="n">Worksheet</span><span class="p">,</span> <span class="n">WriteOnlyWorksheet</span><span class="p">,</span> <span class="n">Chartsheet</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot be added to a workbook&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">parent</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You cannot add worksheets from another workbook.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sheet</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">sheet</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Workbook.move_sheet">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.move_sheet">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move a sheet or sheetname</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+            <span class="n">sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">sheet</span><span class="p">]</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">sheet</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">new_pos</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="n">offset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">sheet</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.remove">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.remove">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worksheet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove `worksheet` from this workbook.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">worksheet</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.remove_sheet">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.remove_sheet">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Use wb.remove(worksheet) or del wb[sheetname]&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worksheet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove `worksheet` from this workbook.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">worksheet</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.create_chartsheet">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.create_chartsheet">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_chartsheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ReadOnlyWorkbookException</span><span class="p">(</span><span class="s2">&quot;Cannot create new sheet in a read-only workbook&quot;</span><span class="p">)</span>
+        <span class="n">cs</span> <span class="o">=</span> <span class="n">Chartsheet</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_sheet</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cs</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.get_sheet_by_name">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.get_sheet_by_name">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Use wb[sheetname]&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_sheet_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a worksheet by its name.</span>
+
+<span class="sd">        :param name: the name of the worksheet to look for</span>
+<span class="sd">        :type name: string</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheetnames</span>
+
+
+<div class="viewcode-block" id="Workbook.index">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worksheet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the index of a worksheet.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">worksheets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">worksheet</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.get_index">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.get_index">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Use wb.index(worksheet)&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worksheet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the index of the worksheet.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">worksheet</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a worksheet by its name.</span>
+
+<span class="sd">        :param name: the name of the worksheet to look for</span>
+<span class="sd">        :type name: string</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">worksheets</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">chartsheets</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">sheet</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Worksheet </span><span class="si">{0}</span><span class="s2"> does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sheet</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worksheets</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Workbook.get_sheet_names">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.get_sheet_names">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Use wb.sheetnames&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_sheet_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheetnames</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">worksheets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of sheets in this workbook</span>
+
+<span class="sd">        :type: list of :class:`fastpyxl.worksheet.worksheet.Worksheet`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="n">Worksheet</span><span class="p">,</span> <span class="n">ReadOnlyWorksheet</span><span class="p">,</span> <span class="n">WriteOnlyWorksheet</span><span class="p">))]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chartsheets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of Chartsheets in this workbook</span>
+
+<span class="sd">        :type: list of :class:`fastpyxl.chartsheet.chartsheet.Chartsheet`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">Chartsheet</span><span class="p">)]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sheetnames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the list of the names of worksheets in this workbook.</span>
+
+<span class="sd">        Names are returned in the worksheets order.</span>
+
+<span class="sd">        :type: list of strings</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">title</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sheets</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Workbook.create_named_range">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.create_named_range">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Assign scoped named ranges directly to worksheets or global ones to the workbook. Deprecated in 3.1&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_named_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">worksheet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new named_range on a worksheet</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">defn</span> <span class="o">=</span> <span class="n">DefinedName</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">worksheet</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">defn</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">!</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">quote_sheetname</span><span class="p">(</span><span class="n">worksheet</span><span class="o">.</span><span class="n">title</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">defn</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">defined_names</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">defn</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.add_named_style">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.add_named_style">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_named_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a named style</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named_styles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+        <span class="n">style</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">named_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List available named styles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_named_styles</span><span class="o">.</span><span class="n">names</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mime_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The mime type is determined by whether a workbook is a template or</span>
+<span class="sd">        not and whether it contains macros or not. Excel requires the file</span>
+<span class="sd">        extension to match but fastpyxl does not enforce this.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="ow">and</span> <span class="n">XLTX</span> <span class="ow">or</span> <span class="n">XLSX</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vba_archive</span><span class="p">:</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="ow">and</span> <span class="n">XLTM</span> <span class="ow">or</span> <span class="n">XLSM</span>
+        <span class="k">return</span> <span class="n">ct</span>
+
+
+<div class="viewcode-block" id="Workbook.save">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the current workbook under the given `filename`.</span>
+<span class="sd">        Use this function instead of using an `ExcelWriter`.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            When creating your workbook using `write_only` set to True,</span>
+<span class="sd">            you will only be able to call this function once. Subsequent attempts to</span>
+<span class="sd">            modify or save the file will raise an :class:`fastpyxl.shared.exc.WorkbookAlreadySaved` exception.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;Workbook is read-only&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_only</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">worksheets</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">()</span>
+        <span class="n">save_workbook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
+
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">style_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List of named styles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_named_styles</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Workbook.materialize_pending_style_components">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.materialize_pending_style_components">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">materialize_pending_style_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">styleable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register shared style parts for *styleable* from deferred assignments.</span>
+
+<span class="sd">        Styling attributes on cells and dimensions defer pushing fonts, fills,</span>
+<span class="sd">        borders, number formats, alignments, and protections into the workbook</span>
+<span class="sd">        until this method runs or until</span>
+<span class="sd">        :attr:`~fastpyxl.styles.styleable.StyleableObject.style_id` is read.</span>
+
+<span class="sd">        Saving a workbook calls this automatically for every standard worksheet,</span>
+<span class="sd">        in the same order as sheet XML serialization, so shared-table indices</span>
+<span class="sd">        stay stable. Write-only streams still resolve styles when each row is</span>
+<span class="sd">        written.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">styleable</span><span class="o">.</span><span class="n">_ensure_style_array</span><span class="p">()</span>
+        <span class="n">styleable</span><span class="o">.</span><span class="n">_apply_pending_styles</span><span class="p">()</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_materialize_sheet_style_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Worksheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.styles.styleable</span><span class="w"> </span><span class="kn">import</span> <span class="n">StyleableObject</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">col_sorter</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">reindex</span><span class="p">()</span>
+            <span class="n">vmin</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">min</span>
+            <span class="k">return</span> <span class="n">vmin</span> <span class="k">if</span> <span class="n">vmin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">column_dimensions</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">col_sorter</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">StyleableObject</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">materialize_pending_style_components</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">_col</span><span class="p">),</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">_cells</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">rows</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">row_dimensions</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">-</span> <span class="n">rows</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">rows</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">row_cells</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">rd</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">row_dimensions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">row_idx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rd</span><span class="p">,</span> <span class="n">StyleableObject</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">materialize_pending_style_components</span><span class="p">(</span><span class="n">rd</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row_cells</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">StyleableObject</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">materialize_pending_style_components</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_materialize_workbook_style_components_before_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ws</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">worksheets</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Worksheet</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_materialize_sheet_style_components</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Workbook.copy_worksheet">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.copy_worksheet">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy_worksheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_worksheet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Copy an existing worksheet in the current workbook</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            This function cannot copy worksheets between workbooks.</span>
+<span class="sd">            worksheets can only be copied within the workbook that they belong</span>
+
+<span class="sd">        :param from_worksheet: the worksheet to be copied from</span>
+<span class="sd">        :return: copy of the initial worksheet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__write_only</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_only</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot copy worksheets in read-only or write-only mode&quot;</span><span class="p">)</span>
+
+        <span class="n">new_title</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> Copy&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">from_worksheet</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">to_worksheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">new_title</span><span class="p">)</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">WorksheetCopy</span><span class="p">(</span><span class="n">source_worksheet</span><span class="o">=</span><span class="n">from_worksheet</span><span class="p">,</span> <span class="n">target_worksheet</span><span class="o">=</span><span class="n">to_worksheet</span><span class="p">)</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">copy_worksheet</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">to_worksheet</span></div>
+
+
+
+<div class="viewcode-block" id="Workbook.close">
+<a class="viewcode-back" href="../../../api/fastpyxl.workbook.workbook.html#fastpyxl.workbook.workbook.Workbook.close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Close workbook file if open. Only affects read-only and write-only modes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">archive</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_archive&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">archive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">archive</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_duplicate_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for duplicate name in defined name list and table list of each worksheet.</span>
+<span class="sd">        Names are not case sensitive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">worksheets</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">defined_names</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,5 +1,5 @@
-from openpyxl import Workbook
-from openpyxl.chart import (
+from fastpyxl import Workbook
+from fastpyxl.chart import (
     RadarChart,
     Reference,
 )

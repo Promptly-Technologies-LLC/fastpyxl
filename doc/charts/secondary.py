@@ -1,9 +1,8 @@
-from openpyxl import Workbook
-from openpyxl.chart import (
+from fastpyxl import Workbook
+from fastpyxl.chart import (
     LineChart,
     BarChart,
     Reference,
-    Series,
 )
 
 wb = Workbook()

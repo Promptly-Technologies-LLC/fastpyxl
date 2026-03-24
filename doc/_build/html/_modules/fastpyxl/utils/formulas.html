@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.utils.formulas &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.utils.formulas</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.utils.formulas</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">List of builtin formulae</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">FORMULAE</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;CUBEKPIMEMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;CUBEMEMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;CUBEMEMBERPROPERTY&quot;</span><span class="p">,</span> <span class="s2">&quot;CUBERANKEDMEMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;CUBESET&quot;</span><span class="p">,</span> <span class="s2">&quot;CUBESETCOUNT&quot;</span><span class="p">,</span> <span class="s2">&quot;CUBEVALUE&quot;</span><span class="p">,</span> <span class="s2">&quot;DAVERAGE&quot;</span><span class="p">,</span> <span class="s2">&quot;DCOUNT&quot;</span><span class="p">,</span> <span class="s2">&quot;DCOUNTA&quot;</span><span class="p">,</span> <span class="s2">&quot;DGET&quot;</span><span class="p">,</span> <span class="s2">&quot;DMAX&quot;</span><span class="p">,</span> <span class="s2">&quot;DMIN&quot;</span><span class="p">,</span> <span class="s2">&quot;DPRODUCT&quot;</span><span class="p">,</span> <span class="s2">&quot;DSTDEV&quot;</span><span class="p">,</span> <span class="s2">&quot;DSTDEVP&quot;</span><span class="p">,</span> <span class="s2">&quot;DSUM&quot;</span><span class="p">,</span> <span class="s2">&quot;DVAR&quot;</span><span class="p">,</span> <span class="s2">&quot;DVARP&quot;</span><span class="p">,</span> <span class="s2">&quot;DATE&quot;</span><span class="p">,</span> <span class="s2">&quot;DATEDIF&quot;</span><span class="p">,</span> <span class="s2">&quot;DATEVALUE&quot;</span><span class="p">,</span> <span class="s2">&quot;DAY&quot;</span><span class="p">,</span> <span class="s2">&quot;DAYS360&quot;</span><span class="p">,</span> <span class="s2">&quot;EDATE&quot;</span><span class="p">,</span> <span class="s2">&quot;EOMONTH&quot;</span><span class="p">,</span> <span class="s2">&quot;HOUR&quot;</span><span class="p">,</span> <span class="s2">&quot;MINUTE&quot;</span><span class="p">,</span> <span class="s2">&quot;MONTH&quot;</span><span class="p">,</span> <span class="s2">&quot;NETWORKDAYS&quot;</span><span class="p">,</span> <span class="s2">&quot;NETWORKDAYS.INTL&quot;</span><span class="p">,</span> <span class="s2">&quot;NOW&quot;</span><span class="p">,</span> <span class="s2">&quot;SECOND&quot;</span><span class="p">,</span> <span class="s2">&quot;TIME&quot;</span><span class="p">,</span> <span class="s2">&quot;TIMEVALUE&quot;</span><span class="p">,</span> <span class="s2">&quot;TODAY&quot;</span><span class="p">,</span> <span class="s2">&quot;WEEKDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;WEEKNUM&quot;</span><span class="p">,</span> <span class="s2">&quot;WORKDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;WORKDAY.INTL&quot;</span><span class="p">,</span> <span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;YEARFRAC&quot;</span><span class="p">,</span> <span class="s2">&quot;BESSELI&quot;</span><span class="p">,</span> <span class="s2">&quot;BESSELJ&quot;</span><span class="p">,</span> <span class="s2">&quot;BESSELK&quot;</span><span class="p">,</span> <span class="s2">&quot;BESSELY&quot;</span><span class="p">,</span> <span class="s2">&quot;BIN2DEC&quot;</span><span class="p">,</span> <span class="s2">&quot;BIN2HEX&quot;</span><span class="p">,</span> <span class="s2">&quot;BIN2OCT&quot;</span><span class="p">,</span> <span class="s2">&quot;COMPLEX&quot;</span><span class="p">,</span> <span class="s2">&quot;CONVERT&quot;</span><span class="p">,</span> <span class="s2">&quot;DEC2BIN&quot;</span><span class="p">,</span> <span class="s2">&quot;DEC2HEX&quot;</span><span class="p">,</span> <span class="s2">&quot;DEC2OCT&quot;</span><span class="p">,</span> <span class="s2">&quot;DELTA&quot;</span><span class="p">,</span> <span class="s2">&quot;ERF&quot;</span><span class="p">,</span> <span class="s2">&quot;ERFC&quot;</span><span class="p">,</span> <span class="s2">&quot;GESTEP&quot;</span><span class="p">,</span> <span class="s2">&quot;HEX2BIN&quot;</span><span class="p">,</span> <span class="s2">&quot;HEX2DEC&quot;</span><span class="p">,</span> <span class="s2">&quot;HEX2OCT&quot;</span><span class="p">,</span> <span class="s2">&quot;IMABS&quot;</span><span class="p">,</span> <span class="s2">&quot;IMAGINARY&quot;</span><span class="p">,</span> <span class="s2">&quot;IMARGUMENT&quot;</span><span class="p">,</span> <span class="s2">&quot;IMCONJUGATE&quot;</span><span class="p">,</span> <span class="s2">&quot;IMCOS&quot;</span><span class="p">,</span> <span class="s2">&quot;IMDIV&quot;</span><span class="p">,</span> <span class="s2">&quot;IMEXP&quot;</span><span class="p">,</span> <span class="s2">&quot;IMLN&quot;</span><span class="p">,</span> <span class="s2">&quot;IMLOG10&quot;</span><span class="p">,</span> <span class="s2">&quot;IMLOG2&quot;</span><span class="p">,</span> <span class="s2">&quot;IMPOWER&quot;</span><span class="p">,</span> <span class="s2">&quot;IMPRODUCT&quot;</span><span class="p">,</span> <span class="s2">&quot;IMREAL&quot;</span><span class="p">,</span> <span class="s2">&quot;IMSIN&quot;</span><span class="p">,</span> <span class="s2">&quot;IMSQRT&quot;</span><span class="p">,</span> <span class="s2">&quot;IMSUB&quot;</span><span class="p">,</span> <span class="s2">&quot;IMSUM&quot;</span><span class="p">,</span> <span class="s2">&quot;OCT2BIN&quot;</span><span class="p">,</span> <span class="s2">&quot;OCT2DEC&quot;</span><span class="p">,</span> <span class="s2">&quot;OCT2HEX&quot;</span><span class="p">,</span> <span class="s2">&quot;ACCRINT&quot;</span><span class="p">,</span> <span class="s2">&quot;ACCRINTM&quot;</span><span class="p">,</span> <span class="s2">&quot;AMORDEGRC&quot;</span><span class="p">,</span> <span class="s2">&quot;AMORLINC&quot;</span><span class="p">,</span> <span class="s2">&quot;COUPDAYBS&quot;</span><span class="p">,</span> <span class="s2">&quot;COUPDAYS&quot;</span><span class="p">,</span> <span class="s2">&quot;COUPDAYSNC&quot;</span><span class="p">,</span> <span class="s2">&quot;COUPNCD&quot;</span><span class="p">,</span> <span class="s2">&quot;COUPNUM&quot;</span><span class="p">,</span> <span class="s2">&quot;COUPPCD&quot;</span><span class="p">,</span> <span class="s2">&quot;CUMIPMT&quot;</span><span class="p">,</span> <span class="s2">&quot;CUMPRINC&quot;</span><span class="p">,</span> <span class="s2">&quot;DB&quot;</span><span class="p">,</span> <span class="s2">&quot;DDB&quot;</span><span class="p">,</span> <span class="s2">&quot;DISC&quot;</span><span class="p">,</span> <span class="s2">&quot;DOLLARDE&quot;</span><span class="p">,</span> <span class="s2">&quot;DOLLARFR&quot;</span><span class="p">,</span> <span class="s2">&quot;DURATION&quot;</span><span class="p">,</span> <span class="s2">&quot;EFFECT&quot;</span><span class="p">,</span> <span class="s2">&quot;FV&quot;</span><span class="p">,</span> <span class="s2">&quot;FVSCHEDULE&quot;</span><span class="p">,</span> <span class="s2">&quot;INTRATE&quot;</span><span class="p">,</span> <span class="s2">&quot;IPMT&quot;</span><span class="p">,</span> <span class="s2">&quot;IRR&quot;</span><span class="p">,</span> <span class="s2">&quot;ISPMT&quot;</span><span class="p">,</span> <span class="s2">&quot;MDURATION&quot;</span><span class="p">,</span> <span class="s2">&quot;MIRR&quot;</span><span class="p">,</span> <span class="s2">&quot;NOMINAL&quot;</span><span class="p">,</span> <span class="s2">&quot;NPER&quot;</span><span class="p">,</span> <span class="s2">&quot;NPV&quot;</span><span class="p">,</span> <span class="s2">&quot;ODDFPRICE&quot;</span><span class="p">,</span> <span class="s2">&quot;ODDFYIELD&quot;</span><span class="p">,</span> <span class="s2">&quot;ODDLPRICE&quot;</span><span class="p">,</span> <span class="s2">&quot;ODDLYIELD&quot;</span><span class="p">,</span> <span class="s2">&quot;PMT&quot;</span><span class="p">,</span> <span class="s2">&quot;PPMT&quot;</span><span class="p">,</span> <span class="s2">&quot;PRICE&quot;</span><span class="p">,</span> <span class="s2">&quot;PRICEDISC&quot;</span><span class="p">,</span> <span class="s2">&quot;PRICEMAT&quot;</span><span class="p">,</span> <span class="s2">&quot;PV&quot;</span><span class="p">,</span> <span class="s2">&quot;RATE&quot;</span><span class="p">,</span> <span class="s2">&quot;RECEIVED&quot;</span><span class="p">,</span> <span class="s2">&quot;SLN&quot;</span><span class="p">,</span> <span class="s2">&quot;SYD&quot;</span><span class="p">,</span> <span class="s2">&quot;TBILLEQ&quot;</span><span class="p">,</span> <span class="s2">&quot;TBILLPRICE&quot;</span><span class="p">,</span> <span class="s2">&quot;TBILLYIELD&quot;</span><span class="p">,</span> <span class="s2">&quot;VDB&quot;</span><span class="p">,</span> <span class="s2">&quot;XIRR&quot;</span><span class="p">,</span> <span class="s2">&quot;XNPV&quot;</span><span class="p">,</span> <span class="s2">&quot;YIELD&quot;</span><span class="p">,</span> <span class="s2">&quot;YIELDDISC&quot;</span><span class="p">,</span> <span class="s2">&quot;YIELDMAT&quot;</span><span class="p">,</span> <span class="s2">&quot;CELL&quot;</span><span class="p">,</span> <span class="s2">&quot;ERROR.TYPE&quot;</span><span class="p">,</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="s2">&quot;ISBLANK&quot;</span><span class="p">,</span> <span class="s2">&quot;ISERR&quot;</span><span class="p">,</span> <span class="s2">&quot;ISERROR&quot;</span><span class="p">,</span> <span class="s2">&quot;ISEVEN&quot;</span><span class="p">,</span> <span class="s2">&quot;ISLOGICAL&quot;</span><span class="p">,</span> <span class="s2">&quot;ISNA&quot;</span><span class="p">,</span> <span class="s2">&quot;ISNONTEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;ISNUMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;ISODD&quot;</span><span class="p">,</span> <span class="s2">&quot;ISREF&quot;</span><span class="p">,</span> <span class="s2">&quot;ISTEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;NA&quot;</span><span class="p">,</span> <span class="s2">&quot;TYPE&quot;</span><span class="p">,</span> <span class="s2">&quot;AND&quot;</span><span class="p">,</span> <span class="s2">&quot;FALSE&quot;</span><span class="p">,</span> <span class="s2">&quot;IF&quot;</span><span class="p">,</span> <span class="s2">&quot;IFERROR&quot;</span><span class="p">,</span> <span class="s2">&quot;NOT&quot;</span><span class="p">,</span> <span class="s2">&quot;OR&quot;</span><span class="p">,</span> <span class="s2">&quot;TRUE&quot;</span><span class="p">,</span> <span class="s2">&quot;ADDRESS&quot;</span><span class="p">,</span> <span class="s2">&quot;AREAS&quot;</span><span class="p">,</span> <span class="s2">&quot;CHOOSE&quot;</span><span class="p">,</span> <span class="s2">&quot;COLUMN&quot;</span><span class="p">,</span> <span class="s2">&quot;COLUMNS&quot;</span><span class="p">,</span> <span class="s2">&quot;GETPIVOTDATA&quot;</span><span class="p">,</span> <span class="s2">&quot;HLOOKUP&quot;</span><span class="p">,</span> <span class="s2">&quot;HYPERLINK&quot;</span><span class="p">,</span> <span class="s2">&quot;INDEX&quot;</span><span class="p">,</span> <span class="s2">&quot;INDIRECT&quot;</span><span class="p">,</span> <span class="s2">&quot;LOOKUP&quot;</span><span class="p">,</span> <span class="s2">&quot;MATCH&quot;</span><span class="p">,</span> <span class="s2">&quot;OFFSET&quot;</span><span class="p">,</span> <span class="s2">&quot;ROW&quot;</span><span class="p">,</span> <span class="s2">&quot;ROWS&quot;</span><span class="p">,</span> <span class="s2">&quot;RTD&quot;</span><span class="p">,</span> <span class="s2">&quot;TRANSPOSE&quot;</span><span class="p">,</span> <span class="s2">&quot;VLOOKUP&quot;</span><span class="p">,</span> <span class="s2">&quot;ABS&quot;</span><span class="p">,</span> <span class="s2">&quot;ACOS&quot;</span><span class="p">,</span> <span class="s2">&quot;ACOSH&quot;</span><span class="p">,</span> <span class="s2">&quot;ASIN&quot;</span><span class="p">,</span> <span class="s2">&quot;ASINH&quot;</span><span class="p">,</span> <span class="s2">&quot;ATAN&quot;</span><span class="p">,</span> <span class="s2">&quot;ATAN2&quot;</span><span class="p">,</span> <span class="s2">&quot;ATANH&quot;</span><span class="p">,</span> <span class="s2">&quot;CEILING&quot;</span><span class="p">,</span> <span class="s2">&quot;COMBIN&quot;</span><span class="p">,</span> <span class="s2">&quot;COS&quot;</span><span class="p">,</span> <span class="s2">&quot;COSH&quot;</span><span class="p">,</span> <span class="s2">&quot;DEGREES&quot;</span><span class="p">,</span> <span class="s2">&quot;ECMA.CEILING&quot;</span><span class="p">,</span> <span class="s2">&quot;EVEN&quot;</span><span class="p">,</span> <span class="s2">&quot;EXP&quot;</span><span class="p">,</span> <span class="s2">&quot;FACT&quot;</span><span class="p">,</span> <span class="s2">&quot;FACTDOUBLE&quot;</span><span class="p">,</span> <span class="s2">&quot;FLOOR&quot;</span><span class="p">,</span> <span class="s2">&quot;GCD&quot;</span><span class="p">,</span> <span class="s2">&quot;INT&quot;</span><span class="p">,</span> <span class="s2">&quot;ISO.CEILING&quot;</span><span class="p">,</span> <span class="s2">&quot;LCM&quot;</span><span class="p">,</span> <span class="s2">&quot;LN&quot;</span><span class="p">,</span> <span class="s2">&quot;LOG&quot;</span><span class="p">,</span> <span class="s2">&quot;LOG10&quot;</span><span class="p">,</span> <span class="s2">&quot;MDETERM&quot;</span><span class="p">,</span> <span class="s2">&quot;MINVERSE&quot;</span><span class="p">,</span> <span class="s2">&quot;MMULT&quot;</span><span class="p">,</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;MROUND&quot;</span><span class="p">,</span> <span class="s2">&quot;MULTINOMIAL&quot;</span><span class="p">,</span> <span class="s2">&quot;ODD&quot;</span><span class="p">,</span> <span class="s2">&quot;PI&quot;</span><span class="p">,</span> <span class="s2">&quot;POWER&quot;</span><span class="p">,</span> <span class="s2">&quot;PRODUCT&quot;</span><span class="p">,</span> <span class="s2">&quot;QUOTIENT&quot;</span><span class="p">,</span> <span class="s2">&quot;RADIANS&quot;</span><span class="p">,</span> <span class="s2">&quot;RAND&quot;</span><span class="p">,</span> <span class="s2">&quot;RANDBETWEEN&quot;</span><span class="p">,</span> <span class="s2">&quot;ROMAN&quot;</span><span class="p">,</span> <span class="s2">&quot;ROUND&quot;</span><span class="p">,</span> <span class="s2">&quot;ROUNDDOWN&quot;</span><span class="p">,</span> <span class="s2">&quot;ROUNDUP&quot;</span><span class="p">,</span> <span class="s2">&quot;SERIESSUM&quot;</span><span class="p">,</span> <span class="s2">&quot;SIGN&quot;</span><span class="p">,</span> <span class="s2">&quot;SIN&quot;</span><span class="p">,</span> <span class="s2">&quot;SINH&quot;</span><span class="p">,</span> <span class="s2">&quot;SQRT&quot;</span><span class="p">,</span> <span class="s2">&quot;SQRTPI&quot;</span><span class="p">,</span> <span class="s2">&quot;SUBTOTAL&quot;</span><span class="p">,</span> <span class="s2">&quot;SUM&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMIF&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMIFS&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMPRODUCT&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMSQ&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMX2MY2&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMX2PY2&quot;</span><span class="p">,</span> <span class="s2">&quot;SUMXMY2&quot;</span><span class="p">,</span> <span class="s2">&quot;TAN&quot;</span><span class="p">,</span> <span class="s2">&quot;TANH&quot;</span><span class="p">,</span> <span class="s2">&quot;TRUNC&quot;</span><span class="p">,</span> <span class="s2">&quot;AVEDEV&quot;</span><span class="p">,</span> <span class="s2">&quot;AVERAGE&quot;</span><span class="p">,</span> <span class="s2">&quot;AVERAGEA&quot;</span><span class="p">,</span> <span class="s2">&quot;AVERAGEIF&quot;</span><span class="p">,</span> <span class="s2">&quot;AVERAGEIFS&quot;</span><span class="p">,</span> <span class="s2">&quot;BETADIST&quot;</span><span class="p">,</span> <span class="s2">&quot;BETAINV&quot;</span><span class="p">,</span> <span class="s2">&quot;BINOMDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;CHIDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;CHIINV&quot;</span><span class="p">,</span> <span class="s2">&quot;CHITEST&quot;</span><span class="p">,</span> <span class="s2">&quot;CONFIDENCE&quot;</span><span class="p">,</span> <span class="s2">&quot;CORREL&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNT&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTA&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTBLANK&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTIF&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTIFS&quot;</span><span class="p">,</span> <span class="s2">&quot;COVAR&quot;</span><span class="p">,</span> <span class="s2">&quot;CRITBINOM&quot;</span><span class="p">,</span> <span class="s2">&quot;DEVSQ&quot;</span><span class="p">,</span> <span class="s2">&quot;EXPONDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;FDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;FINV&quot;</span><span class="p">,</span> <span class="s2">&quot;FISHER&quot;</span><span class="p">,</span> <span class="s2">&quot;FISHERINV&quot;</span><span class="p">,</span> <span class="s2">&quot;FORECAST&quot;</span><span class="p">,</span> <span class="s2">&quot;FREQUENCY&quot;</span><span class="p">,</span> <span class="s2">&quot;FTEST&quot;</span><span class="p">,</span> <span class="s2">&quot;GAMMADIST&quot;</span><span class="p">,</span> <span class="s2">&quot;GAMMAINV&quot;</span><span class="p">,</span> <span class="s2">&quot;GAMMALN&quot;</span><span class="p">,</span> <span class="s2">&quot;GEOMEAN&quot;</span><span class="p">,</span> <span class="s2">&quot;GROWTH&quot;</span><span class="p">,</span> <span class="s2">&quot;HARMEAN&quot;</span><span class="p">,</span> <span class="s2">&quot;HYPGEOMDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;INTERCEPT&quot;</span><span class="p">,</span> <span class="s2">&quot;KURT&quot;</span><span class="p">,</span> <span class="s2">&quot;LARGE&quot;</span><span class="p">,</span> <span class="s2">&quot;LINEST&quot;</span><span class="p">,</span> <span class="s2">&quot;LOGEST&quot;</span><span class="p">,</span> <span class="s2">&quot;LOGINV&quot;</span><span class="p">,</span> <span class="s2">&quot;LOGNORMDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">,</span> <span class="s2">&quot;MAXA&quot;</span><span class="p">,</span> <span class="s2">&quot;MEDIAN&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">,</span> <span class="s2">&quot;MINA&quot;</span><span class="p">,</span> <span class="s2">&quot;MODE&quot;</span><span class="p">,</span> <span class="s2">&quot;NEGBINOMDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;NORMDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;NORMINV&quot;</span><span class="p">,</span> <span class="s2">&quot;NORMSDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;NORMSINV&quot;</span><span class="p">,</span> <span class="s2">&quot;PEARSON&quot;</span><span class="p">,</span> <span class="s2">&quot;PERCENTILE&quot;</span><span class="p">,</span> <span class="s2">&quot;PERCENTRANK&quot;</span><span class="p">,</span> <span class="s2">&quot;PERMUT&quot;</span><span class="p">,</span> <span class="s2">&quot;POISSON&quot;</span><span class="p">,</span> <span class="s2">&quot;PROB&quot;</span><span class="p">,</span> <span class="s2">&quot;QUARTILE&quot;</span><span class="p">,</span> <span class="s2">&quot;RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;RSQ&quot;</span><span class="p">,</span> <span class="s2">&quot;SKEW&quot;</span><span class="p">,</span> <span class="s2">&quot;SLOPE&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL&quot;</span><span class="p">,</span> <span class="s2">&quot;STANDARDIZE&quot;</span><span class="p">,</span> <span class="s2">&quot;STDEV&quot;</span><span class="p">,</span> <span class="s2">&quot;STDEVA&quot;</span><span class="p">,</span> <span class="s2">&quot;STDEVP&quot;</span><span class="p">,</span> <span class="s2">&quot;STDEVPA&quot;</span><span class="p">,</span> <span class="s2">&quot;STEYX&quot;</span><span class="p">,</span> <span class="s2">&quot;TDIST&quot;</span><span class="p">,</span> <span class="s2">&quot;TINV&quot;</span><span class="p">,</span> <span class="s2">&quot;TREND&quot;</span><span class="p">,</span> <span class="s2">&quot;TRIMMEAN&quot;</span><span class="p">,</span> <span class="s2">&quot;TTEST&quot;</span><span class="p">,</span> <span class="s2">&quot;VAR&quot;</span><span class="p">,</span> <span class="s2">&quot;VARA&quot;</span><span class="p">,</span> <span class="s2">&quot;VARP&quot;</span><span class="p">,</span> <span class="s2">&quot;VARPA&quot;</span><span class="p">,</span> <span class="s2">&quot;WEIBULL&quot;</span><span class="p">,</span> <span class="s2">&quot;ZTEST&quot;</span><span class="p">,</span> <span class="s2">&quot;ASC&quot;</span><span class="p">,</span> <span class="s2">&quot;BAHTTEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAR&quot;</span><span class="p">,</span> <span class="s2">&quot;CLEAN&quot;</span><span class="p">,</span> <span class="s2">&quot;CODE&quot;</span><span class="p">,</span> <span class="s2">&quot;CONCATENATE&quot;</span><span class="p">,</span> <span class="s2">&quot;DOLLAR&quot;</span><span class="p">,</span> <span class="s2">&quot;EXACT&quot;</span><span class="p">,</span> <span class="s2">&quot;FIND&quot;</span><span class="p">,</span> <span class="s2">&quot;FINDB&quot;</span><span class="p">,</span> <span class="s2">&quot;FIXED&quot;</span><span class="p">,</span> <span class="s2">&quot;JIS&quot;</span><span class="p">,</span> <span class="s2">&quot;LEFT&quot;</span><span class="p">,</span> <span class="s2">&quot;LEFTB&quot;</span><span class="p">,</span> <span class="s2">&quot;LEN&quot;</span><span class="p">,</span> <span class="s2">&quot;LENB&quot;</span><span class="p">,</span> <span class="s2">&quot;LOWER&quot;</span><span class="p">,</span> <span class="s2">&quot;MID&quot;</span><span class="p">,</span> <span class="s2">&quot;MIDB&quot;</span><span class="p">,</span> <span class="s2">&quot;PHONETIC&quot;</span><span class="p">,</span> <span class="s2">&quot;PROPER&quot;</span><span class="p">,</span> <span class="s2">&quot;REPLACE&quot;</span><span class="p">,</span> <span class="s2">&quot;REPLACEB&quot;</span><span class="p">,</span> <span class="s2">&quot;REPT&quot;</span><span class="p">,</span> <span class="s2">&quot;RIGHT&quot;</span><span class="p">,</span> <span class="s2">&quot;RIGHTB&quot;</span><span class="p">,</span> <span class="s2">&quot;SEARCH&quot;</span><span class="p">,</span> <span class="s2">&quot;SEARCHB&quot;</span><span class="p">,</span> <span class="s2">&quot;SUBSTITUTE&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;TEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;TRIM&quot;</span><span class="p">,</span> <span class="s2">&quot;UPPER&quot;</span><span class="p">,</span> <span class="s2">&quot;VALUE&quot;</span><span class="p">)</span>
+
+<span class="n">FORMULAE</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">FORMULAE</span><span class="p">)</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.formula</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tokenizer</span>
+
+
+<div class="viewcode-block" id="validate">
+<a class="viewcode-back" href="../../../api/fastpyxl.utils.formulas.html#fastpyxl.utils.formulas.validate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">formula</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Utility function for checking whether a formula is syntactically correct</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">formula</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+    <span class="n">formula</span> <span class="o">=</span> <span class="n">Tokenizer</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">formula</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;FUNC&quot;</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">subtype</span> <span class="o">==</span> <span class="s2">&quot;OPEN&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_xlfn.&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">FORMULAE</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown function </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">formula</span><span class="o">.</span><span class="n">formula</span><span class="si">}</span><span class="s2">. The function may need a prefix&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

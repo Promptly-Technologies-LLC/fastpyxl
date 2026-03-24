@@ -1,8 +1,7 @@
-from openpyxl import Workbook
-from openpyxl.chart import (
+from fastpyxl import Workbook
+from fastpyxl.chart import (
     AreaChart3D,
     Reference,
-    Series,
 )
 
 wb = Workbook()

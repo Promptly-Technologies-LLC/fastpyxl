@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.formula.translate module &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fastpyxl.packaging package" href="fastpyxl.packaging.html" />
+    <link rel="prev" title="fastpyxl.formula.tokenizer module" href="fastpyxl.formula.tokenizer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="fastpyxl.html">fastpyxl package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fastpyxl.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.cell.html">fastpyxl.cell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chart.html">fastpyxl.chart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.chartsheet.html">fastpyxl.chartsheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.comments.html">fastpyxl.comments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.compat.html">fastpyxl.compat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.descriptors.html">fastpyxl.descriptors package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.drawing.html">fastpyxl.drawing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.formatting.html">fastpyxl.formatting package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="fastpyxl.formula.html">fastpyxl.formula package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="fastpyxl.formula.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="fastpyxl.formula.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.packaging.html">fastpyxl.packaging package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.pivot.html">fastpyxl.pivot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.reader.html">fastpyxl.reader package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.styles.html">fastpyxl.styles package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.tests.html">fastpyxl.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.typed_serialisable.html">fastpyxl.typed_serialisable package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.utils.html">fastpyxl.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.workbook.html">fastpyxl.workbook package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.worksheet.html">fastpyxl.worksheet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.writer.html">fastpyxl.writer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastpyxl.xml.html">fastpyxl.xml package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.html">fastpyxl package</a></li>
+          <li class="breadcrumb-item"><a href="fastpyxl.formula.html">fastpyxl.formula package</a></li>
+      <li class="breadcrumb-item active">fastpyxl.formula.translate module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/fastpyxl.formula.translate.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-fastpyxl.formula.translate">
+<span id="fastpyxl-formula-translate-module"></span><h1>fastpyxl.formula.translate module<a class="headerlink" href="#module-fastpyxl.formula.translate" title="Link to this heading"></a></h1>
+<p>This module contains code to translate formulae across cells in a worksheet.</p>
+<p>The idea is that if A1 has formula “=B1+C1”, then translating it to cell A2
+results in formula “=B2+C2”. The algorithm relies on the formula tokenizer
+to identify the parts of the formula that need to change.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.formula.translate.</span></span><span class="sig-name descname"><span class="pre">Translator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Modifies a formula so that it can be translated from one cell to another.</p>
+<dl class="simple">
+<dt><cite>formula</cite>: The str string to translate. Must include the leading ‘=’</dt><dd><p>character.</p>
+</dd>
+<dt><cite>origin</cite>: The cell address (in A1 notation) where this formula was</dt><dd><p>defined (excluding the worksheet name).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.CELL_REF_RE">
+<span class="sig-name descname"><span class="pre">CELL_REF_RE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('(\\$?[A-Za-z]{1,3})(\\$?[1-9][0-9]{0,6})$')</span></span><a class="headerlink" href="#fastpyxl.formula.translate.Translator.CELL_REF_RE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.COL_RANGE_RE">
+<span class="sig-name descname"><span class="pre">COL_RANGE_RE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('(\\$?[A-Za-z]{1,3}):(\\$?[A-Za-z]{1,3})$')</span></span><a class="headerlink" href="#fastpyxl.formula.translate.Translator.COL_RANGE_RE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.ROW_RANGE_RE">
+<span class="sig-name descname"><span class="pre">ROW_RANGE_RE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('(\\$?[1-9][0-9]{0,6}):(\\$?[1-9][0-9]{0,6})$')</span></span><a class="headerlink" href="#fastpyxl.formula.translate.Translator.ROW_RANGE_RE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.get_tokens">
+<span class="sig-name descname"><span class="pre">get_tokens</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator.get_tokens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator.get_tokens" title="Link to this definition"></a></dt>
+<dd><p>Returns a list with the tokens comprising the formula.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.strip_ws_name">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">strip_ws_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">range_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator.strip_ws_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator.strip_ws_name" title="Link to this definition"></a></dt>
+<dd><p>Splits out the worksheet reference, if any, from a range reference.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.translate_col">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">translate_col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cdelta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator.translate_col"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator.translate_col" title="Link to this definition"></a></dt>
+<dd><p>Translate a range col-snippet by the given number of columns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.translate_formula">
+<span class="sig-name descname"><span class="pre">translate_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator.translate_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator.translate_formula" title="Link to this definition"></a></dt>
+<dd><p>Convert the formula into A1 notation, or as row and column coordinates</p>
+<p>The formula is converted into A1 assuming it is assigned to the cell
+whose address is <cite>dest</cite> (no worksheet name).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.translate_range">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">translate_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">range_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdelta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cdelta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator.translate_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator.translate_range" title="Link to this definition"></a></dt>
+<dd><p>Translate an A1-style range reference to the destination cell.</p>
+<p><cite>rdelta</cite>: the row offset to add to the range
+<cite>cdelta</cite>: the column offset to add to the range
+<cite>range_str</cite>: an A1-style reference to a range. Potentially includes</p>
+<blockquote>
+<div><p>the worksheet reference. Could also be a named range.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.Translator.translate_row">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">translate_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdelta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#Translator.translate_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.Translator.translate_row" title="Link to this definition"></a></dt>
+<dd><p>Translate a range row-snippet by the given number of rows.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fastpyxl.formula.translate.TranslatorError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fastpyxl.formula.translate.</span></span><span class="sig-name descname"><span class="pre">TranslatorError</span></span><a class="reference internal" href="../_modules/fastpyxl/formula/translate.html#TranslatorError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastpyxl.formula.translate.TranslatorError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raised when a formula can’t be translated across cells.</p>
+<p>This error arises when a formula’s references would be translated outside
+the worksheet’s bounds on the top or left. Excel represents these
+situations with a #REF! literal error. E.g., if the formula at B2 is
+‘=A1’, attempting to translate the formula to B1 raises TranslatorError,
+since there’s no cell above A1. Similarly, translating the same formula
+from B2 to A2 raises TranslatorError, since there’s no cell to the left of
+A1.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fastpyxl.formula.tokenizer.html" class="btn btn-neutral float-left" title="fastpyxl.formula.tokenizer module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fastpyxl.packaging.html" class="btn btn-neutral float-right" title="fastpyxl.packaging package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

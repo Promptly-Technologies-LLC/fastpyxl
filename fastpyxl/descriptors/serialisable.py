@@ -1,0 +1,213 @@
+# Copyright (c) 2010-2024 fastpyxl
+
+from copy import copy
+from keyword import kwlist
+
+from fastpyxl.compat import safe_string
+from fastpyxl.xml.functions import Element, localname
+
+from fastpyxl.descriptors.namespace import namespaced
+
+from . import Descriptor, MetaSerialisable
+from .sequence import MultiSequencePart, NestedSequence, Sequence
+
+KEYWORDS = frozenset(kwlist)
+seq_types = (list, tuple)
+
+
+class Serialisable(metaclass=MetaSerialisable):
+    """
+    Objects can serialise to XML their attributes and child objects.
+    The following class attributes are created by the metaclass at runtime:
+    __attrs__ = attributes
+    __nested__ = single-valued child treated as an attribute
+    __elements__ = child elements
+    """
+
+    __attrs__ = None
+    __nested__ = None
+    __elements__ = None
+    __namespaced__ = None
+
+    idx_base = 0
+
+    @property
+    def tagname(self):
+        raise NotImplementedError
+
+    namespace = None
+
+    @classmethod
+    def from_tree(cls, node):
+        attrib = dict(node.attrib)
+        for key, ns in cls.__namespaced__ or ():
+            if ns in attrib:
+                attrib[key] = attrib[ns]
+                del attrib[ns]
+
+        for key in list(attrib):
+            if key.startswith("{"):
+                del attrib[key]
+            elif key in KEYWORDS:
+                attrib["_" + key] = attrib[key]
+                del attrib[key]
+            elif "-" in key:
+                n = key.replace("-", "_")
+                attrib[n] = attrib[key]
+                del attrib[key]
+
+        cls_attrs = cls.__attrs__ or ()
+        if node.text and "attr_text" in cls_attrs:
+            attrib["attr_text"] = node.text
+
+        for el in node:
+            tag = localname(el)
+            if tag in KEYWORDS:
+                tag = "_" + tag
+            desc = getattr(cls, tag, None)
+            if desc is None or isinstance(desc, property):
+                continue
+
+            if hasattr(desc, "from_tree"):
+                obj = desc.from_tree(el)
+            else:
+                if hasattr(desc.expected_type, "from_tree"):
+                    obj = desc.expected_type.from_tree(el)
+                else:
+                    obj = el.text
+
+            if isinstance(desc, NestedSequence):
+                attrib[tag] = obj
+            elif isinstance(desc, Sequence):
+                attrib.setdefault(tag, [])
+                attrib[tag].append(obj)
+            elif isinstance(desc, MultiSequencePart):
+                attrib.setdefault(desc.store, [])
+                attrib[desc.store].append(obj)
+            else:
+                attrib[tag] = obj
+
+        return cls(**attrib)
+
+    def to_tree(self, tagname=None, idx=None, namespace=None):
+        del idx
+        if tagname is None:
+            tagname = self.tagname
+
+        if tagname.startswith("_"):
+            tagname = tagname[1:]
+
+        tagname = namespaced(self, tagname, namespace)
+        namespace = getattr(self, "namespace", namespace)
+
+        attrs = dict(self)
+        for key, ns in self.__namespaced__ or ():
+            if key in attrs:
+                attrs[ns] = attrs[key]
+                del attrs[key]
+
+        el = Element(tagname, attrs)
+        if "attr_text" in (self.__attrs__ or ()):
+            el.text = safe_string(getattr(self, "attr_text"))
+
+        for child_tag in self.__elements__ or ():
+            desc = getattr(self.__class__, child_tag, None)
+            obj = getattr(self, child_tag)
+            if desc is not None and hasattr(desc, "namespace") and hasattr(obj, "namespace"):
+                obj.namespace = desc.namespace
+
+            if isinstance(obj, seq_types):
+                if isinstance(desc, NestedSequence):
+                    if not obj:
+                        continue
+                    nodes = [desc.to_tree(child_tag, obj, namespace)]
+                elif isinstance(desc, Sequence):
+                    desc.idx_base = self.idx_base
+                    nodes = desc.to_tree(child_tag, obj, namespace)
+                else:
+                    nodes = (v.to_tree(child_tag, namespace) for v in obj)
+                for node in nodes:
+                    el.append(node)
+            else:
+                if child_tag in (self.__nested__ or ()):
+                    assert desc is not None
+                    node = desc.to_tree(child_tag, obj, namespace)
+                elif obj is None:
+                    continue
+                else:
+                    node = obj.to_tree(child_tag)
+                if node is not None:
+                    el.append(node)
+        return el
+
+    def __iter__(self):
+        for attr in self.__attrs__ or ():
+            value = getattr(self, attr)
+            if attr.startswith("_"):
+                attr = attr[1:]
+            elif attr != "attr_text" and "_" in attr:
+                desc = getattr(self.__class__, attr)
+                if getattr(desc, "hyphenated", False):
+                    attr = attr.replace("_", "-")
+            if attr != "attr_text" and value is not None:
+                yield attr, safe_string(value)
+
+    def __eq__(self, other):
+        if not self.__class__ == other.__class__:
+            return False
+        elif not dict(self) == dict(other):
+            return False
+        for el in self.__elements__ or ():
+            if getattr(self, el) != getattr(other, el):
+                return False
+        return True
+
+    def __ne__(self, other):
+        return not self == other
+
+    def __repr__(self):
+        s = "<{0}.{1} object>\nParameters:".format(
+            self.__module__,
+            self.__class__.__name__,
+        )
+        args = []
+        for k in (self.__attrs__ or ()) + (self.__elements__ or ()):
+            v = getattr(self, k)
+            if isinstance(v, Descriptor):
+                v = None
+            args.append("{0}={1}".format(k, repr(v)))
+        args = ", ".join(args)
+        return "\n".join([s, args])
+
+    def __hash__(self):
+        fields = []
+        for attr in (self.__attrs__ or ()) + (self.__elements__ or ()):
+            val = getattr(self, attr)
+            if isinstance(val, list):
+                val = tuple(val)
+            fields.append(val)
+        return hash(tuple(fields))
+
+    def __add__(self, other):
+        if type(self) is not type(other):
+            raise TypeError("Cannot combine instances of different types")
+        vals = {}
+        for attr in self.__attrs__ or ():
+            vals[attr] = getattr(self, attr) or getattr(other, attr)
+        for el in self.__elements__ or ():
+            a = getattr(self, el)
+            b = getattr(other, el)
+            if a and b:
+                vals[el] = a + b
+            else:
+                vals[el] = a or b
+        return self.__class__(**vals)
+
+    def __copy__(self):
+        xml = self.to_tree(tagname="dummy")
+        cp = self.__class__.from_tree(xml)
+        for k in self.__dict__:
+            if k not in (self.__attrs__ or ()) + (self.__elements__ or ()):
+                v = copy(getattr(self, k))
+                setattr(cp, k, v)
+        return cp

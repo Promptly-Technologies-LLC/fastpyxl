@@ -1,10 +1,10 @@
-openpyxl - A Python library to read/write Excel 2010 xlsx/xlsm files
-===========================================================================
+fastpyxl - A high-performance Python library to read/write Excel 2010 xlsx/xlsm files
+======================================================================================
 
 
 :Author: Eric Gazoni, Charlie Clark
-:Source code: https://foss.heptapod.net/openpyxl/openpyxl
-:Issues: https://foss.heptapod.net/openpyxl/openpyxl/-/issues
+:Source code: https://github.com/fastpyxl/fastpyxl
+:Issues: https://github.com/fastpyxl/fastpyxl/issues
 :Generated: |today|
 :License: MIT/Expat
 :Version: |release|
@@ -23,20 +23,17 @@ project :doc:`development` yourself or contract a developer for particular
 features.
 
 
-Professional support for openpyxl is available from
+Professional support for fastpyxl is available from
 `Clark Consulting & Research <http://www.clark-consulting.eu/>`_ and
 `Adimian <http://www.adimian.com>`_. Donations to the project to support further
 development and maintenance are welcome.
 
 
 Bug reports and feature requests should be submitted using the `issue tracker
-<https://foss.heptapod.net/openpyxl/openpyxl/-/issues>`_. Please provide a full
+<https://github.com/fastpyxl/fastpyxl/issues>`_. Please provide a full
 traceback of any error you see and if possible a sample file. If for reasons
 of confidentiality you are unable to make a file publicly available then
 contact of one the developers.
-
-The repository is being provided by `Octobus <https://octobus.net/>`_ and
-`Clever Cloud <https://clever-cloud.com/>`_.
 
 
 How to Contribute
@@ -45,9 +42,8 @@ How to Contribute
 Any help will be greatly appreciated, just follow those steps:
 
     1.
-    Please join the group and create a branch (https://foss.heptapod.net/openpyxl/openpyxl/) and
-    follow the `Merge Request Start Guide <https://heptapod.net/pages/quick-start-guide.html>`_.
-    for each independent feature, don't try to fix all problems at the same
+    `Fork the repository <https://github.com/fastpyxl/fastpyxl/fork>`_ on GitHub and create a branch
+    for each independent feature; don't try to fix all problems at the same
     time, it's easier for those who will review and merge your changes ;-)
 
     2.
@@ -89,7 +85,7 @@ There are several ways to contribute, even if you can't code (or can't code well
       documentation, it's pretty hard to do anything with it
 
     * proposing compatibility fixes for different versions of Python: we support
-      3.6, 3.7, 3.8 and 3.9.
+      3.11 and later.
 
 
 .. toctree::
@@ -171,7 +167,7 @@ There are several ways to contribute, even if you can't code (or can't code well
     :hidden:
 
     development
-    api/openpyxl
+    api/fastpyxl
     formula
        
 .. toctree::
@@ -188,9 +184,9 @@ API Documentation
 Key Classes
 +++++++++++
 
-* :class:`openpyxl.workbook.workbook.Workbook`
-* :class:`openpyxl.worksheet.worksheet.Worksheet`
-* :class:`openpyxl.cell.cell.Cell`
+* :class:`fastpyxl.workbook.workbook.Workbook`
+* :class:`fastpyxl.worksheet.worksheet.Worksheet`
+* :class:`fastpyxl.cell.cell.Cell`
 
 
 Indices and tables

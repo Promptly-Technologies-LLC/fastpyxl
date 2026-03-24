@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fastpyxl.worksheet.filters &mdash; fastpyxl 3.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=851b9b12"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            fastpyxl
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Simple usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Styling</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../styles.html">Working with styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rich_text.html">Working with Rich Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formatting.html">Conditional Formatting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Worksheets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../editing_worksheets.html">Inserting and deleting rows and columns, moving ranges of cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_properties.html">Additional Worksheet Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../validation.html">Validating cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../worksheet_tables.html">Worksheet Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filters.html">Using filters and sorts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../print_settings.html">Print Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pivot.html">Pivot Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comments.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datetime.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_formulae.html">Simple Formualae</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workbooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../defined_names.html">Defined Names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workbook_custom_doc_props.html">Custom Document Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../protection.html">Protection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Charts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../charts/introduction.html">Charts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../images.html">Working with Images</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pandas.html">Working with Pandas and NumPy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimized.html">Optimised Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Performance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fastpyxl.html">fastpyxl package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formula.html">Parsing Formulas</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">3.1.5 (2024-06-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id5">3.1.4 (2024-06-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id8">3.1.3 (2024-05-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id26">3.1.2 (2023-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id29">3.1.1 (2023-02-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id33">3.1.0 (2023-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id50">3.0.10 (2022-05-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id56">3.0.9 (2021-09-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#brown-bag">3.0.8 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id65">3.0.7 (2021-03-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id72">3.0.6 (2021-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id84">3.0.5 (2020-08-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id93">3.0.4 (2020-06-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id104">3.0.3 (2020-01-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id109">3.0.2 (2019-11-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id116">3.0.1 (2019-11-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id120">3.0.0 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id121">2.6.4 (2019-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id123">2.6.3 (2019-08-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id132">2.6.2 (2019-03-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id140">2.6.1 (2019-03-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id154">2.6.0 (2019-02-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2019-01-08">2.6.-b1 (2019-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2018-11-21">2.6-a1 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id164">2.5.14 (2019-01-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id170">2.5.13 (brown bag)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id171">2.5.12 (2018-11-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id178">2.5.11 (2018-11-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id180">2.5.10 (2018-11-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id184">2.5.9 (2018-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id190">2.5.8 (2018-09-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id194">2.5.7 (2018-09-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id198">2.5.6 (2018-08-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id202">2.5.5 (2018-08-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id208">2.5.4 (2018-06-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id213">2.5.3 (2018-04-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id221">2.5.2 (2018-04-06)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id230">2.5.1 (2018-03-12)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id240">2.5.0 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2018-01-19">2.5.0-b2 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2017-10-19">2.5.0-b1 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a3-2017-08-14">2.5.0-a3 (2017-08-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a2-2017-06-25">2.5.0-a2 (2017-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2017-05-30">2.5.0-a1 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id282">2.4.11 (2018-01-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id283">2.4.10 (2018-01-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id286">2.4.9 (2017-10-19)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id303">2.4.8 (2017-05-30)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id311">2.4.7 (2017-04-24)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id314">2.4.6 (2017-04-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id322">2.4.5 (2017-03-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id330">2.4.4 (2017-02-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#unreleased">2.4.3 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id342">2.4.2 (2017-01-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id355">2.4.1 (2016-11-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id375">2.4.0 (2016-09-15)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2016-06-08">2.4.0-b1 (2016-06-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#a1-2016-04-11">2.4.0-a1 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id405">2.3.5 (2016-04-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id408">2.3.4 (2016-03-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id414">2.3.3 (2016-01-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id422">2.3.2 (2015-12-07)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id430">2.3.1 (2015-11-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id442">2.3.0 (2015-10-20)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b2-2015-09-04">2.3.0-b2 (2015-09-04)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-06-29">2.3.0-b1 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id469">2.2.6 (unreleased)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id475">2.2.5 (2015-06-29)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id480">2.2.4 (2015-06-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id489">2.2.3 (2015-05-26)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id496">2.2.2 (2015-04-28)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id500">2.2.1 (2015-03-31)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id512">2.2.0 (2015-03-11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#b1-2015-02-18">2.2.0-b1 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id528">2.1.5 (2015-02-18)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id535">2.1.4 (2014-12-16)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id543">2.1.3 (2014-12-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id548">2.1.2 (2014-10-23)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id557">2.1.1 (2014-10-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id566">2.1.0 (2014-09-21)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id578">2.0.5 (2014-08-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id582">2.0.4 (2014-06-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id586">2.0.3 (2014-05-22)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id590">2.0.2 (2014-05-13)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id591">2.0.1 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id592">2.0.0 (2014-05-13)  brown bag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id616">1.8.6 (2014-05-05)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id620">1.8.5 (2014-03-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id622">1.8.4 (2014-02-25)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id627">1.8.3 (2014-02-09)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id633">1.8.2 (2014-01-17)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id637">1.8.1 (2014-01-14)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id639">1.8.0 (2014-01-08)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html#id643">1.7.0 (2013-10-31)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fastpyxl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fastpyxl.worksheet.filters</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fastpyxl.worksheet.filters</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2010-2024 fastpyxl</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.descriptors.excel</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtensionList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Serialisable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldValidationError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.typed_serialisable.fields</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasField</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastpyxl.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">absolute_coordinate</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_enum</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">allowed</span><span class="p">,</span> <span class="n">field_name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FieldValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> rejected value </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+
+<div class="viewcode-block" id="SortCondition">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.SortCondition">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SortCondition</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;sortCondition&quot;</span>
+
+    <span class="n">descending</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sortBy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;cellColor&#39;</span><span class="p">,</span> <span class="s1">&#39;fontColor&#39;</span><span class="p">,</span> <span class="s1">&#39;icon&#39;</span><span class="p">),</span> <span class="s1">&#39;sortBy&#39;</span><span class="p">))</span>
+    <span class="n">ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">customList</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dxfId</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">iconSet</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span>
+        <span class="s1">&#39;3Arrows&#39;</span><span class="p">,</span> <span class="s1">&#39;3ArrowsGray&#39;</span><span class="p">,</span> <span class="s1">&#39;3Flags&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;3TrafficLights1&#39;</span><span class="p">,</span> <span class="s1">&#39;3TrafficLights2&#39;</span><span class="p">,</span> <span class="s1">&#39;3Signs&#39;</span><span class="p">,</span> <span class="s1">&#39;3Symbols&#39;</span><span class="p">,</span> <span class="s1">&#39;3Symbols2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;4Arrows&#39;</span><span class="p">,</span> <span class="s1">&#39;4ArrowsGray&#39;</span><span class="p">,</span> <span class="s1">&#39;4RedToBlack&#39;</span><span class="p">,</span> <span class="s1">&#39;4Rating&#39;</span><span class="p">,</span> <span class="s1">&#39;4TrafficLights&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;5Arrows&#39;</span><span class="p">,</span> <span class="s1">&#39;5ArrowsGray&#39;</span><span class="p">,</span> <span class="s1">&#39;5Rating&#39;</span><span class="p">,</span> <span class="s1">&#39;5Quarters&#39;</span>
+    <span class="p">),</span> <span class="s1">&#39;iconSet&#39;</span><span class="p">))</span>
+    <span class="n">iconId</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sortBy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">customList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dxfId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iconSet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iconId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">descending</span> <span class="o">=</span> <span class="n">descending</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sortBy</span> <span class="o">=</span> <span class="n">sortBy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customList</span> <span class="o">=</span> <span class="n">customList</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dxfId</span> <span class="o">=</span> <span class="n">dxfId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iconSet</span> <span class="o">=</span> <span class="n">iconSet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iconId</span> <span class="o">=</span> <span class="n">iconId</span></div>
+
+
+
+<div class="viewcode-block" id="SortState">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.SortState">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SortState</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;sortState&quot;</span>
+
+    <span class="n">columnSort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">caseSensitive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sortMethod</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;stroke&#39;</span><span class="p">,</span> <span class="s1">&#39;pinYin&#39;</span><span class="p">),</span> <span class="s1">&#39;sortMethod&#39;</span><span class="p">))</span>
+    <span class="n">ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">sortCondition</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SortCondition</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">sequence</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">SortCondition</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">extLst</span><span class="p">:</span> <span class="n">ExtensionList</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">ExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">serialize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;sortCondition&#39;</span><span class="p">,)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columnSort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">caseSensitive</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sortMethod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sortCondition</span><span class="o">=</span><span class="p">(),</span> <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnSort</span> <span class="o">=</span> <span class="n">columnSort</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caseSensitive</span> <span class="o">=</span> <span class="n">caseSensitive</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sortMethod</span> <span class="o">=</span> <span class="n">sortMethod</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sortCondition</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sortCondition</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="IconFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.IconFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IconFilter</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;iconFilter&quot;</span>
+
+    <span class="n">iconSet</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span>
+        <span class="s1">&#39;3Arrows&#39;</span><span class="p">,</span> <span class="s1">&#39;3ArrowsGray&#39;</span><span class="p">,</span> <span class="s1">&#39;3Flags&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;3TrafficLights1&#39;</span><span class="p">,</span> <span class="s1">&#39;3TrafficLights2&#39;</span><span class="p">,</span> <span class="s1">&#39;3Signs&#39;</span><span class="p">,</span> <span class="s1">&#39;3Symbols&#39;</span><span class="p">,</span> <span class="s1">&#39;3Symbols2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;4Arrows&#39;</span><span class="p">,</span> <span class="s1">&#39;4ArrowsGray&#39;</span><span class="p">,</span> <span class="s1">&#39;4RedToBlack&#39;</span><span class="p">,</span> <span class="s1">&#39;4Rating&#39;</span><span class="p">,</span> <span class="s1">&#39;4TrafficLights&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;5Arrows&#39;</span><span class="p">,</span> <span class="s1">&#39;5ArrowsGray&#39;</span><span class="p">,</span> <span class="s1">&#39;5Rating&#39;</span><span class="p">,</span> <span class="s1">&#39;5Quarters&#39;</span>
+    <span class="p">),</span> <span class="s1">&#39;iconSet&#39;</span><span class="p">))</span>
+    <span class="n">iconId</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iconSet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iconId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iconSet</span> <span class="o">=</span> <span class="n">iconSet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iconId</span> <span class="o">=</span> <span class="n">iconId</span></div>
+
+
+
+<div class="viewcode-block" id="ColorFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.ColorFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ColorFilter</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;colorFilter&quot;</span>
+
+    <span class="n">dxfId</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cellColor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxfId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cellColor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dxfId</span> <span class="o">=</span> <span class="n">dxfId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cellColor</span> <span class="o">=</span> <span class="n">cellColor</span></div>
+
+
+
+<div class="viewcode-block" id="DynamicFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.DynamicFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DynamicFilter</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;dynamicFilter&quot;</span>
+
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span>
+        <span class="s1">&#39;null&#39;</span><span class="p">,</span> <span class="s1">&#39;aboveAverage&#39;</span><span class="p">,</span> <span class="s1">&#39;belowAverage&#39;</span><span class="p">,</span> <span class="s1">&#39;tomorrow&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;today&#39;</span><span class="p">,</span> <span class="s1">&#39;yesterday&#39;</span><span class="p">,</span> <span class="s1">&#39;nextWeek&#39;</span><span class="p">,</span> <span class="s1">&#39;thisWeek&#39;</span><span class="p">,</span> <span class="s1">&#39;lastWeek&#39;</span><span class="p">,</span> <span class="s1">&#39;nextMonth&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;thisMonth&#39;</span><span class="p">,</span> <span class="s1">&#39;lastMonth&#39;</span><span class="p">,</span> <span class="s1">&#39;nextQuarter&#39;</span><span class="p">,</span> <span class="s1">&#39;thisQuarter&#39;</span><span class="p">,</span> <span class="s1">&#39;lastQuarter&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nextYear&#39;</span><span class="p">,</span> <span class="s1">&#39;thisYear&#39;</span><span class="p">,</span> <span class="s1">&#39;lastYear&#39;</span><span class="p">,</span> <span class="s1">&#39;yearToDate&#39;</span><span class="p">,</span> <span class="s1">&#39;Q1&#39;</span><span class="p">,</span> <span class="s1">&#39;Q2&#39;</span><span class="p">,</span> <span class="s1">&#39;Q3&#39;</span><span class="p">,</span> <span class="s1">&#39;Q4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;M1&#39;</span><span class="p">,</span> <span class="s1">&#39;M2&#39;</span><span class="p">,</span> <span class="s1">&#39;M3&#39;</span><span class="p">,</span> <span class="s1">&#39;M4&#39;</span><span class="p">,</span> <span class="s1">&#39;M5&#39;</span><span class="p">,</span> <span class="s1">&#39;M6&#39;</span><span class="p">,</span> <span class="s1">&#39;M7&#39;</span><span class="p">,</span> <span class="s1">&#39;M8&#39;</span><span class="p">,</span> <span class="s1">&#39;M9&#39;</span><span class="p">,</span> <span class="s1">&#39;M10&#39;</span><span class="p">,</span> <span class="s1">&#39;M11&#39;</span><span class="p">,</span> <span class="s1">&#39;M12&#39;</span>
+    <span class="p">),</span> <span class="s1">&#39;type&#39;</span><span class="p">))</span>
+    <span class="n">val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">valIso</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">maxVal</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">maxValIso</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">valIso</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxVal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxValIso</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valIso</span> <span class="o">=</span> <span class="n">valIso</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxVal</span> <span class="o">=</span> <span class="n">maxVal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxValIso</span> <span class="o">=</span> <span class="n">maxValIso</span></div>
+
+
+
+<div class="viewcode-block" id="CustomFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.CustomFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomFilter</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;customFilter&quot;</span>
+
+    <span class="n">val</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">operator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="s1">&#39;lessThan&#39;</span><span class="p">,</span> <span class="s1">&#39;lessThanOrEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;notEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;greaterThanOrEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;greaterThan&#39;</span><span class="p">),</span> <span class="s1">&#39;operator&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">operator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_subtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+            <span class="n">subtype</span> <span class="o">=</span> <span class="n">BlankFilter</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;val required&quot;</span><span class="p">)</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">subtype</span> <span class="o">=</span> <span class="n">NumberFilter</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">subtype</span> <span class="o">=</span> <span class="n">StringFilter</span>
+        <span class="k">return</span> <span class="n">subtype</span>
+
+<div class="viewcode-block" id="CustomFilter.convert">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.CustomFilter.convert">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to more specific filter&quot;&quot;&quot;</span>
+        <span class="n">typ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_subtype</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">typ</span> <span class="ow">in</span> <span class="p">(</span><span class="n">BlankFilter</span><span class="p">,</span> <span class="n">NumberFilter</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">typ</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="n">operator</span><span class="p">,</span> <span class="n">term</span> <span class="o">=</span> <span class="n">StringFilter</span><span class="o">.</span><span class="n">_guess_operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        <span class="n">flt</span> <span class="o">=</span> <span class="n">StringFilter</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;notEqual&quot;</span><span class="p">:</span>
+            <span class="n">flt</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">flt</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BlankFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.BlankFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BlankFilter</span><span class="p">(</span><span class="n">CustomFilter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exclude blanks</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">operator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;notEqual&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">val</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span></div>
+
+
+
+<div class="viewcode-block" id="NumberFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.NumberFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NumberFilter</span><span class="p">(</span><span class="n">CustomFilter</span><span class="p">):</span>
+
+    <span class="n">operator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="s1">&#39;lessThan&#39;</span><span class="p">,</span> <span class="s1">&#39;lessThanOrEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;notEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;greaterThanOrEqual&#39;</span><span class="p">,</span> <span class="s1">&#39;greaterThan&#39;</span><span class="p">),</span> <span class="s1">&#39;operator&#39;</span><span class="p">))</span>
+    <span class="n">val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">operator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span></div>
+
+
+
+<span class="n">string_format_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;contains&quot;</span><span class="p">:</span> <span class="s2">&quot;*</span><span class="si">{}</span><span class="s2">*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;startswith&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;endswith&quot;</span><span class="p">:</span> <span class="s2">&quot;*</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;wildcard&quot;</span><span class="p">:</span>  <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="StringFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.StringFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StringFilter</span><span class="p">(</span><span class="n">CustomFilter</span><span class="p">):</span>
+
+    <span class="n">operator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;contains&#39;</span><span class="p">,</span> <span class="s1">&#39;startswith&#39;</span><span class="p">,</span> <span class="s1">&#39;endswith&#39;</span><span class="p">,</span> <span class="s1">&#39;wildcard&#39;</span><span class="p">),</span> <span class="s1">&#39;operator&#39;</span><span class="p">))</span>
+    <span class="n">val</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">exclude</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;contains&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">operator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_escape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Escape wildcards ~, * ? when serialising&quot;&quot;&quot;</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;wildcard&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;~|\*|\?&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;~\g&lt;0&gt;&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_unescape</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unescape value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;~(?P&lt;op&gt;[~*?])&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\g&lt;op&gt;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_guess_operator</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">StringFilter</span><span class="o">.</span><span class="n">_unescape</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">endswith</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(?P&lt;endswith&gt;\*)(?P&lt;term&gt;[^\*\?]*$)&quot;</span>
+        <span class="n">startswith</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(?P&lt;term&gt;[^\*\?]*)(?P&lt;startswith&gt;\*)$&quot;</span>
+        <span class="n">contains</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(?P&lt;contains&gt;\*)(?P&lt;term&gt;[^\*\?]*)\*$&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;wildcard&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">pat</span> <span class="ow">in</span> <span class="p">[</span><span class="n">contains</span><span class="p">,</span> <span class="n">startswith</span><span class="p">,</span> <span class="n">endswith</span><span class="p">]:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+
+        <span class="n">term</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;term&quot;</span><span class="p">)</span>
+        <span class="n">op</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">op</span><span class="p">,</span> <span class="n">term</span>
+
+<div class="viewcode-block" id="StringFilter.to_tree">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.StringFilter.to_tree">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">string_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span>
+        <span class="k">assert</span> <span class="n">string_op</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">string_format_mapping</span><span class="p">[</span><span class="n">string_op</span><span class="p">]</span>
+        <span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span> <span class="ow">and</span> <span class="s2">&quot;notEqual&quot;</span> <span class="ow">or</span> <span class="s2">&quot;equal&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_escape</span><span class="p">())</span>
+        <span class="n">flt</span> <span class="o">=</span> <span class="n">CustomFilter</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">flt</span><span class="o">.</span><span class="n">to_tree</span><span class="p">(</span><span class="n">tagname</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">namespace</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CustomFilters">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.CustomFilters">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomFilters</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;customFilters&quot;</span>
+
+    <span class="n">_and</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xml_name</span><span class="o">=</span><span class="s1">&#39;and&#39;</span><span class="p">)</span>
+    <span class="n">customFilter</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">CustomFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">sequence</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">CustomFilter</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span> <span class="c1"># min 1, max 2</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;customFilter&#39;</span><span class="p">,)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_and</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">customFilter</span><span class="o">=</span><span class="p">()):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_and</span> <span class="o">=</span> <span class="n">_and</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customFilter</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">customFilter</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Top10">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.Top10">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Top10</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;top10&quot;</span>
+
+    <span class="n">top</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">percent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">filterVal</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filterVal</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">percent</span> <span class="o">=</span> <span class="n">percent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterVal</span> <span class="o">=</span> <span class="n">filterVal</span></div>
+
+
+
+<div class="viewcode-block" id="DateGroupItem">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.DateGroupItem">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DateGroupItem</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;dateGroupItem&quot;</span>
+
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">month</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">second</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dateTimeGrouping</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">),</span> <span class="s1">&#39;dateTimeGrouping&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dateTimeGrouping</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">month</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="n">day</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="n">hour</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="n">minute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second</span> <span class="o">=</span> <span class="n">second</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dateTimeGrouping</span> <span class="o">=</span> <span class="n">dateTimeGrouping</span></div>
+
+
+
+<div class="viewcode-block" id="Filters">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.Filters">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Filters</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;filters&quot;</span>
+
+    <span class="n">blank</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">calendarType</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_enum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span>
+        <span class="s2">&quot;gregorian&quot;</span><span class="p">,</span><span class="s2">&quot;gregorianUs&quot;</span><span class="p">,</span><span class="s2">&quot;gregorianMeFrench&quot;</span><span class="p">,</span><span class="s2">&quot;gregorianArabic&quot;</span><span class="p">,</span> <span class="s2">&quot;hijri&quot;</span><span class="p">,</span><span class="s2">&quot;hebrew&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;taiwan&quot;</span><span class="p">,</span><span class="s2">&quot;japan&quot;</span><span class="p">,</span> <span class="s2">&quot;thai&quot;</span><span class="p">,</span><span class="s2">&quot;korea&quot;</span><span class="p">,</span> <span class="s2">&quot;saka&quot;</span><span class="p">,</span><span class="s2">&quot;gregorianXlitEnglish&quot;</span><span class="p">,</span><span class="s2">&quot;gregorianXlitFrench&quot;</span>
+    <span class="p">),</span> <span class="s1">&#39;calendarType&#39;</span><span class="p">))</span>
+    <span class="nb">filter</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">sequence</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">primitive_attribute</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">dateGroupItem</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DateGroupItem</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">sequence</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">DateGroupItem</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;dateGroupItem&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calendarType</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="p">(),</span> <span class="n">dateGroupItem</span><span class="o">=</span><span class="p">()):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blank</span> <span class="o">=</span> <span class="n">blank</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calendarType</span> <span class="o">=</span> <span class="n">calendarType</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dateGroupItem</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dateGroupItem</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="FilterColumn">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.FilterColumn">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FilterColumn</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;filterColumn&quot;</span>
+
+    <span class="n">colId</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">col_id</span> <span class="o">=</span> <span class="n">AliasField</span><span class="p">(</span><span class="s1">&#39;colId&#39;</span><span class="p">)</span>
+    <span class="n">hiddenButton</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">showButton</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># some elements are choice</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Filters</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Filters</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">top10</span><span class="p">:</span> <span class="n">Top10</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Top10</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">customFilters</span><span class="p">:</span> <span class="n">CustomFilters</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">CustomFilters</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dynamicFilter</span><span class="p">:</span> <span class="n">DynamicFilter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">DynamicFilter</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">colorFilter</span><span class="p">:</span> <span class="n">ColorFilter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">ColorFilter</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">iconFilter</span><span class="p">:</span> <span class="n">IconFilter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">IconFilter</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extLst</span><span class="p">:</span> <span class="n">ExtensionList</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">ExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">serialize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;filters&#39;</span><span class="p">,</span> <span class="s1">&#39;top10&#39;</span><span class="p">,</span> <span class="s1">&#39;customFilters&#39;</span><span class="p">,</span> <span class="s1">&#39;dynamicFilter&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;colorFilter&#39;</span><span class="p">,</span> <span class="s1">&#39;iconFilter&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">colId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hiddenButton</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">showButton</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">top10</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">customFilters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">dynamicFilter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">colorFilter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">iconFilter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">blank</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colId</span> <span class="o">=</span> <span class="n">colId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hiddenButton</span> <span class="o">=</span> <span class="n">hiddenButton</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showButton</span> <span class="o">=</span> <span class="n">showButton</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top10</span> <span class="o">=</span> <span class="n">top10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customFilters</span> <span class="o">=</span> <span class="n">customFilters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dynamicFilter</span> <span class="o">=</span> <span class="n">dynamicFilter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colorFilter</span> <span class="o">=</span> <span class="n">colorFilter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iconFilter</span> <span class="o">=</span> <span class="n">iconFilter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span>
+        <span class="k">if</span> <span class="n">blank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">blank</span> <span class="o">=</span> <span class="n">blank</span>
+        <span class="k">if</span> <span class="n">vals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">vals</span></div>
+
+
+
+<div class="viewcode-block" id="AutoFilter">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.AutoFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AutoFilter</span><span class="p">(</span><span class="n">Serialisable</span><span class="p">):</span>
+
+    <span class="n">tagname</span> <span class="o">=</span> <span class="s2">&quot;autoFilter&quot;</span>
+
+    <span class="n">ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">filterColumn</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FilterColumn</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">sequence</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">FilterColumn</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">sortState</span><span class="p">:</span> <span class="n">SortState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">SortState</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">extLst</span><span class="p">:</span> <span class="n">ExtensionList</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">ExtensionList</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">serialize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">xml_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;filterColumn&#39;</span><span class="p">,</span> <span class="s1">&#39;sortState&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filterColumn</span><span class="o">=</span><span class="p">(),</span> <span class="n">sortState</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extLst</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterColumn</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">filterColumn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sortState</span> <span class="o">=</span> <span class="n">sortState</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extLst</span> <span class="o">=</span> <span class="n">extLst</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">absolute_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AutoFilter.add_filter_column">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.AutoFilter.add_filter_column">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_filter_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_id</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add row filter for specified column.</span>
+
+<span class="sd">        :param col_id: Zero-origin column id. 0 means first column.</span>
+<span class="sd">        :type  col_id: int</span>
+<span class="sd">        :param vals: Value list to show.</span>
+<span class="sd">        :type  vals: str[]</span>
+<span class="sd">        :param blank: Show rows that have blank cell if True (default=``False``)</span>
+<span class="sd">        :type  blank: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterColumn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FilterColumn</span><span class="p">(</span><span class="n">colId</span><span class="o">=</span><span class="n">col_id</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">Filters</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="n">blank</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">vals</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="AutoFilter.add_sort_condition">
+<a class="viewcode-back" href="../../../api/fastpyxl.worksheet.filters.html#fastpyxl.worksheet.filters.AutoFilter.add_sort_condition">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_sort_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add sort condition for cpecified range of cells.</span>
+
+<span class="sd">        :param ref: range of the cells (e.g. &#39;A2:A150&#39;)</span>
+<span class="sd">        :type  ref: string, is the same as that of the filter</span>
+<span class="sd">        :param descending: Descending sort order (default=``False``)</span>
+<span class="sd">        :type  descending: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cond</span> <span class="o">=</span> <span class="n">SortCondition</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">descending</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sortState</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sortState</span> <span class="o">=</span> <span class="n">SortState</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sortState</span><span class="o">.</span><span class="n">sortCondition</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010 - 2026, See AUTHORS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

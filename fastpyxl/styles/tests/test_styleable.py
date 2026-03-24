@@ -50,6 +50,11 @@ def Workbook():
             self._named_styles.append(style)
             style.bind(self)
 
+        def materialize_pending_style_components(self, styleable):
+            styleable._ensure_style_array()
+            styleable._apply_pending_named_style()
+            styleable._apply_pending_styles()
+
     return DummyWorkbook()
 
 
@@ -90,6 +95,50 @@ def test_style_descriptor_registration_deferred_until_style_id(StyleableObject):
 
     _ = so.style_id
     assert len(wb._fonts) == before + 1
+
+
+def test_named_style_registration_deferred_until_materialize(StyleableObject):
+    so = StyleableObject
+    wb = so.parent.parent
+    style = NamedStyle(name="Deferred")
+
+    before = len(wb._named_styles)
+    so.style = style
+    assert len(wb._named_styles) == before
+
+    wb.materialize_pending_style_components(so)
+    assert len(wb._named_styles) == before + 1
+    assert so.style == "Deferred"
+
+
+def test_named_style_readable_before_materialize(StyleableObject):
+    so = StyleableObject
+    wb = so.parent.parent
+    style = NamedStyle(name="Readable")
+
+    so.style = style
+    assert so.style == "Readable"
+    assert len(wb._named_styles) == 0
+
+
+def test_named_style_builtin_deferred_until_materialize(StyleableObject):
+    so = StyleableObject
+    wb = so.parent.parent
+    before = len(wb._named_styles)
+
+    so.style = "Hyperlink"
+    assert len(wb._named_styles) == before
+    assert so.style == "Hyperlink"
+
+    wb.materialize_pending_style_components(so)
+    assert len(wb._named_styles) == before + 1
+
+
+def test_has_style_true_when_named_style_pending(StyleableObject):
+    so = StyleableObject
+    so._style = None
+    so.style = "Hyperlink"
+    assert so.has_style
 
 
 class TestNamedStyle:
@@ -141,12 +190,14 @@ class TestNamedStyle:
 
     def test_copy_not_share(self, StyleableObject):
         s1 = StyleableObject
-        s1.parent.parent
+        wb = s1.parent.parent
 
         from copy import copy
         s2 = copy(s1)
         s1.style = "Hyperlink"
         s2.style = "Hyperlink"
+        wb.materialize_pending_style_components(s1)
+        wb.materialize_pending_style_components(s2)
         assert s1._style is not s2._style
 
 

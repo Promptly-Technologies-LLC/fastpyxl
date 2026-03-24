@@ -400,8 +400,8 @@ class Workbook:
         """Register shared style parts for *styleable* from deferred assignments.
 
         Styling attributes on cells and dimensions defer pushing fonts, fills,
-        borders, number formats, alignments, and protections into the workbook
-        until this method runs or until
+        borders, number formats, alignments, protections, and named styles
+        into the workbook until this method runs or until
         :attr:`~fastpyxl.styles.styleable.StyleableObject.style_id` is read.
 
         Saving a workbook calls this automatically for every standard worksheet,
@@ -410,6 +410,7 @@ class Workbook:
         written.
         """
         styleable._ensure_style_array()
+        styleable._apply_pending_named_style()
         styleable._apply_pending_styles()
 
 

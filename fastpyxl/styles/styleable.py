@@ -99,24 +99,50 @@ class NamedStyleDescriptor:
     def __set__(self, instance, value):
         if not getattr(instance, "_style"):
             instance._style = StyleArray()
-        coll = getattr(instance.parent.parent, self.collection)
+        wb = instance.parent.parent
+        coll = getattr(wb, self.collection)
+        pending_styles = getattr(instance, "_pending_styles", None)
+        if pending_styles is not None:
+            if isinstance(value, NamedStyle):
+                if value in coll:
+                    style = value
+                    instance._style = copy(style.as_tuple())
+                    instance._pending_named_style = None
+                    return
+                instance._pending_named_style = value
+                return
+            if value not in coll.names:
+                if value in styles:
+                    instance._pending_named_style = value
+                    return
+                raise ValueError("{0} is not a known style".format(value))
+            instance._pending_named_style = value
+            return
         if isinstance(value, NamedStyle):
             style = value
             if style not in coll:
-                instance.parent.parent.add_named_style(style)
+                wb.add_named_style(style)
         elif value not in coll.names:
             if value in styles: # is it builtin?
                 style = styles[value]
                 if style not in coll:
-                    instance.parent.parent.add_named_style(style)
+                    wb.add_named_style(style)
             else:
                 raise ValueError("{0} is not a known style".format(value))
         else:
             style = coll[value]
         instance._style = copy(style.as_tuple())
+        instance._pending_named_style = None
 
 
     def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        pending = getattr(instance, "_pending_named_style", None)
+        if pending is not None:
+            if isinstance(pending, NamedStyle):
+                return pending.name
+            return pending
         if not getattr(instance, "_style"):
             instance._style = StyleArray()
         idx = getattr(instance._style, self.key)
@@ -156,7 +182,7 @@ class StyleableObject:
     quotePrefix = StyleArrayDescriptor('quotePrefix')
     pivotButton = StyleArrayDescriptor('pivotButton')
 
-    __slots__ = ('parent', '_style', '_pending_styles')
+    __slots__ = ('parent', '_style', '_pending_styles', '_pending_named_style')
 
     def __init__(self, sheet, style_array=None):
         self.parent = sheet
@@ -164,10 +190,38 @@ class StyleableObject:
             style_array = StyleArray(style_array)
         self._style = style_array
         self._pending_styles = {}
+        self._pending_named_style = None
 
     def _ensure_style_array(self):
         if self._style is None:
             self._style = StyleArray()
+
+    def _apply_pending_named_style(self):
+        pending = getattr(self, "_pending_named_style", None)
+        if pending is None:
+            return
+        wb = self.parent.parent
+        coll = wb._named_styles
+        if isinstance(pending, NamedStyle):
+            if pending.name in coll.names:
+                style = coll[pending.name]
+            else:
+                wb.add_named_style(pending)
+                style = pending
+        elif pending in coll.names:
+            style = coll[pending]
+        elif pending in styles:
+            st = styles[pending]
+            if st.name in coll.names:
+                style = coll[st.name]
+            else:
+                wb.add_named_style(st)
+                style = st
+        else:
+            raise ValueError("{0} is not a known style".format(pending))
+        self._style = copy(style.as_tuple())
+        self._pending_named_style = None
+
 
     def _apply_pending_styles(self):
         if not self._pending_styles:
@@ -190,12 +244,15 @@ class StyleableObject:
     @property
     def style_id(self):
         self._ensure_style_array()
+        self._apply_pending_named_style()
         self._apply_pending_styles()
         return self.parent.parent._cell_styles.add(self._style)
 
 
     @property
     def has_style(self):
+        if getattr(self, "_pending_named_style", None) is not None:
+            return True
         if self._pending_styles:
             return True
         if self._style is None:

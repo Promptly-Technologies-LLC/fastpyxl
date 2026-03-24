@@ -127,9 +127,10 @@ class ChartBase(Serialisable):
     def to_tree(self, tagname=None, idx=None, namespace=None):
         del idx
         self.axId = [i for i in self._axes]
-        if self.ser is not None:
+        if self.ser is not None and self._series_type in attribute_mapping:
+            mapping = attribute_mapping[self._series_type]
             for s in self.ser:
-                s.__elements__ = attribute_mapping[self._series_type]
+                s._serialize_element_order = mapping
         resolved = tagname
         if resolved is None:
             cls = type(self)

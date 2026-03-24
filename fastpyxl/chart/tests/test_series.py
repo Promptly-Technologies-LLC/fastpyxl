@@ -33,7 +33,7 @@ class TestBarSer:
         assert ser.order == 0
         assert ser.val.numRef.ref == 'Blatt1!$A$1:$A$12'
 
-        ser.__elements__ = attribute_mapping['bar']
+        ser._serialize_element_order = attribute_mapping['bar']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff
@@ -66,7 +66,7 @@ class TestAreaSer:
         assert ser.order == 0
         assert ser.val.numRef.ref == 'Blatt1!$A$1:$A$12'
 
-        ser.__elements__ = attribute_mapping['area']
+        ser._serialize_element_order = attribute_mapping['area']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff
@@ -149,7 +149,7 @@ class TestBubbleSer:
         assert ser.bubbleSize.numLit.ptCount == 12
         assert ser.bubbleSize.numLit.pt[0].v == 1.1
 
-        ser.__elements__ = attribute_mapping['bubble']
+        ser._serialize_element_order = attribute_mapping['bubble']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff
@@ -183,7 +183,7 @@ class TestPieSer:
         assert ser.order == 0
         assert ser.val.numRef.ref == 'Blatt1!$A$1:$A$12'
 
-        ser.__elements__ = attribute_mapping['pie']
+        ser._serialize_element_order = attribute_mapping['pie']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff
@@ -225,7 +225,7 @@ class TestRadarSer:
         assert ser.order == 0
         assert ser.val.numRef.ref == 'Blatt1!$A$1:$A$12'
 
-        ser.__elements__ = attribute_mapping['radar']
+        ser._serialize_element_order = attribute_mapping['radar']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff
@@ -273,7 +273,7 @@ class TestScatterSer:
         assert ser.xVal.numRef.ref == 'Blatt1!$A$1:$A$12'
         assert ser.yVal.numRef.ref == 'Blatt1!$B$1:$B$12'
 
-        ser.__elements__ = attribute_mapping['scatter']
+        ser._serialize_element_order = attribute_mapping['scatter']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff
@@ -306,7 +306,7 @@ class TestSurfaceSer:
         assert ser.order == 0
         assert ser.val.numRef.ref == 'Blatt1!$A$1:$A$12'
 
-        ser.__elements__ = attribute_mapping['surface']
+        ser._serialize_element_order = attribute_mapping['surface']
         xml = tostring(ser.to_tree())
         diff = compare_xml(xml, src)
         assert diff is None, diff

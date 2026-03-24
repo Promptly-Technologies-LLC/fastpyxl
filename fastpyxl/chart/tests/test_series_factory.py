@@ -16,7 +16,7 @@ class TestSeriesFactory:
 
     def test_ctor(self, Series):
         series = Series(values="Sheet1!$A$1:$A$10")
-        series.__elements__ = ('idx', 'order', 'val')
+        series._serialize_element_order = ('idx', 'order', 'val')
         xml = tostring(series.to_tree())
         expected = """
         <ser>
@@ -35,7 +35,7 @@ class TestSeriesFactory:
 
     def test_manual_idx(self, Series):
         series = Series(values="Sheet1!$A$1:$A$10")
-        series.__elements__ = ('idx', 'order', 'val')
+        series._serialize_element_order = ('idx', 'order', 'val')
         xml = tostring(series.to_tree(idx=5))
         expected = """
         <ser>
@@ -55,7 +55,7 @@ class TestSeriesFactory:
     def test_manual_order(self, Series):
         series = Series(values="Sheet1!$A$1:$A$10")
         series.order = 2
-        series.__elements__ = ('idx', 'order', 'val')
+        series._serialize_element_order = ('idx', 'order', 'val')
         xml = tostring(series.to_tree(idx=5))
         expected = """
         <ser>
@@ -74,7 +74,7 @@ class TestSeriesFactory:
 
     def test_title(self, Series):
         series = Series("Sheet1!A1:A10", title="First Series")
-        series.__elements__ = ('idx', 'order', 'tx')
+        series._serialize_element_order = ('idx', 'order', 'tx')
         xml = tostring(series.to_tree(idx=0))
         expected = """
         <ser>
@@ -91,7 +91,7 @@ class TestSeriesFactory:
 
     def test_title_from_data(self, Series):
         series = Series("Sheet1!A1:A10", title_from_data=True)
-        series.__elements__ = ('tx', 'val')
+        series._serialize_element_order = ('tx', 'val')
         xml = tostring(series.to_tree(idx=0))
         expected = """
         <ser>
@@ -119,7 +119,7 @@ class TestSeriesFactory:
 
     def test_zvalues(self, Series):
         series = Series("Sheet!A2:A5", xvalues="Sheet!B2:B5", zvalues="Sheet!C2:C5")
-        series.__elements__ = ('xVal', 'yVal', 'bubbleSize')
+        series._serialize_element_order = ('xVal', 'yVal', 'bubbleSize')
         xml = tostring(series.to_tree())
         expected = """
         <ser>

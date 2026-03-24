@@ -48,7 +48,7 @@ class TestChartBase:
     def test_set_catgories(self, ChartBase):
         from ..series import Series
         s1 = Series()
-        s1.__elements__ = ('cat',)
+        s1._serialize_element_order = ('cat',)
         chart = ChartBase()
         chart.ser = [s1]
         chart.set_categories("Sheet!A1:A4")

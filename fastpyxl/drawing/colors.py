@@ -2,21 +2,13 @@
 
 from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.descriptors import (
-    Alias,
     Typed,
-    Integer,
     Set,
-    MinMax,
 )
-from fastpyxl.descriptors.nested import (
-    NestedNoneSet,
-    NestedValue,
-    NestedInteger,
-    EmptyTag,
-)
-
-from fastpyxl.styles.colors import RGB
+from fastpyxl.styles.colors import aRGB_REGEX
 from fastpyxl.xml.constants import DRAWING_NS
+from fastpyxl.xml.functions import Element
+from fastpyxl.typed_serialisable.render import namespaced_tag
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
@@ -69,63 +61,160 @@ SCHEME_COLORS= ['bg1', 'tx1', 'bg2', 'tx2', 'accent1', 'accent2', 'accent3',
                 'dk2', 'lt2'
                 ]
 
+SYSTEM_COLOR_VALS = frozenset(
+    (
+        "scrollBar",
+        "background",
+        "activeCaption",
+        "inactiveCaption",
+        "menu",
+        "window",
+        "windowFrame",
+        "menuText",
+        "windowText",
+        "captionText",
+        "activeBorder",
+        "inactiveBorder",
+        "appWorkspace",
+        "highlight",
+        "highlightText",
+        "btnFace",
+        "btnShadow",
+        "grayText",
+        "btnText",
+        "inactiveCaptionText",
+        "btnHighlight",
+        "3dDkShadow",
+        "3dLight",
+        "infoText",
+        "infoBk",
+        "hotLight",
+        "gradientActiveCaption",
+        "gradientInactiveCaption",
+        "menuHighlight",
+        "menuBar",
+    )
+)
 
-class Transform(Serialisable):
-
-    pass
+SCHEME_COLOR_VALS = frozenset(SCHEME_COLORS)
 
 
-class SystemColor(Serialisable):
+def _system_color_val(v):
+    if v is None:
+        return None
+    if v not in SYSTEM_COLOR_VALS:
+        raise FieldValidationError(f"val rejected value {v!r}")
+    return v
+
+
+def _scheme_color_val(v):
+    if v is None:
+        return None
+    if v not in SCHEME_COLOR_VALS:
+        raise FieldValidationError(f"val rejected value {v!r}")
+    return v
+
+
+def _system_last_clr(v):
+    if v is None:
+        return None
+    if not isinstance(v, str) or aRGB_REGEX.match(v) is None:
+        raise FieldValidationError(f"lastClr rejected value {v!r}")
+    if len(v) == 6:
+        return "00" + v
+    return v
+
+
+def _drawml_empty_element(tag, value, ns=None):
+    if not value:
+        return None
+    return Element(namespaced_tag(tag, ns or DRAWING_NS))
+
+
+class Transform(TypedSerialisable):
+
+    tagname = "comp"
+
+    def __init__(self):
+        pass
+
+
+class SystemColor(TypedSerialisable):
 
     tagname = "sysClr"
     namespace = DRAWING_NS
 
-    # color transform options
-    tint = NestedInteger(allow_none=True)
-    shade = NestedInteger(allow_none=True)
-    comp = Typed(expected_type=Transform, allow_none=True)
-    inv = Typed(expected_type=Transform, allow_none=True)
-    gray = Typed(expected_type=Transform, allow_none=True)
-    alpha = NestedInteger(allow_none=True)
-    alphaOff = NestedInteger(allow_none=True)
-    alphaMod = NestedInteger(allow_none=True)
-    hue = NestedInteger(allow_none=True)
-    hueOff = NestedInteger(allow_none=True)
-    hueMod = NestedInteger(allow_none=True)
-    sat = NestedInteger(allow_none=True)
-    satOff = NestedInteger(allow_none=True)
-    satMod = NestedInteger(allow_none=True)
-    lum = NestedInteger(allow_none=True)
-    lumOff = NestedInteger(allow_none=True)
-    lumMod = NestedInteger(allow_none=True)
-    red = NestedInteger(allow_none=True)
-    redOff = NestedInteger(allow_none=True)
-    redMod = NestedInteger(allow_none=True)
-    green = NestedInteger(allow_none=True)
-    greenOff = NestedInteger(allow_none=True)
-    greenMod = NestedInteger(allow_none=True)
-    blue = NestedInteger(allow_none=True)
-    blueOff = NestedInteger(allow_none=True)
-    blueMod = NestedInteger(allow_none=True)
-    gamma = Typed(expected_type=Transform, allow_none=True)
-    invGamma = Typed(expected_type=Transform, allow_none=True)
+    tint: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    shade: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    comp: Transform | None = Field.element(expected_type=Transform, allow_none=True)
+    inv: Transform | None = Field.element(expected_type=Transform, allow_none=True)
+    gray: Transform | None = Field.element(expected_type=Transform, allow_none=True)
+    alpha: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    alphaOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    alphaMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    hue: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    hueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    hueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    sat: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    satOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    satMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lum: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lumOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lumMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    red: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    redOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    redMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    green: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    greenOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    greenMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    blue: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    blueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    blueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    gamma: Transform | None = Field.element(expected_type=Transform, allow_none=True)
+    invGamma: Transform | None = Field.element(expected_type=Transform, allow_none=True)
 
-    val = Set(values=( ['scrollBar', 'background', 'activeCaption',
-                        'inactiveCaption', 'menu', 'window', 'windowFrame', 'menuText',
-                        'windowText', 'captionText', 'activeBorder', 'inactiveBorder',
-                        'appWorkspace', 'highlight', 'highlightText', 'btnFace', 'btnShadow',
-                        'grayText', 'btnText', 'inactiveCaptionText', 'btnHighlight',
-                        '3dDkShadow', '3dLight', 'infoText', 'infoBk', 'hotLight',
-                        'gradientActiveCaption', 'gradientInactiveCaption', 'menuHighlight',
-                        'menuBar'] )
-              )
-    lastClr = RGB(allow_none=True)
+    val: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        default="windowText",
+        converter=_system_color_val,
+    )
+    lastClr: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=_system_last_clr,
+    )
 
-    __elements__ = ('tint', 'shade', 'comp', 'inv', 'gray', "alpha",
-                    "alphaOff", "alphaMod", "hue", "hueOff", "hueMod", "hueOff", "sat",
-                    "satOff", "satMod", "lum", "lumOff", "lumMod", "red", "redOff", "redMod",
-                    "green", "greenOff", "greenMod", "blue", "blueOff", "blueMod", "gamma",
-                    "invGamma")
+    xml_order = (
+        "tint",
+        "shade",
+        "comp",
+        "inv",
+        "gray",
+        "alpha",
+        "alphaOff",
+        "alphaMod",
+        "hue",
+        "hueOff",
+        "hueMod",
+        "sat",
+        "satOff",
+        "satMod",
+        "lum",
+        "lumOff",
+        "lumMod",
+        "red",
+        "redOff",
+        "redMod",
+        "green",
+        "greenOff",
+        "greenMod",
+        "blue",
+        "blueOff",
+        "blueMod",
+        "gamma",
+        "invGamma",
+    )
 
     def __init__(self,
                  val="windowText",
@@ -252,48 +341,84 @@ class RGBPercent(TypedSerialisable):
         self.b = b
 
 
-class SchemeColor(Serialisable):
+class SchemeColor(TypedSerialisable):
 
     tagname = "schemeClr"
     namespace = DRAWING_NS
 
-    tint = NestedInteger(allow_none=True)
-    shade = NestedInteger(allow_none=True)
-    comp = EmptyTag(allow_none=True)
-    inv = NestedInteger(allow_none=True)
-    gray = NestedInteger(allow_none=True)
-    alpha = NestedInteger(allow_none=True)
-    alphaOff = NestedInteger(allow_none=True)
-    alphaMod = NestedInteger(allow_none=True)
-    hue = NestedInteger(allow_none=True)
-    hueOff = NestedInteger(allow_none=True)
-    hueMod = NestedInteger(allow_none=True)
-    sat = NestedInteger(allow_none=True)
-    satOff = NestedInteger(allow_none=True)
-    satMod = NestedInteger(allow_none=True)
-    lum = NestedInteger(allow_none=True)
-    lumOff = NestedInteger(allow_none=True)
-    lumMod = NestedInteger(allow_none=True)
-    red = NestedInteger(allow_none=True)
-    redOff = NestedInteger(allow_none=True)
-    redMod = NestedInteger(allow_none=True)
-    green = NestedInteger(allow_none=True)
-    greenOff = NestedInteger(allow_none=True)
-    greenMod = NestedInteger(allow_none=True)
-    blue = NestedInteger(allow_none=True)
-    blueOff = NestedInteger(allow_none=True)
-    blueMod = NestedInteger(allow_none=True)
-    gamma = EmptyTag(allow_none=True)
-    invGamma = EmptyTag(allow_none=True)
-    val = Set(values=(['bg1', 'tx1', 'bg2', 'tx2', 'accent1', 'accent2',
-                       'accent3', 'accent4', 'accent5', 'accent6', 'hlink', 'folHlink', 'phClr',
-                       'dk1', 'lt1', 'dk2', 'lt2']))
+    tint: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    shade: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    comp: bool | None = Field.nested_bool(
+        allow_none=True,
+        renderer=_drawml_empty_element,
+    )
+    inv: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    gray: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    alpha: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    alphaOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    alphaMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    hue: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    hueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    hueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    sat: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    satOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    satMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lum: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lumOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    lumMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    red: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    redOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    redMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    green: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    greenOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    greenMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    blue: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    blueOff: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    blueMod: int | None = Field.nested_value(expected_type=int, allow_none=True)
+    gamma: bool | None = Field.nested_bool(
+        allow_none=True,
+        renderer=_drawml_empty_element,
+    )
+    invGamma: bool | None = Field.nested_bool(
+        allow_none=True,
+        renderer=_drawml_empty_element,
+    )
+    val: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=_scheme_color_val,
+    )
 
-    __elements__ = ('tint', 'shade', 'comp', 'inv', 'gray', 'alpha',
-                    'alphaOff', 'alphaMod', 'hue', 'hueOff', 'hueMod', 'sat', 'satOff',
-                    'satMod', 'lum', 'lumMod', 'lumOff', 'red', 'redOff', 'redMod', 'green',
-                    'greenOff', 'greenMod', 'blue', 'blueOff', 'blueMod', 'gamma',
-                    'invGamma')
+    xml_order = (
+        "tint",
+        "shade",
+        "comp",
+        "inv",
+        "gray",
+        "alpha",
+        "alphaOff",
+        "alphaMod",
+        "hue",
+        "hueOff",
+        "hueMod",
+        "sat",
+        "satOff",
+        "satMod",
+        "lum",
+        "lumMod",
+        "lumOff",
+        "red",
+        "redOff",
+        "redMod",
+        "green",
+        "greenOff",
+        "greenMod",
+        "blue",
+        "blueOff",
+        "blueMod",
+        "gamma",
+        "invGamma",
+    )
 
     def __init__(self,
                  tint=None,

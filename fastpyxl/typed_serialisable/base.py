@@ -279,6 +279,10 @@ class Serialisable(metaclass=MetaSerialisable):
             attrib[field.name] = obj
         return cls(**attrib)
 
+    def _element_names_for_serialize(self):
+        """Element emission order for to_tree. Override when order is not class __elements__."""
+        return tuple(type(self).__elements__)
+
     def to_tree(self, tagname=None, idx=None, namespace=None):
         del idx
         if tagname is None:
@@ -299,7 +303,7 @@ class Serialisable(metaclass=MetaSerialisable):
         for key, value in attrs.items():
             root.set(key, value)
 
-        for name in self.__elements__:
+        for name in self._element_names_for_serialize():
             field = self.__fields__[name]
             value = getattr(self, name)
             tag = field.tag

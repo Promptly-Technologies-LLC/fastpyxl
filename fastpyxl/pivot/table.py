@@ -2,20 +2,10 @@
 
 
 from collections import defaultdict
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Integer,
-    NoneSet,
-    Set,
-    String,
-    Bool,
-    Sequence,
-)
 
 from fastpyxl.descriptors.excel import ExtensionList
-from fastpyxl.descriptors.sequence import NestedSequence
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.xml.constants import REL_NS, SHEET_MAIN_NS
 from fastpyxl.xml.functions import tostring
@@ -90,55 +80,133 @@ class RowHierarchiesUsage(TypedSerialisable):
         yield "count", str(self.count)
 
 
-class PivotFilter(Serialisable):
+PIVOT_FILTER_TYPES = frozenset(
+    (
+        "unknown",
+        "count",
+        "percent",
+        "sum",
+        "captionEqual",
+        "captionNotEqual",
+        "captionBeginsWith",
+        "captionNotBeginsWith",
+        "captionEndsWith",
+        "captionNotEndsWith",
+        "captionContains",
+        "captionNotContains",
+        "captionGreaterThan",
+        "captionGreaterThanOrEqual",
+        "captionLessThan",
+        "captionLessThanOrEqual",
+        "captionBetween",
+        "captionNotBetween",
+        "valueEqual",
+        "valueNotEqual",
+        "valueGreaterThan",
+        "valueGreaterThanOrEqual",
+        "valueLessThan",
+        "valueLessThanOrEqual",
+        "valueBetween",
+        "valueNotBetween",
+        "dateEqual",
+        "dateNotEqual",
+        "dateOlderThan",
+        "dateOlderThanOrEqual",
+        "dateNewerThan",
+        "dateNewerThanOrEqual",
+        "dateBetween",
+        "dateNotBetween",
+        "tomorrow",
+        "today",
+        "yesterday",
+        "nextWeek",
+        "thisWeek",
+        "lastWeek",
+        "nextMonth",
+        "thisMonth",
+        "lastMonth",
+        "nextQuarter",
+        "thisQuarter",
+        "lastQuarter",
+        "nextYear",
+        "thisYear",
+        "lastYear",
+        "yearToDate",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9",
+        "M10",
+        "M11",
+        "M12",
+    )
+)
+
+
+def _pivot_filter_type(v):
+    if v is None:
+        return None
+    if v not in PIVOT_FILTER_TYPES:
+        raise FieldValidationError(f"type rejected value {v!r}")
+    return v
+
+
+class PivotFilter(TypedSerialisable):
 
     tagname = "filter"
 
-    fld = Integer()
-    mpFld = Integer(allow_none=True)
-    type = Set(values=(['unknown', 'count', 'percent', 'sum', 'captionEqual',
-                        'captionNotEqual', 'captionBeginsWith', 'captionNotBeginsWith',
-                        'captionEndsWith', 'captionNotEndsWith', 'captionContains',
-                        'captionNotContains', 'captionGreaterThan', 'captionGreaterThanOrEqual',
-                        'captionLessThan', 'captionLessThanOrEqual', 'captionBetween',
-                        'captionNotBetween', 'valueEqual', 'valueNotEqual', 'valueGreaterThan',
-                        'valueGreaterThanOrEqual', 'valueLessThan', 'valueLessThanOrEqual',
-                        'valueBetween', 'valueNotBetween', 'dateEqual', 'dateNotEqual',
-                        'dateOlderThan', 'dateOlderThanOrEqual', 'dateNewerThan',
-                        'dateNewerThanOrEqual', 'dateBetween', 'dateNotBetween', 'tomorrow',
-                        'today', 'yesterday', 'nextWeek', 'thisWeek', 'lastWeek', 'nextMonth',
-                        'thisMonth', 'lastMonth', 'nextQuarter', 'thisQuarter', 'lastQuarter',
-                        'nextYear', 'thisYear', 'lastYear', 'yearToDate', 'Q1', 'Q2', 'Q3', 'Q4',
-                        'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11',
-                        'M12']))
-    evalOrder = Integer(allow_none=True)
-    id = Integer()
-    iMeasureHier = Integer(allow_none=True)
-    iMeasureFld = Integer(allow_none=True)
-    name = String(allow_none=True)
-    description = String(allow_none=True)
-    stringValue1 = String(allow_none=True)
-    stringValue2 = String(allow_none=True)
-    autoFilter = Typed(expected_type=AutoFilter, )
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    fld: int | None = Field.attribute(expected_type=int, allow_none=True)
+    mpFld: int | None = Field.attribute(expected_type=int, allow_none=True)
+    type: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=_pivot_filter_type,
+    )
+    evalOrder: int | None = Field.attribute(expected_type=int, allow_none=True)
+    id: int | None = Field.attribute(expected_type=int, allow_none=True)
+    iMeasureHier: int | None = Field.attribute(expected_type=int, allow_none=True)
+    iMeasureFld: int | None = Field.attribute(expected_type=int, allow_none=True)
+    name: str | None = Field.attribute(expected_type=str, allow_none=True)
+    description: str | None = Field.attribute(expected_type=str, allow_none=True)
+    stringValue1: str | None = Field.attribute(expected_type=str, allow_none=True)
+    stringValue2: str | None = Field.attribute(expected_type=str, allow_none=True)
+    autoFilter: AutoFilter | None = Field.element(
+        expected_type=AutoFilter,
+        allow_none=True,
+    )
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
 
-    __elements__ = ('autoFilter',)
+    xml_order = ("autoFilter",)
 
-    def __init__(self,
-                 fld=None,
-                 mpFld=None,
-                 type=None,
-                 evalOrder=None,
-                 id=None,
-                 iMeasureHier=None,
-                 iMeasureFld=None,
-                 name=None,
-                 description=None,
-                 stringValue1=None,
-                 stringValue2=None,
-                 autoFilter=None,
-                 extLst=None,
-                ):
+    def __init__(
+        self,
+        fld=None,
+        mpFld=None,
+        type=None,
+        evalOrder=None,
+        id=None,
+        iMeasureHier=None,
+        iMeasureFld=None,
+        name=None,
+        description=None,
+        stringValue1=None,
+        stringValue2=None,
+        autoFilter=None,
+        extLst=None,
+    ):
         self.fld = fld
         self.mpFld = mpFld
         self.type = type
@@ -151,20 +219,28 @@ class PivotFilter(Serialisable):
         self.stringValue1 = stringValue1
         self.stringValue2 = stringValue2
         self.autoFilter = autoFilter
+        self.extLst = extLst
 
 
-class PivotFilters(Serialisable):
+class PivotFilters(TypedSerialisable):
 
-    count = Integer()
-    filter = Typed(expected_type=PivotFilter, allow_none=True)
+    tagname = "filters"
 
-    __elements__ = ('filter',)
+    filter: PivotFilter | None = Field.element(expected_type=PivotFilter, allow_none=True)
 
-    def __init__(self,
-                 count=None,
-                 filter=None,
-                ):
+    xml_order = ("filter",)
+
+    def __init__(self, count=None, filter=None):
+        del count
         self.filter = filter
+
+    @property
+    def count(self):
+        return 1 if self.filter is not None else 0
+
+    def __iter__(self):
+        yield from super().__iter__()
+        yield "count", str(self.count)
 
 
 class PivotTableStyle(TypedSerialisable):
@@ -259,43 +335,58 @@ class MemberProperty(TypedSerialisable):
         self.field = field
 
 
-class PivotHierarchy(Serialisable):
+class PivotHierarchy(TypedSerialisable):
 
     tagname = "pivotHierarchy"
 
-    outline = Bool()
-    multipleItemSelectionAllowed = Bool()
-    subtotalTop = Bool()
-    showInFieldList = Bool()
-    dragToRow = Bool()
-    dragToCol = Bool()
-    dragToPage = Bool()
-    dragToData = Bool()
-    dragOff = Bool()
-    includeNewItemsInFilter = Bool()
-    caption = String(allow_none=True)
-    mps = NestedSequence(expected_type=MemberProperty, count=True)
-    members = Typed(expected_type=MemberList, allow_none=True)
-    extLst = Typed(expected_type=ExtensionList, allow_none=True)
+    outline: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    multipleItemSelectionAllowed: bool | None = Field.attribute(
+        expected_type=bool,
+        allow_none=True,
+    )
+    subtotalTop: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    showInFieldList: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToRow: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToCol: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToPage: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragToData: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    dragOff: bool | None = Field.attribute(expected_type=bool, allow_none=True)
+    includeNewItemsInFilter: bool | None = Field.attribute(
+        expected_type=bool,
+        allow_none=True,
+    )
+    caption: str | None = Field.attribute(expected_type=str, allow_none=True)
+    mps: list[MemberProperty] = Field.nested_sequence(
+        expected_type=MemberProperty,
+        count=True,
+        default=list,
+    )
+    members: MemberList | None = Field.element(expected_type=MemberList, allow_none=True)
+    extLst: ExtensionList | None = Field.element(
+        expected_type=ExtensionList,
+        allow_none=True,
+        serialize=False,
+    )
 
-    __elements__ = ('mps', 'members',)
+    xml_order = ("mps", "members")
 
-    def __init__(self,
-                 outline=None,
-                 multipleItemSelectionAllowed=None,
-                 subtotalTop=None,
-                 showInFieldList=None,
-                 dragToRow=None,
-                 dragToCol=None,
-                 dragToPage=None,
-                 dragToData=None,
-                 dragOff=None,
-                 includeNewItemsInFilter=None,
-                 caption=None,
-                 mps=(),
-                 members=None,
-                 extLst=None,
-                ):
+    def __init__(
+        self,
+        outline=None,
+        multipleItemSelectionAllowed=None,
+        subtotalTop=None,
+        showInFieldList=None,
+        dragToRow=None,
+        dragToCol=None,
+        dragToPage=None,
+        dragToData=None,
+        dragOff=None,
+        includeNewItemsInFilter=None,
+        caption=None,
+        mps=(),
+        members=None,
+        extLst=None,
+    ):
         self.outline = outline
         self.multipleItemSelectionAllowed = multipleItemSelectionAllowed
         self.subtotalTop = subtotalTop
@@ -307,7 +398,7 @@ class PivotHierarchy(Serialisable):
         self.dragOff = dragOff
         self.includeNewItemsInFilter = includeNewItemsInFilter
         self.caption = caption
-        self.mps = mps
+        self.mps = list(mps) if mps is not None else []
         self.members = members
         self.extLst = extLst
 

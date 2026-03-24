@@ -248,6 +248,12 @@ class Series(Serialisable):
         self.explosion = explosion
         self.extLst = extLst
 
+    def _element_names_for_serialize(self):
+        order = getattr(self, "_serialize_element_order", None)
+        if order is not None:
+            return tuple(order)
+        return super()._element_names_for_serialize()
+
     def to_tree(self, tagname=None, idx=None, namespace=None):
         del namespace
         if idx is not None:
@@ -259,7 +265,3 @@ class Series(Serialisable):
 
 class XYSeries(Series):
     pass
-
-
-Series.__elements__ = ()
-XYSeries.__elements__ = ()

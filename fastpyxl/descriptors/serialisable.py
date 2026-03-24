@@ -2,24 +2,18 @@
 
 from copy import copy
 from keyword import kwlist
-KEYWORDS = frozenset(kwlist)
-
-from . import Descriptor
-from . import MetaSerialisable
-from .sequence import (
-    Sequence,
-    NestedSequence,
-    MultiSequencePart,
-)
-from .namespace import namespaced
 
 from fastpyxl.compat import safe_string
-from fastpyxl.xml.functions import (
-    Element,
-    localname,
-)
+from fastpyxl.xml.functions import Element, localname
 
+from fastpyxl.descriptors.namespace import namespaced
+
+from . import Descriptor, MetaSerialisable
+from .sequence import MultiSequencePart, NestedSequence, Sequence
+
+KEYWORDS = frozenset(kwlist)
 seq_types = (list, tuple)
+
 
 class Serialisable(metaclass=MetaSerialisable):
     """
@@ -39,25 +33,20 @@ class Serialisable(metaclass=MetaSerialisable):
 
     @property
     def tagname(self):
-        raise(NotImplementedError)
+        raise NotImplementedError
 
     namespace = None
 
     @classmethod
     def from_tree(cls, node):
-        """
-        Create object from XML
-        """
-        # strip known namespaces from attributes
         attrib = dict(node.attrib)
         for key, ns in cls.__namespaced__:
             if ns in attrib:
                 attrib[key] = attrib[ns]
                 del attrib[ns]
 
-        # strip attributes with unknown namespaces
         for key in list(attrib):
-            if key.startswith('{'):
+            if key.startswith("{"):
                 del attrib[key]
             elif key in KEYWORDS:
                 attrib["_" + key] = attrib[key]
@@ -78,15 +67,12 @@ class Serialisable(metaclass=MetaSerialisable):
             if desc is None or isinstance(desc, property):
                 continue
 
-            if hasattr(desc, 'from_tree'):
-                #descriptor manages conversion
+            if hasattr(desc, "from_tree"):
                 obj = desc.from_tree(el)
             else:
                 if hasattr(desc.expected_type, "from_tree"):
-                    #complex type
                     obj = desc.expected_type.from_tree(el)
                 else:
-                    #primitive
                     obj = el.text
 
             if isinstance(desc, NestedSequence):
@@ -102,13 +88,11 @@ class Serialisable(metaclass=MetaSerialisable):
 
         return cls(**attrib)
 
-
     def to_tree(self, tagname=None, idx=None, namespace=None):
-
+        del idx
         if tagname is None:
             tagname = self.tagname
 
-        # keywords have to be masked
         if tagname.startswith("_"):
             tagname = tagname[1:]
 
@@ -128,20 +112,18 @@ class Serialisable(metaclass=MetaSerialisable):
         for child_tag in self.__elements__:
             desc = getattr(self.__class__, child_tag, None)
             obj = getattr(self, child_tag)
-            if hasattr(desc, "namespace") and hasattr(obj, 'namespace'):
+            if hasattr(desc, "namespace") and hasattr(obj, "namespace"):
                 obj.namespace = desc.namespace
 
             if isinstance(obj, seq_types):
                 if isinstance(desc, NestedSequence):
-                    # wrap sequence in container
                     if not obj:
                         continue
                     nodes = [desc.to_tree(child_tag, obj, namespace)]
                 elif isinstance(desc, Sequence):
-                    # sequence
                     desc.idx_base = self.idx_base
-                    nodes = (desc.to_tree(child_tag, obj, namespace))
-                else: # property
+                    nodes = desc.to_tree(child_tag, obj, namespace)
+                else:
                     nodes = (v.to_tree(child_tag, namespace) for v in obj)
                 for node in nodes:
                     el.append(node)
@@ -156,7 +138,6 @@ class Serialisable(metaclass=MetaSerialisable):
                     el.append(node)
         return el
 
-
     def __iter__(self):
         for attr in self.__attrs__:
             value = getattr(self, attr)
@@ -169,7 +150,6 @@ class Serialisable(metaclass=MetaSerialisable):
             if attr != "attr_text" and value is not None:
                 yield attr, safe_string(value)
 
-
     def __eq__(self, other):
         if not self.__class__ == other.__class__:
             return False
@@ -180,26 +160,22 @@ class Serialisable(metaclass=MetaSerialisable):
                 return False
         return True
 
-
     def __ne__(self, other):
         return not self == other
 
-
     def __repr__(self):
-        s = u"<{0}.{1} object>\nParameters:".format(
+        s = "<{0}.{1} object>\nParameters:".format(
             self.__module__,
-            self.__class__.__name__
+            self.__class__.__name__,
         )
         args = []
         for k in self.__attrs__ + self.__elements__:
             v = getattr(self, k)
             if isinstance(v, Descriptor):
                 v = None
-            args.append(u"{0}={1}".format(k, repr(v)))
-        args = u", ".join(args)
-
-        return u"\n".join([s, args])
-
+            args.append("{0}={1}".format(k, repr(v)))
+        args = ", ".join(args)
+        return "\n".join([s, args])
 
     def __hash__(self):
         fields = []
@@ -208,9 +184,7 @@ class Serialisable(metaclass=MetaSerialisable):
             if isinstance(val, list):
                 val = tuple(val)
             fields.append(val)
-
         return hash(tuple(fields))
-
 
     def __add__(self, other):
         if type(self) is not type(other):
@@ -227,12 +201,9 @@ class Serialisable(metaclass=MetaSerialisable):
                 vals[el] = a or b
         return self.__class__(**vals)
 
-
     def __copy__(self):
-        # serialise to xml and back to avoid shallow copies
         xml = self.to_tree(tagname="dummy")
         cp = self.__class__.from_tree(xml)
-        # copy any non-persisted attributed
         for k in self.__dict__:
             if k not in self.__attrs__ + self.__elements__:
                 v = copy(getattr(self, k))

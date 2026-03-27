@@ -44,6 +44,10 @@ _SUITES: dict[str, dict[str, tuple[str, ...] | list[str]]] = {
         "json_candidates": ("synthetic_benchmarks.json", "phase1_synthetic_benchmarks.json"),
         "extra_args": ["--output-stem", "synthetic_benchmarks"],
     },
+    "hotpath": {
+        "json_candidates": ("hotpath_benchmarks.json",),
+        "extra_args": ["--output-stem", "hotpath_benchmarks"],
+    },
 }
 
 
@@ -220,6 +224,258 @@ def _cmd_synthetic(args: argparse.Namespace) -> None:
     out_md = args.output_dir / f"{output_stem}.md"
     out_md.write_text("\n".join(lines), encoding="utf-8")
 
+    print(f"Wrote {try_relative(out_json, ROOT)}")
+    print(f"Wrote {try_relative(out_md, ROOT)}")
+
+
+# ---------------------------------------------------------------------------
+# Hot-path benchmarks — exercises real-world bottlenecks at scale
+# ---------------------------------------------------------------------------
+
+def _build_scaled_workbook(
+    n_sheets: int = 5,
+    rows_per_sheet: int = 500,
+    cols_per_sheet: int = 20,
+) -> Workbook:
+    """Build a synthetic workbook with realistic scale for benchmarking.
+
+    Default: 5 sheets x 500 rows x 20 cols = 50k cells.
+    """
+    wb = Workbook()
+    # Remove default sheet; we'll create our own
+    del wb[wb.sheetnames[0]]
+    for s in range(n_sheets):
+        ws = wb.create_sheet(f"Sheet{s}")
+        for r in range(1, rows_per_sheet + 1):
+            row_data: list[str | int | float] = []
+            for c in range(cols_per_sheet):
+                if c == 0:
+                    row_data.append(f"row-{r}")
+                elif c == 1:
+                    row_data.append(r * 1.5)
+                else:
+                    row_data.append(r * c)
+            ws.append(row_data)
+    return wb
+
+
+def _bench_load_scaled(n_sheets: int, rows: int, cols: int) -> float:
+    """Load-save-reload: build a workbook, save it, then load it back."""
+    wb = _build_scaled_workbook(n_sheets, rows, cols)
+    buf = io.BytesIO()
+    wb.save(buf)
+    buf.seek(0)
+    wb2 = load_workbook(buf)
+    wb2.close()
+    return 0.0
+
+
+def _bench_save_scaled(n_sheets: int, rows: int, cols: int) -> float:
+    """Build a workbook and time just the save portion."""
+    wb = _build_scaled_workbook(n_sheets, rows, cols)
+    buf = io.BytesIO()
+    wb.save(buf)
+    return float(buf.tell())
+
+
+def _bench_read_only_iteration(n_sheets: int, rows: int, cols: int) -> float:
+    """Build, save, then read back in read-only mode and iterate all cells."""
+    wb = _build_scaled_workbook(n_sheets, rows, cols)
+    buf = io.BytesIO()
+    wb.save(buf)
+    buf.seek(0)
+
+    wb_ro = load_workbook(buf, read_only=True)
+    count = 0
+    for ws in wb_ro.worksheets:
+        for row in ws.iter_rows():
+            for cell in row:
+                _ = cell.value
+                count += 1
+    wb_ro.close()
+    return float(count)
+
+
+def _bench_cell_construction(n: int = 50_000) -> float:
+    """Construct Cell objects directly, exercising Cell.__init__ + StyleArray."""
+    from fastpyxl.cell.cell import Cell
+    from fastpyxl.styles.cell_style import StyleArray
+
+    wb = Workbook()
+    ws = wb.active
+    style = StyleArray()
+    for i in range(1, n + 1):
+        Cell(ws, row=i, column=1, style_array=style)
+    return 0.0
+
+
+def _bench_coordinate_to_tuple(n: int = 100_000) -> float:
+    """Exercise coordinate_to_tuple on representative coordinates."""
+    from fastpyxl.utils.cell import coordinate_to_tuple
+
+    coords = [f"{chr(65 + (i % 26))}{(i // 26) + 1}" for i in range(min(n, 1000))]
+    for _ in range(n // len(coords)):
+        for coord in coords:
+            coordinate_to_tuple(coord)
+    return 0.0
+
+
+def _bench_indexed_list_add(n: int = 50_000) -> float:
+    """Exercise IndexedList.add with unique hashable objects."""
+    from fastpyxl.styles.cell_style import StyleArray
+    from fastpyxl.utils.indexed_list import IndexedList
+
+    il = IndexedList()
+    # Add n unique StyleArrays (vary one element per array)
+    for i in range(n):
+        sa = StyleArray([i % 200, i % 50, i % 30, i % 100, 0, 0, 0, 0, 0])
+        il.add(sa)
+    return 0.0
+
+
+def _bench_calculate_dimension(n_cells: int = 50_000) -> float:
+    """Build a worksheet with many cells and time calculate_dimension."""
+    wb = Workbook()
+    ws = wb.active
+    # Populate cells directly into _cells dict (fast setup)
+    from fastpyxl.cell.cell import Cell
+
+    for i in range(1, n_cells + 1):
+        row = (i - 1) // 50 + 1
+        col = (i - 1) % 50 + 1
+        c = Cell(ws, row=row, column=col)
+        c._value = i
+        ws._cells[(row, col)] = c
+
+    # Time the dimension calculation (called once per sheet during save)
+    for _ in range(10):
+        ws.calculate_dimension()
+    return 0.0
+
+
+def _bench_style_id_materialization(n: int = 10_000) -> float:
+    """Exercise style_id property which triggers lazy style materialization."""
+    wb = Workbook()
+    ws = wb.active
+    # Build cells with styles assigned
+    for r in range(1, n + 1):
+        ws.append([r, r * 2, r * 3])
+    # Access style_id for each cell (triggers materialization path)
+    for row in ws.iter_rows():
+        for cell in row:
+            _ = cell.style_id
+    return 0.0
+
+
+def _run_hotpath(
+    n_sheets: int,
+    rows: int,
+    cols: int,
+) -> list[BenchmarkResult]:
+    """Run all hot-path benchmarks and return results."""
+    results: list[BenchmarkResult] = []
+
+    total_cells = n_sheets * rows * cols
+    print(
+        f"  Hot-path suite: {n_sheets} sheets x {rows} rows x {cols} cols "
+        f"= {total_cells:,} cells"
+    )
+
+    print("  [1/8] load_scaled ...", flush=True)
+    results.append(
+        measure(
+            f"load_scaled_{n_sheets}s_{rows}r_{cols}c",
+            lambda: _bench_load_scaled(n_sheets, rows, cols),
+            iterations=3,
+        )
+    )
+
+    print("  [2/8] save_scaled ...", flush=True)
+    results.append(
+        measure(
+            f"save_scaled_{n_sheets}s_{rows}r_{cols}c",
+            lambda: _bench_save_scaled(n_sheets, rows, cols),
+            iterations=3,
+        )
+    )
+
+    print("  [3/8] read_only_iteration ...", flush=True)
+    results.append(
+        measure(
+            f"read_only_iter_{n_sheets}s_{rows}r_{cols}c",
+            lambda: _bench_read_only_iteration(n_sheets, rows, cols),
+            iterations=3,
+        )
+    )
+
+    print("  [4/8] cell_construction_50k ...", flush=True)
+    results.append(
+        measure("cell_construction_50k", _bench_cell_construction, iterations=5)
+    )
+
+    print("  [5/8] coordinate_to_tuple_100k ...", flush=True)
+    results.append(
+        measure(
+            "coordinate_to_tuple_100k", _bench_coordinate_to_tuple, iterations=5
+        )
+    )
+
+    print("  [6/8] indexed_list_add_50k ...", flush=True)
+    results.append(
+        measure("indexed_list_add_50k", _bench_indexed_list_add, iterations=5)
+    )
+
+    print("  [7/8] calculate_dimension_50k ...", flush=True)
+    results.append(
+        measure(
+            "calculate_dimension_50k_x10",
+            _bench_calculate_dimension,
+            iterations=5,
+        )
+    )
+
+    print("  [8/8] style_id_materialization_10k ...", flush=True)
+    results.append(
+        measure(
+            "style_id_materialization_10k",
+            _bench_style_id_materialization,
+            iterations=3,
+        )
+    )
+
+    return results
+
+
+def _cmd_hotpath(args: argparse.Namespace) -> None:
+    stem = args.output_stem
+    if stem.endswith((".json", ".md")):
+        stem = stem.rsplit(".", 1)[0]
+
+    results = _run_hotpath(args.n_sheets, args.rows, args.cols)
+    payload = results_payload(
+        results,
+        extra={
+            "n_sheets": args.n_sheets,
+            "rows": args.rows,
+            "cols": args.cols,
+        },
+    )
+
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    out_json = args.output_dir / f"{stem}.json"
+    write_json(out_json, payload)
+
+    title = stem.replace("_", " ").title()
+    lines = [
+        f"# {title}",
+        "",
+        f"- Scale: {args.n_sheets} sheets x {args.rows} rows x {args.cols} cols",
+        "",
+        *markdown_results_table(results, include_iterations=True),
+        "",
+    ]
+    out_md = args.output_dir / f"{stem}.md"
+    out_md.write_text("\n".join(lines), encoding="utf-8")
     print(f"Wrote {try_relative(out_json, ROOT)}")
     print(f"Wrote {try_relative(out_md, ROOT)}")
 
@@ -415,7 +671,9 @@ def main() -> None:
             "Examples:\n"
             "  uv run python scripts/benchmark.py baseline\n"
             "  uv run python scripts/benchmark.py synthetic\n"
-            "  uv run python scripts/benchmark.py compare main HEAD --suite baseline\n"
+            "  uv run python scripts/benchmark.py hotpath\n"
+            "  uv run python scripts/benchmark.py hotpath --n-sheets 10 --rows 1000 --cols 30\n"
+            "  uv run python scripts/benchmark.py compare main HEAD --suite hotpath\n"
             "  uv run python scripts/benchmark.py profile\n"
         ),
     )
@@ -509,6 +767,42 @@ def main() -> None:
         help="Directory for profile text files (default: ./artifacts)",
     )
     p_prof.set_defaults(func=_cmd_profile)
+
+    p_hot = sub.add_parser(
+        "hotpath",
+        help="Scaled workbook load/save and per-function hot-path benchmarks",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Exercises the real-world bottlenecks identified by profiling large workbooks:\n"
+            "  - Scaled workbook load, save, and read-only iteration\n"
+            "  - Cell + StyleArray construction\n"
+            "  - coordinate_to_tuple parsing\n"
+            "  - IndexedList.add (style dedup)\n"
+            "  - calculate_dimension (cell-key scanning)\n"
+            "  - style_id materialization (lazy style resolution)\n"
+        ),
+    )
+    p_hot.add_argument(
+        "--n-sheets", type=int, default=5, help="Sheets in generated workbook (default: 5)"
+    )
+    p_hot.add_argument(
+        "--rows", type=int, default=500, help="Rows per sheet (default: 500)"
+    )
+    p_hot.add_argument(
+        "--cols", type=int, default=20, help="Columns per sheet (default: 20)"
+    )
+    p_hot.add_argument(
+        "--output-dir",
+        type=Path,
+        default=ROOT / "artifacts",
+        help="Directory for JSON/Markdown (default: ./artifacts)",
+    )
+    p_hot.add_argument(
+        "--output-stem",
+        default="hotpath_benchmarks",
+        help="Basename for output files (default: hotpath_benchmarks)",
+    )
+    p_hot.set_defaults(func=_cmd_hotpath)
 
     args = parser.parse_args()
     args.func(args)

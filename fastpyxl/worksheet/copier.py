@@ -54,15 +54,15 @@ class WorksheetCopy:
             if source_cell.has_style:
                 target_cell._style = copy(source_cell._style)
 
-            sp = getattr(source_cell, "_pending_styles", None)
+            sp = source_cell._pending_styles
             if sp:
-                td = getattr(target_cell, "_pending_styles", None)
+                td = target_cell._pending_styles
                 if td is None:
                     target_cell._pending_styles = {}
                     td = target_cell._pending_styles
                 td.update(sp)
 
-            pn = getattr(source_cell, "_pending_named_style", None)
+            pn = source_cell._pending_named_style
             if pn is not None:
                 target_cell._pending_named_style = pn
 
@@ -74,9 +74,10 @@ class WorksheetCopy:
 
 
     def _copy_dimensions(self):
-        for attr in ('row_dimensions', 'column_dimensions'):
-            src = getattr(self.source, attr)
-            target = getattr(self.target, attr)
+        for src, target in (
+            (self.source.row_dimensions, self.target.row_dimensions),
+            (self.source.column_dimensions, self.target.column_dimensions),
+        ):
             for key, dim in src.items():
                 target[key] = copy(dim)
                 target[key].worksheet = self.target

@@ -251,7 +251,7 @@ class Series(Serialisable):
         self.extLst = extLst
 
     def _element_names_for_serialize(self):
-        order = getattr(self, "_serialize_element_order", None)
+        order = self._serialize_element_order
         if order is not None:
             return tuple(order)
         return super()._element_names_for_serialize()

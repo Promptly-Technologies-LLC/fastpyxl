@@ -57,7 +57,7 @@ class Workbook:
     _data_only = False
     template = False
     path = "/xl/workbook.xml"
-    _archive: Optional[ZipFile]
+    _archive: Optional[ZipFile] = None
 
     def __init__(self,
                  write_only=False,
@@ -477,7 +477,7 @@ class Workbook:
         """
         Close workbook file if open. Only affects read-only and write-only modes.
         """
-        archive = getattr(self, "_archive", None)
+        archive = self._archive
         if archive is not None:
             archive.close()
 

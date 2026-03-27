@@ -15,7 +15,8 @@ from . import (
     String,
     Sequence,
 )
-from .serialisable import Serialisable
+from fastpyxl.typed_serialisable.base import Serialisable
+from fastpyxl.typed_serialisable.fields import Field
 
 
 class HexBinary(MatchPattern):
@@ -57,7 +58,9 @@ class Percentage(MinMax):
 
 class Extension(Serialisable):
 
-    uri = String()
+    tagname = "ext"
+
+    uri: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  uri=None,
@@ -67,12 +70,14 @@ class Extension(Serialisable):
 
 class ExtensionList(Serialisable):
 
-    ext = Sequence(expected_type=Extension)
+    tagname = "extLst"
+
+    ext: list[Extension] = Field.sequence(expected_type=Extension, default=list)
 
     def __init__(self,
                  ext=(),
                 ):
-        self.ext = ext
+        self.ext = list(ext)
 
 
 class Relation(String):

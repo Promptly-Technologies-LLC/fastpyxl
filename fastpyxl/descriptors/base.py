@@ -14,6 +14,9 @@ from fastpyxl.utils.datetime import from_ISO8601
 
 
 class Descriptor:
+    namespace = None
+    nested = False
+
     def __init__(self, name=None, **kw):
         self.name = name
         for k, v in kw.items():

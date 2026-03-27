@@ -1,18 +1,13 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Set,
-    Integer,
-)
-from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field
 
 from .colors import ColorChoice
 
 
-class TintEffect(TypedSerialisable):
+class TintEffect(Serialisable):
 
     tagname = "tint"
 
@@ -27,7 +22,7 @@ class TintEffect(TypedSerialisable):
         self.amt = amt
 
 
-class LuminanceEffect(TypedSerialisable):
+class LuminanceEffect(Serialisable):
 
     tagname = "lum"
 
@@ -44,9 +39,11 @@ class LuminanceEffect(TypedSerialisable):
 
 class HSLEffect(Serialisable):
 
-    hue = Integer()
-    sat = Integer()
-    lum = Integer()
+    tagname = "hsl"
+
+    hue: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    sat: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    lum: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  hue=None,
@@ -58,14 +55,21 @@ class HSLEffect(Serialisable):
         self.lum = lum
 
 
-class GrayscaleEffect(TypedSerialisable):
+class GrayscaleEffect(Serialisable):
 
     tagname = "grayscl"
 
 
 class FillOverlayEffect(Serialisable):
 
-    blend = Set(values=(['over', 'mult', 'screen', 'darken', 'lighten']))
+    tagname = "fillOverlay"
+
+    blend: str | None = Field.attribute(
+        expected_type=str,
+        allow_none=True,
+        converter=lambda v: _enum_converter(v, ('over', 'mult', 'screen', 'darken', 'lighten'), "blend"),
+        default=None,
+    )
 
     def __init__(self,
                  blend=None,
@@ -75,17 +79,20 @@ class FillOverlayEffect(Serialisable):
 
 class DuotoneEffect(Serialisable):
 
-    pass
+    tagname = "duotone"
+
 
 class ColorReplaceEffect(Serialisable):
 
-    pass
+    tagname = "clrRepl"
+
 
 class Color(Serialisable):
 
-    pass
+    tagname = "clr"
 
-class ColorChangeEffect(TypedSerialisable):
+
+class ColorChangeEffect(Serialisable):
 
     useA: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     clrFrom: Color | None = Field.element(expected_type=Color, allow_none=True, default=None)
@@ -102,7 +109,7 @@ class ColorChangeEffect(TypedSerialisable):
         self.clrTo = clrTo
 
 
-class BlurEffect(TypedSerialisable):
+class BlurEffect(Serialisable):
 
     rad: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
     grow: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
@@ -115,7 +122,7 @@ class BlurEffect(TypedSerialisable):
         self.grow = grow
 
 
-class BiLevelEffect(TypedSerialisable):
+class BiLevelEffect(Serialisable):
 
     thresh: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
@@ -125,7 +132,7 @@ class BiLevelEffect(TypedSerialisable):
         self.thresh = thresh
 
 
-class AlphaReplaceEffect(TypedSerialisable):
+class AlphaReplaceEffect(Serialisable):
 
     a: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
@@ -135,7 +142,7 @@ class AlphaReplaceEffect(TypedSerialisable):
         self.a = a
 
 
-class AlphaModulateFixedEffect(TypedSerialisable):
+class AlphaModulateFixedEffect(Serialisable):
 
     amt: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
@@ -145,7 +152,7 @@ class AlphaModulateFixedEffect(TypedSerialisable):
         self.amt = amt
 
 
-class EffectContainer(TypedSerialisable):
+class EffectContainer(Serialisable):
 
     type: str | None = Field.attribute(
         expected_type=str,
@@ -162,7 +169,7 @@ class EffectContainer(TypedSerialisable):
         self.name = name
 
 
-class AlphaModulateEffect(TypedSerialisable):
+class AlphaModulateEffect(Serialisable):
 
     cont: EffectContainer | None = Field.element(expected_type=EffectContainer, allow_none=True, default=None)
 
@@ -174,17 +181,20 @@ class AlphaModulateEffect(TypedSerialisable):
 
 class AlphaInverseEffect(Serialisable):
 
-    pass
+    tagname = "alphaInv"
+
 
 class AlphaFloorEffect(Serialisable):
 
-    pass
+    tagname = "alphaFloor"
+
 
 class AlphaCeilingEffect(Serialisable):
 
-    pass
+    tagname = "alphaCeiling"
 
-class AlphaBiLevelEffect(TypedSerialisable):
+
+class AlphaBiLevelEffect(Serialisable):
 
     thresh: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
@@ -284,7 +294,7 @@ class PresetShadowEffect(ColorChoice):
         super().__init__(**kw)
 
 
-class ReflectionEffect(TypedSerialisable):
+class ReflectionEffect(Serialisable):
 
     blurRad: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
     stA: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
@@ -337,7 +347,7 @@ class ReflectionEffect(TypedSerialisable):
         self.rotWithShape = rotWithShape
 
 
-class SoftEdgesEffect(TypedSerialisable):
+class SoftEdgesEffect(Serialisable):
 
     rad: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
 
@@ -347,7 +357,7 @@ class SoftEdgesEffect(TypedSerialisable):
         self.rad = rad
 
 
-class EffectList(TypedSerialisable):
+class EffectList(Serialisable):
 
     blur: BlurEffect | None = Field.element(expected_type=BlurEffect, allow_none=True, default=None)
     fillOverlay: FillOverlayEffect | None = Field.element(expected_type=FillOverlayEffect, allow_none=True, default=None)

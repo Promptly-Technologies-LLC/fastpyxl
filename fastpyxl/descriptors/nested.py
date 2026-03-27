@@ -26,7 +26,7 @@ class Nested(Descriptor):
         return node.get(self.attribute)
 
     def to_tree(self, tagname=None, value=None, namespace=None):
-        namespace = getattr(self, "namespace", namespace)
+        namespace = self.namespace or namespace
         if value is not None:
             if namespace is not None:
                 tagname = "{%s}%s" % (namespace, tagname)
@@ -50,7 +50,7 @@ class NestedText(NestedValue):
         return node.text
 
     def to_tree(self, tagname=None, value=None, namespace=None):
-        namespace = getattr(self, "namespace", namespace)
+        namespace = self.namespace or namespace
         if value is not None:
             if namespace is not None:
                 tagname = "{%s}%s" % (namespace, tagname)
@@ -100,7 +100,7 @@ class EmptyTag(Nested, Bool):
 
     def to_tree(self, tagname=None, value=None, namespace=None):
         if value:
-            namespace = getattr(self, "namespace", namespace)
+            namespace = self.namespace or namespace
             if namespace is not None:
                 tagname = "{%s}%s" % (namespace, tagname)
             assert tagname is not None

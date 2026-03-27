@@ -1,15 +1,13 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
 from fastpyxl.descriptors import (
     Typed,
-    Set,
 )
 from fastpyxl.styles.colors import aRGB_REGEX
 from fastpyxl.xml.constants import DRAWING_NS
 from fastpyxl.xml.functions import Element
 from fastpyxl.typed_serialisable.render import namespaced_tag
-from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
@@ -131,7 +129,7 @@ def _drawml_empty_element(tag, value, ns=None):
     return Element(namespaced_tag(tag, ns or DRAWING_NS))
 
 
-class Transform(TypedSerialisable):
+class Transform(Serialisable):
 
     tagname = "comp"
 
@@ -139,7 +137,7 @@ class Transform(TypedSerialisable):
         pass
 
 
-class SystemColor(TypedSerialisable):
+class SystemColor(Serialisable):
 
     tagname = "sysClr"
     namespace = DRAWING_NS
@@ -280,7 +278,7 @@ class SystemColor(TypedSerialisable):
         self.invGamma = invGamma
 
 
-class HSLColor(TypedSerialisable):
+class HSLColor(Serialisable):
 
     tagname = "hslClr"
 
@@ -309,7 +307,7 @@ class HSLColor(TypedSerialisable):
 
 
 
-class RGBPercent(TypedSerialisable):
+class RGBPercent(Serialisable):
 
     tagname = "rgbClr"
 
@@ -341,7 +339,7 @@ class RGBPercent(TypedSerialisable):
         self.b = b
 
 
-class SchemeColor(TypedSerialisable):
+class SchemeColor(Serialisable):
 
     tagname = "schemeClr"
     namespace = DRAWING_NS
@@ -481,7 +479,7 @@ class SchemeColor(TypedSerialisable):
         self.invGamma = invGamma
         self.val = val
 
-class ColorChoice(TypedSerialisable):
+class ColorChoice(Serialisable):
 
     tagname = "colorChoice"
     namespace = DRAWING_NS
@@ -520,23 +518,27 @@ _COLOR_SET = ('dk1', 'lt1', 'dk2', 'lt2', 'accent1', 'accent2', 'accent3',
                'accent4', 'accent5', 'accent6', 'hlink', 'folHlink')
 
 
+def _color_set_converter(v):
+    return _enum_converter(v, _COLOR_SET, "color")
+
+
 class ColorMapping(Serialisable):
 
     tagname = "clrMapOvr"
 
-    bg1 = Set(values=_COLOR_SET)
-    tx1 = Set(values=_COLOR_SET)
-    bg2 = Set(values=_COLOR_SET)
-    tx2 = Set(values=_COLOR_SET)
-    accent1 = Set(values=_COLOR_SET)
-    accent2 = Set(values=_COLOR_SET)
-    accent3 = Set(values=_COLOR_SET)
-    accent4 = Set(values=_COLOR_SET)
-    accent5 = Set(values=_COLOR_SET)
-    accent6 = Set(values=_COLOR_SET)
-    hlink = Set(values=_COLOR_SET)
-    folHlink = Set(values=_COLOR_SET)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    bg1: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    tx1: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    bg2: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    tx2: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    accent1: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    accent2: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    accent3: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    accent4: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    accent5: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    accent6: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    hlink: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    folHlink: str | None = Field.attribute(expected_type=str, allow_none=True, converter=_color_set_converter, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  bg1="lt1",
@@ -581,7 +583,7 @@ class ColorChoiceDescriptor(Typed):
         if isinstance(value, str):
             value = ColorChoice(srgbClr=value)
         else:
-            if hasattr(self, "namespace") and value is not None:
+            if self.namespace is not None and value is not None:
                 value.namespace = self.namespace
         super().__set__(instance, value)
 

@@ -514,7 +514,12 @@ def _find_json(worktree: Path, out_dir: Path, candidates: tuple[str, ...]) -> Pa
     )
 
 
-def _run_suite(worktree: Path, suite: str, out_dir: Path) -> dict:
+def _run_suite(
+    worktree: Path,
+    suite: str,
+    out_dir: Path,
+    extra_cli: list[str] | None = None,
+) -> dict:
     spec = _SUITES[suite]
     unified = worktree / "scripts" / "benchmark.py"
     legacy = (
@@ -549,6 +554,8 @@ def _run_suite(worktree: Path, suite: str, out_dir: Path) -> dict:
         raise FileNotFoundError(
             f"Neither scripts/benchmark.py nor {legacy.name} found in worktree."
         )
+    if extra_cli:
+        cmd.extend(extra_cli)
 
     subprocess.run(cmd, cwd=worktree, check=True)
     candidates = tuple(spec["json_candidates"])
@@ -579,8 +586,15 @@ def _cmd_compare(args: argparse.Namespace) -> None:
         _worktree_add(repo, wt_b, args.ref_b)
         out_a.mkdir(parents=True)
         out_b.mkdir(parents=True)
-        data_a = _run_suite(wt_a, args.suite, out_a)
-        data_b = _run_suite(wt_b, args.suite, out_b)
+        extra_cli: list[str] = []
+        if args.suite == "hotpath":
+            extra_cli = [
+                "--n-sheets", str(args.n_sheets),
+                "--rows", str(args.rows),
+                "--cols", str(args.cols),
+            ]
+        data_a = _run_suite(wt_a, args.suite, out_a, extra_cli)
+        data_b = _run_suite(wt_b, args.suite, out_b, extra_cli)
     except BaseException as e:
         failed = True
         if isinstance(e, subprocess.CalledProcessError):
@@ -747,6 +761,18 @@ def main() -> None:
         action="store_true",
         help="On failure, do not remove temporary worktrees (path printed to stderr)",
     )
+    p_cmp.add_argument(
+        "--n-sheets", type=int, default=5,
+        help="(hotpath suite) Sheets in generated workbook (default: 5)",
+    )
+    p_cmp.add_argument(
+        "--rows", type=int, default=2000,
+        help="(hotpath suite) Rows per sheet (default: 2000)",
+    )
+    p_cmp.add_argument(
+        "--cols", type=int, default=26,
+        help="(hotpath suite) Columns per sheet (default: 26)",
+    )
     p_cmp.set_defaults(func=_cmd_compare)
 
     p_prof = sub.add_parser("profile", help="cProfile synthetic model construction (typed vs legacy)")
@@ -786,10 +812,10 @@ def main() -> None:
         "--n-sheets", type=int, default=5, help="Sheets in generated workbook (default: 5)"
     )
     p_hot.add_argument(
-        "--rows", type=int, default=500, help="Rows per sheet (default: 500)"
+        "--rows", type=int, default=2000, help="Rows per sheet (default: 2000)"
     )
     p_hot.add_argument(
-        "--cols", type=int, default=20, help="Columns per sheet (default: 20)"
+        "--cols", type=int, default=26, help="Columns per sheet (default: 26)"
     )
     p_hot.add_argument(
         "--output-dir",

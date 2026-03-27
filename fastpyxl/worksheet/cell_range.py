@@ -378,9 +378,10 @@ class CellRange(Serialisable):
         """
         For use as a dictionary elsewhere in the library.
         """
-        for x in ("min_col", "min_row", "max_col", "max_row"):
-            v = getattr(self, x)
-            yield x, v
+        yield "min_col", self.min_col
+        yield "min_row", self.min_row
+        yield "max_col", self.max_col
+        yield "max_row", self.max_row
 
 
     def expand(self, right=0, down=0, left=0, up=0):

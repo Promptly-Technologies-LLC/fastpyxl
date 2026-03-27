@@ -49,7 +49,7 @@ class FormatObject(Serialisable):
     def __setattr__(self, name, value):
         if name == "val" and value is not None:
             ref = isinstance(value, str) and COORD_RE.match(value)
-            if getattr(self, "type", None) == "formula" or ref:
+            if self.type == "formula" or ref:
                 value = str(value)
             else:
                 try:

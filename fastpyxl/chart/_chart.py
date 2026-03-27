@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections import OrderedDict
 from operator import attrgetter
+from typing import Any
 
 from fastpyxl.compat import safe_string
 from fastpyxl.typed_serialisable.base import Serialisable
@@ -30,6 +31,9 @@ class ChartBase(Serialisable):
     """
 
     _plot_xml_tag: str | None = None
+    x_axis: Any = None
+    y_axis: Any = None
+    z_axis: Any = None
 
     display_blanks: str | None = Field.attribute(
         expected_type=str,
@@ -136,7 +140,7 @@ class ChartBase(Serialisable):
             if isinstance(own_tn, str):
                 resolved = own_tn
             elif cls is ChartBase:
-                pt = getattr(ChartBase, "_plot_xml_tag", None)
+                pt = ChartBase._plot_xml_tag
                 if pt:
                     resolved = pt
                 else:
@@ -184,9 +188,9 @@ class ChartBase(Serialisable):
 
     @property
     def _axes(self):
-        x = getattr(self, "x_axis", None)
-        y = getattr(self, "y_axis", None)
-        z = getattr(self, "z_axis", None)
+        x = self.x_axis
+        y = self.y_axis
+        z = self.z_axis
         return OrderedDict([(axis.axId, axis) for axis in (x, y, z) if axis])
 
     def set_categories(self, labels):

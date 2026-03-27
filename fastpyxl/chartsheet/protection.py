@@ -18,8 +18,12 @@ class ChartsheetProtection(Serialisable, _Protected):
     objects: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __iter__(self):
-        for key in ("content", "objects", "password", "hashValue", "spinCount", "saltValue", "algorithmName"):
-            value = getattr(self, key, None)
+        for key, value in (
+            ("content", self.content), ("objects", self.objects),
+            ("password", self.password), ("hashValue", self.hashValue),
+            ("spinCount", self.spinCount), ("saltValue", self.saltValue),
+            ("algorithmName", self.algorithmName),
+        ):
             if value is not None:
                 yield key, str(int(value)) if isinstance(value, bool) else str(value)
 

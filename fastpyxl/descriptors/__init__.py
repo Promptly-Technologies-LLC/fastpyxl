@@ -45,10 +45,10 @@ class MetaSerialisable(type):
         namespaced = []
         for k, v in methods.items():
             if isinstance(v, Descriptor):
-                ns = getattr(v, "namespace", None)
+                ns = v.namespace
                 if ns:
                     namespaced.append((k, "{%s}%s" % (ns, k)))
-                if getattr(v, "nested", False):
+                if v.nested:
                     nested.append(k)
                     elements.append(k)
                 elif isinstance(v, Sequence):

@@ -20,10 +20,14 @@ class ReadOnlyCell:
 
 
     def __eq__(self, other):
-        for a in self.__slots__:
-            if getattr(self, a) != getattr(other, a):
-                return
-        return True
+        return (
+            self.parent == other.parent
+            and self.row == other.row
+            and self.column == other.column
+            and self._value == other._value
+            and self.data_type == other.data_type
+            and self._style_id == other._style_id
+        )
 
     def __ne__(self, other):
         return not self.__eq__(other)

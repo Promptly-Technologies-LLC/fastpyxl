@@ -138,13 +138,14 @@ class WorksheetWriter:
                 if cell._comment is not None:
                     comment = CommentRecord.from_cell(cell)
                     self.ws._comments.append(comment)
+                styled = cell.has_style
                 if (
                     cell._value is None
-                    and not cell.has_style
+                    and not styled
                     and not cell._comment
                     ):
                     continue
-                write_cell(xf, self.ws, cell, cell.has_style)
+                write_cell(xf, self.ws, cell, styled)
 
 
     def write_protection(self):

@@ -197,7 +197,7 @@ class StyleableObject:
             self._style = StyleArray()
 
     def _apply_pending_named_style(self):
-        pending = getattr(self, "_pending_named_style", None)
+        pending = self._pending_named_style
         if pending is None:
             return
         wb = self.parent.parent
@@ -251,7 +251,7 @@ class StyleableObject:
 
     @property
     def has_style(self):
-        if getattr(self, "_pending_named_style", None) is not None:
+        if self._pending_named_style is not None:
             return True
         if self._pending_styles:
             return True

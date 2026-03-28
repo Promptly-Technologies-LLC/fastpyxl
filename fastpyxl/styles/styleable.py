@@ -266,7 +266,18 @@ class StyleableObject:
         Combines the checks of :attr:`has_style` with the materialisation
         performed by :attr:`style_id` so that the save path only traverses
         the style resolution chain once per cell.
+
+        When ``_pending_styles`` is ``None`` (set by
+        ``materialize_pending_style_components`` during save) all pending
+        state has already been resolved, so we skip straight to the style
+        array check.
         """
+        # Fast path after pre-materialization: no pending state to resolve.
+        if self._pending_styles is None:
+            if self._style is None or not any(self._style):
+                return None
+            return str(self.parent.parent._cell_styles.add(self._style))
+        # Slow path: pending styles still need resolution.
         if self._pending_named_style is not None:
             if self._style is None:
                 self._style = StyleArray()

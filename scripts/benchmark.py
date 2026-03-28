@@ -278,6 +278,36 @@ def _bench_save_scaled(n_sheets: int, rows: int, cols: int) -> float:
     return float(buf.tell())
 
 
+def _build_styled_workbook(
+    n_sheets: int = 5,
+    rows_per_sheet: int = 500,
+    cols_per_sheet: int = 20,
+) -> Workbook:
+    """Build a workbook where every cell has styles applied."""
+    from fastpyxl.styles.fills import PatternFill
+
+    wb = Workbook()
+    del wb[wb.sheetnames[0]]
+    bold_font = Font(name="Calibri", sz=11, b=True)
+    fill = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")
+    for s in range(n_sheets):
+        ws = wb.create_sheet(f"Sheet{s}")
+        for r in range(1, rows_per_sheet + 1):
+            for c in range(1, cols_per_sheet + 1):
+                cell = ws.cell(row=r, column=c, value=r * c)
+                cell.font = bold_font
+                cell.fill = fill
+    return wb
+
+
+def _bench_save_styled(n_sheets: int, rows: int, cols: int) -> float:
+    """Build a styled workbook and time just the save portion."""
+    wb = _build_styled_workbook(n_sheets, rows, cols)
+    buf = io.BytesIO()
+    wb.save(buf)
+    return float(buf.tell())
+
+
 def _bench_read_only_iteration(n_sheets: int, rows: int, cols: int) -> float:
     """Build, save, then read back in read-only mode and iterate all cells."""
     wb = _build_scaled_workbook(n_sheets, rows, cols)
@@ -381,7 +411,7 @@ def _run_hotpath(
         f"= {total_cells:,} cells"
     )
 
-    print("  [1/8] load_scaled ...", flush=True)
+    print("  [1/9] load_scaled ...", flush=True)
     results.append(
         measure(
             f"load_scaled_{n_sheets}s_{rows}r_{cols}c",
@@ -390,7 +420,7 @@ def _run_hotpath(
         )
     )
 
-    print("  [2/8] save_scaled ...", flush=True)
+    print("  [2/9] save_scaled ...", flush=True)
     results.append(
         measure(
             f"save_scaled_{n_sheets}s_{rows}r_{cols}c",
@@ -399,7 +429,16 @@ def _run_hotpath(
         )
     )
 
-    print("  [3/8] read_only_iteration ...", flush=True)
+    print("  [3/9] save_styled ...", flush=True)
+    results.append(
+        measure(
+            f"save_styled_{n_sheets}s_{rows}r_{cols}c",
+            lambda: _bench_save_styled(n_sheets, rows, cols),
+            iterations=3,
+        )
+    )
+
+    print("  [4/9] read_only_iteration ...", flush=True)
     results.append(
         measure(
             f"read_only_iter_{n_sheets}s_{rows}r_{cols}c",
@@ -408,24 +447,24 @@ def _run_hotpath(
         )
     )
 
-    print("  [4/8] cell_construction_50k ...", flush=True)
+    print("  [5/9] cell_construction_50k ...", flush=True)
     results.append(
         measure("cell_construction_50k", _bench_cell_construction, iterations=5)
     )
 
-    print("  [5/8] coordinate_to_tuple_100k ...", flush=True)
+    print("  [6/9] coordinate_to_tuple_100k ...", flush=True)
     results.append(
         measure(
             "coordinate_to_tuple_100k", _bench_coordinate_to_tuple, iterations=5
         )
     )
 
-    print("  [6/8] indexed_list_add_50k ...", flush=True)
+    print("  [7/9] indexed_list_add_50k ...", flush=True)
     results.append(
         measure("indexed_list_add_50k", _bench_indexed_list_add, iterations=5)
     )
 
-    print("  [7/8] calculate_dimension_50k ...", flush=True)
+    print("  [8/9] calculate_dimension_50k ...", flush=True)
     results.append(
         measure(
             "calculate_dimension_50k_x10",
@@ -434,7 +473,7 @@ def _run_hotpath(
         )
     )
 
-    print("  [8/8] style_id_materialization_10k ...", flush=True)
+    print("  [9/9] style_id_materialization_10k ...", flush=True)
     results.append(
         measure(
             "style_id_materialization_10k",

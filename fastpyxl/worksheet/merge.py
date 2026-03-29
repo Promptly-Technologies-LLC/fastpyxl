@@ -122,6 +122,7 @@ class MergedCellRange(CellRange):
                     row, col = coord
                     cell = MergedCell(self.ws, row=row, column=col)
                     self.ws._cells[(cell.row, cell.column)] = cell
+                    self.ws._update_bounds_on_add(cell.row, cell.column)
                 cell.border += border
 
         protected = sc.protection is not None
@@ -133,6 +134,7 @@ class MergedCellRange(CellRange):
                 row, col = coord
                 cell = MergedCell(self.ws, row=row, column=col)
                 self.ws._cells[(cell.row, cell.column)] = cell
+                self.ws._update_bounds_on_add(cell.row, cell.column)
 
             if protected:
                 cell.protection = protection

@@ -37,6 +37,11 @@ class ReadOnlyWorksheet:
         self.title = title
         self.sheet_state = 'visible'
         self._current_row = None
+        self._min_row = 1
+        self._max_row = None
+        self._min_col = None
+        self._max_col = None
+        self._bounds_dirty = False
         self._worksheet_path = worksheet_path
         self._shared_strings = shared_strings
         self._get_size()

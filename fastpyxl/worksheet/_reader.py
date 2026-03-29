@@ -390,6 +390,7 @@ class WorksheetReader:
                 _cells[(cell_row, cell_col)] = c
 
         if _cells:
+            _ws._invalidate_bounds()
             _ws._current_row = _ws.max_row # use cells not row dimensions
 
 

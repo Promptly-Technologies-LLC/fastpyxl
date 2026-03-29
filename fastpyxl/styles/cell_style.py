@@ -116,11 +116,13 @@ class CellStyle(Serialisable):
         Convert to StyleArray
         """
         style = StyleArray()
-        for k in ("fontId", "fillId", "borderId", "numFmtId", "pivotButton",
-                  "quotePrefix", "xfId"):
-            v = getattr(self, k, 0)
+        for idx, v in (
+            (0, self.fontId), (1, self.fillId), (2, self.borderId),
+            (3, self.numFmtId), (6, self.pivotButton),
+            (7, self.quotePrefix), (8, self.xfId),
+        ):
             if v is not None:
-                setattr(style, k, v)
+                style[idx] = v
         return style
 
 

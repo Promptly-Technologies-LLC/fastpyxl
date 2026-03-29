@@ -98,7 +98,7 @@ class Serialisable(metaclass=MetaSerialisable):
             tagname = tagname[1:]
 
         tagname = namespaced(self, tagname, namespace)
-        namespace = getattr(self, "namespace", namespace)
+        namespace = self.namespace
 
         attrs = dict(self)
         for key, ns in self.__namespaced__ or ():

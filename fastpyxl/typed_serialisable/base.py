@@ -194,6 +194,7 @@ class Serialisable(metaclass=MetaSerialisable):
     __multi_sequence_tag_map__ = {}
     __attribute_xml_name_map__ = {}
     namespace = None
+    idx_base = 0
 
     @property
     def tagname(self):
@@ -290,7 +291,7 @@ class Serialisable(metaclass=MetaSerialisable):
         if tagname.startswith("_"):
             tagname = tagname[1:]
 
-        namespace = getattr(self, "namespace", namespace)
+        namespace = self.namespace
         root = Element(namespaced_tag(tagname, namespace))
         attrs = dict(self)
         for key, ns_key in self.__namespaced__:
@@ -339,7 +340,7 @@ class Serialisable(metaclass=MetaSerialisable):
                 if value is None:
                     continue
                 pattr = field.sequence_primitive_attribute
-                idx_base = getattr(self, "idx_base", 0)
+                idx_base = self.idx_base
                 for idx, item in enumerate(value, idx_base):
                     if supports_to_tree(item):
                         root.append(item.to_tree(tag, idx))

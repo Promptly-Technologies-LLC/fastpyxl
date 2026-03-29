@@ -105,16 +105,18 @@ class MergedCellRange(CellRange):
         sc = self.start_cell
         assert sc is not None
 
-        names = ['top', 'left', 'right', 'bottom']
-
         start_border = sc.border or Border()
 
-        for name in names:
-            side = getattr(start_border, name)
+        for name, side, coords in (
+            ('top', start_border.top, self.top),
+            ('left', start_border.left, self.left),
+            ('right', start_border.right, self.right),
+            ('bottom', start_border.bottom, self.bottom),
+        ):
             if side and side.style is None:
                 continue # don't need to do anything if there is no border style
             border = Border(**{name:side})
-            for coord in getattr(self, name):
+            for coord in coords:
                 cell = self.ws._cells.get(coord)
                 if cell is None:
                     row, col = coord

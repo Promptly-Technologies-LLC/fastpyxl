@@ -1,23 +1,11 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.serialisable import Serialisable
-from fastpyxl.descriptors import (
-    Typed,
-    Float,
-    Integer,
-    Bool,
-    MinMax,
-    Set,
-    NoneSet,
-    String,
-)
-from fastpyxl.descriptors.excel import Coordinate, Percentage
 from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
 from .line import LineProperties  # noqa: F401 -- re-exported
 
 from fastpyxl.styles.colors import Color
 from fastpyxl.xml.constants import DRAWING_NS
-from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
+from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
@@ -31,7 +19,27 @@ def _emu_coord(value, field_name: str):
         raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
 
 
-class Point2D(TypedSerialisable):
+def _enum_converter(value, allowed_values, field_name: str):
+    if value is None:
+        return None
+    if value not in allowed_values:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return value
+
+
+def _range_converter(value, *, field_name: str, min_val, max_val):
+    if value is None:
+        return None
+    try:
+        numeric = int(value)
+    except (TypeError, ValueError) as exc:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}") from exc
+    if numeric < min_val or numeric > max_val:
+        raise FieldValidationError(f"{field_name} rejected value {value!r}")
+    return numeric
+
+
+class Point2D(Serialisable):
 
     tagname = "off"
     namespace = DRAWING_NS
@@ -55,7 +63,7 @@ class Point2D(TypedSerialisable):
         self.y = y
 
 
-class PositiveSize2D(TypedSerialisable):
+class PositiveSize2D(Serialisable):
 
     tagname = "ext"
     namespace = DRAWING_NS
@@ -77,7 +85,7 @@ class PositiveSize2D(TypedSerialisable):
         self.cy = cy
 
 
-class Transform2D(TypedSerialisable):
+class Transform2D(Serialisable):
 
     tagname = "xfrm"
     namespace = DRAWING_NS
@@ -110,7 +118,7 @@ class Transform2D(TypedSerialisable):
         self.chExt = chExt
 
 
-class GroupTransform2D(TypedSerialisable):
+class GroupTransform2D(Serialisable):
 
     tagname = "xfrm"
     namespace = DRAWING_NS
@@ -145,11 +153,11 @@ class GroupTransform2D(TypedSerialisable):
 
 class SphereCoords(Serialisable):
 
-    tagname = "sphereCoords" # usually
+    tagname = "sphereCoords"
 
-    lat = Integer()
-    lon = Integer()
-    rev = Integer()
+    lat: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    lon: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    rev: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  lat=None,
@@ -161,35 +169,118 @@ class SphereCoords(Serialisable):
         self.rev = rev
 
 
+_CAMERA_PRST_VALUES = frozenset([
+    'legacyObliqueTopLeft', 'legacyObliqueTop', 'legacyObliqueTopRight', 'legacyObliqueLeft',
+    'legacyObliqueFront', 'legacyObliqueRight', 'legacyObliqueBottomLeft',
+    'legacyObliqueBottom', 'legacyObliqueBottomRight', 'legacyPerspectiveTopLeft',
+    'legacyPerspectiveTop', 'legacyPerspectiveTopRight', 'legacyPerspectiveLeft',
+    'legacyPerspectiveFront', 'legacyPerspectiveRight', 'legacyPerspectiveBottomLeft',
+    'legacyPerspectiveBottom', 'legacyPerspectiveBottomRight', 'orthographicFront',
+    'isometricTopUp', 'isometricTopDown', 'isometricBottomUp', 'isometricBottomDown',
+    'isometricLeftUp', 'isometricLeftDown', 'isometricRightUp', 'isometricRightDown',
+    'isometricOffAxis1Left', 'isometricOffAxis1Right', 'isometricOffAxis1Top',
+    'isometricOffAxis2Left', 'isometricOffAxis2Right', 'isometricOffAxis2Top',
+    'isometricOffAxis3Left', 'isometricOffAxis3Right', 'isometricOffAxis3Bottom',
+    'isometricOffAxis4Left', 'isometricOffAxis4Right', 'isometricOffAxis4Bottom',
+    'obliqueTopLeft', 'obliqueTop', 'obliqueTopRight', 'obliqueLeft', 'obliqueRight',
+    'obliqueBottomLeft', 'obliqueBottom', 'obliqueBottomRight', 'perspectiveFront',
+    'perspectiveLeft', 'perspectiveRight', 'perspectiveAbove', 'perspectiveBelow',
+    'perspectiveAboveLeftFacing', 'perspectiveAboveRightFacing',
+    'perspectiveContrastingLeftFacing', 'perspectiveContrastingRightFacing',
+    'perspectiveHeroicLeftFacing', 'perspectiveHeroicRightFacing',
+    'perspectiveHeroicExtremeLeftFacing', 'perspectiveHeroicExtremeRightFacing',
+    'perspectiveRelaxed', 'perspectiveRelaxedModerately',
+])
+
+_LIGHT_RIG_VALUES = frozenset([
+    'legacyFlat1', 'legacyFlat2', 'legacyFlat3', 'legacyFlat4', 'legacyNormal1',
+    'legacyNormal2', 'legacyNormal3', 'legacyNormal4', 'legacyHarsh1',
+    'legacyHarsh2', 'legacyHarsh3', 'legacyHarsh4', 'threePt', 'balanced',
+    'soft', 'harsh', 'flood', 'contrasting', 'morning', 'sunrise', 'sunset',
+    'chilly', 'freezing', 'flat', 'twoPt', 'glow', 'brightRoom',
+])
+
+_DIR_VALUES = frozenset(['tl', 't', 'tr', 'l', 'r', 'bl', 'b', 'br'])
+
+_BEVEL_VALUES = frozenset([
+    'relaxedInset', 'circle', 'slope', 'cross', 'angle',
+    'softRound', 'convex', 'coolSlant', 'divot', 'riblet',
+    'hardEdge', 'artDeco',
+])
+
+_PRST_MATERIAL_VALUES = frozenset([
+    'legacyMatte', 'legacyPlastic', 'legacyMetal', 'legacyWireframe', 'matte', 'plastic',
+    'metal', 'warmMatte', 'translucentPowder', 'powder', 'dkEdge',
+    'softEdge', 'clear', 'flat', 'softmetal',
+])
+
+_FILL_VALUES = frozenset(['norm', 'lighten', 'lightenLess', 'darken', 'darkenLess'])
+
+_FONT_REF_VALUES = frozenset(['major', 'minor'])
+
+_PRST_GEOM_VALUES = frozenset([
+    'line', 'lineInv', 'triangle', 'rtTriangle', 'rect',
+    'diamond', 'parallelogram', 'trapezoid', 'nonIsoscelesTrapezoid',
+    'pentagon', 'hexagon', 'heptagon', 'octagon', 'decagon', 'dodecagon',
+    'star4', 'star5', 'star6', 'star7', 'star8', 'star10', 'star12',
+    'star16', 'star24', 'star32', 'roundRect', 'round1Rect',
+    'round2SameRect', 'round2DiagRect', 'snipRoundRect', 'snip1Rect',
+    'snip2SameRect', 'snip2DiagRect', 'plaque', 'ellipse', 'teardrop',
+    'homePlate', 'chevron', 'pieWedge', 'pie', 'blockArc', 'donut',
+    'noSmoking', 'rightArrow', 'leftArrow', 'upArrow', 'downArrow',
+    'stripedRightArrow', 'notchedRightArrow', 'bentUpArrow',
+    'leftRightArrow', 'upDownArrow', 'leftUpArrow', 'leftRightUpArrow',
+    'quadArrow', 'leftArrowCallout', 'rightArrowCallout', 'upArrowCallout',
+    'downArrowCallout', 'leftRightArrowCallout', 'upDownArrowCallout',
+    'quadArrowCallout', 'bentArrow', 'uturnArrow', 'circularArrow',
+    'leftCircularArrow', 'leftRightCircularArrow', 'curvedRightArrow',
+    'curvedLeftArrow', 'curvedUpArrow', 'curvedDownArrow', 'swooshArrow',
+    'cube', 'can', 'lightningBolt', 'heart', 'sun', 'moon', 'smileyFace',
+    'irregularSeal1', 'irregularSeal2', 'foldedCorner', 'bevel', 'frame',
+    'halfFrame', 'corner', 'diagStripe', 'chord', 'arc', 'leftBracket',
+    'rightBracket', 'leftBrace', 'rightBrace', 'bracketPair', 'bracePair',
+    'straightConnector1', 'bentConnector2', 'bentConnector3',
+    'bentConnector4', 'bentConnector5', 'curvedConnector2',
+    'curvedConnector3', 'curvedConnector4', 'curvedConnector5', 'callout1',
+    'callout2', 'callout3', 'accentCallout1', 'accentCallout2',
+    'accentCallout3', 'borderCallout1', 'borderCallout2', 'borderCallout3',
+    'accentBorderCallout1', 'accentBorderCallout2', 'accentBorderCallout3',
+    'wedgeRectCallout', 'wedgeRoundRectCallout', 'wedgeEllipseCallout',
+    'cloudCallout', 'cloud', 'ribbon', 'ribbon2', 'ellipseRibbon',
+    'ellipseRibbon2', 'leftRightRibbon', 'verticalScroll',
+    'horizontalScroll', 'wave', 'doubleWave', 'plus', 'flowChartProcess',
+    'flowChartDecision', 'flowChartInputOutput',
+    'flowChartPredefinedProcess', 'flowChartInternalStorage',
+    'flowChartDocument', 'flowChartMultidocument', 'flowChartTerminator',
+    'flowChartPreparation', 'flowChartManualInput',
+    'flowChartManualOperation', 'flowChartConnector', 'flowChartPunchedCard',
+    'flowChartPunchedTape', 'flowChartSummingJunction', 'flowChartOr',
+    'flowChartCollate', 'flowChartSort', 'flowChartExtract',
+    'flowChartMerge', 'flowChartOfflineStorage', 'flowChartOnlineStorage',
+    'flowChartMagneticTape', 'flowChartMagneticDisk',
+    'flowChartMagneticDrum', 'flowChartDisplay', 'flowChartDelay',
+    'flowChartAlternateProcess', 'flowChartOffpageConnector',
+    'actionButtonBlank', 'actionButtonHome', 'actionButtonHelp',
+    'actionButtonInformation', 'actionButtonForwardNext',
+    'actionButtonBackPrevious', 'actionButtonEnd', 'actionButtonBeginning',
+    'actionButtonReturn', 'actionButtonDocument', 'actionButtonSound',
+    'actionButtonMovie', 'gear6', 'gear9', 'funnel', 'mathPlus', 'mathMinus',
+    'mathMultiply', 'mathDivide', 'mathEqual', 'mathNotEqual', 'cornerTabs',
+    'squareTabs', 'plaqueTabs', 'chartX', 'chartStar', 'chartPlus',
+])
+
+
 class Camera(Serialisable):
 
     tagname = "camera"
 
-    prst = Set(values=[
-        'legacyObliqueTopLeft', 'legacyObliqueTop', 'legacyObliqueTopRight', 'legacyObliqueLeft',
-         'legacyObliqueFront', 'legacyObliqueRight', 'legacyObliqueBottomLeft',
-         'legacyObliqueBottom', 'legacyObliqueBottomRight', 'legacyPerspectiveTopLeft',
-         'legacyPerspectiveTop', 'legacyPerspectiveTopRight', 'legacyPerspectiveLeft',
-         'legacyPerspectiveFront', 'legacyPerspectiveRight', 'legacyPerspectiveBottomLeft',
-         'legacyPerspectiveBottom', 'legacyPerspectiveBottomRight', 'orthographicFront',
-         'isometricTopUp', 'isometricTopDown', 'isometricBottomUp', 'isometricBottomDown',
-         'isometricLeftUp', 'isometricLeftDown', 'isometricRightUp', 'isometricRightDown',
-         'isometricOffAxis1Left', 'isometricOffAxis1Right', 'isometricOffAxis1Top',
-         'isometricOffAxis2Left', 'isometricOffAxis2Right', 'isometricOffAxis2Top',
-         'isometricOffAxis3Left', 'isometricOffAxis3Right', 'isometricOffAxis3Bottom',
-         'isometricOffAxis4Left', 'isometricOffAxis4Right', 'isometricOffAxis4Bottom',
-         'obliqueTopLeft',  'obliqueTop', 'obliqueTopRight', 'obliqueLeft', 'obliqueRight',
-         'obliqueBottomLeft', 'obliqueBottom', 'obliqueBottomRight', 'perspectiveFront',
-         'perspectiveLeft', 'perspectiveRight', 'perspectiveAbove', 'perspectiveBelow',
-         'perspectiveAboveLeftFacing', 'perspectiveAboveRightFacing',
-         'perspectiveContrastingLeftFacing', 'perspectiveContrastingRightFacing',
-         'perspectiveHeroicLeftFacing', 'perspectiveHeroicRightFacing',
-         'perspectiveHeroicExtremeLeftFacing', 'perspectiveHeroicExtremeRightFacing',
-         'perspectiveRelaxed', 'perspectiveRelaxedModerately'])
-    fov = Integer(allow_none=True)
-    zoom = Typed(expected_type=Percentage, allow_none=True)
-    rot = Typed(expected_type=SphereCoords, allow_none=True)
-
+    prst: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _CAMERA_PRST_VALUES, "prst"), default=None,
+    )
+    fov: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    zoom: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    rot: SphereCoords | None = Field.element(expected_type=SphereCoords, allow_none=True, default=None)
 
     def __init__(self,
                  prst=None,
@@ -207,14 +298,15 @@ class LightRig(Serialisable):
 
     tagname = "lightRig"
 
-    rig = Set(values=['legacyFlat1', 'legacyFlat2', 'legacyFlat3', 'legacyFlat4', 'legacyNormal1',
-         'legacyNormal2', 'legacyNormal3', 'legacyNormal4', 'legacyHarsh1',
-         'legacyHarsh2', 'legacyHarsh3', 'legacyHarsh4', 'threePt', 'balanced',
-         'soft', 'harsh', 'flood', 'contrasting', 'morning', 'sunrise', 'sunset',
-         'chilly', 'freezing', 'flat', 'twoPt', 'glow', 'brightRoom']
+    rig: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _LIGHT_RIG_VALUES, "rig"), default=None,
     )
-    dir = Set(values=(['tl', 't', 'tr', 'l', 'r', 'bl', 'b', 'br']))
-    rot = Typed(expected_type=SphereCoords, allow_none=True)
+    dir: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _DIR_VALUES, "dir"), default=None,
+    )
+    rot: SphereCoords | None = Field.element(expected_type=SphereCoords, allow_none=True, default=None)
 
     def __init__(self,
                  rig=None,
@@ -230,9 +322,9 @@ class Vector3D(Serialisable):
 
     tagname = "vector"
 
-    dx = Integer() # can be in or universl measure :-/
-    dy = Integer()
-    dz = Integer()
+    dx: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dy: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    dz: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  dx=None,
@@ -248,9 +340,9 @@ class Point3D(Serialisable):
 
     tagname = "anchor"
 
-    x = Integer()
-    y = Integer()
-    z = Integer()
+    x: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    y: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    z: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  x=None,
@@ -264,10 +356,12 @@ class Point3D(Serialisable):
 
 class Backdrop(Serialisable):
 
-    anchor = Typed(expected_type=Point3D, )
-    norm = Typed(expected_type=Vector3D, )
-    up = Typed(expected_type=Vector3D, )
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    tagname = "backdrop"
+
+    anchor: Point3D | None = Field.element(expected_type=Point3D, allow_none=True, default=None)
+    norm: Vector3D | None = Field.element(expected_type=Vector3D, allow_none=True, default=None)
+    up: Vector3D | None = Field.element(expected_type=Vector3D, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  anchor=None,
@@ -283,10 +377,12 @@ class Backdrop(Serialisable):
 
 class Scene3D(Serialisable):
 
-    camera = Typed(expected_type=Camera, )
-    lightRig = Typed(expected_type=LightRig, )
-    backdrop = Typed(expected_type=Backdrop, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    tagname = "scene3d"
+
+    camera: Camera | None = Field.element(expected_type=Camera, allow_none=True, default=None)
+    lightRig: LightRig | None = Field.element(expected_type=LightRig, allow_none=True, default=None)
+    backdrop: Backdrop | None = Field.element(expected_type=Backdrop, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  camera=None,
@@ -304,13 +400,12 @@ class Bevel(Serialisable):
 
     tagname = "bevel"
 
-    w = Integer()
-    h = Integer()
-    prst = NoneSet(values=
-               ['relaxedInset', 'circle', 'slope', 'cross', 'angle',
-                'softRound', 'convex', 'coolSlant', 'divot', 'riblet',
-                 'hardEdge', 'artDeco']
-               )
+    w: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    h: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    prst: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _BEVEL_VALUES, "prst"), default=None,
+    )
 
     def __init__(self,
                  w=None,
@@ -324,21 +419,21 @@ class Bevel(Serialisable):
 
 class Shape3D(Serialisable):
 
+    tagname = "sp3d"
     namespace = DRAWING_NS
 
-    z = Typed(expected_type=Coordinate, allow_none=True)
-    extrusionH = Integer(allow_none=True)
-    contourW = Integer(allow_none=True)
-    prstMaterial = NoneSet(values=[
-        'legacyMatte','legacyPlastic', 'legacyMetal', 'legacyWireframe', 'matte', 'plastic',
-        'metal', 'warmMatte', 'translucentPowder', 'powder', 'dkEdge',
-        'softEdge', 'clear', 'flat', 'softmetal']
-                       )
-    bevelT = Typed(expected_type=Bevel, allow_none=True)
-    bevelB = Typed(expected_type=Bevel, allow_none=True)
-    extrusionClr = Typed(expected_type=Color, allow_none=True)
-    contourClr = Typed(expected_type=Color, allow_none=True)
-    extLst = Typed(expected_type=OfficeArtExtensionList, allow_none=True)
+    z: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    extrusionH: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    contourW: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    prstMaterial: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _PRST_MATERIAL_VALUES, "prstMaterial"), default=None,
+    )
+    bevelT: Bevel | None = Field.element(expected_type=Bevel, allow_none=True, default=None)
+    bevelB: Bevel | None = Field.element(expected_type=Bevel, allow_none=True, default=None)
+    extrusionClr: Color | None = Field.element(expected_type=Color, allow_none=True, default=None)
+    contourClr: Color | None = Field.element(expected_type=Color, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 
     def __init__(self,
                  z=None,
@@ -364,11 +459,16 @@ class Shape3D(Serialisable):
 
 class Path2D(Serialisable):
 
-    w = Float()
-    h = Float()
-    fill = NoneSet(values=(['norm', 'lighten', 'lightenLess', 'darken', 'darkenLess']))
-    stroke = Bool(allow_none=True)
-    extrusionOk = Bool(allow_none=True)
+    tagname = "path"
+
+    w: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    h: float | None = Field.attribute(expected_type=float, allow_none=True, default=None)
+    fill: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _FILL_VALUES, "fill"), default=None,
+    )
+    stroke: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extrusionOk: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
 
     def __init__(self,
                  w=None,
@@ -386,7 +486,9 @@ class Path2D(Serialisable):
 
 class Path2DList(Serialisable):
 
-    path = Typed(expected_type=Path2D, allow_none=True)
+    tagname = "pathLst"
+
+    path: Path2D | None = Field.element(expected_type=Path2D, allow_none=True, default=None)
 
     def __init__(self,
                  path=None,
@@ -396,10 +498,12 @@ class Path2DList(Serialisable):
 
 class GeomRect(Serialisable):
 
-    l = Coordinate()  # noqa: E741
-    t = Coordinate()
-    r = Coordinate()
-    b = Coordinate()
+    tagname = "rect"
+
+    l: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    t: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    r: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    b: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(
                  self,
@@ -416,8 +520,10 @@ class GeomRect(Serialisable):
 
 class AdjPoint2D(Serialisable):
 
-    x = Coordinate()
-    y = Coordinate()
+    tagname = "pt"
+
+    x: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    y: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  x=None,
@@ -429,8 +535,10 @@ class AdjPoint2D(Serialisable):
 
 class ConnectionSite(Serialisable):
 
-    ang = MinMax(min=0, max=360) # guess work, can also be a name
-    pos = Typed(expected_type=AdjPoint2D, )
+    tagname = "cxn"
+
+    ang: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    pos: AdjPoint2D | None = Field.element(expected_type=AdjPoint2D, allow_none=True, default=None)
 
     def __init__(self,
                  ang=None,
@@ -442,7 +550,9 @@ class ConnectionSite(Serialisable):
 
 class ConnectionSiteList(Serialisable):
 
-    cxn = Typed(expected_type=ConnectionSite, allow_none=True)
+    tagname = "cxnLst"
+
+    cxn: ConnectionSite | None = Field.element(expected_type=ConnectionSite, allow_none=True, default=None)
 
     def __init__(self,
                  cxn=None,
@@ -452,12 +562,15 @@ class ConnectionSiteList(Serialisable):
 
 class AdjustHandleList(Serialisable):
 
-    pass
+    tagname = "ahLst"
+
 
 class GeomGuide(Serialisable):
 
-    name = String()
-    fmla = String()
+    tagname = "gd"
+
+    name: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
+    fmla: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
 
     def __init__(self,
                  name=None,
@@ -469,7 +582,9 @@ class GeomGuide(Serialisable):
 
 class GeomGuideList(Serialisable):
 
-    gd = Typed(expected_type=GeomGuide, allow_none=True)
+    tagname = "gdLst"
+
+    gd: GeomGuide | None = Field.element(expected_type=GeomGuide, allow_none=True, default=None)
 
     def __init__(self,
                  gd=None,
@@ -479,12 +594,13 @@ class GeomGuideList(Serialisable):
 
 class CustomGeometry2D(Serialisable):
 
-    avLst = Typed(expected_type=GeomGuideList, allow_none=True)
-    gdLst = Typed(expected_type=GeomGuideList, allow_none=True)
-    ahLst = Typed(expected_type=AdjustHandleList, allow_none=True)
-    cxnLst = Typed(expected_type=ConnectionSiteList, allow_none=True)
-    #rect = Typed(expected_type=GeomRect, allow_none=True)
-    pathLst = Typed(expected_type=Path2DList, )
+    tagname = "custGeom"
+
+    avLst: GeomGuideList | None = Field.element(expected_type=GeomGuideList, allow_none=True, default=None)
+    gdLst: GeomGuideList | None = Field.element(expected_type=GeomGuideList, allow_none=True, default=None)
+    ahLst: AdjustHandleList | None = Field.element(expected_type=AdjustHandleList, allow_none=True, default=None)
+    cxnLst: ConnectionSiteList | None = Field.element(expected_type=ConnectionSiteList, allow_none=True, default=None)
+    pathLst: Path2DList | None = Field.element(expected_type=Path2DList, allow_none=True, default=None)
 
     def __init__(self,
                  avLst=None,
@@ -504,58 +620,14 @@ class CustomGeometry2D(Serialisable):
 
 class PresetGeometry2D(Serialisable):
 
+    tagname = "prstGeom"
     namespace = DRAWING_NS
 
-    prst = Set(values=(
-        ['line', 'lineInv', 'triangle', 'rtTriangle', 'rect',
-         'diamond', 'parallelogram', 'trapezoid', 'nonIsoscelesTrapezoid',
-         'pentagon', 'hexagon', 'heptagon', 'octagon', 'decagon', 'dodecagon',
-         'star4', 'star5', 'star6', 'star7', 'star8', 'star10', 'star12',
-         'star16', 'star24', 'star32', 'roundRect', 'round1Rect',
-         'round2SameRect', 'round2DiagRect', 'snipRoundRect', 'snip1Rect',
-         'snip2SameRect', 'snip2DiagRect', 'plaque', 'ellipse', 'teardrop',
-         'homePlate', 'chevron', 'pieWedge', 'pie', 'blockArc', 'donut',
-         'noSmoking', 'rightArrow', 'leftArrow', 'upArrow', 'downArrow',
-         'stripedRightArrow', 'notchedRightArrow', 'bentUpArrow',
-         'leftRightArrow', 'upDownArrow', 'leftUpArrow', 'leftRightUpArrow',
-         'quadArrow', 'leftArrowCallout', 'rightArrowCallout', 'upArrowCallout',
-         'downArrowCallout', 'leftRightArrowCallout', 'upDownArrowCallout',
-         'quadArrowCallout', 'bentArrow', 'uturnArrow', 'circularArrow',
-         'leftCircularArrow', 'leftRightCircularArrow', 'curvedRightArrow',
-         'curvedLeftArrow', 'curvedUpArrow', 'curvedDownArrow', 'swooshArrow',
-         'cube', 'can', 'lightningBolt', 'heart', 'sun', 'moon', 'smileyFace',
-         'irregularSeal1', 'irregularSeal2', 'foldedCorner', 'bevel', 'frame',
-         'halfFrame', 'corner', 'diagStripe', 'chord', 'arc', 'leftBracket',
-         'rightBracket', 'leftBrace', 'rightBrace', 'bracketPair', 'bracePair',
-         'straightConnector1', 'bentConnector2', 'bentConnector3',
-         'bentConnector4', 'bentConnector5', 'curvedConnector2',
-         'curvedConnector3', 'curvedConnector4', 'curvedConnector5', 'callout1',
-         'callout2', 'callout3', 'accentCallout1', 'accentCallout2',
-         'accentCallout3', 'borderCallout1', 'borderCallout2', 'borderCallout3',
-         'accentBorderCallout1', 'accentBorderCallout2', 'accentBorderCallout3',
-         'wedgeRectCallout', 'wedgeRoundRectCallout', 'wedgeEllipseCallout',
-         'cloudCallout', 'cloud', 'ribbon', 'ribbon2', 'ellipseRibbon',
-         'ellipseRibbon2', 'leftRightRibbon', 'verticalScroll',
-         'horizontalScroll', 'wave', 'doubleWave', 'plus', 'flowChartProcess',
-         'flowChartDecision', 'flowChartInputOutput',
-         'flowChartPredefinedProcess', 'flowChartInternalStorage',
-         'flowChartDocument', 'flowChartMultidocument', 'flowChartTerminator',
-         'flowChartPreparation', 'flowChartManualInput',
-         'flowChartManualOperation', 'flowChartConnector', 'flowChartPunchedCard',
-         'flowChartPunchedTape', 'flowChartSummingJunction', 'flowChartOr',
-         'flowChartCollate', 'flowChartSort', 'flowChartExtract',
-         'flowChartMerge', 'flowChartOfflineStorage', 'flowChartOnlineStorage',
-         'flowChartMagneticTape', 'flowChartMagneticDisk',
-         'flowChartMagneticDrum', 'flowChartDisplay', 'flowChartDelay',
-         'flowChartAlternateProcess', 'flowChartOffpageConnector',
-         'actionButtonBlank', 'actionButtonHome', 'actionButtonHelp',
-         'actionButtonInformation', 'actionButtonForwardNext',
-         'actionButtonBackPrevious', 'actionButtonEnd', 'actionButtonBeginning',
-         'actionButtonReturn', 'actionButtonDocument', 'actionButtonSound',
-         'actionButtonMovie', 'gear6', 'gear9', 'funnel', 'mathPlus', 'mathMinus',
-         'mathMultiply', 'mathDivide', 'mathEqual', 'mathNotEqual', 'cornerTabs',
-         'squareTabs', 'plaqueTabs', 'chartX', 'chartStar', 'chartPlus']))
-    avLst = Typed(expected_type=GeomGuideList, allow_none=True)
+    prst: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _PRST_GEOM_VALUES, "prst"), default=None,
+    )
+    avLst: GeomGuideList | None = Field.element(expected_type=GeomGuideList, allow_none=True, default=None)
 
     def __init__(self,
                  prst=None,
@@ -567,7 +639,12 @@ class PresetGeometry2D(Serialisable):
 
 class FontReference(Serialisable):
 
-    idx = NoneSet(values=(['major', 'minor']))
+    tagname = "fontRef"
+
+    idx: str | None = Field.attribute(
+        expected_type=str, allow_none=True,
+        converter=lambda v: _enum_converter(v, _FONT_REF_VALUES, "idx"), default=None,
+    )
 
     def __init__(self,
                  idx=None,
@@ -577,7 +654,9 @@ class FontReference(Serialisable):
 
 class StyleMatrixReference(Serialisable):
 
-    idx = Integer()
+    tagname = "styleRef"
+
+    idx: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
 
     def __init__(self,
                  idx=None,
@@ -587,10 +666,12 @@ class StyleMatrixReference(Serialisable):
 
 class ShapeStyle(Serialisable):
 
-    lnRef = Typed(expected_type=StyleMatrixReference, )
-    fillRef = Typed(expected_type=StyleMatrixReference, )
-    effectRef = Typed(expected_type=StyleMatrixReference, )
-    fontRef = Typed(expected_type=FontReference, )
+    tagname = "style"
+
+    lnRef: StyleMatrixReference | None = Field.element(expected_type=StyleMatrixReference, allow_none=True, default=None)
+    fillRef: StyleMatrixReference | None = Field.element(expected_type=StyleMatrixReference, allow_none=True, default=None)
+    effectRef: StyleMatrixReference | None = Field.element(expected_type=StyleMatrixReference, allow_none=True, default=None)
+    fontRef: FontReference | None = Field.element(expected_type=FontReference, allow_none=True, default=None)
 
     def __init__(self,
                  lnRef=None,

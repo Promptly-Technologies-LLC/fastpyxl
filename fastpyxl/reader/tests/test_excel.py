@@ -109,7 +109,7 @@ def test_close_read(datadir, load_workbook, ro):
     datadir.chdir()
 
     wb = load_workbook("complex-styles.xlsx", read_only=ro)
-    assert hasattr(wb, '_archive') is ro
+    assert (wb._archive is not None) is ro
 
     wb.close()
 

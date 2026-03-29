@@ -103,13 +103,26 @@ class Color(Serialisable):
     def value(self):
         t = self.type
         assert t is not None
-        return getattr(self, t)
+        if t == 'rgb':
+            return self.rgb
+        if t == 'indexed':
+            return self.indexed
+        if t == 'theme':
+            return self.theme
+        return self.auto
 
     @value.setter
     def value(self, value):
         t = self.type
         assert t is not None
-        setattr(self, t, value)
+        if t == 'rgb':
+            self.rgb = value
+        elif t == 'indexed':
+            self.indexed = value
+        elif t == 'theme':
+            self.theme = value
+        else:
+            self.auto = value
 
     def __iter__(self):
         attrs = [(self.type, self.value)]

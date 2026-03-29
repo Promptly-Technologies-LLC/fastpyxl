@@ -28,8 +28,11 @@ class DataTableFormula:
 
 
     def __iter__(self):
-        for k in ["t", "ref", "dt2D", "dtr", "r1", "r2", "del1", "del2", "ca"]:
-            v = getattr(self, k)
+        for k, v in (
+            ("t", self.t), ("ref", self.ref), ("dt2D", self.dt2D),
+            ("dtr", self.dtr), ("r1", self.r1), ("r2", self.r2),
+            ("del1", self.del1), ("del2", self.del2), ("ca", self.ca),
+        ):
             if v:
                 yield k, safe_string(v)
 
@@ -45,7 +48,6 @@ class ArrayFormula:
 
 
     def __iter__(self):
-        for k in ["t", "ref"]:
-            v = getattr(self, k)
+        for k, v in (("t", self.t), ("ref", self.ref)):
             if v:
                 yield k, safe_string(v)

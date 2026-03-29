@@ -25,7 +25,7 @@ class NestedDateTime(DateTime, NestedText):
     expected_type = datetime.datetime
 
     def to_tree(self, tagname=None, value=None, namespace=None):
-        namespace = getattr(self, "namespace", namespace)
+        namespace = self.namespace or namespace
         if namespace is not None:
             tagname = "{%s}%s" % (namespace, tagname)
         assert tagname is not None

@@ -9,7 +9,6 @@ from fastpyxl.xml.functions import iterparse
 
 # package imports
 from fastpyxl.cell import Cell, MergedCell
-from fastpyxl.styles.cell_style import StyleArray
 from fastpyxl.cell.text import Text
 from fastpyxl.worksheet.dimensions import (
     ColumnDimension,
@@ -370,15 +369,14 @@ class WorksheetReader:
     def bind_cells(self):
         _Cell = Cell
         _new = _Cell.__new__
-        _StyleArray = StyleArray
-        _cell_styles = self.ws.parent._cell_styles
         _ws = self.ws
         _cells = _ws._cells
         for idx, row in self.parser.parse():
             for cell_row, cell_col, cell_val, cell_dt, cell_sid in row:
                 c = _new(_Cell)
                 c.parent = _ws
-                c._style = _StyleArray(_cell_styles[cell_sid])
+                c._style = None
+                c._style_id = cell_sid
                 c._pending_styles = {}
                 c._pending_named_style = None
                 c.row = cell_row

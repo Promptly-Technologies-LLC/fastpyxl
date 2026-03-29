@@ -109,20 +109,21 @@ class ReadOnlyWorksheet:
         if not row and not max_col: # in case someone wants to force rows where there aren't any
             return ()
 
-        max_col = max_col or  row[-1]['column']
+        max_col = max_col or  row[-1][1]
         row_width = max_col + 1 - min_col
 
         new_row = [EMPTY_CELL] * row_width
         if values_only:
             new_row = [None] * row_width
 
-        for cell in row:
-            counter = cell['column']
-            if min_col <= counter <= max_col:
-                idx = counter - min_col # position in list of cells returned
-                new_row[idx] = cell['value']
+        for cell_row, cell_col, cell_val, cell_dt, cell_sid in row:
+            if min_col <= cell_col <= max_col:
+                idx = cell_col - min_col # position in list of cells returned
+                new_row[idx] = cell_val
                 if not values_only:
-                    new_row[idx] = ReadOnlyCell(self, **cell)
+                    new_row[idx] = ReadOnlyCell(
+                        self, cell_row, cell_col, cell_val, cell_dt, cell_sid
+                    )
 
         return tuple(new_row)
 

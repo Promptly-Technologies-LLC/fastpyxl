@@ -74,7 +74,7 @@ class TestReadOnlyWorksheet:
 
     def test_empty_cell(self, ReadOnlyWorksheet):
         row = [
-            {'column':4, 'value':None, 'row':1},
+            (1, 4, None, 'n', 0),
         ]
         ws = ReadOnlyWorksheet
         cells = ws._get_row(row, max_col=4, values_only=True)
@@ -83,8 +83,8 @@ class TestReadOnlyWorksheet:
 
     def test_pad_row_left(self, ReadOnlyWorksheet):
         row = [
-            {'column':4, 'value':4,},
-            {'column':8, 'value':8,},
+            (1, 4, 4, 'n', 0),
+            (1, 8, 8, 'n', 0),
         ]
         ws = ReadOnlyWorksheet
         cells = ws._get_row(row, max_col=4, values_only=True)
@@ -93,8 +93,8 @@ class TestReadOnlyWorksheet:
 
     def test_pad_row(self, ReadOnlyWorksheet):
         row = [
-            {'column':4, 'value':4,},
-            {'column':8, 'value':8,},
+            (1, 4, 4, 'n', 0),
+            (1, 8, 8, 'n', 0),
         ]
         ws = ReadOnlyWorksheet
         cells = ws._get_row(row, min_col=4, max_col=8, values_only=True)
@@ -103,8 +103,8 @@ class TestReadOnlyWorksheet:
 
     def test_pad_row_right(self, ReadOnlyWorksheet):
         row = [
-            {'column':4, 'value':4},
-            {'column':8, 'value':8},
+            (1, 4, 4, 'n', 0),
+            (1, 8, 8, 'n', 0),
         ]
         ws = ReadOnlyWorksheet
         cells = ws._get_row(row, min_col=6, max_col=10, values_only=True)
@@ -113,8 +113,8 @@ class TestReadOnlyWorksheet:
 
     def test_pad_row_cells(self, ReadOnlyWorksheet):
         row = [
-            {'column':4, 'value':4, 'row':2},
-            {'column':8, 'value':8, 'row':2},
+            (2, 4, 4, 'n', 0),
+            (2, 8, 8, 'n', 0),
         ]
         ws = ReadOnlyWorksheet
         cells = ws._get_row(row, min_col=6, max_col=10)

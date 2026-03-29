@@ -416,6 +416,7 @@ class Workbook:
         styleable._ensure_style_array()
         styleable._apply_pending_named_style()
         styleable._apply_pending_styles()
+        styleable._pending_styles = None
 
 
     def _materialize_sheet_style_components(self, ws: Worksheet) -> None:

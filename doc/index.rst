@@ -2,9 +2,9 @@ fastpyxl - A high-performance Python library to read/write Excel 2010 xlsx/xlsm 
 ======================================================================================
 
 
-:Author: Eric Gazoni, Charlie Clark
-:Source code: https://github.com/fastpyxl/fastpyxl
-:Issues: https://github.com/fastpyxl/fastpyxl/issues
+:Author: Christopher C. Smith
+:Source code: https://github.com/Promptly-Technologies-LLC/fastpyxl
+:Issues: https://github.com/Promptly-Technologies-LLC/fastpyxl/issues
 :Generated: |today|
 :License: MIT/Expat
 :Version: |release|
@@ -16,24 +16,9 @@ fastpyxl - A high-performance Python library to read/write Excel 2010 xlsx/xlsm 
 Support
 -------
 
-This is an open source project, maintained by volunteers in their spare time.
-This may well mean that particular features or functions that you would like
-are missing. But things don't have to stay that way. You can contribute the
-project :doc:`development` yourself or contract a developer for particular
-features.
-
-
-Professional support for fastpyxl is available from
-`Clark Consulting & Research <http://www.clark-consulting.eu/>`_ and
-`Adimian <http://www.adimian.com>`_. Donations to the project to support further
-development and maintenance are welcome.
-
-
 Bug reports and feature requests should be submitted using the `issue tracker
-<https://github.com/fastpyxl/fastpyxl/issues>`_. Please provide a full
-traceback of any error you see and if possible a sample file. If for reasons
-of confidentiality you are unable to make a file publicly available then
-contact of one the developers.
+<https://github.com/Promptly-Technologies-LLC/fastpyxl/issues>`_. Please
+provide a full traceback of any error you see and if possible a sample file.
 
 
 How to Contribute
@@ -42,9 +27,10 @@ How to Contribute
 Any help will be greatly appreciated, just follow those steps:
 
     1.
-    `Fork the repository <https://github.com/fastpyxl/fastpyxl/fork>`_ on GitHub and create a branch
-    for each independent feature; don't try to fix all problems at the same
-    time, it's easier for those who will review and merge your changes ;-)
+    `Fork the repository <https://github.com/Promptly-Technologies-LLC/fastpyxl/fork>`_
+    on GitHub and create a branch for each independent feature; don't try to
+    fix all problems at the same time, it's easier for those who will review
+    and merge your changes ;-)
 
     2.
     Hack hack hack
@@ -56,7 +42,7 @@ Any help will be greatly appreciated, just follow those steps:
 
     4.
     If you added a whole new feature, or just improved something, you can
-    be proud of it, so add yourself to the AUTHORS file :-)
+    be proud of it, so add yourself to the git history :-)
 
     5.
     Let people know about the shiny thing you just implemented, update the

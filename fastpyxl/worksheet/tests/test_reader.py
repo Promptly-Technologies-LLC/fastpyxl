@@ -236,8 +236,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'f', 'row': 1,
-                        'style_id':0, 'value': '=IF(TRUE, "y", "n")'}
+        assert cell == (1, 1, '=IF(TRUE, "y", "n")', 'f', 0)
 
 
     def test_formula_data_only(self, WorkSheetParser):
@@ -253,8 +252,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'n', 'row': 1,
-                        'style_id':0, 'value': 3}
+        assert cell == (1, 1, 3, 'n', 0)
 
 
     def test_string_formula_data_only(self, WorkSheetParser):
@@ -270,8 +268,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 's', 'row': 1,
-                        'style_id':0, 'value': 'y'}
+        assert cell == (1, 1, 'y', 's', 0)
 
 
     def test_number(self, WorkSheetParser):
@@ -285,8 +282,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'n', 'row': 1,
-                        'style_id':0, 'value': 1}
+        assert cell == (1, 1, 1, 'n', 0)
 
 
 
@@ -301,8 +297,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'd', 'row': 1,
-                        'style_id':0, 'value': datetime.datetime(2011, 12, 25, 14, 23, 55)}
+        assert cell == (1, 1, datetime.datetime(2011, 12, 25, 14, 23, 55), 'd', 0)
 
 
     def test_timedelta(self, WorkSheetParser):
@@ -316,8 +311,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'd', 'row': 1,
-                        'style_id':30, 'value':datetime.timedelta(days=1, hours=6)}
+        assert cell == (1, 1, datetime.timedelta(days=1, hours=6), 'd', 30)
 
 
     def test_mac_date(self, WorkSheetParser):
@@ -332,8 +326,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'd', 'row': 1,
-                        'style_id':29, 'value':datetime.datetime(2016, 10, 3, 0, 0)}
+        assert cell == (1, 1, datetime.datetime(2016, 10, 3, 0, 0), 'd', 29)
 
     @pytest.mark.parametrize("value", [
         -693595,
@@ -365,8 +358,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 's', 'row': 1,
-                        'style_id':0, 'value':'a'}
+        assert cell == (1, 1, 'a', 's', 0)
 
 
     def test_boolean(self, WorkSheetParser):
@@ -380,8 +372,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 'b', 'row': 1,
-                        'style_id':0, 'value':True}
+        assert cell == (1, 1, True, 'b', 0)
 
 
     def test_inline_string(self, WorkSheetParser):
@@ -397,8 +388,7 @@ class TestWorksheetParser:
         element = fromstring(src)
 
         cell = parser.parse_cell(element)
-        assert cell == {'column': 1, 'data_type': 's', 'row': 1,
-                        'style_id':0, 'value':"ID"}
+        assert cell == (1, 1, "ID", 's', 0)
 
 
     def test_inline_richtext(self, WorkSheetParser):
@@ -421,8 +411,7 @@ class TestWorksheetParser:
         cell = parser.parse_cell(element)
         expected = CellRichText(TextBlock(font=InlineFont(sz="8.0"),
                                            text="11 de September de 2014"))
-        assert cell == {'column': 18, 'data_type': 's', 'row':
-                        2,'style_id':4, 'value':expected}
+        assert cell == (2, 18, expected, 's', 4)
 
 
     def test_parse_richtext(self):
@@ -610,9 +599,9 @@ class TestWorksheetParser:
         element = fromstring(src)
         max_row, cells = parser.parse_row(element)
         expected = [
-            {'column': 1, 'row': 1, 'data_type': 'n', 'value': 2, 'style_id': 0},
-            {'column': 2, 'row': 1, 'data_type': 'n', 'value': 4, 'style_id': 0},
-            {'column': 3, 'row': 1, 'data_type': 'n', 'value': 3, 'style_id': 0},
+            (1, 1, 2, 'n', 0),
+            (1, 2, 4, 'n', 0),
+            (1, 3, 3, 'n', 0),
         ]
         for expected_cell, cell in zip(expected, cells):
             assert expected_cell == cell
@@ -639,10 +628,10 @@ class TestWorksheetParser:
         element = fromstring(src)
         _, cells = parser.parse_row(element)
         expected = [
-            {'column': 1, 'row': 1, 'data_type': 'n', 'value': 1, 'style_id': 0},
-            {'column': 4, 'row': 1, 'data_type': 'n', 'value': 2, 'style_id': 0},
-            {'column': 5, 'row': 1, 'data_type': 'n', 'value': 3, 'style_id': 0},
-            {'column': 7, 'row': 1, 'data_type': 'n', 'value': 4, 'style_id': 0},
+            (1, 1, 1, 'n', 0),
+            (1, 4, 2, 'n', 0),
+            (1, 5, 3, 'n', 0),
+            (1, 7, 4, 'n', 0),
         ]
         assert len(cells) == len(expected)
         for expected_cell, cell in zip(expected, cells):
@@ -662,7 +651,7 @@ class TestWorksheetParser:
         parser.parse_row(element)
         max_row, cells = parser.parse_row(element)
         expected = [
-            {'column': 1, 'row': 2, 'data_type': 'n', 'value': 2, 'style_id': 0},
+            (2, 1, 2, 'n', 0),
         ]
         for expected_cell, cell in zip(expected, cells):
             assert expected_cell == cell

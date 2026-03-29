@@ -9,6 +9,7 @@ from fastpyxl.xml.functions import iterparse
 
 # package imports
 from fastpyxl.cell import Cell, MergedCell
+from fastpyxl.styles.cell_style import StyleArray
 from fastpyxl.cell.text import Text
 from fastpyxl.worksheet.dimensions import (
     ColumnDimension,
@@ -243,7 +244,7 @@ class WorkSheetParser:
                     else:
                         value = Text.from_tree(child).content
 
-        return {'row':row, 'column':column, 'value':value, 'data_type':data_type, 'style_id':style_id}
+        return (row, column, value, data_type, style_id)
 
 
     def parse_formula(self, element):
@@ -367,16 +368,29 @@ class WorksheetReader:
 
 
     def bind_cells(self):
+        _Cell = Cell
+        _new = _Cell.__new__
+        _StyleArray = StyleArray
+        _cell_styles = self.ws.parent._cell_styles
+        _ws = self.ws
+        _cells = _ws._cells
         for idx, row in self.parser.parse():
-            for cell in row:
-                style = self.ws.parent._cell_styles[cell['style_id']]
-                c = Cell(self.ws, row=cell['row'], column=cell['column'], style_array=style)
-                c._value = cell['value']
-                c.data_type = cell['data_type']
-                self.ws._cells[(cell['row'], cell['column'])] = c
+            for cell_row, cell_col, cell_val, cell_dt, cell_sid in row:
+                c = _new(_Cell)
+                c.parent = _ws
+                c._style = _StyleArray(_cell_styles[cell_sid])
+                c._pending_styles = {}
+                c._pending_named_style = None
+                c.row = cell_row
+                c.column = cell_col
+                c._value = cell_val
+                c.data_type = cell_dt
+                c._hyperlink = None
+                c._comment = None
+                _cells[(cell_row, cell_col)] = c
 
-        if self.ws._cells:
-            self.ws._current_row = self.ws.max_row # use cells not row dimensions
+        if _cells:
+            _ws._current_row = _ws.max_row # use cells not row dimensions
 
 
     def bind_formatting(self):

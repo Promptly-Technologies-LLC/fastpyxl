@@ -10,7 +10,16 @@ fastpyxl - A high-performance Python library to read/write Excel 2010 xlsx/xlsm 
 :Version: |release|
 
 
-.. include:: ../README.rst
+A high-performance, statically typed drop-in replacement for
+`openpyxl <https://pypi.org/project/openpyxl/>`_. Just change your import::
+
+    # before
+    from openpyxl import Workbook, load_workbook
+
+    # after
+    from fastpyxl import Workbook, load_workbook
+
+No other code changes required.
 
 
 Support
@@ -24,7 +33,7 @@ provide a full traceback of any error you see and if possible a sample file.
 How to Contribute
 -----------------
 
-Any help will be greatly appreciated, just follow those steps:
+Any help will be greatly appreciated, just follow these steps:
 
     1.
     `Fork the repository <https://github.com/Promptly-Technologies-LLC/fastpyxl/fork>`_
@@ -41,17 +50,13 @@ Any help will be greatly appreciated, just follow those steps:
     of examples in the source if you lack know-how or inspiration.
 
     4.
-    If you added a whole new feature, or just improved something, you can
-    be proud of it, so add yourself to the git history :-)
-
-    5.
     Let people know about the shiny thing you just implemented, update the
     docs!
 
-    6.
+    5.
     When it's done, just issue a pull request (click on the large "pull
     request" button on *your* repository) and wait for your code to be
-    reviewed, and, if you followed all theses steps, merged into the main
+    reviewed, and, if you followed all these steps, merged into the main
     repository.
 
 
@@ -145,8 +150,8 @@ There are several ways to contribute, even if you can't code (or can't code well
 
     optimized
     performance
-    
-    
+
+
 .. toctree::
     :caption: Developers
     :maxdepth: 1
@@ -155,7 +160,7 @@ There are several ways to contribute, even if you can't code (or can't code well
     development
     api/fastpyxl
     formula
-       
+
 .. toctree::
     :maxdepth: 1
     :caption: Release Notes

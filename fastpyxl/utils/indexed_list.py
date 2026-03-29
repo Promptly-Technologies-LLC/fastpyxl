@@ -45,5 +45,10 @@ class IndexedList(list):
             list.append(self, value)
 
     def add(self, value):
-        self.append(value)
-        return self._dict[value]
+        d = self._dict
+        idx = d.get(value)
+        if idx is None:
+            idx = len(self)
+            d[value] = idx
+            list.append(self, value)
+        return idx

@@ -30,7 +30,7 @@ class StyleArray(array):
     Simplified named tuple with an array
     """
 
-    __slots__ = ()
+    __slots__ = ('_hash',)
     tagname = 'xf'
 
     fontId = ArrayDescriptor(0)
@@ -45,11 +45,22 @@ class StyleArray(array):
 
 
     def __new__(cls, args=[0]*9):
-        return array.__new__(cls, 'i', args)
+        obj = array.__new__(cls, 'i', args)
+        obj._hash = None
+        return obj
+
+
+    def __setitem__(self, index, value):
+        self._hash = None
+        array.__setitem__(self, index, value)
 
 
     def __hash__(self):
-        return hash(tuple(self))
+        h = self._hash
+        if h is None:
+            h = hash(tuple(self))
+            self._hash = h
+        return h
 
 
     def __copy__(self):

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80">
+  <defs>
+    <linearGradient id="speed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a7f37"/>
+      <stop offset="100%" stop-color="#2ea043"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2ea043"/>
+      <stop offset="100%" stop-color="#56d364"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Speed lines -->
+  <rect x="12" y="28" width="22" height="3" rx="1.5" fill="#2ea043" opacity="0.3"/>
+  <rect x="8" y="38" width="28" height="3" rx="1.5" fill="#2ea043" opacity="0.5"/>
+  <rect x="14" y="48" width="20" height="3" rx="1.5" fill="#2ea043" opacity="0.3"/>
+
+  <!-- Spreadsheet grid icon -->
+  <rect x="38" y="18" width="44" height="44" rx="4" fill="url(#speed)" stroke="none"/>
+  <!-- Grid lines -->
+  <line x1="38" y1="34" x2="82" y2="34" stroke="white" stroke-width="1.5" opacity="0.5"/>
+  <line x1="38" y1="46" x2="82" y2="46" stroke="white" stroke-width="1.5" opacity="0.5"/>
+  <line x1="54" y1="18" x2="54" y2="62" stroke="white" stroke-width="1.5" opacity="0.5"/>
+  <line x1="68" y1="18" x2="68" y2="62" stroke="white" stroke-width="1.5" opacity="0.5"/>
+  <!-- Lightning bolt in center cell -->
+  <polygon points="62,36 57,45 60,45 58,54 65,43 62,43 64,36" fill="#ffd33d"/>
+
+  <!-- Text: "fast" in bold -->
+  <text x="96" y="54" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="700" fill="#24292f" letter-spacing="-1">fast</text>
+  <!-- Text: "pyxl" in regular weight -->
+  <text x="192" y="54" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="400" fill="#57606a" letter-spacing="-1">pyxl</text>
+</svg>

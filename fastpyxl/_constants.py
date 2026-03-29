@@ -1,13 +1,14 @@
-# Copyright (c) 2010-2024 fastpyxl
+# Copyright (c) 2010-2024 openpyxl contributors
+# Copyright (c) 2024-2026 Christopher C. Smith
 
 """
 Package metadata
 """
 
-__author__ = "See AUTHORS"
-__author_email__ = "charlie.clark@clark-consulting.eu"
+__author__ = "Christopher C. Smith"
+__author_email__ = "christopher.smith@promptlytechnologies.com"
 __license__ = "MIT"
-__maintainer_email__ = "fastpyxl-users@googlegroups.com"
+__maintainer_email__ = "christopher.smith@promptlytechnologies.com"
 __url__ = "https://fastpyxl.readthedocs.io"
 __version__ = "1.0.0"
-__python__ = "3.8"
+__python__ = "3.11"

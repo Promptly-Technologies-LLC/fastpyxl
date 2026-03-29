@@ -162,7 +162,7 @@ class ExtendedProperties(Serialisable):
         self.HyperlinksChanged = HyperlinksChanged
         self.DigSig = DigSig
         if Application is None:
-            self.Application = f"Microsoft Excel Compatible / Openpyxl {__version__}"
+            self.Application = f"Microsoft Excel Compatible / fastpyxl {__version__}"
         else:
             self.Application = Application
         if AppVersion is None:

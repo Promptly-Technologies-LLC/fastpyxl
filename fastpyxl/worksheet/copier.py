@@ -53,6 +53,7 @@ class WorksheetCopy:
 
             if source_cell.has_style:
                 target_cell._style = copy(source_cell._style)
+                target_cell._style_id = source_cell._style_id
 
             sp = source_cell._pending_styles
             if sp:

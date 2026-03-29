@@ -123,8 +123,7 @@ class NamedStyleDescriptor:
 
 
     def __set__(self, instance, value):
-        if not instance._style:
-            instance._style = StyleArray()
+        instance._ensure_style_array()
         wb = instance.parent.parent
         coll = self._get_collection(wb)
         pending_styles = instance._pending_styles
@@ -169,8 +168,7 @@ class NamedStyleDescriptor:
             if isinstance(pending, NamedStyle):
                 return pending.name
             return pending
-        if not instance._style:
-            instance._style = StyleArray()
+        instance._ensure_style_array()
         idx = instance._style[self._key_idx]
         coll = self._get_collection(instance.parent.parent)
         return coll.names[idx]
@@ -183,14 +181,15 @@ class StyleArrayDescriptor:
         self._key_idx = _STYLE_KEY_INDEX[key]
 
     def __set__(self, instance, value):
-        if instance._style is None:
-            instance._style = StyleArray()
+        instance._ensure_style_array()
         instance._style[self._key_idx] = value
 
 
     def __get__(self, instance, cls):
         if instance._style is None:
-            return False
+            if not instance._style_id:
+                return False
+            instance._ensure_style_array()
         return bool(instance._style[self._key_idx])
 
 
@@ -209,19 +208,24 @@ class StyleableObject:
     quotePrefix = StyleArrayDescriptor('quotePrefix')
     pivotButton = StyleArrayDescriptor('pivotButton')
 
-    __slots__ = ('parent', '_style', '_pending_styles', '_pending_named_style')
+    __slots__ = ('parent', '_style', '_style_id', '_pending_styles', '_pending_named_style')
 
     def __init__(self, sheet, style_array=None):
         self.parent = sheet
         if style_array is not None:
             style_array = StyleArray(style_array)
         self._style = style_array
+        self._style_id = 0
         self._pending_styles = {}
         self._pending_named_style = None
 
     def _ensure_style_array(self):
         if self._style is None:
-            self._style = StyleArray()
+            style_id = self._style_id
+            if style_id:
+                self._style = StyleArray(self.parent.parent._cell_styles[style_id])
+            else:
+                self._style = StyleArray()
 
     def _apply_pending_named_style(self):
         pending = self._pending_named_style
@@ -271,6 +275,8 @@ class StyleableObject:
 
     @property
     def style_id(self):
+        if self._style is None and self._style_id and not self._pending_styles and self._pending_named_style is None:
+            return self._style_id
         self._ensure_style_array()
         self._apply_pending_named_style()
         self._apply_pending_styles()
@@ -284,5 +290,5 @@ class StyleableObject:
         if self._pending_styles:
             return True
         if self._style is None:
-            return False
+            return self._style_id != 0
         return any(self._style)

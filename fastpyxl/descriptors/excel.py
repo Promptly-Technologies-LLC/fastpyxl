@@ -13,7 +13,6 @@ from . import (
     MinMax,
     Integer,
     String,
-    Sequence,
 )
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field

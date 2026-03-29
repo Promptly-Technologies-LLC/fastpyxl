@@ -19,7 +19,7 @@ class TestExtendedProperties:
         major, minor, patch = __version__.split(".")
         expected = f"""
         <Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
-        <Application>Microsoft Excel Compatible / Openpyxl {__version__}</Application>
+        <Application>Microsoft Excel Compatible / fastpyxl {__version__}</Application>
         <AppVersion>{major}.{minor}</AppVersion>
         </Properties>
         """

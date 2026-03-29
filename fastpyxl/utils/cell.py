@@ -4,7 +4,7 @@
 Collection of utilities used within the package and also available for client code
 """
 from functools import lru_cache
-from string import ascii_uppercase, digits
+from string import ascii_uppercase
 import re
 
 from .exceptions import CellCoordinatesException
@@ -206,12 +206,24 @@ def coordinate_to_tuple(coordinate):
     """
     Convert an Excel style coordinate to (row, column) tuple
     """
-    for idx, c in enumerate(coordinate):
-        if c in digits:
-            break
-    col = coordinate[:idx]
-    row = coordinate[idx:]
-    return int(row), column_index_from_string(col)
+    # Fast path for single-letter columns (A-Z), which cover the vast majority
+    # of real-world spreadsheets (26 columns).
+    c1 = coordinate[0]
+    c2 = coordinate[1]
+    if c2 < 'A':
+        # Single letter column: row starts at index 1
+        return int(coordinate[1:]), __alpha_to_decimal[c1]
+
+    c3 = coordinate[2]
+    if c3 < 'A':
+        # Two-letter column: row starts at index 2
+        return int(coordinate[2:]), __alpha_to_decimal[c1] * 26 + __alpha_to_decimal[c2]
+
+    # Three-letter column (rare): row starts at index 3
+    return (
+        int(coordinate[3:]),
+        __alpha_to_decimal[c1] * 676 + __alpha_to_decimal[c2] * 26 + __alpha_to_decimal[c3],
+    )
 
 
 def range_to_tuple(range_string):

@@ -500,7 +500,7 @@ class GeomRect(Serialisable):
 
     tagname = "rect"
 
-    l: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
+    l: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)  # noqa: E741
     t: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     r: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     b: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)

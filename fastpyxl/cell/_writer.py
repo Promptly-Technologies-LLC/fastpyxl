@@ -11,16 +11,12 @@ from fastpyxl.cell.rich_text import CellRichText
 
 def _set_attributes(cell, styled=None):
     """
-    Set coordinate and datatype.
-
-    *styled* is either a pre-computed style-ID string (from
-    ``_style_id_for_save``) or a bool for backwards compatibility.
-    When *True* (bool), the style ID is looked up via ``cell.style_id``.
+    Set coordinate and datatype
     """
     coordinate = cell.coordinate
     attrs = {'r': coordinate}
     if styled:
-        attrs['s'] = styled if isinstance(styled, str) else f"{cell.style_id}"
+        attrs['s'] = f"{cell.style_id}"
 
     if cell.data_type == "s":
         attrs['t'] = "inlineStr"

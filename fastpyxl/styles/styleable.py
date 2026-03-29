@@ -271,12 +271,9 @@ class StyleableObject:
 
     @property
     def style_id(self):
-        if self._style is None:
-            self._style = StyleArray()
-        if self._pending_named_style is not None:
-            self._apply_pending_named_style()
-        if self._pending_styles:
-            self._apply_pending_styles()
+        self._ensure_style_array()
+        self._apply_pending_named_style()
+        self._apply_pending_styles()
         return self.parent.parent._cell_styles.add(self._style)
 
 
@@ -289,39 +286,3 @@ class StyleableObject:
         if self._style is None:
             return False
         return any(self._style)
-
-
-    def _style_id_for_save(self):
-        """Return the style ID string if the cell is styled, else ``None``.
-
-        Combines the checks of :attr:`has_style` with the materialisation
-        performed by :attr:`style_id` so that the save path only traverses
-        the style resolution chain once per cell.
-
-        When ``_pending_styles`` is ``None`` (set by
-        ``materialize_pending_style_components`` during save) all pending
-        state has already been resolved, so we skip straight to the style
-        array check.
-        """
-        # Fast path after pre-materialization: no pending state to resolve.
-        if self._pending_styles is None:
-            if self._style is None or not any(self._style):
-                return None
-            return str(self.parent.parent._cell_styles.add(self._style))
-        # Slow path: pending styles still need resolution.
-        if self._pending_named_style is not None:
-            if self._style is None:
-                self._style = StyleArray()
-            self._apply_pending_named_style()
-            self._apply_pending_styles()
-            return str(self.parent.parent._cell_styles.add(self._style))
-        if self._pending_styles:
-            if self._style is None:
-                self._style = StyleArray()
-            self._apply_pending_styles()
-            return str(self.parent.parent._cell_styles.add(self._style))
-        if self._style is None:
-            return None
-        if not any(self._style):
-            return None
-        return str(self.parent.parent._cell_styles.add(self._style))

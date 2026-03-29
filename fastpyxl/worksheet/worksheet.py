@@ -136,6 +136,11 @@ class Worksheet(_WorkbookChild):
         self.defined_names = DefinedNameDict()
 
         self._current_row = 0
+        self._min_row = None
+        self._max_row = None
+        self._min_col = None
+        self._max_col = None
+        self._bounds_dirty = False
         self.auto_filter = AutoFilter()
         self.conditional_formatting = ConditionalFormattingList()
         self.legacy_drawing = None
@@ -270,6 +275,61 @@ class Worksheet(_WorkbookChild):
         row = cell.row
         self._current_row = max(row, self._current_row)
         self._cells[(row, column)] = cell
+        self._update_bounds_on_add(row, column)
+
+    def _update_bounds_on_add(self, row, column):
+        """Update cached dimension bounds when a cell is added. O(1)."""
+        if self._bounds_dirty:
+            return  # will recompute on next access
+        if self._min_row is None:
+            self._min_row = row
+            self._max_row = row
+            self._min_col = column
+            self._max_col = column
+        else:
+            if row < self._min_row:
+                self._min_row = row
+            if row > self._max_row:
+                self._max_row = row
+            if column < self._min_col:
+                self._min_col = column
+            if column > self._max_col:
+                self._max_col = column
+
+    def _invalidate_bounds(self):
+        """Mark bounds as dirty so they are recomputed on next access."""
+        self._bounds_dirty = True
+
+    def _ensure_bounds(self):
+        """Recompute bounds from _cells if dirty or uninitialized."""
+        if not self._bounds_dirty and self._min_row is not None:
+            return
+        if not self._bounds_dirty and not self._cells:
+            return
+        self._bounds_dirty = False
+        if self._cells:
+            min_row = float('inf')
+            max_row = 0
+            min_col = float('inf')
+            max_col = 0
+            for row, col in self._cells:
+                if row < min_row:
+                    min_row = row
+                if row > max_row:
+                    max_row = row
+                if col < min_col:
+                    min_col = col
+                if col > max_col:
+                    max_col = col
+            self._min_row = min_row
+            self._max_row = max_row
+            self._min_col = min_col
+            self._max_col = max_col
+        else:
+            self._min_row = None
+            self._max_row = None
+            self._min_col = None
+            self._max_col = None
 
 
     def __getitem__(self, key):
@@ -325,6 +385,7 @@ class Worksheet(_WorkbookChild):
         row, column = coordinate_to_tuple(key)
         if (row, column) in self._cells:
             del self._cells[(row, column)]
+            self._invalidate_bounds()
 
 
     @property
@@ -333,10 +394,8 @@ class Worksheet(_WorkbookChild):
 
         :type: int
         """
-        min_row = 1
-        if self._cells:
-            min_row = min(self._cells)[0]
-        return min_row
+        self._ensure_bounds()
+        return self._min_row if self._min_row is not None else 1
 
 
     @property
@@ -345,10 +404,8 @@ class Worksheet(_WorkbookChild):
 
         :type: int
         """
-        max_row = 1
-        if self._cells:
-            max_row = max(self._cells)[0]
-        return max_row
+        self._ensure_bounds()
+        return self._max_row if self._max_row is not None else 1
 
 
     @property
@@ -357,10 +414,8 @@ class Worksheet(_WorkbookChild):
 
         :type: int
         """
-        min_col = 1
-        if self._cells:
-            min_col = min(c[1] for c in self._cells)
-        return min_col
+        self._ensure_bounds()
+        return self._min_col if self._min_col is not None else 1
 
 
     @property
@@ -369,10 +424,8 @@ class Worksheet(_WorkbookChild):
 
         :type: int
         """
-        max_col = 1
-        if self._cells:
-            max_col = max(c[1] for c in self._cells)
-        return max_col
+        self._ensure_bounds()
+        return self._max_col if self._max_col is not None else 1
 
 
     def calculate_dimension(self):
@@ -380,20 +433,11 @@ class Worksheet(_WorkbookChild):
 
         :rtype: string
         """
-        if self._cells:
-            rows = set()
-            cols = set()
-            for row, col in self._cells:
-                rows.add(row)
-                cols.add(col)
-            max_row = max(rows)
-            max_col = max(cols)
-            min_col = min(cols)
-            min_row = min(rows)
-        else:
+        self._ensure_bounds()
+        if self._min_row is None:
             return "A1:A1"
 
-        return f"{get_column_letter(min_col)}{min_row}:{get_column_letter(max_col)}{max_row}"
+        return f"{get_column_letter(self._min_col)}{self._min_row}:{get_column_letter(self._max_col)}{self._max_row}"
 
 
     @property
@@ -612,6 +656,7 @@ class Worksheet(_WorkbookChild):
         next(cells) # skip first cell
         for row, col in cells:
             self._cells[row, col] = MergedCell(self, row, col)
+            self._update_bounds_on_add(row, col)
         mcr.format()
 
 
@@ -636,6 +681,7 @@ class Worksheet(_WorkbookChild):
         next(cells) # skip first cell
         for row, col in cells:
             del self._cells[(row, col)]
+        self._invalidate_bounds()
 
 
     def append(self, iterable):
@@ -684,6 +730,7 @@ class Worksheet(_WorkbookChild):
             self._invalid_row(iterable)
 
         self._current_row = row_idx
+        self._invalidate_bounds()
 
 
     def _move_cells(self, min_row=None, min_col=None, offset=0, row_or_col="row"):
@@ -745,6 +792,7 @@ class Worksheet(_WorkbookChild):
             for col in range(min_col, max_col):
                 if (row, col) in self._cells:
                     del self._cells[row, col]
+        self._invalidate_bounds()
         self._current_row = self.max_row
         if not self._cells:
             self._current_row = 0
@@ -766,6 +814,7 @@ class Worksheet(_WorkbookChild):
             for row in range(min_row, max_row):
                 if (row, col) in self._cells:
                     del self._cells[row, col]
+        self._invalidate_bounds()
 
 
     def move_range(self, cell_range, rows=0, cols=0, translate=False):
@@ -811,6 +860,7 @@ class Worksheet(_WorkbookChild):
         del self._cells[(cell.row, cell.column)]
         cell.row = new_row
         cell.column = new_col
+        self._invalidate_bounds()
         if translate and cell.data_type == "f":
             t = Translator(cell.value, cell.coordinate)
             cell.value = t.translate_formula(row_delta=row_offset, col_delta=col_offset)

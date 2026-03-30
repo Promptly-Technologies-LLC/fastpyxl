@@ -24,8 +24,8 @@ from fastpyxl.formatting.formatting import ConditionalFormatting
 from fastpyxl.formula.translate import Translator
 from fastpyxl.utils import (
     get_column_letter,
-    coordinate_to_tuple,
-    )
+    column_index_from_coordinate,
+)
 from fastpyxl.utils.datetime import from_excel, from_ISO8601, WINDOWS_EPOCH
 from fastpyxl.descriptors.excel import ExtensionList
 from fastpyxl.cell.rich_text import CellRichText
@@ -201,8 +201,8 @@ class WorkSheetParser:
             value = element.findtext(VALUE_TAG, None) or None
 
         if coordinate:
-            row, column = coordinate_to_tuple(coordinate)
-            self.col_counter = column
+            self.col_counter = column_index_from_coordinate(coordinate)
+            row, column = self.row_counter, self.col_counter
         else:
             self.col_counter += 1
             row, column = self.row_counter, self.col_counter

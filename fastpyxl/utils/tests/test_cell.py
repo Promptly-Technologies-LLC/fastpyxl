@@ -97,6 +97,16 @@ def test_coordinate_tuple():
     assert coordinate_to_tuple("D15") == (15, 4)
 
 
+@pytest.mark.parametrize("coordinate, expected", [
+    ("A1", 1),
+    ("Z99", 26),
+    ("AA1", 27),
+    ("XFD1", 16384),
+])
+def test_column_index_from_coordinate(coordinate, expected):
+    from .. import column_index_from_coordinate
+    assert column_index_from_coordinate(coordinate) == expected
+
 
 @pytest.mark.parametrize("range_string, sheetname, boundaries",
                          [

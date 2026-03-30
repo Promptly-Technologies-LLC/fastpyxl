@@ -202,6 +202,18 @@ def cols_from_range(range_string):
         yield tuple('{0}{1}'.format(col, row) for row in rows)
 
 
+def column_index_from_coordinate(coordinate):
+    """Extract only the column index from a coordinate string like 'XFD52'."""
+    c1 = coordinate[0]
+    c2 = coordinate[1]
+    if c2 < 'A':
+        return __alpha_to_decimal[c1]
+    c3 = coordinate[2]
+    if c3 < 'A':
+        return __alpha_to_decimal[c1] * 26 + __alpha_to_decimal[c2]
+    return __alpha_to_decimal[c1] * 676 + __alpha_to_decimal[c2] * 26 + __alpha_to_decimal[c3]
+
+
 def coordinate_to_tuple(coordinate):
     """
     Convert an Excel style coordinate to (row, column) tuple

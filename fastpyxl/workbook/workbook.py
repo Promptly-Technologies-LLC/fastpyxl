@@ -65,6 +65,7 @@ class Workbook:
                  ):
         self._sheets = []
         self._sheet_titles_lower: set[str] = set()
+        self._sheetnames_cache: list[str] | None = None
         self._pivots = []
         self._active_sheet_index = 0
         self.defined_names = DefinedNameDict()
@@ -221,6 +222,7 @@ class Workbook:
         else:
             self._sheets.insert(index, sheet)
         self._sheet_titles_lower.add(sheet.title.lower())
+        self._sheetnames_cache = None
 
 
     def move_sheet(self, sheet, offset=0):
@@ -233,12 +235,14 @@ class Workbook:
         del self._sheets[idx]
         new_pos = idx + offset
         self._sheets.insert(new_pos, sheet)
+        self._sheetnames_cache = None
 
 
     def remove(self, worksheet):
         """Remove `worksheet` from this workbook."""
         self._sheet_titles_lower.discard(worksheet.title.lower())
         self._sheets.remove(worksheet)
+        self._sheetnames_cache = None
 
 
     @deprecated("Use wb.remove(worksheet) or del wb[sheetname]")
@@ -267,7 +271,7 @@ class Workbook:
         return self[name]
 
     def __contains__(self, key):
-        return key in self.sheetnames
+        return any(s.title == key for s in self._sheets)
 
 
     def index(self, worksheet):
@@ -287,7 +291,7 @@ class Workbook:
         :type name: string
 
         """
-        for sheet in self.worksheets + self.chartsheets:
+        for sheet in self._sheets:
             if sheet.title == key:
                 return sheet
         raise KeyError("Worksheet {0} does not exist.".format(key))
@@ -329,7 +333,9 @@ class Workbook:
         :type: list of strings
 
         """
-        return [s.title for s in self._sheets]
+        if self._sheetnames_cache is None:
+            self._sheetnames_cache = [s.title for s in self._sheets]
+        return list(self._sheetnames_cache)
 
 
     @deprecated("Assign scoped named ranges directly to worksheets or global ones to the workbook. Deprecated in 3.1")

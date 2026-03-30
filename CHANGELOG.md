@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.0.7 (2026-03-30)
+
+### Bug Fixes
+
+- Handle unhashable keys in __getitem__ and __contains__
+  ([`080959a`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/080959a1a9ee7010a5d880aac15505b03cdabf0f))
+
+### Performance Improvements
+
+- O(1) sheet lookup via cached title map (fixes #40)
+  ([`2d6b3e6`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/2d6b3e6d521110bcb2612f815463805d0001a486))
+
+
 ## v1.0.6 (2026-03-30)
 
 ### Performance Improvements

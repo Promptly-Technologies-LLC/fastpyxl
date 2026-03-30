@@ -1,6 +1,6 @@
 [project]
 name = "fastpyxl"
-version = "1.0.6"
+version = "1.0.7"
 description = "A high-performance Python library to read/write Excel 2010 xlsx/xlsm files"
 readme = "README.rst"
 license = "MIT"

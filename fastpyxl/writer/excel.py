@@ -33,6 +33,11 @@ from fastpyxl.worksheet._writer import WorksheetWriter
 from fastpyxl.workbook._writer import WorkbookWriter
 from .theme import theme_xml
 
+ARC_VBA = re.compile("|".join(
+    ('xl/vba', r'xl/drawings/.*vmlDrawing\d\.vml',
+     'xl/ctrlProps', 'customUI', 'xl/activeX', r'xl/media/.*\.emf')
+))
+
 
 class ExcelWriter:
     """Write a workbook object to an Excel file."""
@@ -100,12 +105,6 @@ class ExcelWriter:
         If workbook contains macros then extract associated files from cache
         of old file and add to archive
         """
-        ARC_VBA = re.compile("|".join(
-            ('xl/vba', r'xl/drawings/.*vmlDrawing\d\.vml',
-             'xl/ctrlProps', 'customUI', 'xl/activeX', r'xl/media/.*\.emf')
-        )
-                             )
-
         if self.workbook.vba_archive:
             for name in set(self.workbook.vba_archive.namelist()) - self.vba_modified:
                 if ARC_VBA.match(name):

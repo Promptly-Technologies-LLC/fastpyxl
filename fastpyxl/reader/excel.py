@@ -4,9 +4,10 @@
 """Read an xlsx file into Python"""
 
 # Python stdlib imports
-from zipfile import ZipFile, ZIP_DEFLATED
+from zipfile import ZipFile, ZIP_STORED
 from io import BytesIO
 import os.path
+import re
 import warnings
 
 from fastpyxl.pivot.table import TableDefinition
@@ -61,6 +62,15 @@ from .drawings import find_images
 
 
 SUPPORTED_FORMATS = ('.xlsx', '.xlsm', '.xltx', '.xltm')
+
+# Files to preserve in vba_archive when keep_vba=True.
+# Matches VBA content files plus the package metadata files the writer needs
+# to reconstruct relationships and content types.
+ARC_VBA = re.compile("|".join(
+    ('xl/vba', r'xl/drawings/.*vmlDrawing\d\.vml',
+     'xl/ctrlProps', 'customUI', 'xl/activeX', r'xl/media/.*\.emf',
+     r'_rels/\.rels', r'\[Content_Types\]\.xml')
+))
 
 
 def _validate_archive(filename):
@@ -161,9 +171,10 @@ class ExcelReader:
         # If are going to preserve the vba then attach a copy of the archive to the
         # workbook so that is available for the save.
         if self.keep_vba:
-            wb.vba_archive = ZipFile(BytesIO(), 'a', ZIP_DEFLATED)
+            wb.vba_archive = ZipFile(BytesIO(), 'a', ZIP_STORED)
             for name in self.valid_files:
-                wb.vba_archive.writestr(name, self.archive.read(name))
+                if ARC_VBA.match(name):
+                    wb.vba_archive.writestr(name, self.archive.read(name))
 
         if self.read_only:
             wb._archive = self.archive

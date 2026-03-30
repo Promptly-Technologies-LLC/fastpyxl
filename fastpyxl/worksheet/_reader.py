@@ -189,9 +189,10 @@ class WorkSheetParser:
 
 
     def parse_cell(self, element):
-        data_type = element.get('t', 'n')
-        coordinate = element.get('r')
-        style_id = element.get('s', 0)
+        attrib = element.attrib
+        data_type = attrib.get('t', 'n')
+        coordinate = attrib.get('r')
+        style_id = attrib.get('s', 0)
         if style_id:
             style_id = int(style_id)
 
@@ -202,17 +203,37 @@ class WorkSheetParser:
             self.col_counter += 1
             row, column = self.row_counter, self.col_counter
 
-        if len(element) == 0:
+        n_children = len(element)
+        if n_children == 0:
             return (row, column, None, data_type, style_id)
 
-        if data_type == "inlineStr":
-            value = None
+        # For cells with exactly one child (the common case), use direct index
+        # access instead of find/findtext to avoid redundant C-level searches.
+        if n_children == 1:
+            child = element[0]
+            child_tag = child.tag
+            formula_elem = None
+            if child_tag == FORMULA_TAG:
+                value = None
+                formula_elem = child
+            elif child_tag == VALUE_TAG and data_type != 'inlineStr':
+                value = child.text or None
+            else:
+                # INLINE_STRING, or VALUE_TAG with inlineStr type
+                value = None
         else:
-            value = element.findtext(VALUE_TAG, None) or None
+            # Multiple children: typically <f> + <v> for formula cells.
+            # Fall back to find/findtext; also capture formula element to avoid
+            # a redundant find inside parse_formula.
+            if data_type == 'inlineStr':
+                value = None
+            else:
+                value = element.findtext(VALUE_TAG, None) or None
+            formula_elem = element.find(FORMULA_TAG)
 
-        if not self.data_only and element.find(FORMULA_TAG) is not None:
+        if not self.data_only and formula_elem is not None:
             data_type = 'f'
-            value = self.parse_formula(element)
+            value = self.parse_formula(element, formula_elem)
 
         elif value is not None:
             if data_type == 'n':
@@ -238,22 +259,26 @@ class WorkSheetParser:
                 value = from_ISO8601(value)
 
         elif data_type == 'inlineStr':
+            if n_children == 1:
+                child = element[0]
+            else:
                 child = element.find(INLINE_STRING)
-                if child is not None:
-                    data_type = 's'
-                    if self.rich_text:
-                        value = parse_richtext_string(child)
-                    else:
-                        value = Text.from_tree(child).content
+            if child is not None:
+                data_type = 's'
+                if self.rich_text:
+                    value = parse_richtext_string(child)
+                else:
+                    value = Text.from_tree(child).content
 
         return (row, column, value, data_type, style_id)
 
 
-    def parse_formula(self, element):
+    def parse_formula(self, element, formula=None):
         """
         possible formulae types: shared, array, datatable
         """
-        formula = element.find(FORMULA_TAG)
+        if formula is None:
+            formula = element.find(FORMULA_TAG)
         formula_type = formula.get('t')
         coordinate = element.get('r')
         value = "="

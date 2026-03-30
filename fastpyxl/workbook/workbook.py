@@ -280,7 +280,10 @@ class Workbook:
         return self._sheet_title_map
 
     def __contains__(self, key):
-        return key in self._build_title_map()
+        try:
+            return key in self._build_title_map()
+        except TypeError:
+            return False
 
 
     def index(self, worksheet):
@@ -302,7 +305,7 @@ class Workbook:
         """
         try:
             return self._build_title_map()[key]
-        except KeyError:
+        except (KeyError, TypeError):
             raise KeyError("Worksheet {0} does not exist.".format(key))
 
     def __delitem__(self, key):
@@ -510,4 +513,3 @@ class Workbook:
 
         if name in self.defined_names:
             return True
-

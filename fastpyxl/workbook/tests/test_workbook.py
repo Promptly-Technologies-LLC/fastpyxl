@@ -389,6 +389,17 @@ class TestSheetLookup:
         wb = Workbook()
         assert "Missing" not in wb
 
+    @pytest.mark.parametrize("key", [[], {}, set()])
+    def test_contains_unhashable_key_returns_false(self, key, Workbook):
+        wb = Workbook()
+        assert key not in wb
+
+    @pytest.mark.parametrize("key", [[], {}, set()])
+    def test_getitem_unhashable_key_raises_keyerror(self, key, Workbook):
+        wb = Workbook()
+        with pytest.raises(KeyError):
+            wb[key]
+
     def test_getitem_after_add(self, Workbook):
         wb = Workbook()
         _ = wb["Sheet"]  # prime any cache
@@ -483,4 +494,3 @@ class TestStyleMaterialization:
         buf = BytesIO()
         wb.save(buf)
         assert any(ns.name == "SaveDeferred" for ns in wb._named_styles)
-

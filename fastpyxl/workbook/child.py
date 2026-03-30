@@ -120,6 +120,7 @@ class _WorkbookChild:
                 idx.discard(old_title.lower())
             idx.add(value.lower())
             parent._sheetnames_cache = None
+            parent._sheet_title_map = None
 
 
     @property

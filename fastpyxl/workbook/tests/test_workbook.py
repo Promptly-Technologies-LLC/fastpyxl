@@ -362,6 +362,87 @@ class TestSheetnameCaching:
         assert "Phantom" not in wb.sheetnames
 
 
+class TestSheetLookup:
+    """Tests for O(1) sheet lookup by title (issue #40)."""
+
+    def test_getitem_returns_correct_sheet(self, Workbook):
+        wb = Workbook()
+        ws1 = wb.active
+        ws2 = wb.create_sheet("Second")
+        ws3 = wb.create_sheet("Third")
+        assert wb["Sheet"] is ws1
+        assert wb["Second"] is ws2
+        assert wb["Third"] is ws3
+
+    def test_getitem_miss_raises_keyerror(self, Workbook):
+        wb = Workbook()
+        with pytest.raises(KeyError):
+            wb["NoSuchSheet"]
+
+    def test_contains_finds_existing_sheet(self, Workbook):
+        wb = Workbook()
+        wb.create_sheet("Alpha")
+        assert "Alpha" in wb
+        assert "Sheet" in wb
+
+    def test_contains_rejects_missing_sheet(self, Workbook):
+        wb = Workbook()
+        assert "Missing" not in wb
+
+    def test_getitem_after_add(self, Workbook):
+        wb = Workbook()
+        _ = wb["Sheet"]  # prime any cache
+        ws = wb.create_sheet("Added")
+        assert wb["Added"] is ws
+
+    def test_getitem_after_remove(self, Workbook):
+        wb = Workbook()
+        wb.create_sheet("Temp")
+        _ = wb["Temp"]  # prime any cache
+        del wb["Temp"]
+        with pytest.raises(KeyError):
+            wb["Temp"]
+
+    def test_getitem_after_rename(self, Workbook):
+        wb = Workbook()
+        ws = wb.active
+        _ = wb["Sheet"]  # prime any cache
+        ws.title = "Renamed"
+        assert wb["Renamed"] is ws
+        with pytest.raises(KeyError):
+            wb["Sheet"]
+
+    def test_contains_after_rename(self, Workbook):
+        wb = Workbook()
+        _ = "Sheet" in wb  # prime any cache
+        wb.active.title = "Renamed"
+        assert "Renamed" in wb
+        assert "Sheet" not in wb
+
+    def test_getitem_after_move(self, Workbook):
+        wb = Workbook()
+        ws_b = wb.create_sheet("B")
+        wb.move_sheet("B", -1)
+        assert wb["B"] is ws_b
+
+    def test_getitem_uses_cached_map(self, Workbook):
+        """After first lookup, subsequent lookups should use a cached map
+        rather than scanning _sheets linearly."""
+        wb = Workbook()
+        for i in range(10):
+            wb.create_sheet(f"S{i}")
+        # Prime the cache
+        _ = wb["S5"]
+        # The workbook should now have a title map cache
+        assert wb._sheet_title_map is not None
+
+    def test_contains_uses_cached_map(self, Workbook):
+        wb = Workbook()
+        wb.create_sheet("Test")
+        _ = "Test" in wb
+        assert wb._sheet_title_map is not None
+
+
 class TestStyleMaterialization:
 
     def test_materialize_pending_registers_shared_tables(self, Workbook):

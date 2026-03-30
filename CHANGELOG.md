@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.2 (2026-03-30)
+
+### Performance Improvements
+
+- Skip row re-parse in parse_cell by using row_counter (fixes #31)
+  ([`4881180`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/4881180c471c464029b1938326509d4e8b765658))
+
+
 ## v1.0.1 (2026-03-30)
 
 ### Documentation

@@ -66,6 +66,7 @@ class Workbook:
         self._sheets = []
         self._sheet_titles_lower: set[str] = set()
         self._sheetnames_cache: list[str] | None = None
+        self._sheet_title_map: dict[str, object] | None = None
         self._pivots = []
         self._active_sheet_index = 0
         self.defined_names = DefinedNameDict()
@@ -223,6 +224,7 @@ class Workbook:
             self._sheets.insert(index, sheet)
         self._sheet_titles_lower.add(sheet.title.lower())
         self._sheetnames_cache = None
+        self._sheet_title_map = None
 
 
     def move_sheet(self, sheet, offset=0):
@@ -236,6 +238,7 @@ class Workbook:
         new_pos = idx + offset
         self._sheets.insert(new_pos, sheet)
         self._sheetnames_cache = None
+        self._sheet_title_map = None
 
 
     def remove(self, worksheet):
@@ -243,6 +246,7 @@ class Workbook:
         self._sheet_titles_lower.discard(worksheet.title.lower())
         self._sheets.remove(worksheet)
         self._sheetnames_cache = None
+        self._sheet_title_map = None
 
 
     @deprecated("Use wb.remove(worksheet) or del wb[sheetname]")
@@ -270,8 +274,13 @@ class Workbook:
         """
         return self[name]
 
+    def _build_title_map(self):
+        if self._sheet_title_map is None:
+            self._sheet_title_map = {s.title: s for s in self._sheets}
+        return self._sheet_title_map
+
     def __contains__(self, key):
-        return any(s.title == key for s in self._sheets)
+        return key in self._build_title_map()
 
 
     def index(self, worksheet):
@@ -291,10 +300,10 @@ class Workbook:
         :type name: string
 
         """
-        for sheet in self._sheets:
-            if sheet.title == key:
-                return sheet
-        raise KeyError("Worksheet {0} does not exist.".format(key))
+        try:
+            return self._build_title_map()[key]
+        except KeyError:
+            raise KeyError("Worksheet {0} does not exist.".format(key))
 
     def __delitem__(self, key):
         sheet = self[key]

@@ -195,17 +195,20 @@ class WorkSheetParser:
         if style_id:
             style_id = int(style_id)
 
-        if data_type == "inlineStr":
-            value = None
-        else:
-            value = element.findtext(VALUE_TAG, None) or None
-
         if coordinate:
             self.col_counter = column_index_from_coordinate(coordinate)
             row, column = self.row_counter, self.col_counter
         else:
             self.col_counter += 1
             row, column = self.row_counter, self.col_counter
+
+        if len(element) == 0:
+            return (row, column, None, data_type, style_id)
+
+        if data_type == "inlineStr":
+            value = None
+        else:
+            value = element.findtext(VALUE_TAG, None) or None
 
         if not self.data_only and element.find(FORMULA_TAG) is not None:
             data_type = 'f'

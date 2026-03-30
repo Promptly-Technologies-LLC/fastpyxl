@@ -2,6 +2,20 @@
 
 <!-- version list -->
 
+## v1.0.4 (2026-03-30)
+
+### Performance Improvements
+
+- Cache sheetnames and eliminate list allocs in __contains__/__getitem__ (fixes #36)
+  ([`5f287bc`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/5f287bc14070b896ea28532b8f8a94c656685733))
+
+### Testing
+
+- Add regression tests for sheetnames cache invalidation
+  ([#36](https://github.com/Promptly-Technologies-LLC/fastpyxl/pull/36),
+  [`d215181`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/d2151819dc8b448d8eefbc828228fa18a103aa20))
+
+
 ## v1.0.3 (2026-03-30)
 
 ### Performance Improvements

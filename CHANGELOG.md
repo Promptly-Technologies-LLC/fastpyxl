@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.3 (2026-03-30)
+
+### Performance Improvements
+
+- Skip find/findtext for empty cells in parse_cell (fixes #30)
+  ([`c15d959`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/c15d959bd177d503d029d93f0435211ede85db26))
+
+
 ## v1.0.2 (2026-03-30)
 
 ### Performance Improvements

@@ -83,6 +83,25 @@ def test_save_with_saved_comments(datadir):
     ])
     assert files == expected
 
+def test_vba_archive_excludes_workbook_files(datadir):
+    """vba_archive should not store regular workbook XML files — only VBA-relevant ones."""
+    datadir.join('reader').chdir()
+    # These are large workbook files that must NOT be copied into vba_archive.
+    NON_VBA = {'xl/workbook.xml', 'xl/worksheets/sheet1.xml', 'xl/styles.xml',
+               'xl/sharedStrings.xml', 'docProps/app.xml', 'docProps/core.xml'}
+    wb = load_workbook('vba-test.xlsm', keep_vba=True)
+    assert wb.vba_archive is not None
+    vba_names = set(wb.vba_archive.namelist())
+    overlap = vba_names & NON_VBA
+    assert not overlap, f"Non-VBA workbook files found in vba_archive: {overlap}"
+    # Sanity: vba_archive must be a strict subset of the original ZIP.
+    with zipfile.ZipFile('vba-test.xlsm') as src:
+        all_names = set(src.namelist())
+    assert len(vba_names) < len(all_names), (
+        "vba_archive should contain fewer files than the full archive"
+    )
+
+
 def test_save_without_vba(datadir):
     datadir.join('reader').chdir()
     fname = 'vba-test.xlsm'

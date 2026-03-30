@@ -141,7 +141,10 @@ def test_load_workbook_with_vba(datadir, load_workbook):
     with open(test_file, 'rb') as f:
         wb2 = load_workbook(BytesIO(f.read()), keep_vba=True)
     assert wb1.vba_archive.namelist() == wb2.vba_archive.namelist()
-    assert wb1.vba_archive.namelist() == ZipFile(test_file, 'r').namelist()
+    # vba_archive should contain only VBA-relevant files, not the full archive
+    all_files = set(ZipFile(test_file, 'r').namelist())
+    vba_files = set(wb1.vba_archive.namelist())
+    assert vba_files < all_files, "vba_archive should be a strict subset of the full ZIP"
 
 
 def test_no_external_links(datadir, load_workbook):

@@ -4,6 +4,7 @@
 from .cell import (
     absolute_coordinate,
     cols_from_range,
+    column_index_from_coordinate,
     column_index_from_string,
     coordinate_to_tuple,
     get_column_letter,

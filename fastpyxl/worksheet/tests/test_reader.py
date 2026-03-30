@@ -235,6 +235,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, '=IF(TRUE, "y", "n")', 'f', 0)
 
@@ -251,6 +252,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, 3, 'n', 0)
 
@@ -267,6 +269,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, 'y', 's', 0)
 
@@ -281,6 +284,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, 1, 'n', 0)
 
@@ -296,6 +300,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, datetime.datetime(2011, 12, 25, 14, 23, 55), 'd', 0)
 
@@ -310,6 +315,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, datetime.timedelta(days=1, hours=6), 'd', 30)
 
@@ -325,6 +331,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, datetime.datetime(2016, 10, 3, 0, 0), 'd', 29)
 
@@ -342,6 +349,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         parser.parse_cell(element)
         w = recwarn.pop()
         assert issubclass(w.category, UserWarning)
@@ -357,6 +365,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, 'a', 's', 0)
 
@@ -371,6 +380,7 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, True, 'b', 0)
 
@@ -387,6 +397,7 @@ class TestWorksheetParser:
 
         element = fromstring(src)
 
+        parser.row_counter = 1
         cell = parser.parse_cell(element)
         assert cell == (1, 1, "ID", 's', 0)
 
@@ -408,6 +419,7 @@ class TestWorksheetParser:
         """
 
         element = fromstring(src)
+        parser.row_counter = 2
         cell = parser.parse_cell(element)
         expected = CellRichText(TextBlock(font=InlineFont(sz="8.0"),
                                            text="11 de September de 2014"))

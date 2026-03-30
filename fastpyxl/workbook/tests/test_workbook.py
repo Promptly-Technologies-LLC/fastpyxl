@@ -325,6 +325,43 @@ class TestCopy:
             wb.epoch = datetime.datetime(1970, 1, 1)
 
 
+class TestSheetnameCaching:
+    """Regression tests for sheetnames caching (issue #36)."""
+
+    def test_cache_invalidated_on_create(self, Workbook):
+        wb = Workbook()
+        _ = wb.sheetnames  # prime cache
+        wb.create_sheet("New")
+        assert "New" in wb.sheetnames
+
+    def test_cache_invalidated_on_remove(self, Workbook):
+        wb = Workbook()
+        ws = wb.create_sheet("Temp")
+        _ = wb.sheetnames  # prime cache
+        wb.remove(ws)
+        assert "Temp" not in wb.sheetnames
+
+    def test_cache_invalidated_on_move(self, Workbook):
+        wb = Workbook()
+        wb.create_sheet("B")
+        _ = wb.sheetnames  # prime cache
+        wb.move_sheet("B", -1)
+        assert wb.sheetnames[0] == "B"
+
+    def test_cache_invalidated_on_rename(self, Workbook):
+        wb = Workbook()
+        _ = wb.sheetnames  # prime cache
+        wb.active.title = "Renamed"
+        assert wb.sheetnames == ["Renamed"]
+
+    def test_sheetnames_returns_copy(self, Workbook):
+        """Mutating the returned list must not corrupt the cache."""
+        wb = Workbook()
+        names = wb.sheetnames
+        names.append("Phantom")
+        assert "Phantom" not in wb.sheetnames
+
+
 class TestStyleMaterialization:
 
     def test_materialize_pending_registers_shared_tables(self, Workbook):

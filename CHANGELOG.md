@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.5 (2026-03-30)
+
+### Performance Improvements
+
+- Reduce per-call overhead in parse_cell (fixes #27)
+  ([`05b8cde`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/05b8cde4e283351632c39f5144742f56f7e0b8fc))
+
+
 ## v1.0.4 (2026-03-30)
 
 ### Performance Improvements

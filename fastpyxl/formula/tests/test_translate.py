@@ -194,6 +194,7 @@ class TestTranslator:
         ("$DEF:$FOV", 25, 25, "$DEF:$FOV"),
         ("HA:$JA", -5, -15, "GL:$JA"),
         ("named1", -33, 33, "named1"),
+        ("Sheet1!named_range", 5, 3, "Sheet1!named_range"),
         ("A15", -3, 4, "E12"),
         ("$AB303", 3, 2, "$AB306"),
         ("YY$101", 4, 2, "ZA$101"),

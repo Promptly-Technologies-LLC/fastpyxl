@@ -8,6 +8,7 @@ to identify the parts of the formula that need to change.
 """
 
 import re
+from functools import lru_cache
 from .tokenizer import Tokenizer, Token
 from fastpyxl.utils import (
     coordinate_to_tuple,
@@ -48,6 +49,16 @@ class Translator:
         # formulae stored in the workbook must be in A1 notation.
         self.row, self.col = coordinate_to_tuple(origin)
         self.tokenizer = Tokenizer(formula)
+        tokens = self.tokenizer.items
+        # Pre-compute (value, is_range) pairs once so translate_formula avoids
+        # repeated attribute lookups on every call for each destination cell.
+        if not tokens or tokens[0].type == Token.LITERAL:
+            self._parts = None
+        else:
+            self._parts = [
+                (t.value, t.type == Token.OPERAND and t.subtype == Token.RANGE)
+                for t in tokens
+            ]
 
     def get_tokens(self):
         "Returns a list with the tokens comprising the formula."
@@ -71,6 +82,7 @@ class Translator:
             return str(new_row)
 
     @staticmethod
+    @lru_cache(maxsize=None)
     def translate_col(col_str, cdelta):
         """
         Translate a range col-snippet by the given number of columns
@@ -110,6 +122,12 @@ class Translator:
 
         """
         ws_part, range_str = cls.strip_ws_name(range_str)
+        if ':' not in range_str:
+            match = cls.CELL_REF_RE.match(range_str)
+            if match is None:  # Must be a named range
+                return ws_part + range_str
+            return (ws_part + cls.translate_col(match.group(1), cdelta)
+                    + cls.translate_row(match.group(2), rdelta))
         match = cls.ROW_RANGE_RE.match(range_str)  # e.g. `3:4`
         if match is not None:
             return (ws_part + cls.translate_row(match.group(1), rdelta) + ":"
@@ -118,20 +136,10 @@ class Translator:
         if match is not None:
             return (ws_part + cls.translate_col(match.group(1), cdelta) + ':'
                     + cls.translate_col(match.group(2), cdelta))
-        if ':' in range_str: # e.g. `A1:B5`
-            # The check is necessarily general because range references can
-            # have one or both endpoints specified by named ranges. I.e.,
-            # `named_range:C2`, `C2:named_range`, and `name1:name2` are all
-            # valid references. Further, Excel allows chaining multiple
-            # colons together (with unclear meaning)
-            return ws_part + ":".join(
-                cls.translate_range(piece, rdelta, cdelta)
-                for piece in range_str.split(':'))
-        match = cls.CELL_REF_RE.match(range_str)
-        if match is None:  # Must be a named range
-            return range_str
-        return (ws_part + cls.translate_col(match.group(1), cdelta)
-                + cls.translate_row(match.group(2), rdelta))
+        # e.g. `A1:B5` — general case (may include named range endpoints)
+        return ws_part + ":".join(
+            cls.translate_range(piece, rdelta, cdelta)
+            for piece in range_str.split(':'))
 
     def translate_formula(self, dest=None, row_delta=0, col_delta=0):
         """
@@ -141,12 +149,11 @@ class Translator:
         whose address is `dest` (no worksheet name).
 
         """
-        tokens = self.get_tokens()
+        tokens = self.tokenizer.items
         if not tokens:
             return ""
-        elif tokens[0].type == Token.LITERAL:
+        if self._parts is None:  # Literal formula (non-'=' prefix)
             return tokens[0].value
-        out = ['=']
         # per the spec:
         # A compliant producer or consumer considers a defined name in the
         # range A1-XFD1048576 to be an error. All other names outside this
@@ -156,11 +163,10 @@ class Translator:
             row, col = coordinate_to_tuple(dest)
             row_delta = row - self.row
             col_delta = col - self.col
-        for token in tokens:
-            if (token.type == Token.OPERAND
-                and token.subtype == Token.RANGE):
-                out.append(self.translate_range(token.value, row_delta,
-                                                col_delta))
+        out = ['=']
+        for value, is_range in self._parts:
+            if is_range:
+                out.append(self.translate_range(value, row_delta, col_delta))
             else:
-                out.append(token.value)
+                out.append(value)
         return "".join(out)

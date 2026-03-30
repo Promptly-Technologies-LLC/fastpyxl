@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.6 (2026-03-30)
+
+### Performance Improvements
+
+- Optimize formula translation hot path (fixes #25)
+  ([`359d0bd`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/359d0bdd1578c5c82a18333a3c537a3c6abcf0fa))
+
+
 ## v1.0.5 (2026-03-30)
 
 ### Performance Improvements

@@ -14,56 +14,58 @@
   <rect width="600" height="320" fill="#ffffff" rx="8"/>
 
   <!-- Title -->
-  <text x="300" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#24292f">Load time on real-world 5.2 MB workbook (887k cells)</text>
+  <text x="300" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#24292f">Real-world 5.2 MB workbook (887k cells, 97k formulas)</text>
 
-  <!-- Chart area: x=90..560, y=50..240 -->
-  <!-- Y-axis gridlines and labels (0s to 7s) -->
+  <!-- Chart area: x=90..560, y=50..240 (190px), 0–8s -->
+  <!-- Y-axis gridlines -->
   <line x1="90" y1="240" x2="560" y2="240" stroke="#e1e4e8" stroke-width="1"/>
-  <line x1="90" y1="212.9" x2="560" y2="212.9" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="90" y1="185.7" x2="560" y2="185.7" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="90" y1="158.6" x2="560" y2="158.6" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="90" y1="131.4" x2="560" y2="131.4" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="90" y1="104.3" x2="560" y2="104.3" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="90" y1="77.1" x2="560" y2="77.1" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="90" y1="50" x2="560" y2="50" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="216.3" x2="560" y2="216.3" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="192.5" x2="560" y2="192.5" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="168.8" x2="560" y2="168.8" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="145.0" x2="560" y2="145.0" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="121.3" x2="560" y2="121.3" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="97.5" x2="560" y2="97.5" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="73.8" x2="560" y2="73.8" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="50.0" x2="560" y2="50.0" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
 
+  <!-- Y-axis labels -->
   <text x="82" y="244" text-anchor="end" font-size="11" fill="#57606a">0s</text>
-  <text x="82" y="216.9" text-anchor="end" font-size="11" fill="#57606a">1s</text>
-  <text x="82" y="189.7" text-anchor="end" font-size="11" fill="#57606a">2s</text>
-  <text x="82" y="162.6" text-anchor="end" font-size="11" fill="#57606a">3s</text>
-  <text x="82" y="135.4" text-anchor="end" font-size="11" fill="#57606a">4s</text>
-  <text x="82" y="108.3" text-anchor="end" font-size="11" fill="#57606a">5s</text>
-  <text x="82" y="81.1" text-anchor="end" font-size="11" fill="#57606a">6s</text>
-  <text x="82" y="54" text-anchor="end" font-size="11" fill="#57606a">7s</text>
+  <text x="82" y="220.3" text-anchor="end" font-size="11" fill="#57606a">1s</text>
+  <text x="82" y="196.5" text-anchor="end" font-size="11" fill="#57606a">2s</text>
+  <text x="82" y="172.8" text-anchor="end" font-size="11" fill="#57606a">3s</text>
+  <text x="82" y="149.0" text-anchor="end" font-size="11" fill="#57606a">4s</text>
+  <text x="82" y="125.3" text-anchor="end" font-size="11" fill="#57606a">5s</text>
+  <text x="82" y="101.5" text-anchor="end" font-size="11" fill="#57606a">6s</text>
+  <text x="82" y="77.8" text-anchor="end" font-size="11" fill="#57606a">7s</text>
+  <text x="82" y="54.0" text-anchor="end" font-size="11" fill="#57606a">8s</text>
 
-  <!-- Group 1: Load workbook — openpyxl 6.11s, fastpyxl 5.08s -->
-  <!-- Center at x=185, bar width=50, gap=8 -->
-  <rect x="156" y="73.6" width="50" height="166.4" rx="3" fill="url(#openpyxl-bar)"/>
-  <text x="181" y="67.6" text-anchor="middle" font-size="12" font-weight="600" fill="#6b6b6b">6.11s</text>
-  <rect x="214" y="101.8" width="50" height="138.2" rx="3" fill="url(#fastpyxl-bar)"/>
-  <text x="239" y="95.8" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f37">5.08s</text>
+  <!-- Group 1: Load workbook — openpyxl 7.29s, fastpyxl 5.58s (-23.5%) -->
+  <rect x="156" y="66.9" width="50" height="173.1" rx="3" fill="url(#openpyxl-bar)"/>
+  <text x="181" y="60.9" text-anchor="middle" font-size="12" font-weight="600" fill="#6b6b6b">7.29s</text>
+  <rect x="214" y="107.5" width="50" height="132.5" rx="3" fill="url(#fastpyxl-bar)"/>
+  <text x="239" y="101.5" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f37">5.58s</text>
   <text x="210" y="262" text-anchor="middle" font-size="12" fill="#24292f">Load</text>
-  <text x="210" y="276" text-anchor="middle" font-size="10" font-weight="600" fill="#1a7f37">-16.9%</text>
+  <text x="210" y="276" text-anchor="middle" font-size="10" font-weight="600" fill="#1a7f37">-23.5%</text>
 
-  <!-- Group 2: Save workbook — openpyxl 5.73s, fastpyxl 5.42s -->
-  <rect x="313" y="84.0" width="50" height="156.0" rx="3" fill="url(#openpyxl-bar)"/>
-  <text x="338" y="78.0" text-anchor="middle" font-size="12" font-weight="600" fill="#6b6b6b">5.73s</text>
-  <rect x="371" y="92.5" width="50" height="147.5" rx="3" fill="url(#fastpyxl-bar)"/>
-  <text x="396" y="86.5" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f37">5.42s</text>
+  <!-- Group 2: Save workbook — openpyxl 5.70s, fastpyxl 5.74s (+0.6%) -->
+  <rect x="313" y="104.6" width="50" height="135.4" rx="3" fill="url(#openpyxl-bar)"/>
+  <text x="338" y="98.6" text-anchor="middle" font-size="12" font-weight="600" fill="#6b6b6b">5.70s</text>
+  <rect x="371" y="103.7" width="50" height="136.3" rx="3" fill="url(#fastpyxl-bar)"/>
+  <text x="396" y="97.7" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f37">5.74s</text>
   <text x="367" y="262" text-anchor="middle" font-size="12" fill="#24292f">Save</text>
-  <text x="367" y="276" text-anchor="middle" font-size="10" font-weight="600" fill="#1a7f37">-5.4%</text>
+  <text x="367" y="276" text-anchor="middle" font-size="10" font-weight="600" fill="#57606a">+0.6%</text>
 
-  <!-- Group 3: Read-only iteration — openpyxl 4.35s, fastpyxl 4.03s -->
-  <rect x="470" y="121.5" width="50" height="118.5" rx="3" fill="url(#openpyxl-bar)"/>
-  <text x="495" y="115.5" text-anchor="middle" font-size="12" font-weight="600" fill="#6b6b6b">4.35s</text>
-  <rect x="528" y="130.2" width="50" height="109.8" rx="3" fill="url(#fastpyxl-bar)"/>
-  <text x="553" y="124.2" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f37">4.03s</text>
+  <!-- Group 3: Read-only iteration — openpyxl 4.84s, fastpyxl 4.07s (-15.9%) -->
+  <rect x="470" y="125.1" width="50" height="114.9" rx="3" fill="url(#openpyxl-bar)"/>
+  <text x="495" y="119.1" text-anchor="middle" font-size="12" font-weight="600" fill="#6b6b6b">4.84s</text>
+  <rect x="528" y="143.3" width="50" height="96.7" rx="3" fill="url(#fastpyxl-bar)"/>
+  <text x="553" y="137.3" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f37">4.07s</text>
   <text x="524" y="262" text-anchor="middle" font-size="12" fill="#24292f">Read-only</text>
-  <text x="524" y="276" text-anchor="middle" font-size="10" font-weight="600" fill="#1a7f37">-7.4%</text>
+  <text x="524" y="276" text-anchor="middle" font-size="10" font-weight="600" fill="#1a7f37">-15.9%</text>
 
   <!-- Legend -->
   <rect x="200" y="296" width="14" height="14" rx="2" fill="url(#openpyxl-bar)"/>
   <text x="220" y="308" font-size="12" fill="#57606a">openpyxl 3.1.5</text>
   <rect x="330" y="296" width="14" height="14" rx="2" fill="url(#fastpyxl-bar)"/>
-  <text x="350" y="308" font-size="12" fill="#57606a">fastpyxl 1.0.0</text>
+  <text x="350" y="308" font-size="12" fill="#57606a">fastpyxl 1.0.7</text>
 </svg>

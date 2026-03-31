@@ -22,7 +22,7 @@ Performance
 -----------
 
 Benchmarked on a real-world 5.2 MB IMF/World Bank workbook (887,370 cells,
-97k formulas). Median of 3 runs, Python 3.12:
+97k formulas). Median of 5 runs, Python 3.12, openpyxl 3.1.5:
 
 .. image:: doc/benchmark_chart.svg
    :alt: Benchmark comparison: fastpyxl vs openpyxl
@@ -36,21 +36,23 @@ Benchmarked on a real-world 5.2 MB IMF/World Bank workbook (887,370 cells,
      - fastpyxl
      - Change
    * - Load workbook
-     - 6.11s
-     - 5.08s
-     - **-16.9%**
+     - 7.29s
+     - 5.58s
+     - **-23.5%**
    * - Save workbook
-     - 5.73s
-     - 5.42s
-     - **-5.4%**
+     - 5.70s
+     - 5.74s
+     - +0.6%
    * - Read-only iteration
-     - 4.35s
-     - 4.03s
-     - **-7.4%**
+     - 4.84s
+     - 4.07s
+     - **-15.9%**
 
-Further optimizations are in progress. See the
-`open performance issues <https://github.com/Promptly-Technologies-LLC/fastpyxl/issues?q=is%3Aissue+is%3Aopen+label%3A>`_
-for the roadmap.
+Key optimizations since 1.0.0: inlined cell parsing, O(1) sheet lookup,
+formula translation fast path, VBA archive filtering, empty-cell skip,
+and cached sheet names. See the
+`changelog <https://github.com/Promptly-Technologies-LLC/fastpyxl/releases>`_
+for details.
 
 
 Installation

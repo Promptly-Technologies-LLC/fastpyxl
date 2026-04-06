@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.0.8 (2026-04-06)
+
+### Bug Fixes
+
+- Allow multi-digit vmlDrawing indices in ARC_VBA regex (fixes #44)
+  ([`070a7e5`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/070a7e5fbcface591d1bf9d4e3e10c384e3ff8bf))
+
+### Documentation
+
+- Update benchmark chart and README with fresh v1.0.7 numbers (fixes #42)
+  ([`f010081`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/f010081a828371736b39466108d94c23598a6037))
+
+
 ## v1.0.7 (2026-03-30)
 
 ### Bug Fixes

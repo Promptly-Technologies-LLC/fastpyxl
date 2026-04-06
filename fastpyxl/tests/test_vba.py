@@ -102,6 +102,19 @@ def test_vba_archive_excludes_workbook_files(datadir):
     )
 
 
+def test_vml_two_digit_index_in_vba_archive(datadir):
+    """vmlDrawing10+ (two-digit indices) must be copied into vba_archive (issue #44)."""
+    import io
+    from fastpyxl.reader.excel import ARC_VBA
+    # single-digit names must still match
+    assert ARC_VBA.match('xl/drawings/vmlDrawing1.vml'), "single-digit should match"
+    assert ARC_VBA.match('xl/drawings/vmlDrawing9.vml'), "single-digit should match"
+    # two-digit (and higher) names must also match
+    assert ARC_VBA.match('xl/drawings/vmlDrawing10.vml'), "two-digit should match"
+    assert ARC_VBA.match('xl/drawings/vmlDrawing22.vml'), "two-digit should match"
+    assert ARC_VBA.match('xl/drawings/vmlDrawing100.vml'), "three-digit should match"
+
+
 def test_save_without_vba(datadir):
     datadir.join('reader').chdir()
     fname = 'vba-test.xlsm'

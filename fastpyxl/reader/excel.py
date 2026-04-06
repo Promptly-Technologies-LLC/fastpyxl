@@ -67,7 +67,7 @@ SUPPORTED_FORMATS = ('.xlsx', '.xlsm', '.xltx', '.xltm')
 # Matches VBA content files plus the package metadata files the writer needs
 # to reconstruct relationships and content types.
 ARC_VBA = re.compile("|".join(
-    ('xl/vba', r'xl/drawings/.*vmlDrawing\d\.vml',
+    ('xl/vba', r'xl/drawings/.*vmlDrawing\d+\.vml',
      'xl/ctrlProps', 'customUI', 'xl/activeX', r'xl/media/.*\.emf',
      r'_rels/\.rels', r'\[Content_Types\]\.xml')
 ))

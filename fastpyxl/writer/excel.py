@@ -34,7 +34,7 @@ from fastpyxl.workbook._writer import WorkbookWriter
 from .theme import theme_xml
 
 ARC_VBA = re.compile("|".join(
-    ('xl/vba', r'xl/drawings/.*vmlDrawing\d\.vml',
+    ('xl/vba', r'xl/drawings/.*vmlDrawing\d+\.vml',
      'xl/ctrlProps', 'customUI', 'xl/activeX', r'xl/media/.*\.emf')
 ))
 

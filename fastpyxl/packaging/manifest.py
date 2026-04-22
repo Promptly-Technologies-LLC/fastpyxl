@@ -170,11 +170,19 @@ class Manifest(Serialisable):
         self._append_override_if_missing(ct)
 
 
-    def _write(self, archive, workbook):
+    def _write(self, archive, workbook, workbook_mime_type=None):
         """
-        Write manifest to the archive
+        Write manifest to the archive.
+
+        When ``workbook_mime_type`` is supplied it overrides the workbook's
+        own ``mime_type`` — used so the ``[Content_Types].xml`` entry matches
+        the output file's extension (e.g. ``.xlsm`` → macro-enabled).
         """
-        self.append(workbook)
+        if workbook_mime_type:
+            ct = Override(PartName=workbook.path, ContentType=workbook_mime_type)
+            self._append_override_if_missing(ct)
+        else:
+            self.append(workbook)
         self._write_vba(workbook)
         self._register_mimetypes(filenames=archive.namelist())
         archive.writestr(self.path, tostring(self.to_tree()))

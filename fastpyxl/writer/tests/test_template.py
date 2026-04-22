@@ -1,10 +1,12 @@
 # Copyright (c) 2010-2024 fastpyxl
 
+import os
 from tempfile import NamedTemporaryFile
 from zipfile import ZipFile
 
 import pytest
 
+from fastpyxl import Workbook
 from fastpyxl.packaging.manifest import Manifest
 from fastpyxl.reader.excel import load_workbook
 from fastpyxl.xml.constants import ARC_CONTENT_TYPES, XLTM, XLTX, XLSM, XLSX
@@ -74,3 +76,14 @@ def test_save_xl_as_template(datadir, tmpl, keep_vba, wb_type):
     tmp = NamedTemporaryFile()
     wb.save(tmp)
     check_content_type(wb_type, tmp)
+
+
+@pytest.mark.parametrize('ext, wb_type', [
+    ('.xlsx', XLSX),
+    ('.xlsm', XLSM),
+])
+def test_new_workbook_content_type_matches_extension(tmp_path, ext, wb_type):
+    wb = Workbook()
+    fname = os.path.join(str(tmp_path), f"new{ext}")
+    wb.save(fname)
+    check_content_type(wb_type, fname)

@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.9 (2026-04-22)
+
+### Bug Fixes
+
+- Derive workbook content type from filename extension (fixes #46)
+  ([`53bfb23`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/53bfb236a302dc4fd0671f5cd507e8a173d688be))
+
+
 ## v1.0.8 (2026-04-06)
 
 ### Bug Fixes

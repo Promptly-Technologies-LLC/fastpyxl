@@ -3,6 +3,7 @@
 
 # Python stdlib imports
 import datetime
+import os
 import re
 from zipfile import ZipFile, ZIP_DEFLATED
 
@@ -18,6 +19,10 @@ from fastpyxl.xml.constants import (
     ARC_THEME,
     ARC_STYLE,
     ARC_WORKBOOK,
+    XLSM,
+    XLSX,
+    XLTM,
+    XLTX,
     )
 from fastpyxl.drawing.spreadsheet_drawing import SpreadsheetDrawing
 from fastpyxl.xml.functions import tostring, fromstring
@@ -39,10 +44,28 @@ ARC_VBA = re.compile("|".join(
 ))
 
 
+_EXT_MIME_MAP = {
+    '.xlsx': XLSX,
+    '.xlsm': XLSM,
+    '.xltx': XLTX,
+    '.xltm': XLTM,
+}
+
+
+def _mime_type_from_filename(filename):
+    if filename is None:
+        return None
+    name = getattr(filename, 'name', filename)
+    if not isinstance(name, (str, bytes, os.PathLike)):
+        return None
+    ext = os.path.splitext(os.fspath(name))[1].lower()
+    return _EXT_MIME_MAP.get(ext)
+
+
 class ExcelWriter:
     """Write a workbook object to an Excel file."""
 
-    def __init__(self, workbook, archive):
+    def __init__(self, workbook, archive, workbook_mime_type=None):
         self._archive = archive
         self.workbook = workbook
         self.manifest = Manifest()
@@ -53,6 +76,7 @@ class ExcelWriter:
         self._drawings = []
         self._comments = []
         self._pivots = []
+        self._workbook_mime_type = workbook_mime_type
 
 
     def write_data(self):
@@ -98,7 +122,7 @@ class ExcelWriter:
 
         self._merge_vba()
 
-        self.manifest._write(archive, self.workbook)
+        self.manifest._write(archive, self.workbook, workbook_mime_type=self._workbook_mime_type)
 
     def _merge_vba(self):
         """
@@ -291,6 +315,6 @@ def save_workbook(workbook, filename):
     """
     archive = ZipFile(filename, 'w', ZIP_DEFLATED, allowZip64=True)
     workbook.properties.modified = datetime.datetime.now(tz=datetime.timezone.utc).replace(tzinfo=None)
-    writer = ExcelWriter(workbook, archive)
+    writer = ExcelWriter(workbook, archive, workbook_mime_type=_mime_type_from_filename(filename))
     writer.save()
     return True

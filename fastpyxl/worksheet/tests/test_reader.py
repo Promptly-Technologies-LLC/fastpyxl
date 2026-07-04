@@ -540,6 +540,72 @@ class TestWorksheetParser:
         assert issubclass(w.category, UserWarning)
 
 
+    def test_empty_data_validation_extension_is_silent(self, WorkSheetParser, recwarn):
+        parser = WorkSheetParser
+
+        src = """
+        <extLst>
+            <ext uri="{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+                <x14:dataValidations xmlns:xm="http://schemas.microsoft.com/office/excel/2006/main"/>
+            </ext>
+        </extLst>
+        """
+        element = fromstring(src)
+        parser.parse_extensions(element)
+        assert len(recwarn) == 0
+
+
+    def test_data_validation_extension_with_standard_block_is_silent(self, WorkSheetParser, recwarn):
+        parser = WorkSheetParser
+        from ..datavalidation import DataValidation, DataValidationList
+
+        parser.data_validations = DataValidationList(
+            dataValidation=[DataValidation(type="list", sqref="A1")]
+        )
+
+        src = """
+        <extLst>
+            <ext uri="{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+                <x14:dataValidations count="1" xmlns:xm="http://schemas.microsoft.com/office/excel/2006/main">
+                    <x14:dataValidation type="list">
+                        <x14:formula1>
+                            <xm:f>Sheet2!$A$1:$A$5</xm:f>
+                        </x14:formula1>
+                        <xm:sqref>A1:A1048576</xm:sqref>
+                    </x14:dataValidation>
+                </x14:dataValidations>
+            </ext>
+        </extLst>
+        """
+        element = fromstring(src)
+        parser.parse_extensions(element)
+        assert len(recwarn) == 0
+
+
+    def test_x14_only_data_validation_extension_warns(self, WorkSheetParser, recwarn):
+        parser = WorkSheetParser
+
+        src = """
+        <extLst>
+            <ext uri="{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+                <x14:dataValidations count="1" xmlns:xm="http://schemas.microsoft.com/office/excel/2006/main">
+                    <x14:dataValidation type="list">
+                        <x14:formula1>
+                            <xm:f>Sheet2!$A$1:$A$5</xm:f>
+                        </x14:formula1>
+                        <xm:sqref>A1:A1048576</xm:sqref>
+                    </x14:dataValidation>
+                </x14:dataValidations>
+            </ext>
+        </extLst>
+        """
+        element = fromstring(src)
+        parser.parse_extensions(element)
+        w = recwarn.pop()
+        assert issubclass(w.category, UserWarning)
+        assert "Data Validation" in str(w.message)
+
+
     def test_bad_conditional_format_rule(self, WorkSheetParser, recwarn):
         parser = WorkSheetParser
 

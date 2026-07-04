@@ -19,6 +19,8 @@ from fastpyxl.worksheet.dimensions import (
 from fastpyxl.xml.constants import (
     SHEET_MAIN_NS,
     EXT_TYPES,
+    X14_NS,
+    DATA_VALIDATION_EXT_URI,
 )
 from fastpyxl.formatting.formatting import ConditionalFormatting
 from fastpyxl.formula.translate import Translator
@@ -75,6 +77,29 @@ SCENARIOS_TAG = '{%s}scenarios' % SHEET_MAIN_NS
 DATA_TAG = '{%s}sheetData' % SHEET_MAIN_NS
 DIMENSION_TAG = '{%s}dimension' % SHEET_MAIN_NS
 CUSTOM_VIEWS_TAG = '{%s}customSheetViews' % SHEET_MAIN_NS
+X14_DATA_VALIDATION_TAG = '{%s}dataValidation' % X14_NS
+
+
+def _data_validation_extension_has_rules(ext_element):
+    """Return True when the x14 data validation extension contains rules."""
+    for child in ext_element:
+        if child.tag.endswith('}dataValidations'):
+            for rule in child:
+                if rule.tag == X14_DATA_VALIDATION_TAG:
+                    return True
+    return False
+
+
+def _data_validation_extension_is_benign(parser, ext_element):
+    """
+    Excel often writes an x14 data validation companion in extLst even when
+    the standard dataValidations block already holds the rules, or when the
+    extension container is empty. Neither case loses data we can read today.
+    """
+    if not _data_validation_extension_has_rules(ext_element):
+        return True
+    data_validations = getattr(parser, 'data_validations', None)
+    return data_validations is not None and len(data_validations) > 0
 
 
 def _cast_number(value):
@@ -353,8 +378,12 @@ class WorkSheetParser:
 
     def parse_extensions(self, element):
         extLst = ExtensionList.from_tree(element)
-        for e in extLst.ext:
-            ext_type = EXT_TYPES.get(e.uri.upper(), "Unknown")
+        for ext_element, extension in zip(element, extLst.ext):
+            uri = extension.uri.upper() if extension.uri else ""
+            if uri == DATA_VALIDATION_EXT_URI.upper():
+                if _data_validation_extension_is_benign(self, ext_element):
+                    continue
+            ext_type = EXT_TYPES.get(uri, "Unknown")
             msg = "{0} extension is not supported and will be removed".format(ext_type)
             warn(msg)
 

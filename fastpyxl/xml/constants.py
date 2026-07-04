@@ -66,6 +66,7 @@ CONTYPES_NS = PKG_NS + 'content-types'
 XSI_NS = 'http://www.w3.org/2001/XMLSchema-instance'
 XML_NS = 'http://www.w3.org/XML/1998/namespace'
 SHEET_MAIN_NS = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'
+X14_NS = 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/main'
 
 # Drawing
 CHART_NS = "http://schemas.openxmlformats.org/drawingml/2006/chart"
@@ -111,9 +112,11 @@ XLSX = WORKBOOK % 'sheet'
 
 # Extensions to the specification
 
+DATA_VALIDATION_EXT_URI = '{CCE6A557-97BC-4B89-ADB6-D9C93CAAB3DF}'
+
 EXT_TYPES = {
     '{78C0D931-6437-407D-A8EE-F0AAD7539E65}': 'Conditional Formatting',
-    '{CCE6A557-97BC-4B89-ADB6-D9C93CAAB3DF}': 'Data Validation',
+    DATA_VALIDATION_EXT_URI: 'Data Validation',
     '{05C60535-1F16-4FD2-B633-F4F36F0B64E0}': 'Sparkline Group',
     '{A8765BA9-456A-4DAB-B4F3-ACF838C121DE}': 'Slicer List',
     '{FC87AEE6-9EDD-4A0A-B7FB-166176984837}': 'Protected Range',

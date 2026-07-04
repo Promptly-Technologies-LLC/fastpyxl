@@ -452,12 +452,37 @@ class CellRange(Serialisable):
         return [(row, self.max_col) for row in range(self.min_row, self.max_row+1)]
 
 
+def _normalize_ranges(value):
+    if isinstance(value, str):
+        value = value.split()
+    elif isinstance(value, CellRange):
+        value = [value]
+    elif not isinstance(value, (set, list, tuple)):
+        raise TypeError("ranges must be a CellRange, string, set, list, or tuple")
+
+    normalized = set()
+    for item in value:
+        if isinstance(item, CellRange):
+            normalized.add(item)
+        elif isinstance(item, str):
+            normalized.add(CellRange(item))
+        else:
+            raise ValueError("You can only add CellRanges")
+    return normalized
+
+
 class MultiCellRange:
 
     def __init__(self, ranges=set()):
-        if isinstance(ranges, str):
-            ranges = [CellRange(r) for r in ranges.split()]
-        self.ranges = {r if isinstance(r, CellRange) else CellRange(r) for r in ranges}
+        self.ranges = ranges
+
+    @property
+    def ranges(self):
+        return self._ranges
+
+    @ranges.setter
+    def ranges(self, value):
+        self._ranges = _normalize_ranges(value)
 
 
     def __contains__(self, coord):

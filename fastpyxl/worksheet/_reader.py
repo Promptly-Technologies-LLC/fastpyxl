@@ -1,7 +1,10 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 """Reader for a single worksheet."""
+
+from collections.abc import Callable
 from copy import copy
+from typing import Any
 from warnings import warn
 
 # compatibility imports
@@ -49,41 +52,41 @@ from .dimensions import SheetDimension
 from .related import Related
 
 
-CELL_TAG = '{%s}c' % SHEET_MAIN_NS
-VALUE_TAG = '{%s}v' % SHEET_MAIN_NS
-FORMULA_TAG = '{%s}f' % SHEET_MAIN_NS
-MERGE_TAG = '{%s}mergeCells' % SHEET_MAIN_NS
+CELL_TAG = "{%s}c" % SHEET_MAIN_NS
+VALUE_TAG = "{%s}v" % SHEET_MAIN_NS
+FORMULA_TAG = "{%s}f" % SHEET_MAIN_NS
+MERGE_TAG = "{%s}mergeCells" % SHEET_MAIN_NS
 INLINE_STRING = "{%s}is" % SHEET_MAIN_NS
-COL_TAG = '{%s}col' % SHEET_MAIN_NS
-ROW_TAG = '{%s}row' % SHEET_MAIN_NS
-CF_TAG = '{%s}conditionalFormatting' % SHEET_MAIN_NS
-LEGACY_TAG = '{%s}legacyDrawing' % SHEET_MAIN_NS
-PROT_TAG = '{%s}sheetProtection' % SHEET_MAIN_NS
+COL_TAG = "{%s}col" % SHEET_MAIN_NS
+ROW_TAG = "{%s}row" % SHEET_MAIN_NS
+CF_TAG = "{%s}conditionalFormatting" % SHEET_MAIN_NS
+LEGACY_TAG = "{%s}legacyDrawing" % SHEET_MAIN_NS
+PROT_TAG = "{%s}sheetProtection" % SHEET_MAIN_NS
 EXT_TAG = "{%s}extLst" % SHEET_MAIN_NS
 HYPERLINK_TAG = "{%s}hyperlinks" % SHEET_MAIN_NS
 TABLE_TAG = "{%s}tableParts" % SHEET_MAIN_NS
-PRINT_TAG = '{%s}printOptions' % SHEET_MAIN_NS
-MARGINS_TAG = '{%s}pageMargins' % SHEET_MAIN_NS
-PAGE_TAG = '{%s}pageSetup' % SHEET_MAIN_NS
-HEADER_TAG = '{%s}headerFooter' % SHEET_MAIN_NS
-FILTER_TAG = '{%s}autoFilter' % SHEET_MAIN_NS
-VALIDATION_TAG = '{%s}dataValidations' % SHEET_MAIN_NS
-PROPERTIES_TAG = '{%s}sheetPr' % SHEET_MAIN_NS
-VIEWS_TAG = '{%s}sheetViews' % SHEET_MAIN_NS
-FORMAT_TAG = '{%s}sheetFormatPr' % SHEET_MAIN_NS
-ROW_BREAK_TAG = '{%s}rowBreaks' % SHEET_MAIN_NS
-COL_BREAK_TAG = '{%s}colBreaks' % SHEET_MAIN_NS
-SCENARIOS_TAG = '{%s}scenarios' % SHEET_MAIN_NS
-DATA_TAG = '{%s}sheetData' % SHEET_MAIN_NS
-DIMENSION_TAG = '{%s}dimension' % SHEET_MAIN_NS
-CUSTOM_VIEWS_TAG = '{%s}customSheetViews' % SHEET_MAIN_NS
-X14_DATA_VALIDATION_TAG = '{%s}dataValidation' % X14_NS
+PRINT_TAG = "{%s}printOptions" % SHEET_MAIN_NS
+MARGINS_TAG = "{%s}pageMargins" % SHEET_MAIN_NS
+PAGE_TAG = "{%s}pageSetup" % SHEET_MAIN_NS
+HEADER_TAG = "{%s}headerFooter" % SHEET_MAIN_NS
+FILTER_TAG = "{%s}autoFilter" % SHEET_MAIN_NS
+VALIDATION_TAG = "{%s}dataValidations" % SHEET_MAIN_NS
+PROPERTIES_TAG = "{%s}sheetPr" % SHEET_MAIN_NS
+VIEWS_TAG = "{%s}sheetViews" % SHEET_MAIN_NS
+FORMAT_TAG = "{%s}sheetFormatPr" % SHEET_MAIN_NS
+ROW_BREAK_TAG = "{%s}rowBreaks" % SHEET_MAIN_NS
+COL_BREAK_TAG = "{%s}colBreaks" % SHEET_MAIN_NS
+SCENARIOS_TAG = "{%s}scenarios" % SHEET_MAIN_NS
+DATA_TAG = "{%s}sheetData" % SHEET_MAIN_NS
+DIMENSION_TAG = "{%s}dimension" % SHEET_MAIN_NS
+CUSTOM_VIEWS_TAG = "{%s}customSheetViews" % SHEET_MAIN_NS
+X14_DATA_VALIDATION_TAG = "{%s}dataValidation" % X14_NS
 
 
 def _data_validation_extension_has_rules(ext_element):
     """Return True when the x14 data validation extension contains rules."""
     for child in ext_element:
-        if child.tag.endswith('}dataValidations'):
+        if child.tag.endswith("}dataValidations"):
             for rule in child:
                 if rule.tag == X14_DATA_VALIDATION_TAG:
                     return True
@@ -98,7 +101,7 @@ def _data_validation_extension_is_benign(parser, ext_element):
     """
     if not _data_validation_extension_has_rules(ext_element):
         return True
-    data_validations = getattr(parser, 'data_validations', None)
+    data_validations = getattr(parser, "data_validations", None)
     return data_validations is not None and len(data_validations) > 0
 
 
@@ -122,10 +125,16 @@ def parse_richtext_string(element):
 
 
 class WorkSheetParser:
-
-    def __init__(self, src, shared_strings, data_only=False,
-                 epoch=WINDOWS_EPOCH, date_formats=set(),
-                 timedelta_formats=set(), rich_text=False):
+    def __init__(
+        self,
+        src,
+        shared_strings,
+        data_only=False,
+        epoch=WINDOWS_EPOCH,
+        date_formats=set(),
+        timedelta_formats=set(),
+        rich_text=False,
+    ):
         self.min_row = self.min_col = None
         self.epoch = epoch
         self.source = src
@@ -148,9 +157,8 @@ class WorkSheetParser:
         self.col_breaks = ColBreak()
         self.rich_text = rich_text
 
-
     def parse(self):
-        dispatcher = {
+        dispatcher: dict[str, Callable[[Any], Any]] = {
             COL_TAG: self.parse_column_dimensions,
             PROT_TAG: self.parse_sheet_protection,
             EXT_TAG: self.parse_extensions,
@@ -159,26 +167,27 @@ class WorkSheetParser:
             ROW_BREAK_TAG: self.parse_row_breaks,
             COL_BREAK_TAG: self.parse_col_breaks,
             CUSTOM_VIEWS_TAG: self.parse_custom_views,
-                      }
-
-        properties = {
-            PRINT_TAG: ('print_options', PrintOptions),
-            MARGINS_TAG: ('page_margins', PageMargins),
-            PAGE_TAG: ('page_setup', PrintPageSetup),
-            HEADER_TAG: ('HeaderFooter', HeaderFooter),
-            FILTER_TAG: ('auto_filter', AutoFilter),
-            VALIDATION_TAG: ('data_validations', DataValidationList),
-            PROPERTIES_TAG: ('sheet_properties', WorksheetProperties),
-            VIEWS_TAG: ('views', SheetViewList),
-            FORMAT_TAG: ('sheet_format', SheetFormatProperties),
-            SCENARIOS_TAG: ('scenarios', ScenarioList),
-            TABLE_TAG: ('tables', TablePartList),
-            HYPERLINK_TAG: ('hyperlinks', HyperlinkList),
-            MERGE_TAG: ('merged_cells', MergeCells),
-
         }
 
-        it = iterparse(self.source) # add a finaliser to close the source when this becomes possible
+        properties: dict[str, tuple[str, Any]] = {
+            PRINT_TAG: ("print_options", PrintOptions),
+            MARGINS_TAG: ("page_margins", PageMargins),
+            PAGE_TAG: ("page_setup", PrintPageSetup),
+            HEADER_TAG: ("HeaderFooter", HeaderFooter),
+            FILTER_TAG: ("auto_filter", AutoFilter),
+            VALIDATION_TAG: ("data_validations", DataValidationList),
+            PROPERTIES_TAG: ("sheet_properties", WorksheetProperties),
+            VIEWS_TAG: ("views", SheetViewList),
+            FORMAT_TAG: ("sheet_format", SheetFormatProperties),
+            SCENARIOS_TAG: ("scenarios", ScenarioList),
+            TABLE_TAG: ("tables", TablePartList),
+            HYPERLINK_TAG: ("hyperlinks", HyperlinkList),
+            MERGE_TAG: ("merged_cells", MergeCells),
+        }
+
+        it = iterparse(
+            self.source
+        )  # add a finaliser to close the source when this becomes possible
 
         for _, element in it:
             tag_name = element.tag
@@ -194,7 +203,6 @@ class WorkSheetParser:
                 row = self.parse_row(element)
                 element.clear()
                 yield row
-
 
     def parse_dimensions(self):
         """
@@ -212,12 +220,11 @@ class WorkSheetParser:
                 break
             element.clear()
 
-
     def parse_cell(self, element):
         attrib = element.attrib
-        data_type = attrib.get('t', 'n')
-        coordinate = attrib.get('r')
-        style_id = attrib.get('s', 0)
+        data_type = attrib.get("t", "n")
+        coordinate = attrib.get("r")
+        style_id = attrib.get("s", 0)
         if style_id:
             style_id = int(style_id)
 
@@ -241,7 +248,7 @@ class WorkSheetParser:
             if child_tag == FORMULA_TAG:
                 value = None
                 formula_elem = child
-            elif child_tag == VALUE_TAG and data_type != 'inlineStr':
+            elif child_tag == VALUE_TAG and data_type != "inlineStr":
                 value = child.text or None
             else:
                 # INLINE_STRING, or VALUE_TAG with inlineStr type
@@ -250,46 +257,48 @@ class WorkSheetParser:
             # Multiple children: typically <f> + <v> for formula cells.
             # Fall back to find/findtext; also capture formula element to avoid
             # a redundant find inside parse_formula.
-            if data_type == 'inlineStr':
+            if data_type == "inlineStr":
                 value = None
             else:
                 value = element.findtext(VALUE_TAG, None) or None
             formula_elem = element.find(FORMULA_TAG)
 
         if not self.data_only and formula_elem is not None:
-            data_type = 'f'
+            data_type = "f"
             value = self.parse_formula(element, formula_elem)
 
         elif value is not None:
-            if data_type == 'n':
+            if data_type == "n":
                 value = _cast_number(value)
                 if style_id in self.date_formats:
-                    data_type = 'd'
+                    data_type = "d"
                     try:
                         value = from_excel(
-                            value, self.epoch, timedelta=style_id in self.timedelta_formats
+                            value,
+                            self.epoch,
+                            timedelta=style_id in self.timedelta_formats,
                         )
                     except (OverflowError, ValueError):
                         msg = f"""Cell {coordinate} is marked as a date but the serial value {value} is outside the limits for dates. The cell will be treated as an error."""
                         warn(msg)
                         data_type = "e"
                         value = "#VALUE!"
-            elif data_type == 's':
+            elif data_type == "s":
                 value = self.shared_strings[int(value)]
-            elif data_type == 'b':
+            elif data_type == "b":
                 value = bool(int(value))
             elif data_type == "str":
                 data_type = "s"
-            elif data_type == 'd':
+            elif data_type == "d":
                 value = from_ISO8601(value)
 
-        elif data_type == 'inlineStr':
+        elif data_type == "inlineStr":
             if n_children == 1:
                 child = element[0]
             else:
                 child = element.find(INLINE_STRING)
             if child is not None:
-                data_type = 's'
+                data_type = "s"
                 if self.rich_text:
                     value = parse_richtext_string(child)
                 else:
@@ -297,24 +306,23 @@ class WorkSheetParser:
 
         return (row, column, value, data_type, style_id)
 
-
     def parse_formula(self, element, formula=None):
         """
         possible formulae types: shared, array, datatable
         """
         if formula is None:
             formula = element.find(FORMULA_TAG)
-        formula_type = formula.get('t')
-        coordinate = element.get('r')
+        formula_type = formula.get("t")
+        coordinate = element.get("r")
         value = "="
         if formula.text is not None:
             value += formula.text
 
         if formula_type == "array":
-            value = ArrayFormula(ref=formula.get('ref'), text=value)
+            value = ArrayFormula(ref=formula.get("ref"), text=value)
 
         elif formula_type == "shared":
-            idx = formula.get('si')
+            idx = formula.get("si")
             if idx in self.shared_formulae:
                 trans = self.shared_formulae[idx]
                 value = trans.translate_formula(coordinate)
@@ -326,22 +334,20 @@ class WorkSheetParser:
 
         return value
 
-
     def parse_column_dimensions(self, col):
         attrs = dict(col.attrib)
-        column = get_column_letter(int(attrs['min']))
-        attrs['index'] = column
+        column = get_column_letter(int(attrs["min"]))
+        attrs["index"] = column
         self.column_dimensions[column] = attrs
-
 
     def parse_row(self, row):
         attrs = dict(row.attrib)
 
         if "r" in attrs:
             try:
-                self.row_counter = int(attrs['r'])
+                self.row_counter = int(attrs["r"])
             except ValueError:
-                val = float(attrs['r'])
+                val = float(attrs["r"])
                 if val.is_integer():
                     self.row_counter = int(val)
                 else:
@@ -350,14 +356,13 @@ class WorkSheetParser:
             self.row_counter += 1
         self.col_counter = 0
 
-        keys = {k for k in attrs if not k.startswith('{')}
-        if keys - {'r', 'spans'}:
+        keys = {k for k in attrs if not k.startswith("{")}
+        if keys - {"r", "spans"}:
             # don't create dimension objects unless they have relevant information
             self.row_dimensions[str(self.row_counter)] = attrs
 
         cells = [self.parse_cell(el) for el in row]
         return self.row_counter, cells
-
 
     def parse_formatting(self, element):
         try:
@@ -367,14 +372,12 @@ class WorkSheetParser:
             msg = f"Failed to load a conditional formatting rule. It will be discarded. Cause: {e}"
             warn(msg)
 
-
     def parse_sheet_protection(self, element):
         protection = SheetProtection.from_tree(element)
         password = element.get("password")
         if password is not None:
             protection.set_password(password, True)
         self.protection = protection
-
 
     def parse_extensions(self, element):
         extLst = ExtensionList.from_tree(element)
@@ -387,21 +390,17 @@ class WorkSheetParser:
             msg = "{0} extension is not supported and will be removed".format(ext_type)
             warn(msg)
 
-
     def parse_legacy(self, element):
         obj = Related.from_tree(element)
         self.legacy_drawing = obj.id
-
 
     def parse_row_breaks(self, element):
         brk = RowBreak.from_tree(element)
         self.row_breaks = brk
 
-
     def parse_col_breaks(self, element):
         brk = ColBreak.from_tree(element)
         self.col_breaks = brk
-
 
     def parse_custom_views(self, element):
         # clear page_breaks to avoid duplication which Excel doesn't like
@@ -417,11 +416,16 @@ class WorksheetReader:
 
     def __init__(self, ws, xml_source, shared_strings, data_only, rich_text):
         self.ws = ws
-        self.parser = WorkSheetParser(xml_source, shared_strings,
-                data_only, ws.parent.epoch, ws.parent._date_formats,
-                ws.parent._timedelta_formats, rich_text)
+        self.parser = WorkSheetParser(
+            xml_source,
+            shared_strings,
+            data_only,
+            ws.parent.epoch,
+            ws.parent._date_formats,
+            ws.parent._timedelta_formats,
+            rich_text,
+        )
         self.tables = []
-
 
     def bind_cells(self):
         _Cell = Cell
@@ -446,8 +450,7 @@ class WorksheetReader:
 
         if _cells:
             _ws._invalidate_bounds()
-            _ws._current_row = _ws.max_row # use cells not row dimensions
-
+            _ws._current_row = _ws.max_row  # use cells not row dimensions
 
     def bind_formatting(self):
         for cf in self.parser.formatting:
@@ -456,16 +459,15 @@ class WorksheetReader:
                     rule.dxf = self.ws.parent._differential_styles[rule.dxfId]
                 self.ws.conditional_formatting[cf] = rule
 
-
     def bind_tables(self):
         for t in self.parser.tables.tablePart:
             rel = self.ws._rels.get(t.id)
             self.tables.append(rel.Target)
 
-
     def bind_merged_cells(self):
         from fastpyxl.worksheet.cell_range import MultiCellRange
         from fastpyxl.worksheet.merge import MergedCellRange
+
         if not self.parser.merged_cells:
             return
 
@@ -475,7 +477,6 @@ class WorksheetReader:
             self.ws._clean_merge_range(mcr)
             ranges.append(mcr)
         self.ws.merged_cells = MultiCellRange(ranges)
-
 
     def bind_hyperlinks(self):
         for link in self.parser.hyperlinks.hyperlink:
@@ -508,31 +509,38 @@ class WorksheetReader:
 
     def bind_col_dimensions(self):
         for col, cd in self.parser.column_dimensions.items():
-            if 'style' in cd:
-                key = int(cd['style'])
-                cd['style'] = self.ws.parent._cell_styles[key]
+            if "style" in cd:
+                key = int(cd["style"])
+                cd["style"] = self.ws.parent._cell_styles[key]
             self.ws.column_dimensions[col] = ColumnDimension(self.ws, **cd)
-
 
     def bind_row_dimensions(self):
         for row, rd in self.parser.row_dimensions.items():
-            if 's' in rd:
-                key = int(rd['s'])
-                rd['s'] = self.ws.parent._cell_styles[key]
+            if "s" in rd:
+                key = int(rd["s"])
+                rd["s"] = self.ws.parent._cell_styles[key]
             self.ws.row_dimensions[int(row)] = RowDimension(self.ws, **rd)
 
-
     def bind_properties(self):
-        for k in ('print_options', 'page_margins', 'page_setup',
-                  'HeaderFooter', 'auto_filter', 'data_validations',
-                  'sheet_properties', 'views', 'sheet_format',
-                  'row_breaks', 'col_breaks', 'scenarios', 'legacy_drawing',
-                  'protection',
-                  ):
+        for k in (
+            "print_options",
+            "page_margins",
+            "page_setup",
+            "HeaderFooter",
+            "auto_filter",
+            "data_validations",
+            "sheet_properties",
+            "views",
+            "sheet_format",
+            "row_breaks",
+            "col_breaks",
+            "scenarios",
+            "legacy_drawing",
+            "protection",
+        ):
             v = getattr(self.parser, k, None)
             if v is not None:
                 setattr(self.ws, k, v)
-
 
     def bind_all(self):
         self.bind_cells()

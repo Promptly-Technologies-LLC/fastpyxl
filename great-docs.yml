@@ -123,9 +123,7 @@ reference:
   - title: Constants
     desc: Module-level constants and data
     contents:
-      - DEBUG
       - compat.NUMERIC_TYPES
-      - compat.string_types
       - styles.DEFAULT_FONT
       - typed_serialisable.Field
       - xml.DEFUSEDXML

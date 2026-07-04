@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "doc"
 OUT = ROOT / "user_guide"
 
-GUIDES: list[tuple[str, str, str]] = [
+GUIDES: list[tuple[str, str, str, str]] = [
     ("Introduction", "01", "tutorial.rst", "Tutorial"),
     ("Introduction", "02", "usage.rst", "Usage"),
     ("Styling", "10", "styles.rst", "Styles"),
@@ -99,12 +99,7 @@ def main() -> None:
         slug = Path(rel_path).stem
         dest = OUT / f"{prefix}-{slug}.qmd"
         body = convert_rst(src)
-        frontmatter = (
-            "---\n"
-            f'title: "{title}"\n'
-            f'guide-section: "{section}"\n'
-            "---\n\n"
-        )
+        frontmatter = f'---\ntitle: "{title}"\nguide-section: "{section}"\n---\n\n'
         dest.write_text(frontmatter + body, encoding="utf-8")
         print(f"Wrote {dest.relative_to(ROOT)}")
 

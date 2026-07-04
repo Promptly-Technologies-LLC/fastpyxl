@@ -1,6 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 """Workbook is the top-level container for all document information."""
+
 from copy import copy
 from typing import Optional
 from zipfile import ZipFile
@@ -13,7 +14,7 @@ from fastpyxl.worksheet.copier import WorksheetCopy
 
 from fastpyxl.utils import quote_sheetname
 from fastpyxl.utils.indexed_list import IndexedList
-from fastpyxl.utils.datetime  import WINDOWS_EPOCH, MAC_EPOCH
+from fastpyxl.utils.datetime import WINDOWS_EPOCH, MAC_EPOCH
 from fastpyxl.utils.exceptions import ReadOnlyWorkbookException
 
 from fastpyxl.writer.excel import save_workbook
@@ -41,14 +42,10 @@ from .properties import CalcProperties
 from .views import BookView
 
 
-from fastpyxl.xml.constants import (
-    XLSM,
-    XLSX,
-    XLTM,
-    XLTX
-)
+from fastpyxl.xml.constants import XLSM, XLSX, XLTM, XLTX
 
 INTEGER_TYPES = (int,)
+
 
 class Workbook:
     """Workbook is the container for all other parts of the document."""
@@ -59,11 +56,14 @@ class Workbook:
     path = "/xl/workbook.xml"
     _archive: Optional[ZipFile] = None
 
-    def __init__(self,
-                 write_only=False,
-                 iso_dates=False,
-                 ):
-        self._sheets = []
+    def __init__(
+        self,
+        write_only=False,
+        iso_dates=False,
+    ):
+        self._sheets: list[
+            Worksheet | ReadOnlyWorksheet | WriteOnlyWorksheet | Chartsheet
+        ] = []
         self._sheet_titles_lower: set[str] = set()
         self._sheetnames_cache: list[str] | None = None
         self._sheet_title_map: dict[str, object] | None = None
@@ -95,7 +95,6 @@ class Workbook:
         self.calculation = CalcProperties()
         self.views = [BookView()]
 
-
     def _setup_styles(self):
         """Bootstrap styles"""
 
@@ -117,13 +116,16 @@ class Workbook:
 
         self._protections = IndexedList([Protection()])
 
-        self._colors = COLOR_INDEX
+        self._colors: tuple[str, ...] = COLOR_INDEX
         self._cell_styles = IndexedList([StyleArray()])
         self._named_styles = NamedStyleList()
-        self.add_named_style(NamedStyle(font=copy(DEFAULT_FONT), border=copy(DEFAULT_BORDER), builtinId=0))
+        self.add_named_style(
+            NamedStyle(
+                font=copy(DEFAULT_FONT), border=copy(DEFAULT_BORDER), builtinId=0
+            )
+        )
         self._table_styles = TableStyleList()
         self._differential_styles = DifferentialStyleList()
-
 
     @property
     def epoch(self):
@@ -131,13 +133,11 @@ class Workbook:
             return WINDOWS_EPOCH
         return MAC_EPOCH
 
-
     @epoch.setter
     def epoch(self, value):
         if value not in (WINDOWS_EPOCH, MAC_EPOCH):
             raise ValueError("The epoch must be either 1900 or 1904")
         self._epoch = value
-
 
     @property
     def read_only(self):
@@ -150,7 +150,6 @@ class Workbook:
     @property
     def write_only(self):
         return self.__write_only
-
 
     @property
     def excel_base_date(self):
@@ -171,7 +170,9 @@ class Workbook:
     def active(self, value):
         """Set the active sheet"""
         if not isinstance(value, (_WorkbookChild, INTEGER_TYPES)):
-            raise TypeError("Value must be either a worksheet, chartsheet or numerical index")
+            raise TypeError(
+                "Value must be either a worksheet, chartsheet or numerical index"
+            )
         if isinstance(value, INTEGER_TYPES):
             if not self._sheets or not (0 <= value < len(self._sheets)):
                 raise ValueError(
@@ -187,7 +188,6 @@ class Workbook:
         idx = self._sheets.index(value)
         self._active_sheet_index = idx
 
-
     def create_sheet(self, title=None, index=None):
         """Create a worksheet (at an optional index).
 
@@ -198,16 +198,17 @@ class Workbook:
 
         """
         if self.read_only:
-            raise ReadOnlyWorkbookException('Cannot create new sheet in a read-only workbook')
+            raise ReadOnlyWorkbookException(
+                "Cannot create new sheet in a read-only workbook"
+            )
 
-        if self.write_only :
+        if self.write_only:
             new_ws = WriteOnlyWorksheet(parent=self, title=title)
         else:
             new_ws = Worksheet(parent=self, title=title)
 
         self._add_sheet(sheet=new_ws, index=index)
         return new_ws
-
 
     def _add_sheet(self, sheet, index=None):
         """Add an worksheet (at an optional index)."""
@@ -226,7 +227,6 @@ class Workbook:
         self._sheetnames_cache = None
         self._sheet_title_map = None
 
-
     def move_sheet(self, sheet, offset=0):
         """
         Move a sheet or sheetname
@@ -240,7 +240,6 @@ class Workbook:
         self._sheetnames_cache = None
         self._sheet_title_map = None
 
-
     def remove(self, worksheet):
         """Remove `worksheet` from this workbook."""
         self._sheet_titles_lower.discard(worksheet.title.lower())
@@ -248,21 +247,20 @@ class Workbook:
         self._sheetnames_cache = None
         self._sheet_title_map = None
 
-
     @deprecated("Use wb.remove(worksheet) or del wb[sheetname]")
     def remove_sheet(self, worksheet):
         """Remove `worksheet` from this workbook."""
         self.remove(worksheet)
 
-
     def create_chartsheet(self, title=None, index=None):
         if self.read_only:
-            raise ReadOnlyWorkbookException("Cannot create new sheet in a read-only workbook")
+            raise ReadOnlyWorkbookException(
+                "Cannot create new sheet in a read-only workbook"
+            )
         cs = Chartsheet(parent=self, title=title)
 
         self._add_sheet(cs, index)
         return cs
-
 
     @deprecated("Use wb[sheetname]")
     def get_sheet_by_name(self, name):
@@ -285,11 +283,9 @@ class Workbook:
         except TypeError:
             return False
 
-
     def index(self, worksheet):
         """Return the index of a worksheet."""
         return self.worksheets.index(worksheet)
-
 
     @deprecated("Use wb.index(worksheet)")
     def get_index(self, worksheet):
@@ -315,7 +311,6 @@ class Workbook:
     def __iter__(self):
         return iter(self.worksheets)
 
-
     @deprecated("Use wb.sheetnames")
     def get_sheet_names(self):
         return self.sheetnames
@@ -326,7 +321,11 @@ class Workbook:
 
         :type: list of :class:`fastpyxl.worksheet.worksheet.Worksheet`
         """
-        return [s for s in self._sheets if isinstance(s, (Worksheet, ReadOnlyWorksheet, WriteOnlyWorksheet))]
+        return [
+            s
+            for s in self._sheets
+            if isinstance(s, (Worksheet, ReadOnlyWorksheet, WriteOnlyWorksheet))
+        ]
 
     @property
     def chartsheets(self):
@@ -349,12 +348,11 @@ class Workbook:
             self._sheetnames_cache = [s.title for s in self._sheets]
         return list(self._sheetnames_cache)
 
-
-    @deprecated("Assign scoped named ranges directly to worksheets or global ones to the workbook. Deprecated in 3.1")
+    @deprecated(
+        "Assign scoped named ranges directly to worksheets or global ones to the workbook. Deprecated in 3.1"
+    )
     def create_named_range(self, name, worksheet=None, value=None, scope=None):
-        """Create a new named_range on a worksheet
-
-        """
+        """Create a new named_range on a worksheet"""
         defn = DefinedName(name=name)
         if worksheet is not None:
             defn.value = "{0}!{1}".format(quote_sheetname(worksheet.title), value)
@@ -363,7 +361,6 @@ class Workbook:
 
         self.defined_names[name] = defn
 
-
     def add_named_style(self, style):
         """
         Add a named style
@@ -371,14 +368,12 @@ class Workbook:
         self._named_styles.append(style)
         style.bind(self)
 
-
     @property
     def named_styles(self):
         """
         List available named styles
         """
         return self._named_styles.names
-
 
     @property
     def mime_type(self):
@@ -392,7 +387,6 @@ class Workbook:
         if self.vba_archive:
             ct = self.template and XLTM or XLSM
         return ct
-
 
     def save(self, filename):
         """Save the current workbook under the given `filename`.
@@ -409,14 +403,12 @@ class Workbook:
             self.create_sheet()
         save_workbook(self, filename)
 
-
     @property
     def style_names(self):
         """
         List of named styles
         """
         return [s.name for s in self._named_styles]
-
 
     def materialize_pending_style_components(self, styleable) -> None:
         """Register shared style parts for *styleable* from deferred assignments.
@@ -434,7 +426,6 @@ class Workbook:
         styleable._ensure_style_array()
         styleable._apply_pending_named_style()
         styleable._apply_pending_styles()
-
 
     def _materialize_sheet_style_components(self, ws: Worksheet) -> None:
         from collections import defaultdict
@@ -464,12 +455,10 @@ class Workbook:
                 if isinstance(cell, StyleableObject):
                     self.materialize_pending_style_components(cell)
 
-
     def _materialize_workbook_style_components_before_save(self) -> None:
         for ws in self.worksheets:
             if isinstance(ws, Worksheet):
                 self._materialize_sheet_style_components(ws)
-
 
     def copy_worksheet(self, from_worksheet):
         """Copy an existing worksheet in the current workbook
@@ -484,12 +473,13 @@ class Workbook:
         if self.__write_only or self._read_only:
             raise ValueError("Cannot copy worksheets in read-only or write-only mode")
 
-        new_title = u"{0} Copy".format(from_worksheet.title)
+        new_title = "{0} Copy".format(from_worksheet.title)
         to_worksheet = self.create_sheet(title=new_title)
-        cp = WorksheetCopy(source_worksheet=from_worksheet, target_worksheet=to_worksheet)
+        cp = WorksheetCopy(
+            source_worksheet=from_worksheet, target_worksheet=to_worksheet
+        )
         cp.copy_worksheet()
         return to_worksheet
-
 
     def close(self):
         """
@@ -498,7 +488,6 @@ class Workbook:
         archive = self._archive
         if archive is not None:
             archive.close()
-
 
     def _duplicate_name(self, name):
         """

@@ -16,7 +16,6 @@ Submodules
    fastpyxl.packaging.tests.test_core
    fastpyxl.packaging.tests.test_custom
    fastpyxl.packaging.tests.test_extended
-   fastpyxl.packaging.tests.test_interface
    fastpyxl.packaging.tests.test_manifest
    fastpyxl.packaging.tests.test_pivot
    fastpyxl.packaging.tests.test_relationship

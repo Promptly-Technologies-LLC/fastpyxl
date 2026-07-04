@@ -23,7 +23,6 @@ Submodules
    fastpyxl.packaging.core
    fastpyxl.packaging.custom
    fastpyxl.packaging.extended
-   fastpyxl.packaging.interface
    fastpyxl.packaging.manifest
    fastpyxl.packaging.relationship
    fastpyxl.packaging.workbook

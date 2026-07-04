@@ -8,11 +8,6 @@ from functools import wraps
 import inspect
 
 
-class DummyCode:
-
-    pass
-
-
 # from https://github.com/tantale/deprecated/blob/master/deprecated/__init__.py
 # with an enhancement to update docstrings of deprecated functions
 string_types = (type(b''), type(u''))

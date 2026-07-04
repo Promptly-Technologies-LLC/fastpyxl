@@ -28,6 +28,5 @@ Submodules
    fastpyxl.utils.exceptions
    fastpyxl.utils.formulas
    fastpyxl.utils.indexed_list
-   fastpyxl.utils.inference
    fastpyxl.utils.protection
    fastpyxl.utils.units

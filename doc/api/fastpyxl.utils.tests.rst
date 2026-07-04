@@ -19,6 +19,5 @@ Submodules
    fastpyxl.utils.tests.test_escape
    fastpyxl.utils.tests.test_formulas
    fastpyxl.utils.tests.test_indexed_list
-   fastpyxl.utils.tests.test_inference
    fastpyxl.utils.tests.test_protection
    fastpyxl.utils.tests.test_units

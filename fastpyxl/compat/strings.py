@@ -2,9 +2,6 @@
 
 from datetime import datetime
 from math import isnan, isinf
-import sys
-
-VER = sys.version_info
 
 from .numbers import NUMERIC_TYPES
 

@@ -12,7 +12,6 @@ except ImportError:
 from fastpyxl.compat import safe_string
 from fastpyxl.xml.functions import Element
 
-from .compat import supports_to_tree
 from .errors import FieldCoercionError, FieldValidationError
 from .field_info import FieldInfo
 from .fields import _FieldFactory, _FieldSpec, AliasField
@@ -342,7 +341,7 @@ class Serialisable(metaclass=MetaSerialisable):
                 pattr = field.sequence_primitive_attribute
                 idx_base = self.idx_base
                 for idx, item in enumerate(value, idx_base):
-                    if supports_to_tree(item):
+                    if hasattr(item, "to_tree"):
                         root.append(item.to_tree(tag, idx))
                     else:
                         el = Element(namespaced_tag(tag, field.namespace or namespace))

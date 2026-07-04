@@ -2,8 +2,6 @@
 
 from copy import copy
 
-from fastpyxl.compat import deprecated
-
 
 class StyleProxy:
     """
@@ -43,15 +41,6 @@ class StyleProxy:
         Add proxied object to another instance and return the combined object
         """
         return self.__target + other
-
-
-    @deprecated("Use copy(obj) or cell.obj = cell.obj + other")
-    def copy(self, **kw):
-        """Return a copy of the proxied object. Keyword args will be passed through"""
-        cp = copy(self.__target)
-        for k, v in kw.items():
-            setattr(cp, k, v)
-        return cp
 
 
     def __eq__(self, other):

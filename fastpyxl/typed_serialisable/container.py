@@ -1,10 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-"""
-Utility list for top level containers that contain one type of element
-
-Provides the necessary API to read and write XML
-"""
+"""Top-level XML containers backed by a typed list."""
 
 from typing import Any, cast
 
@@ -13,16 +9,13 @@ from fastpyxl.xml.functions import Element
 
 class ElementList(list):
 
-
     @property
     def tagname(self):
         raise NotImplementedError
 
-
     @property
     def expected_type(self):
         raise NotImplementedError
-
 
     @classmethod
     def from_tree(cls, tree):
@@ -30,13 +23,11 @@ class ElementList(list):
         items = [et.from_tree(el) for el in tree]
         return cls(items)
 
-
     def to_tree(self):
         container = Element(self.tagname)
         for el in self:
             container.append(el.to_tree())
         return container
-
 
     def append(self, value):
         if not isinstance(value, self.expected_type):

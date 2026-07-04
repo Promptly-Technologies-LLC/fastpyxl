@@ -6,7 +6,7 @@ from __future__ import annotations
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 
 from .label import DataLabel
 from .marker import Marker

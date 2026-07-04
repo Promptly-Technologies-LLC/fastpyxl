@@ -4,7 +4,7 @@
 
 import re
 
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 
 from fastpyxl.utils.indexed_list import IndexedList
 from fastpyxl.xml.constants import SHEET_MAIN_NS

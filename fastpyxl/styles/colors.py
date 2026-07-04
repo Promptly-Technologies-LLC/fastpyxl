@@ -2,9 +2,6 @@
 
 import re
 from fastpyxl.compat import safe_string
-from fastpyxl.descriptors import (
-    Typed,
-)
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field
@@ -41,24 +38,6 @@ BLUE = COLOR_INDEX[4]
 
 
 aRGB_REGEX = re.compile("^([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$")
-
-
-class RGB(Typed):
-    """
-    Descriptor for aRGB values
-    If not supplied alpha is 00
-    """
-
-    expected_type = str
-
-    def __set__(self, instance, value):
-        if not self.allow_none:
-            m = aRGB_REGEX.match(value)
-            if m is None:
-                raise ValueError("Colors must be aRGB hex values")
-            if len(value) == 6:
-                value = "00" + value
-        super().__set__(instance, value)
 
 
 class Color(Serialisable):
@@ -144,16 +123,6 @@ class Color(Serialisable):
         if not isinstance(other, Color):
             return super().__add__(other)
         return self
-
-
-class ColorDescriptor(Typed):
-
-    expected_type = Color
-
-    def __set__(self, instance, value):
-        if isinstance(value, str):
-            value = Color(rgb=value)
-        super().__set__(instance, value)
 
 
 class RgbColor(Serialisable):

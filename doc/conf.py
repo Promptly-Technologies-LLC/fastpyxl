@@ -38,8 +38,6 @@ def StyleDescriptorGet(self, instance, cls):
     return self.key
 
 if os.environ.get("APIDOC") == "True":
-    from fastpyxl.descriptors import Alias
-    Alias.__get__ = AliasProxyGet
     NumberFormatDescriptor.__get__ = NumberFormatGet
 
 

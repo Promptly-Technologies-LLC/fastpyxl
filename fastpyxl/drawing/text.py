@@ -24,7 +24,7 @@ from .geometry import (
     Scene3D
 )
 
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 
 
 def _none_set_member(v, allowed: frozenset[str], field_name: str) -> str | None:

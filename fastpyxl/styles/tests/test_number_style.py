@@ -35,10 +35,9 @@ def test_builtin_format():
 
 
 def test_number_descriptor():
-    from fastpyxl.descriptors import Strict
     from ..numbers import NumberFormatDescriptor
 
-    class Dummy(Strict):
+    class Dummy:
 
         value = NumberFormatDescriptor()
 

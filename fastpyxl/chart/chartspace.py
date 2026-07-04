@@ -12,7 +12,7 @@ from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 from fastpyxl.xml.constants import CHART_NS, REL_NS
 
 from fastpyxl.drawing.colors import ColorMapping

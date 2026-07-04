@@ -10,14 +10,6 @@ from fastpyxl.utils import (
     range_boundaries,
 )
 from fastpyxl.utils.units import DEFAULT_COLUMN_WIDTH
-from fastpyxl.descriptors import (
-    Integer,
-    Float,
-    Bool,
-    Strict,
-    String,
-    Alias,
-)
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.styles.styleable import StyleableObject
@@ -25,19 +17,11 @@ from fastpyxl.utils.bound_dictionary import BoundDictionary
 from fastpyxl.xml.functions import Element
 
 
-class Dimension(Strict, StyleableObject):
+class Dimension(StyleableObject):
     """Information about the display properties of a row or column."""
     __fields__ = ('hidden',
                  'outlineLevel',
                  'collapsed',)
-
-    index = Integer()
-    hidden = Bool()
-    outlineLevel = Integer(allow_none=True)
-    outline_level = Alias('outlineLevel')
-    collapsed = Bool()
-    style = Alias('style_id')
-
 
     def __init__(self, index, hidden, outlineLevel,
                  collapsed, worksheet, visible=True, style=None):
@@ -46,6 +30,22 @@ class Dimension(Strict, StyleableObject):
         self.hidden = hidden
         self.outlineLevel = outlineLevel
         self.collapsed = collapsed
+
+    @property
+    def outline_level(self):
+        return self.outlineLevel
+
+    @outline_level.setter
+    def outline_level(self, value):
+        self.outlineLevel = value
+
+    @property
+    def style(self):
+        return self.style_id
+
+    @style.setter
+    def style(self, value):
+        self.style_id = value
 
 
     def __iter__(self):
@@ -73,12 +73,30 @@ class RowDimension(Dimension):
 
     __fields__ = Dimension.__fields__ + ('ht', 'customFormat', 'customHeight', 's',
                                          'thickBot', 'thickTop')
-    r = Alias('index')
-    s = Alias('style_id')
-    ht = Float(allow_none=True)
-    height = Alias('ht')
-    thickBot = Bool()
-    thickTop = Bool()
+
+    @property
+    def r(self):
+        return self.index
+
+    @r.setter
+    def r(self, value):
+        self.index = value
+
+    @property
+    def s(self):
+        return self.style_id
+
+    @s.setter
+    def s(self, value):
+        self.style_id = value
+
+    @property
+    def height(self):
+        return self.ht
+
+    @height.setter
+    def height(self, value):
+        self.ht = value
 
     def __init__(self,
                  worksheet,
@@ -127,16 +145,16 @@ class RowDimension(Dimension):
 class ColumnDimension(Dimension):
     """Information about the display properties of a column."""
 
-    width = Float()
-    bestFit = Bool()
-    auto_size = Alias('bestFit')
-    index = String()
-    min = Integer(allow_none=True)
-    max = Integer(allow_none=True)
-    collapsed = Bool()
-
     __fields__ = Dimension.__fields__ + ('width', 'bestFit', 'customWidth', 'style',
                                          'min', 'max')
+
+    @property
+    def auto_size(self):
+        return self.bestFit
+
+    @auto_size.setter
+    def auto_size(self, value):
+        self.bestFit = value
 
     def __init__(self,
                  worksheet,

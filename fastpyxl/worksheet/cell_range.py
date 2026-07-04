@@ -4,8 +4,6 @@ from copy import copy
 from typing import cast
 from operator import attrgetter
 
-from fastpyxl.descriptors import Strict
-from fastpyxl.descriptors.sequence import UniqueSequence
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field
@@ -454,16 +452,12 @@ class CellRange(Serialisable):
         return [(row, self.max_col) for row in range(self.min_row, self.max_row+1)]
 
 
-class MultiCellRange(Strict):
-
-
-    ranges = UniqueSequence(expected_type=CellRange)
-
+class MultiCellRange:
 
     def __init__(self, ranges=set()):
         if isinstance(ranges, str):
             ranges = [CellRange(r) for r in ranges.split()]
-        self.ranges = set(ranges)
+        self.ranges = {r if isinstance(r, CellRange) else CellRange(r) for r in ranges}
 
 
     def __contains__(self, coord):

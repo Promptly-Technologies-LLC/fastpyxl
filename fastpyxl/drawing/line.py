@@ -7,7 +7,7 @@ from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from .colors import ColorChoice
 from .fill import GradientFillProperties, PatternFillProperties
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 
 """
 Line elements from drawing main schema

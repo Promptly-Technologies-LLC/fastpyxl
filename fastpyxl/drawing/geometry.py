@@ -1,6 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 from .line import LineProperties  # noqa: F401 -- re-exported
 
 from fastpyxl.styles.colors import Color

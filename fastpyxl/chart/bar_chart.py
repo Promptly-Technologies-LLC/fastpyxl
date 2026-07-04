@@ -5,7 +5,7 @@ from __future__ import annotations
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 
 from .descriptors import NestedGapAmount, NestedOverlap
 from ._chart import ChartBase

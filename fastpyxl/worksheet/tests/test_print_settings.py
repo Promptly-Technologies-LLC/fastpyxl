@@ -66,6 +66,11 @@ class TestRowRange:
         assert rows == expected
 
 
+    def test_requires_bounds(self, RowRange):
+        with pytest.raises(ValueError, match="min_row and max_row are required"):
+            RowRange()
+
+
 @pytest.fixture
 def PrintTitles():
     from ..print_settings import PrintTitles

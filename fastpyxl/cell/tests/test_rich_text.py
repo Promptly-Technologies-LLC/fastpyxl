@@ -17,6 +17,16 @@ class TestTextBlock:
         assert b.text == "Mary had a little lamb"
 
 
+    def test_ctor_rejects_invalid_font(self):
+        with pytest.raises(TypeError, match="InlineFont"):
+            TextBlock("not-a-font", "text")
+
+
+    def test_ctor_rejects_non_string_text(self):
+        with pytest.raises(TypeError, match="str"):
+            TextBlock(InlineFont(), 42)
+
+
     def test_eq(self):
         ft = InlineFont(color="FF0000")
         b1 = TextBlock(ft, "Mary had a little lamb")

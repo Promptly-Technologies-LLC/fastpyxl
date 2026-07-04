@@ -435,3 +435,28 @@ class TestTypedPropertyList:
 
         with pytest.raises(TypeError):
             prop_list.to_tree()
+
+
+    def test_append_rejects_non_typed_property(self, CustomPropertyList):
+        prop_list = CustomPropertyList()
+        with pytest.raises(TypeError, match="_TypedProperty"):
+            prop_list.append({"name": "bad", "value": "value"})
+
+
+class TestTypedPropertyCoercion:
+
+    def test_bool_property_coerces_string(self):
+        assert BoolProperty(name="flag", value="false").value is False
+        assert BoolProperty(name="flag", value="0").value is False
+        assert BoolProperty(name="flag", value="true").value is True
+
+    def test_datetime_property_coerces_iso_string(self):
+        prop = DateTimeProperty(name="when", value="2022-05-31T12:55:13Z")
+        assert prop.value == datetime.datetime(2022, 5, 31, 12, 55, 13)
+
+    def test_datetime_property_rejects_invalid_type(self):
+        with pytest.raises(TypeError, match="datetime"):
+            DateTimeProperty(name="when", value=15)
+
+    def test_int_property_coerces_numeric_string(self):
+        assert IntProperty(name="count", value="15").value == 15

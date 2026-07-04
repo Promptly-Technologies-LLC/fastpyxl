@@ -1,0 +1,16 @@
+---
+title: "Pattern Fills"
+guide-section: "Charts"
+---
+
+# Adding Patterns
+
+Whole data series and individual data points can be extensively styled
+through the [graphicalProperties]{.title-ref}. Getting things just right
+may take some time.
+
+::: literalinclude
+pattern.py
+:::
+
+![\"Sample bar chart with patterned columns\"](pattern.png)

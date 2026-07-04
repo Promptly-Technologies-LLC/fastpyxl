@@ -1,0 +1,114 @@
+---
+title: "Optimized Modes"
+guide-section: "Performance"
+---
+
+# Optimised Modes
+
+## Read-only mode
+
+Sometimes, you will need to open or write extremely large XLSX files,
+and the common routines in fastpyxl won\'t be able to handle that load.
+Fortunately, there are two modes that enable you to read and write
+unlimited amounts of data with (near) constant memory consumption.
+
+Introducing
+`fastpyxl.worksheet._read_only.ReadOnlyWorksheet`{.interpreted-text
+role="class"}:
+
+    from fastpyxl import load_workbook
+    wb = load_workbook(filename='large_file.xlsx', read_only=True)
+    ws = wb['big_data']
+
+    for row in ws.rows:
+        for cell in row:
+            print(cell.value)
+
+    # Close the workbook after reading
+    wb.close()
+
+:::: warning
+::: title
+Warning
+:::
+
+- `fastpyxl.worksheet._read_only.ReadOnlyWorksheet`{.interpreted-text
+  role="class"} is read-only
+- Unlike a normal workbook, a read-only workbook will use lazy loading.
+  The workbook must be explicitly closed with the
+  `close()`{.interpreted-text role="func"} method.
+::::
+
+Cells returned are not regular
+`fastpyxl.cell.cell.Cell`{.interpreted-text role="class"} but
+`fastpyxl.cell._read_only.ReadOnlyCell`{.interpreted-text role="class"}.
+
+### Worksheet dimensions
+
+Read-only mode relies on applications and libraries that created the
+file providing correct information about the worksheets, specifically
+the used part of it, known as the dimensions. Some applications set this
+incorrectly. You can check the apparent dimensions of a worksheet using
+[ws.calculate_dimension()]{.title-ref}. If this returns a range that you
+know is incorrect, say [A1:A1]{.title-ref} then simply resetting the
+max_row and max_column attributes should allow you to work with the
+file:
+
+    ws.reset_dimensions()
+
+## Write-only mode
+
+Here again, the regular
+`fastpyxl.worksheet.worksheet.Worksheet`{.interpreted-text role="class"}
+has been replaced by a faster alternative, the
+`fastpyxl.worksheet._write_only.WriteOnlyWorksheet`{.interpreted-text
+role="class"}. When you want to dump large amounts of data make sure you
+have [lxml]{.title-ref} installed.
+
+\>\>\> from fastpyxl import Workbook \>\>\> wb =
+Workbook(write_only=True) \>\>\> ws = wb.create_sheet() \>\>\> \>\>\> \#
+now we\'ll fill it with 100 rows x 200 columns \>\>\> \>\>\> for irow in
+range(100): \... ws.append(\[\'%d\' % i for i in range(200)\]) \>\>\> \#
+save the file \>\>\> wb.save(\'new_big_file.xlsx\') \# doctest: +SKIP
+
+If you want to have cells with styles or comments then use a
+`fastpyxl.cell.WriteOnlyCell`{.interpreted-text role="func"}
+
+\>\>\> from fastpyxl import Workbook \>\>\> wb = Workbook(write_only =
+True) \>\>\> ws = wb.create_sheet() \>\>\> from fastpyxl.cell import
+WriteOnlyCell \>\>\> from fastpyxl.comments import Comment \>\>\> from
+fastpyxl.styles import Font \>\>\> cell = WriteOnlyCell(ws,
+value=\"hello world\") \>\>\> cell.font = Font(name=\'Courier\',
+size=36) \>\>\> cell.comment = Comment(text=\"A comment\",
+author=\"Author\'s Name\") \>\>\> ws.append(\[cell, 3.14, None\]) \>\>\>
+wb.save(\'write_only_file.xlsx\')
+
+This will create a write-only workbook with a single sheet, and append a
+row of 3 cells: one text cell with a custom font and a comment, a
+floating-point number, and an empty cell (which will be discarded
+anyway).
+
+:::: warning
+::: title
+Warning
+:::
+
+- Unlike a normal workbook, a newly-created write-only workbook does not
+  contain any worksheets; a worksheet must be specifically created with
+  the `create_sheet()`{.interpreted-text role="func"} method.
+- In a write-only workbook, rows can only be added with
+  `append()`{.interpreted-text role="func"}. It is not possible to write
+  (or read) cells at arbitrary locations with `cell()`{.interpreted-text
+  role="func"} or `iter_rows()`{.interpreted-text role="func"}.
+- It is able to export unlimited amount of data (even more than Excel
+  can handle actually), while keeping memory usage under 10Mb.
+- A write-only workbook can only be saved once. After that, every
+  attempt to save the workbook or append() to an existing worksheet will
+  raise an
+  `fastpyxl.utils.exceptions.WorkbookAlreadySaved`{.interpreted-text
+  role="class"} exception.
+- Everything that appears in the file before the actual cell data must
+  be created before cells are added because it must written to the file
+  before then. For example, [freeze_panes]{.title-ref} should be set
+  before cells are added.
+::::

@@ -1,4 +1,0 @@
-pip
-lxml
-pandas
-sphinx_rtd_theme

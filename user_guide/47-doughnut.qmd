@@ -1,0 +1,16 @@
+---
+title: "Doughnut Charts"
+guide-section: "Charts"
+---
+
+# Doughnut Charts
+
+Doughnut charts are similar to pie charts except that they use a ring
+instead of a circle. They can also plot several series of data as
+concentric rings.
+
+::: literalinclude
+doughnut.py
+:::
+
+![\"Sample doughnut charts\"](doughnut.png)

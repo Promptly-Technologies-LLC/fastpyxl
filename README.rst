@@ -105,11 +105,11 @@ XML attacks. To guard against these attacks install
 Documentation
 -------------
 
-Full documentation: https://fastpyxl.readthedocs.io
+Full documentation: https://promptlytechnologies.com/fastpyxl/
 
-- `Tutorial <https://fastpyxl.readthedocs.io/en/stable/tutorial.html>`_
-- `API reference <https://fastpyxl.readthedocs.io/en/stable/api/fastpyxl.html>`_
-- `Release notes <https://fastpyxl.readthedocs.io/en/stable/changes.html>`_
+- `Tutorial <https://promptlytechnologies.com/fastpyxl/user-guide/01-tutorial.html>`_
+- `API reference <https://promptlytechnologies.com/fastpyxl/reference/>`_
+- `Release notes <https://promptlytechnologies.com/fastpyxl/user-guide/95-changes.html>`_
 
 
 Acknowledgements

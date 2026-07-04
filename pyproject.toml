@@ -1,6 +1,6 @@
 [project]
 name = "fastpyxl"
-version = "1.0.9"
+version = "1.0.10"
 description = "A high-performance Python library to read/write Excel 2010 xlsx/xlsm files"
 readme = "README.rst"
 license = "MIT"
@@ -27,6 +27,7 @@ dependencies = [
 Documentation = "https://fastpyxl.readthedocs.io/en/stable/"
 Source = "https://github.com/fastpyxl/fastpyxl"
 Tracker = "https://github.com/fastpyxl/fastpyxl/issues"
+
 
 [dependency-groups]
 dev = [

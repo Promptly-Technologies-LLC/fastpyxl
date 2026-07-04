@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.10 (2026-07-04)
+
+### Bug Fixes
+
+- Suppress benign data validation extension warnings on load
+  ([`4b54d98`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/4b54d9810b34458f1c3869741ce419f12a323cb3))
+
+
 ## v1.0.9 (2026-04-22)
 
 ### Bug Fixes

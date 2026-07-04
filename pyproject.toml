@@ -25,7 +25,7 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://fastpyxl.readthedocs.io/en/stable/"
+Documentation = "https://promptlytechnologies.com/fastpyxl/"
 Source = "https://github.com/fastpyxl/fastpyxl"
 Tracker = "https://github.com/fastpyxl/fastpyxl/issues"
 
@@ -43,9 +43,8 @@ dev = [
 ]
 docs = [
     "lxml",
-    "sphinx",
     "pandas",
-    "sphinx_rtd_theme",
+    "great-docs>=0.14.1",
 ]
 
 [build-system]
@@ -65,6 +64,7 @@ ignore = ["E402", "E501", "E101"]
 "conftest.py" = ["F401"]
 "**/tests/*" = ["F811"]
 "doc/*" = ["F401"]
+"user_guide/*" = ["F401"]
 
 [tool.ty.rules]
 # Phase 8: enabled invalid-assignment, unresolved-attribute, invalid-argument-type,
@@ -83,7 +83,7 @@ python-version = "3.11"
 extra-paths = []
 
 [tool.ty.src]
-exclude = ["doc/"]
+exclude = ["doc/", "user_guide/"]
 
 [tool.pytest.ini_options]
 addopts = "--strict-markers --showlocals"

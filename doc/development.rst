@@ -159,11 +159,17 @@ multiple Python versions; matching that locally is easiest with several
 Documentation
 +++++++++++++
 
-Remember to update the documentation when adding or changing features. Check
-that documentation is syntactically correct::
+Remember to update the documentation when adding or changing features. Narrative
+guides live in ``user_guide/`` as Quarto Markdown (``.qmd``) files. The API
+reference is generated automatically from docstrings by `great-docs`.
+
+Build the site locally::
 
     $ uv sync --group docs
-    $ uv run sphinx-build -q -j auto -b html -d doc/_build/doctrees doc doc/_build/html
+    $ uv run great-docs build
+    $ uv run great-docs preview
+
+The built HTML is written to ``great-docs/_site/``.
 
 
 Benchmarking

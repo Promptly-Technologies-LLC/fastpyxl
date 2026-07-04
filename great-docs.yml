@@ -1,0 +1,146 @@
+# Great Docs Configuration
+# See https://posit-dev.github.io/great-docs/user-guide/configuration.html
+
+# Required because devtools/ is also importable at the project root.
+module: fastpyxl
+
+display_name: fastpyxl
+
+# Docstring format used throughout fastpyxl (inherited from openpyxl).
+parser: sphinx
+
+# Static analysis avoids cyclic-alias introspection errors in descriptor types.
+dynamic: false
+
+exclude:
+  - KEEP_VBA
+  - DummyCode
+
+logo: doc/logo.svg
+
+authors:
+  - name: See AUTHORS
+    role: Author
+    email: charlie.clark@clark-consulting.eu
+
+# Populated by `great-docs init` / refreshed on each build.
+reference:
+  - title: Classes
+    desc: Main classes provided by the package
+    contents:
+      - name: Workbook
+        members: false
+      - cell.Cell
+      - cell.MergedCell
+      - cell.ReadOnlyCell
+      - chart.AreaChart
+      - chart.AreaChart3D
+      - chart.BarChart
+      - chart.BarChart3D
+      - chart.BubbleChart
+      - chart.DoughnutChart
+      - chart.LineChart
+      - chart.LineChart3D
+      - chart.PieChart
+      - chart.PieChart3D
+      - chart.ProjectedPieChart
+      - chart.RadarChart
+      - chart.Reference
+      - chart.ScatterChart
+      - chart.StockChart
+      - chart.SurfaceChart
+      - chart.SurfaceChart3D
+      - chartsheet.Chartsheet
+      - comments.Comment
+      - drawing.Drawing
+      - formatting.Rule
+      - formula.Tokenizer
+      - styles.Alignment
+      - styles.Border
+      - styles.Color
+      - styles.Fill
+      - styles.Font
+      - styles.GradientFill
+      - styles.NamedStyle
+      - styles.NumberFormatDescriptor
+      - styles.PatternFill
+      - styles.Protection
+      - styles.Side
+      - typed_serialisable.ElementList
+      - typed_serialisable.Extension
+      - typed_serialisable.ExtensionList
+      - typed_serialisable.MetaSerialisable
+      - typed_serialisable.NestedValInt
+      - typed_serialisable.Serialisable
+
+  - title: Dataclasses
+    desc: Dataclass definitions
+    contents:
+      - typed_serialisable.FieldInfo
+
+  - title: Workbook Methods
+    desc: Methods for the Workbook class
+    contents:
+      - Workbook.create_sheet
+      - Workbook.move_sheet
+      - Workbook.remove
+      - Workbook.remove_sheet
+      - Workbook.create_chartsheet
+      - Workbook.get_sheet_by_name
+      - Workbook.__contains__
+      - Workbook.index
+      - Workbook.get_index
+      - Workbook.__getitem__
+      - Workbook.__delitem__
+      - Workbook.__iter__
+      - Workbook.get_sheet_names
+      - Workbook.create_named_range
+      - Workbook.add_named_style
+      - Workbook.save
+      - Workbook.materialize_pending_style_components
+      - Workbook.copy_worksheet
+      - Workbook.close
+
+  - title: Functions
+    desc: Utility functions
+    contents:
+      - cell.WriteOnlyCell
+      - chart.Series
+      - compat.deprecated
+      - compat.safe_string
+      - load_workbook
+      - open
+      - styles.is_builtin
+      - styles.is_date_format
+      - styles.is_timedelta_format
+      - typed_serialisable.AliasField
+      - typed_serialisable.explicit_none_element
+      - xml.defusedxml_available
+      - xml.defusedxml_env_set
+      - xml.lxml_available
+      - xml.lxml_env_set
+
+  - title: Constants
+    desc: Module-level constants and data
+    contents:
+      - compat.NUMERIC_TYPES
+      - styles.DEFAULT_FONT
+      - typed_serialisable.Field
+      - xml.DEFUSEDXML
+      - xml.LXML
+
+  - title: Other
+    desc: Additional exports
+    contents:
+      - packaging
+      - pivot
+      - reader
+      - workbook
+      - worksheet
+      - writer
+
+site_url: "https://promptlytechnologies.com/fastpyxl/"
+
+repo: https://github.com/Promptly-Technologies-LLC/fastpyxl
+
+jupyter: python3

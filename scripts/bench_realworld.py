@@ -3,12 +3,10 @@
 
 from __future__ import annotations
 
-import io
 import json
 import subprocess
 import sys
 import tempfile
-import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,24 +77,29 @@ print(json.dumps({{
         venv = Path(tmp) / "venv"
         subprocess.run(
             ["uv", "venv", str(venv)],
-            check=True, capture_output=True,
+            check=True,
+            capture_output=True,
         )
         python = venv / "bin" / "python"
 
         if package == "fastpyxl":
             subprocess.run(
                 ["uv", "pip", "install", "--python", str(python), str(ROOT)],
-                check=True, capture_output=True,
+                check=True,
+                capture_output=True,
             )
         else:
             subprocess.run(
                 ["uv", "pip", "install", "--python", str(python), "openpyxl"],
-                check=True, capture_output=True,
+                check=True,
+                capture_output=True,
             )
 
         result = subprocess.run(
             [str(python), "-c", script],
-            capture_output=True, text=True, timeout=600,
+            capture_output=True,
+            text=True,
+            timeout=600,
         )
         if result.returncode != 0:
             print(f"STDERR for {package}:\n{result.stderr}", file=sys.stderr)
@@ -121,15 +124,21 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("fixture", type=Path, help="Path to .xlsx/.xlsm file")
-    parser.add_argument("--iterations", type=int, default=3, help="Iterations per benchmark")
-    parser.add_argument("--output", type=Path, default=ROOT / "artifacts" / "realworld_compare.md")
+    parser.add_argument(
+        "--iterations", type=int, default=3, help="Iterations per benchmark"
+    )
+    parser.add_argument(
+        "--output", type=Path, default=ROOT / "artifacts" / "realworld_compare.md"
+    )
     args = parser.parse_args()
 
     fixture = args.fixture.resolve()
     if not fixture.exists():
         raise FileNotFoundError(f"Fixture not found: {fixture}")
 
-    print(f"Benchmarking {fixture.name} ({fixture.stat().st_size / 1024 / 1024:.1f} MB)")
+    print(
+        f"Benchmarking {fixture.name} ({fixture.stat().st_size / 1024 / 1024:.1f} MB)"
+    )
     print(f"  Iterations: {args.iterations}")
     print()
 
@@ -157,10 +166,12 @@ def main() -> None:
         new = data_fastpyxl[key]["median"]
         lines.append(f"| {label} | {fmt(old)} | {fmt(new)} | **{pct(old, new)}** |")
 
-    lines.extend([
-        "",
-        "Negative % = fastpyxl is faster.",
-    ])
+    lines.extend(
+        [
+            "",
+            "Negative % = fastpyxl is faster.",
+        ]
+    )
 
     report = "\n".join(lines)
     print()
@@ -170,11 +181,18 @@ def main() -> None:
     args.output.write_text(report + "\n", encoding="utf-8")
 
     json_out = args.output.with_suffix(".json")
-    json_out.write_text(json.dumps({
-        "fixture": fixture.name,
-        "openpyxl": data_openpyxl,
-        "fastpyxl": data_fastpyxl,
-    }, indent=2) + "\n", encoding="utf-8")
+    json_out.write_text(
+        json.dumps(
+            {
+                "fixture": fixture.name,
+                "openpyxl": data_openpyxl,
+                "fastpyxl": data_fastpyxl,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     print(f"\nWrote {args.output.relative_to(ROOT)}")
     print(f"Wrote {json_out.relative_to(ROOT)}")
 

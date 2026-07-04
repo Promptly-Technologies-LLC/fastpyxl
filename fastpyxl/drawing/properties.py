@@ -1,7 +1,7 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 from fastpyxl.xml.constants import DRAWING_NS
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field

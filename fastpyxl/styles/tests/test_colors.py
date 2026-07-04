@@ -76,17 +76,6 @@ class TestColor:
             c + 4
 
 
-def test_color_descriptor():
-    from ..colors import ColorDescriptor
-
-    class DummyStyle:
-
-        value = ColorDescriptor('value')
-
-    style = DummyStyle()
-    style.value = "efefef"
-    assert dict(cast(Any, style.value)) == {'rgb': '00efefef'}
-
 
 @pytest.fixture
 def ColorList():

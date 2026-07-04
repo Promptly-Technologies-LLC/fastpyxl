@@ -3,7 +3,7 @@
 import posixpath
 from warnings import warn
 
-from fastpyxl.descriptors.container import ElementList
+from fastpyxl.typed_serialisable.container import ElementList
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 

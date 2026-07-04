@@ -6,7 +6,7 @@ from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-from fastpyxl.descriptors.excel import ExtensionList, _explicit_none
+from fastpyxl.typed_serialisable.excel import ExtensionList, explicit_none_element
 
 from .picture import PictureOptions
 from .shapes import GraphicalProperties
@@ -54,7 +54,7 @@ class Marker(Serialisable):
         expected_type=str,
         allow_none=True,
         converter=_coerce_marker_symbol,
-        renderer=_explicit_none, default=None,
+        renderer=explicit_none_element, default=None,
     )
     size: int | None = Field.nested_value(
         expected_type=int,

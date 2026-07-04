@@ -8,7 +8,7 @@ from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
 from fastpyxl.drawing.colors import ColorChoice
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 from fastpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
 from fastpyxl.drawing.line import LineProperties
 from fastpyxl.drawing.geometry import (

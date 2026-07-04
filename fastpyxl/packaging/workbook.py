@@ -1,6 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 
 from fastpyxl.xml.constants import REL_NS, SHEET_MAIN_NS
 

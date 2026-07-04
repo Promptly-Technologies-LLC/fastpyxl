@@ -1,8 +1,5 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors import (
-    Typed,
-)
 from fastpyxl.styles.colors import aRGB_REGEX
 from fastpyxl.xml.constants import DRAWING_NS
 from fastpyxl.xml.functions import Element
@@ -11,7 +8,7 @@ from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 
 PRESET_COLORS = [
         'aliceBlue', 'antiqueWhite', 'aqua', 'aquamarine',
@@ -568,24 +565,6 @@ class ColorMapping(Serialisable):
         self.hlink = hlink
         self.folHlink = folHlink
         self.extLst = extLst
-
-
-class ColorChoiceDescriptor(Typed):
-    """
-    Objects can choose from 7 different kinds of color system.
-    Assume RGBHex if a string is passed in.
-    """
-
-    expected_type = ColorChoice
-    allow_none = True
-
-    def __set__(self, instance, value):
-        if isinstance(value, str):
-            value = ColorChoice(srgbClr=value)
-        else:
-            if self.namespace is not None and value is not None:
-                value.namespace = self.namespace
-        super().__set__(instance, value)
 
 
 def _range_converter(value, *, field_name: str, min_value: float, max_value: float):

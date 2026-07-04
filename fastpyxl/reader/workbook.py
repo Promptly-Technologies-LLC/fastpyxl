@@ -114,7 +114,7 @@ class WorkbookParser:
                 elif reserved == "Print_Area":
                     try:
                         sheet._print_area = PrintArea.from_string(defn.value)
-                    except TypeError:
+                    except (TypeError, ValueError):
                         warn(f"Print area cannot be set to Defined name: {defn.value}.")
                         continue
 

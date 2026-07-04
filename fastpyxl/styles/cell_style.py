@@ -5,7 +5,7 @@ from array import array
 from fastpyxl.compat import safe_string
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 from fastpyxl.utils.indexed_list import IndexedList
 
 

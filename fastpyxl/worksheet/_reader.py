@@ -29,7 +29,7 @@ from fastpyxl.utils import (
     column_index_from_coordinate,
 )
 from fastpyxl.utils.datetime import from_excel, from_ISO8601, WINDOWS_EPOCH
-from fastpyxl.descriptors.excel import ExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList
 from fastpyxl.cell.rich_text import CellRichText
 
 from .formula import DataTableFormula, ArrayFormula

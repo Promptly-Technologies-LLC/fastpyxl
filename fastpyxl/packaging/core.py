@@ -2,12 +2,8 @@
 
 import datetime
 
-from fastpyxl.descriptors import (
-    DateTime,
-)
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import AliasField, Field
-from fastpyxl.descriptors.nested import NestedText
 from fastpyxl.xml.functions import (
     Element,
     QName,
@@ -18,33 +14,6 @@ from fastpyxl.xml.constants import (
     XSI_NS,
     DCTERMS_NS,
 )
-
-
-class NestedDateTime(DateTime, NestedText):
-
-    expected_type = datetime.datetime
-
-    def to_tree(self, tagname=None, value=None, namespace=None):
-        namespace = self.namespace or namespace
-        if namespace is not None:
-            tagname = "{%s}%s" % (namespace, tagname)
-        assert tagname is not None
-        el = Element(tagname)
-        if value is not None:
-            value = value.replace(tzinfo=None)
-            el.text = value.isoformat(timespec="seconds") + 'Z'
-            return el
-
-
-class QualifiedDateTime(NestedDateTime):
-
-    """In certain situations Excel will complain if the additional type
-    attribute isn't set"""
-
-    def to_tree(self, tagname=None, value=None, namespace=None):
-        el = super().to_tree(tagname, value, namespace)
-        el.set("{%s}type" % XSI_NS, QName(DCTERMS_NS, "W3CDTF"))
-        return el
 
 
 def _datetime_converter(value):
@@ -75,6 +44,15 @@ def _qualified_datetime_renderer(tagname, value, namespace=None):
         return None
     el.set("{%s}type" % XSI_NS, QName(DCTERMS_NS, "W3CDTF"))
     return el
+
+
+class QualifiedDateTime:
+    """Render Dublin Core datetime elements with xsi:type attribute."""
+
+    namespace = None
+
+    def to_tree(self, tagname=None, value=None, namespace=None):
+        return _qualified_datetime_renderer(tagname, value, namespace or self.namespace)
 
 
 class DocumentProperties(Serialisable):

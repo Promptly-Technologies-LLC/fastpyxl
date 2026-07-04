@@ -3,7 +3,6 @@
 """Excel-specific serialisable types and XML helpers."""
 
 from fastpyxl.compat import safe_string
-from fastpyxl.xml.constants import REL_NS
 from fastpyxl.xml.functions import Element
 
 from .base import Serialisable

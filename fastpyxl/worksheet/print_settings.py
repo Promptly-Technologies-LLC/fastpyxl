@@ -60,6 +60,8 @@ class RowRange:
             if not match:
                 raise ValueError(f"{range_string} is not a valid row range")
             min_row, max_row = match.groups()[1:]
+        if min_row is None or max_row is None:
+            raise ValueError("min_row and max_row are required")
         self.min_row = int(min_row)
         self.max_row = int(max_row)
 

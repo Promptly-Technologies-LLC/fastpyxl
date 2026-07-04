@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://promptlytechnologies.com/fastpyxl/"
+Documentation = "https://fastpyxl.readthedocs.io/en/stable/"
 Source = "https://github.com/fastpyxl/fastpyxl"
 Tracker = "https://github.com/fastpyxl/fastpyxl/issues"
 
@@ -42,8 +42,9 @@ dev = [
 ]
 docs = [
     "lxml",
+    "sphinx",
     "pandas",
-    "great-docs>=0.14.1",
+    "sphinx_rtd_theme",
 ]
 
 [build-system]

@@ -7,6 +7,41 @@ from fastpyxl.xml.functions import fromstring, tostring
 from fastpyxl.tests.helper import compare_xml
 
 @pytest.fixture
+def MissingField():
+    from ..fields import Missing
+    return Missing
+
+
+class TestMissingFieldHexAttributes:
+
+    def test_accepts_valid_hex_on_assignment(self, MissingField):
+        missing = MissingField()
+        missing.bc = "a1B2"
+        missing.fc = "00FF00"
+        assert missing.bc == "a1B2"
+        assert missing.fc == "00FF00"
+
+
+    def test_rejects_invalid_hex_on_assignment(self, MissingField):
+        missing = MissingField()
+        from fastpyxl.typed_serialisable.errors import FieldValidationError
+
+        with pytest.raises(FieldValidationError, match="hex binary rejected"):
+            missing.bc = "not-hex"
+
+
+    def test_from_xml_rejects_invalid_hex(self, MissingField):
+        from fastpyxl.typed_serialisable.errors import FieldValidationError
+
+        src = """
+        <m bc="zzzz" />
+        """
+        node = fromstring(src)
+        with pytest.raises(FieldValidationError, match="hex binary rejected"):
+            MissingField.from_tree(node)
+
+
+@pytest.fixture
 def Error():
     from ..record import Error
     return Error

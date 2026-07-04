@@ -35,7 +35,7 @@ def test_builtin_format():
 
 
 def test_number_descriptor():
-    from ..numbers import NumberFormatDescriptor
+    from ..numbers import FORMAT_GENERAL, NumberFormatDescriptor
 
     class Dummy:
 
@@ -45,7 +45,13 @@ def test_number_descriptor():
             self.value = value
 
     dummy = Dummy()
-    assert dummy.value == "General"
+    assert dummy.value == FORMAT_GENERAL
+
+    dummy.value = "0.00"
+    assert dummy.value == "0.00"
+
+    dummy.value = None
+    assert dummy.value == FORMAT_GENERAL
 
 
 @pytest.mark.parametrize("fmt, stripped",

@@ -300,6 +300,32 @@ class TestMultiCellRange:
         assert cells.ranges == {CellRange("A1"), CellRange("B2:B5")}
 
 
+    def test_ranges_assignment_normalizes_sequence(self, MultiCellRange, CellRange):
+        cells = MultiCellRange()
+        cr1 = CellRange("A1")
+        cr2 = CellRange("B2")
+        cells.ranges = [cr1, cr2]
+        assert cells.ranges == {cr1, cr2}
+
+
+    def test_ranges_assignment_coerces_strings(self, MultiCellRange, CellRange):
+        cells = MultiCellRange()
+        cells.ranges = ["A1", "B2:B5"]
+        assert cells.ranges == {CellRange("A1"), CellRange("B2:B5")}
+
+
+    def test_ranges_assignment_accepts_range_string(self, MultiCellRange, CellRange):
+        cells = MultiCellRange()
+        cells.ranges = "A1 B2"
+        assert cells.ranges == {CellRange("A1"), CellRange("B2")}
+
+
+    def test_ranges_assignment_rejects_invalid_elements(self, MultiCellRange):
+        cells = MultiCellRange()
+        with pytest.raises(ValueError, match="CellRange"):
+            cells.ranges = {42}
+
+
     def test_add_coord(self, MultiCellRange, CellRange):
         cr = CellRange("A1")
         cells = MultiCellRange(ranges=[cr])

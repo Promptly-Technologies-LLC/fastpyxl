@@ -27,6 +27,27 @@ class TestTextBlock:
             TextBlock(InlineFont(), 42)
 
 
+    def test_assignment_rejects_invalid_font(self):
+        block = TextBlock(InlineFont(), "text")
+        with pytest.raises(TypeError, match="InlineFont"):
+            block.font = 42
+
+
+    def test_assignment_rejects_non_string_text(self):
+        block = TextBlock(InlineFont(), "text")
+        with pytest.raises(TypeError, match="str"):
+            block.text = 42
+
+
+    def test_assignment_accepts_valid_values(self):
+        block = TextBlock(InlineFont(), "text")
+        new_font = InlineFont(b=True)
+        block.font = new_font
+        block.text = "updated"
+        assert block.font == new_font
+        assert block.text == "updated"
+
+
     def test_eq(self):
         ft = InlineFont(color="FF0000")
         b1 = TextBlock(ft, "Mary had a little lamb")

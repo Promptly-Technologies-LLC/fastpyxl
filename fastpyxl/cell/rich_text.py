@@ -18,12 +18,28 @@ class TextBlock:
     """
 
     def __init__(self, font, text):
-        if not isinstance(font, InlineFont):
-            raise TypeError(f"font must be InlineFont, got {type(font)}")
-        if not isinstance(text, str):
-            raise TypeError(f"text must be str, got {type(text)}")
         self.font = font
         self.text = text
+
+    @property
+    def font(self):
+        return self._font
+
+    @font.setter
+    def font(self, value):
+        if not isinstance(value, InlineFont):
+            raise TypeError(f"font must be InlineFont, got {type(value)}")
+        self._font = value
+
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        if not isinstance(value, str):
+            raise TypeError(f"text must be str, got {type(value)}")
+        self._text = value
 
 
     def __eq__(self, other):

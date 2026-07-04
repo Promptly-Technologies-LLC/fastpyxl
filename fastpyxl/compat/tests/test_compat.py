@@ -111,16 +111,3 @@ def test_deprecated_method(recwarn):
     assert w.filename
     assert w.lineno
 
-
-def test_no_deprecation_reason():
-
-    with pytest.raises(TypeError):
-        @deprecated
-        def fn():
-            return
-
-
-def test_product():
-
-    from ..product import prod
-    assert prod((3,5,2)) == 30

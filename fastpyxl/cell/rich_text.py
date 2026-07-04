@@ -8,25 +8,38 @@ from typing import cast
 
 from fastpyxl.compat import NUMERIC_TYPES, safe_string
 from fastpyxl.cell.text import InlineFont, Text
-from fastpyxl.descriptors import (
-    Strict,
-    String,
-    Typed
-)
 
 from fastpyxl.xml.functions import Element, whitespace
 
-class TextBlock(Strict):
+class TextBlock:
     """ Represents text string in a specific format
 
     This class is used as part of constructing a rich text strings.
     """
-    font = Typed(expected_type=InlineFont)
-    text = String()
 
     def __init__(self, font, text):
         self.font = font
         self.text = text
+
+    @property
+    def font(self):
+        return self._font
+
+    @font.setter
+    def font(self, value):
+        if not isinstance(value, InlineFont):
+            raise TypeError(f"font must be InlineFont, got {type(value)}")
+        self._font = value
+
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        if not isinstance(value, str):
+            raise TypeError(f"text must be str, got {type(value)}")
+        self._text = value
 
 
     def __eq__(self, other):

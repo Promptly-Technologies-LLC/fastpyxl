@@ -86,3 +86,17 @@ class TestReference:
     def test_repr(self, Reference):
         ref = Reference(range_string=b"'D\xc3\xbcsseldorf'!A1:A10".decode("utf8"))
         assert str(ref) == b"'D\xc3\xbcsseldorf'!$A$1:$A$10".decode("utf8")
+
+
+    @pytest.mark.parametrize(
+        "kwargs, match",
+        [
+            ({"min_col": 0, "min_row": 1, "max_col": 1, "max_row": 1}, "min_col must be between"),
+            ({"min_col": 1, "min_row": 0, "max_col": 1, "max_row": 1}, "min_row must be between"),
+            ({"min_col": 20000, "min_row": 1, "max_col": 20000, "max_row": 1}, "min_col must be between"),
+            ({"min_col": 1, "min_row": 1, "max_col": 1, "max_row": 2000000}, "max_row must be between"),
+        ],
+    )
+    def test_bounds_validation(self, Reference, Worksheet, kwargs, match):
+        with pytest.raises(ValueError, match=match):
+            Reference(worksheet=Worksheet(), **kwargs)

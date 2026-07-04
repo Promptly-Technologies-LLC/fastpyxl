@@ -5,14 +5,6 @@
 import re
 from warnings import warn
 
-from fastpyxl.descriptors import (
-    Alias,
-    Strict,
-    String,
-    Integer,
-    MatchPattern,
-    Typed,
-)
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
 
@@ -50,7 +42,15 @@ def _split_string(text):
     return parts
 
 
-class _HeaderFooterPart(Strict):
+_COLOR_PATTERN = re.compile(r"^[A-Fa-f0-9]{6}$")
+
+
+def _validate_color(value):
+    if value is not None and not _COLOR_PATTERN.match(value):
+        raise ValueError(f"Color must match {_COLOR_PATTERN.pattern}")
+
+
+class _HeaderFooterPart:
 
     """
     Individual left/center/right header/footer part
@@ -83,17 +83,11 @@ class _HeaderFooterPart(Strict):
     Colours are in RGB Hex
     """
 
-    text = String(allow_none=True)
-    font = String(allow_none=True)
-    size = Integer(allow_none=True)
-    RGB = ("^[A-Fa-f0-9]{6}$")
-    color = MatchPattern(allow_none=True, pattern=RGB)
-
-
     def __init__(self, text=None, font=None, size=None, color=None):
+        _validate_color(color)
         self.text = text
         self.font = font
-        self.size = size
+        self.size = int(size) if size is not None else None
         self.color = color
 
 
@@ -129,30 +123,38 @@ class _HeaderFooterPart(Strict):
         return cls(**kw)
 
 
-class HeaderFooterItem(Strict):
+class HeaderFooterItem:
     """
     Header or footer item
 
     """
 
-    left = Typed(expected_type=_HeaderFooterPart)
-    center = Typed(expected_type=_HeaderFooterPart)
-    centre = Alias("center")
-    right = Typed(expected_type=_HeaderFooterPart)
-
     __keys = ('L', 'C', 'R')
-
 
     def __init__(self, left=None, right=None, center=None):
         if left is None:
             left = _HeaderFooterPart()
+        elif not isinstance(left, _HeaderFooterPart):
+            raise TypeError("left must be _HeaderFooterPart")
         self.left = left
         if center is None:
             center = _HeaderFooterPart()
+        elif not isinstance(center, _HeaderFooterPart):
+            raise TypeError("center must be _HeaderFooterPart")
         self.center = center
         if right is None:
             right = _HeaderFooterPart()
+        elif not isinstance(right, _HeaderFooterPart):
+            raise TypeError("right must be _HeaderFooterPart")
         self.right = right
+
+    @property
+    def centre(self):
+        return self.center
+
+    @centre.setter
+    def centre(self, value):
+        self.center = value
 
 
     def __str__(self):

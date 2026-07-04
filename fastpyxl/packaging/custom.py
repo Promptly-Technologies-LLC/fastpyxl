@@ -7,16 +7,6 @@ from typing import cast
 
 from warnings import warn
 
-from fastpyxl.descriptors import Strict
-from fastpyxl.descriptors.sequence import Sequence
-from fastpyxl.descriptors import (
-    String,
-    Integer,
-    Float,
-    DateTime,
-    Bool,
-)
-from fastpyxl.descriptors.nested import NestedText
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import AliasField, Field
 
@@ -38,14 +28,6 @@ def _filetime_nested_renderer(tagname, value, namespace=None):
     el = Element(tagname)
     el.text = value.replace(tzinfo=None).isoformat(timespec="seconds") + "Z"
     return el
-
-
-class NestedBoolText(Bool, NestedText):
-    """
-    Descriptor for handling nested elements with the value stored in the text part
-    """
-
-    pass
 
 
 class _CustomDocumentProperty(Serialisable):
@@ -144,20 +126,14 @@ class _CustomDocumentPropertyList(Serialisable):
         return tree
 
 
-class _TypedProperty(Strict):
+class _TypedProperty:
 
-    name = String()
-
-    def __init__(self,
-                 name,
-                 value):
+    def __init__(self, name, value):
         self.name = name
         self.value = value
 
-
     def __eq__(self, other):
         return self.name == other.name and self.value == other.value
-
 
     def __repr__(self):
         return f"{self.__class__.__name__}, name={self.name}, value={self.value}"
@@ -165,32 +141,45 @@ class _TypedProperty(Strict):
 
 class IntProperty(_TypedProperty):
 
-    value = Integer()
+    def __init__(self, name, value):
+        super().__init__(name, int(value))
 
 
 class FloatProperty(_TypedProperty):
 
-    value = Float()
+    def __init__(self, name, value):
+        super().__init__(name, float(value))
 
 
 class StringProperty(_TypedProperty):
 
-    value = String(allow_none=True)
+    def __init__(self, name, value):
+        super().__init__(name, value)
 
 
 class DateTimeProperty(_TypedProperty):
 
-    value = DateTime()
+    def __init__(self, name, value):
+        if value is not None and not isinstance(value, datetime.datetime):
+            if isinstance(value, str):
+                value = datetime.datetime.fromisoformat(value.replace("Z", "+00:00")).replace(tzinfo=None)
+            else:
+                raise TypeError("value must be datetime")
+        super().__init__(name, value)
 
 
 class BoolProperty(_TypedProperty):
 
-    value = Bool()
+    def __init__(self, name, value):
+        if isinstance(value, str):
+            value = value.lower() not in {"0", "false", "f"}
+        super().__init__(name, bool(value))
 
 
 class LinkProperty(_TypedProperty):
 
-    value = String()
+    def __init__(self, name, value):
+        super().__init__(name, value)
 
 
 # from Python
@@ -206,10 +195,7 @@ CLASS_MAPPING = {
 XML_MAPPING = {v:k for k,v in CLASS_MAPPING.items()}
 
 
-class CustomPropertyList(Strict):
-
-
-    props = Sequence(expected_type=_TypedProperty)
+class CustomPropertyList:
 
     def __init__(self):
         self.props = []
@@ -245,6 +231,8 @@ class CustomPropertyList(Strict):
 
 
     def append(self, prop):
+        if not isinstance(prop, _TypedProperty):
+            raise TypeError(f"Value must be _TypedProperty, got {type(prop)}")
         if prop.name in self.names:
             raise ValueError(f"Property with name {prop.name} already exists")
 

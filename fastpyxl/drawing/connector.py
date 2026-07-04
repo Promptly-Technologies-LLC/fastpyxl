@@ -1,6 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.excel import ExtensionList as OfficeArtExtensionList
+from fastpyxl.typed_serialisable.excel import ExtensionList as OfficeArtExtensionList
 from fastpyxl.chart.shapes import GraphicalProperties
 from fastpyxl.chart.text import RichText
 from fastpyxl.typed_serialisable.base import Serialisable

@@ -1,6 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-from fastpyxl.descriptors.excel import (
+from fastpyxl.typed_serialisable.excel import (
     ExtensionList,
 )
 from fastpyxl.typed_serialisable.base import Serialisable

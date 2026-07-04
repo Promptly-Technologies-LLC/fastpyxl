@@ -3,7 +3,7 @@
 from datetime import datetime
 
 from fastpyxl.compat import safe_string
-from fastpyxl.descriptors.excel import HexBinary
+from fastpyxl.typed_serialisable.validators import hex_binary_converter
 from fastpyxl.packaging.core import _datetime_converter
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
@@ -66,8 +66,8 @@ class Missing(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
+    fc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
@@ -117,8 +117,8 @@ class Number(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
+    fc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
@@ -170,8 +170,8 @@ class Error(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
+    fc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
@@ -268,8 +268,8 @@ class Text(Serialisable):
     c: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)
     cp: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     _in: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
-    bc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
-    fc: str | None = Field.attribute(expected_type=HexBinary, allow_none=True, default=None)
+    bc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
+    fc: str | None = Field.attribute(expected_type=str, allow_none=True, converter=hex_binary_converter, default=None)
     i: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     un: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     st: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)

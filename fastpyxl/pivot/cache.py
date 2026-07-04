@@ -3,10 +3,10 @@
 from datetime import datetime
 from typing import Any
 
-from fastpyxl.descriptors.excel import (
+from fastpyxl.typed_serialisable.excel import (
     ExtensionList,
+    NestedValInt,
 )
-from fastpyxl.descriptors.nested import NestedInteger
 from fastpyxl.xml.constants import REL_NS, SHEET_MAIN_NS
 from fastpyxl.xml.functions import tostring
 from fastpyxl.typed_serialisable.base import Serialisable as TypedSerialisable
@@ -560,7 +560,7 @@ class FieldGroup(TypedSerialisable):
     par: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     base: int | None = Field.attribute(expected_type=int, allow_none=True, default=None)
     rangePr: RangePr | None = Field.element(expected_type=RangePr, allow_none=True, default=None)
-    discretePr: list[Any] = Field.nested_sequence(expected_type=NestedInteger, count=True, default=list)
+    discretePr: list[NestedValInt] = Field.nested_sequence(expected_type=NestedValInt, count=True, default=list)
     groupItems: GroupItems | None = Field.element(expected_type=GroupItems, allow_none=True, default=None)
 
     xml_order = ("rangePr", "discretePr", "groupItems")
@@ -658,7 +658,7 @@ class CacheField(TypedSerialisable):
 
     sharedItems: SharedItems | None = Field.element(expected_type=SharedItems, allow_none=True, default=None)
     fieldGroup: FieldGroup | None = Field.element(expected_type=FieldGroup, allow_none=True, default=None)
-    mpMap: Any = Field.element(expected_type=NestedInteger, allow_none=True, default=None)
+    mpMap: NestedValInt | None = Field.element(expected_type=NestedValInt, allow_none=True, default=None)
     extLst: ExtensionList | None = Field.element(expected_type=ExtensionList, allow_none=True, default=None)
     name: str | None = Field.attribute(expected_type=str, allow_none=False, default=None)
     caption: str | None = Field.attribute(expected_type=str, allow_none=True, default=None)

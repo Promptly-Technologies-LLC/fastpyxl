@@ -21,8 +21,6 @@ def pytest_runtest_setup(item):
             pytest.skip("PIL must be installed")
         elif item.get_closest_marker("pil_not_installed") and pil_image:
             pytest.skip("PIL is installed")
-        elif item.get_closest_marker("not_py33"):
-            pytest.skip("Ordering is not a given in Python 3")
         elif item.get_closest_marker("defusedxml_required"):
             if LXML or not DEFUSEDXML:
                 pytest.skip("defusedxml is required to guard against these vulnerabilities")

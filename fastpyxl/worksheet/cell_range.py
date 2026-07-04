@@ -4,8 +4,6 @@ from copy import copy
 from typing import cast
 from operator import attrgetter
 
-from fastpyxl.descriptors import Strict
-from fastpyxl.descriptors.sequence import UniqueSequence
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.errors import FieldValidationError
 from fastpyxl.typed_serialisable.fields import Field
@@ -454,16 +452,37 @@ class CellRange(Serialisable):
         return [(row, self.max_col) for row in range(self.min_row, self.max_row+1)]
 
 
-class MultiCellRange(Strict):
+def _normalize_ranges(value):
+    if isinstance(value, str):
+        value = value.split()
+    elif isinstance(value, CellRange):
+        value = [value]
+    elif not isinstance(value, (set, list, tuple)):
+        raise TypeError("ranges must be a CellRange, string, set, list, or tuple")
+
+    normalized = set()
+    for item in value:
+        if isinstance(item, CellRange):
+            normalized.add(item)
+        elif isinstance(item, str):
+            normalized.add(CellRange(item))
+        else:
+            raise ValueError("You can only add CellRanges")
+    return normalized
 
 
-    ranges = UniqueSequence(expected_type=CellRange)
-
+class MultiCellRange:
 
     def __init__(self, ranges=set()):
-        if isinstance(ranges, str):
-            ranges = [CellRange(r) for r in ranges.split()]
-        self.ranges = set(ranges)
+        self.ranges = ranges
+
+    @property
+    def ranges(self):
+        return self._ranges
+
+    @ranges.setter
+    def ranges(self, value):
+        self._ranges = _normalize_ranges(value)
 
 
     def __contains__(self, coord):

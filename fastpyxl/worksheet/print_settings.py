@@ -1,12 +1,6 @@
 # Copyright (c) 2010-2024 fastpyxl
 
 import re
-from fastpyxl.descriptors import (
-    Strict,
-    Integer,
-    String,
-    Typed,
-)
 from fastpyxl.utils import quote_sheetname, absolute_coordinate
 from fastpyxl.utils.cell import SHEET_TITLE, RANGE_EXPR
 
@@ -20,14 +14,10 @@ TITLES_REGEX = re.compile("""{0}{1}?,?{2}?,?""".format(SHEET_TITLE, ROW_RANGE, C
                           re.VERBOSE)
 PRINT_AREA_RE = re.compile(f"({SHEET_TITLE})?(?P<cells>{RANGE_EXPR})", re.VERBOSE)
 
-class ColRange(Strict):
+class ColRange:
     """
     Represent a range of at least one column
     """
-
-    min_col = String()
-    max_col = String()
-
 
     def __init__(self, range_string=None, min_col=None, max_col=None):
         if range_string is not None:
@@ -59,13 +49,10 @@ class ColRange(Strict):
         return f"${self.min_col}:${self.max_col}"
 
 
-class RowRange(Strict):
+class RowRange:
     """
     Represent a range of at least one row
     """
-
-    min_row = Integer()
-    max_row = Integer()
 
     def __init__(self, range_string=None, min_row=None, max_row=None):
         if range_string is not None:
@@ -73,8 +60,10 @@ class RowRange(Strict):
             if not match:
                 raise ValueError(f"{range_string} is not a valid row range")
             min_row, max_row = match.groups()[1:]
-        self.min_row = min_row
-        self.max_row = max_row
+        if min_row is None or max_row is None:
+            raise ValueError("min_row and max_row are required")
+        self.min_row = int(min_row)
+        self.max_row = int(max_row)
 
 
     def __eq__(self, other):
@@ -96,15 +85,10 @@ class RowRange(Strict):
         return f"${self.min_row}:${self.max_row}"
 
 
-class PrintTitles(Strict):
+class PrintTitles:
     """
     Contains at least either a range of rows or columns
     """
-
-    cols = Typed(expected_type=ColRange, allow_none=True)
-    rows = Typed(expected_type=RowRange, allow_none=True)
-    title = String()
-
 
     def __init__(self, cols=None, rows=None, title=""):
         self.cols = cols

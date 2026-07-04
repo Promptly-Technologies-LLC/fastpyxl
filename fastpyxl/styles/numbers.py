@@ -2,9 +2,6 @@
 
 import re
 
-from fastpyxl.descriptors import (
-    String,
-)
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
 
@@ -154,12 +151,20 @@ def builtin_format_id(fmt):
     return BUILTIN_FORMATS_REVERSE.get(fmt)
 
 
-class NumberFormatDescriptor(String):
+class NumberFormatDescriptor:
+
+    def __set_name__(self, owner, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        return instance.__dict__.get(self.name, FORMAT_GENERAL)
 
     def __set__(self, instance, value):
         if value is None:
             value = FORMAT_GENERAL
-        super().__set__(instance, value)
+        instance.__dict__[self.name] = value
 
 
 class NumberFormat(Serialisable):

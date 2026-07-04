@@ -2,6 +2,8 @@
 
 from copy import copy
 
+from collections import defaultdict
+
 from fastpyxl.compat import safe_string
 from fastpyxl.utils import (
     get_column_letter,
@@ -13,7 +15,6 @@ from fastpyxl.utils.units import DEFAULT_COLUMN_WIDTH
 from fastpyxl.typed_serialisable.base import Serialisable
 from fastpyxl.typed_serialisable.fields import Field
 from fastpyxl.styles.styleable import StyleableObject
-from fastpyxl.utils.bound_dictionary import BoundDictionary
 from fastpyxl.xml.functions import Element
 
 
@@ -203,7 +204,7 @@ class ColumnDimension(Dimension):
             return Element("col", **attrs)
 
 
-class DimensionHolder(BoundDictionary):
+class DimensionHolder(defaultdict):
     """
     Allow columns to be grouped
     """
@@ -212,7 +213,14 @@ class DimensionHolder(BoundDictionary):
         self.worksheet = worksheet
         self.max_outline = None
         self.default_factory = default_factory
-        super().__init__(reference, default_factory)
+        self.reference = reference
+        super().__init__(default_factory)
+
+    def __getitem__(self, key):
+        value = super().__getitem__(key)
+        if self.reference is not None:
+            setattr(value, self.reference, key)
+        return value
 
 
     def group(self, start, end=None, outline_level=1, hidden=False):

@@ -21,6 +21,7 @@ classifiers = [
 ]
 dependencies = [
     "et_xmlfile",
+    "typing-extensions>=4.0.0; python_version<'3.13'",
 ]
 
 [project.urls]

@@ -320,6 +320,7 @@ version = "1.0.10"
 source = { editable = "." }
 dependencies = [
     { name = "et-xmlfile" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
 ]
 
 [package.dev-dependencies]
@@ -342,7 +343,10 @@ docs = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "et-xmlfile" }]
+requires-dist = [
+    { name = "et-xmlfile" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'", specifier = ">=4.0.0" },
+]
 
 [package.metadata.requires-dev]
 dev = [

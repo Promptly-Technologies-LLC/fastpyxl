@@ -1,7 +1,5 @@
 # Copyright (c) 2010-2024 fastpyxl
 
-DEBUG = False
-
 from fastpyxl.compat.numbers import NUMPY
 from fastpyxl.xml import DEFUSEDXML, LXML
 from fastpyxl.workbook import Workbook

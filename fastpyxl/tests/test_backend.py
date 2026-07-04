@@ -25,12 +25,6 @@
 from fastpyxl import LXML
 
 try:
-    from xml.etree.cElementTree import Element as cElement
-    C = True
-except ImportError:
-    C = False
-
-try:
     from lxml.etree import Element as lElement
 except ImportError:
     lElement is None
@@ -42,8 +36,6 @@ def test_backend():
     from fastpyxl.xml.functions import Element
     if LXML is True:
         assert Element == lElement
-    elif C is True:
-        assert Element == cElement
     else:
         assert Element == pyElement
 

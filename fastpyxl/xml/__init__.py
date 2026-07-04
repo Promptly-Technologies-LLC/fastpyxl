@@ -5,6 +5,15 @@
 import os
 
 
+def _env_flag(name, *, legacy_name=None, default="True"):
+    value = os.environ.get(name)
+    if value is None and legacy_name is not None:
+        value = os.environ.get(legacy_name)
+    if value is None:
+        value = default
+    return value == "True"
+
+
 def lxml_available():
     try:
         from lxml.etree import LXML_VERSION
@@ -20,7 +29,7 @@ def lxml_available():
 
 
 def lxml_env_set():
-    return os.environ.get("OPENPYXL_LXML", "True") == "True"
+    return _env_flag("FASTPYXL_LXML", legacy_name="OPENPYXL_LXML")
 
 
 LXML = lxml_available() and lxml_env_set()
@@ -36,7 +45,7 @@ def defusedxml_available():
 
 
 def defusedxml_env_set():
-    return os.environ.get("OPENPYXL_DEFUSEDXML", "True") == "True"
+    return _env_flag("FASTPYXL_DEFUSEDXML", legacy_name="OPENPYXL_DEFUSEDXML")
 
 
 DEFUSEDXML = defusedxml_available() and defusedxml_env_set()

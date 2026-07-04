@@ -216,6 +216,16 @@ class TestGrouping:
         node = dh.to_tree()
         assert node is None
 
+
+    def test_dimension_holder_binds_index(self, ColumnDimension):
+        from ..dimensions import DimensionHolder
+
+        ws = DummyWorksheet()
+        holder = DimensionHolder(ws, default_factory=lambda: ColumnDimension(ws))
+        dim = holder['C']
+        assert dim.index == 'C'
+
+
     def test_group_rows_simple(self):
         from ..worksheet import Worksheet
         ws = Worksheet(DummyWorkbook())

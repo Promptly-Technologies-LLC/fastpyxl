@@ -23,7 +23,6 @@ from devtools.benchmark import (
     markdown_compare_table,
     markdown_results_table,
     measure,
-    percent_change,
     result_from_dict,
     results_payload,
     write_json,
@@ -165,32 +164,12 @@ def _cmd_baseline(args: argparse.Namespace) -> None:
     print(f"Wrote {try_relative(out_md, ROOT)}")
 
 
-def _run_synthetic() -> tuple[list[BenchmarkResult], dict[str, float]]:
-    benchmark_results = [
-        measure("construct_legacy_2k", lambda: synth.build_legacy(2000), iterations=7),
+def _run_synthetic() -> list[BenchmarkResult]:
+    return [
         measure("construct_typed_2k", lambda: synth.build_typed(2000), iterations=7),
-        measure("render_legacy_1200", lambda: synth.render_legacy(1200), iterations=7),
         measure("render_typed_1200", lambda: synth.render_typed(1200), iterations=7),
-        measure("parse_legacy_1200", lambda: synth.parse_legacy(1200), iterations=7),
         measure("parse_typed_1200", lambda: synth.parse_typed(1200), iterations=7),
     ]
-
-    by_name = {r.name: r for r in benchmark_results}
-    comparisons = {
-        "construction_typed_vs_legacy_percent": percent_change(
-            by_name["construct_typed_2k"].mean,
-            by_name["construct_legacy_2k"].mean,
-        ),
-        "render_typed_vs_legacy_percent": percent_change(
-            by_name["render_typed_1200"].mean,
-            by_name["render_legacy_1200"].mean,
-        ),
-        "parse_typed_vs_legacy_percent": percent_change(
-            by_name["parse_typed_1200"].mean,
-            by_name["parse_legacy_1200"].mean,
-        ),
-    }
-    return benchmark_results, comparisons
 
 
 def _cmd_synthetic(args: argparse.Namespace) -> None:
@@ -200,8 +179,8 @@ def _cmd_synthetic(args: argparse.Namespace) -> None:
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    benchmark_results, comparisons = _run_synthetic()
-    payload = results_payload(benchmark_results, extra={"comparisons": comparisons})
+    benchmark_results = _run_synthetic()
+    payload = results_payload(benchmark_results)
 
     out_json = args.output_dir / f"{output_stem}.json"
     write_json(out_json, payload)
@@ -211,14 +190,6 @@ def _cmd_synthetic(args: argparse.Namespace) -> None:
         f"# {title}",
         "",
         *markdown_results_table(benchmark_results, float_fmt=".6f"),
-        "",
-        "## Typed vs Legacy",
-        "",
-        f"- Construction delta: {comparisons['construction_typed_vs_legacy_percent']:.2f}%",
-        f"- Render delta: {comparisons['render_typed_vs_legacy_percent']:.2f}%",
-        f"- Parse delta: {comparisons['parse_typed_vs_legacy_percent']:.2f}%",
-        "",
-        "Positive means typed is slower; negative means typed is faster.",
         "",
     ]
     out_md = args.output_dir / f"{output_stem}.md"
@@ -697,23 +668,19 @@ def _cmd_profile(args: argparse.Namespace) -> None:
     sorts = tuple(args.sorts or ["tottime", "cumtime"])
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    for label, builder in (
-        ("typed", lambda: synth.build_typed(args.n)),
-        ("legacy", lambda: synth.build_legacy(args.n)),
-    ):
-        pr = profile_repeat(builder, repeat=args.repeat)
-        base = args.output_dir / f"construct_profile_{label}"
-        write_profile_text(
-            base,
-            label=label,
-            profile=pr,
-            sort_keys=sorts,
-            top=args.top,
-            meta={"n": args.n, "repeat": args.repeat},
-        )
-        for sk in sorts:
-            out = args.output_dir / f"construct_profile_{label}_{sk}.txt"
-            print(f"Wrote {try_relative(out, ROOT)}")
+    pr = profile_repeat(lambda: synth.build_typed(args.n), repeat=args.repeat)
+    base = args.output_dir / "construct_profile_typed"
+    write_profile_text(
+        base,
+        label="typed",
+        profile=pr,
+        sort_keys=sorts,
+        top=args.top,
+        meta={"n": args.n, "repeat": args.repeat},
+    )
+    for sk in sorts:
+        out = args.output_dir / f"construct_profile_typed_{sk}.txt"
+        print(f"Wrote {try_relative(out, ROOT)}")
 
 
 def main() -> None:
@@ -814,7 +781,7 @@ def main() -> None:
     )
     p_cmp.set_defaults(func=_cmd_compare)
 
-    p_prof = sub.add_parser("profile", help="cProfile synthetic model construction (typed vs legacy)")
+    p_prof = sub.add_parser("profile", help="cProfile synthetic typed model construction")
     p_prof.add_argument("--n", type=int, default=2000, help="parents per build (default 2000)")
     p_prof.add_argument("--repeat", type=int, default=12, help="times to run each build loop")
     p_prof.add_argument(

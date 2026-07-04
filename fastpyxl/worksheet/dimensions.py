@@ -43,10 +43,6 @@ class Dimension(StyleableObject):
     def style(self):
         return self.style_id
 
-    @style.setter
-    def style(self, value):
-        self.style_id = value
-
 
     def __iter__(self):
         for key in self.__fields__:
@@ -85,10 +81,6 @@ class RowDimension(Dimension):
     @property
     def s(self):
         return self.style_id
-
-    @s.setter
-    def s(self, value):
-        self.style_id = value
 
     @property
     def height(self):

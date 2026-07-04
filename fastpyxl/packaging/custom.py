@@ -30,12 +30,6 @@ def _filetime_nested_renderer(tagname, value, namespace=None):
     return el
 
 
-class NestedBoolText:
-    """Legacy placeholder; custom properties use typed_serialisable fields."""
-
-    pass
-
-
 class _CustomDocumentProperty(Serialisable):
 
     """

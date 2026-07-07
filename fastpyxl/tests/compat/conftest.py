@@ -26,10 +26,15 @@ def compat_tmp_path(tmp_path: Path) -> Path:
     return tmp_path
 
 
+_TESTS_DIR = Path(__file__).resolve().parents[1]
+_FASTPYXL_DIR = _TESTS_DIR.parent
+
 READ_FIXTURES = (
-    Path("fastpyxl/reader/tests/data/sample.xlsx"),
-    Path("fastpyxl/reader/tests/data/empty_with_no_properties.xlsx"),
-    Path("fastpyxl/reader/tests/data/hidden_sheets.xlsx"),
-    Path("fastpyxl/tests/data/genuine/sample.xlsx"),
-    Path("fastpyxl/tests/data/genuine/empty.xlsx"),
+    _FASTPYXL_DIR / "reader/tests/data/sample.xlsx",
+    _FASTPYXL_DIR / "reader/tests/data/empty_with_no_properties.xlsx",
+    _FASTPYXL_DIR / "reader/tests/data/hidden_sheets.xlsx",
+    _TESTS_DIR / "data/genuine/sample.xlsx",
+    _TESTS_DIR / "data/genuine/empty.xlsx",
 )
+
+GENUINE_SAMPLE_FIXTURE = _TESTS_DIR / "data/genuine/sample.xlsx"

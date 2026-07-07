@@ -88,6 +88,11 @@ def assert_workbook_snapshots_equal(
                 f"{sheet_name}!{coordinate} data_type mismatch: "
                 f"fastpyxl={fast_cell.data_type!r} openpyxl={openpyxl_cell.data_type!r}"
             )
+            assert fast_cell.number_format == openpyxl_cell.number_format, (
+                f"{sheet_name}!{coordinate} number_format mismatch: "
+                f"fastpyxl={fast_cell.number_format!r} "
+                f"openpyxl={openpyxl_cell.number_format!r}"
+            )
 
 
 def assert_workbooks_match(fast_workbook: Any, openpyxl_workbook: Any) -> None:

@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from .conftest import GENUINE_SAMPLE_FIXTURE
 from .helpers import assert_workbooks_match, save_and_reload_cross
 
 
@@ -106,7 +107,7 @@ def test_save_extension_round_trip(
 
 
 def test_read_only_iteration_values_match(fastpyxl, openpyxl):
-    fixture = Path("fastpyxl/tests/data/genuine/sample.xlsx")
+    fixture = GENUINE_SAMPLE_FIXTURE
     fast_wb = fastpyxl.load_workbook(fixture, read_only=True)
     openpyxl_wb = openpyxl.load_workbook(fixture, read_only=True)
     try:

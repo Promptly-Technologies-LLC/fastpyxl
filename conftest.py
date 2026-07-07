@@ -47,4 +47,9 @@ def pytest_runtest_setup(item):
         elif item.get_closest_marker("no_pypy"):
             if platform.python_implementation() == "PyPy":
                 pytest.skip("Skipping pypy")
+        elif item.get_closest_marker("openpyxl_compat"):
+            try:
+                import openpyxl  # noqa: F401
+            except ImportError:
+                pytest.skip("openpyxl is required for compatibility contract tests")
 

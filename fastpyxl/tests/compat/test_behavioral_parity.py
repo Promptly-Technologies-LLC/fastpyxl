@@ -58,7 +58,7 @@ def test_sheet_management_matches(fastpyxl, openpyxl):
     assert fast_wb.sheetnames == openpyxl_wb.sheetnames
 
 
-def test_fastpyxl_save_openpyxl_read(compat_tmp_path, fastpyxl, openpyxl):
+def test_fastpyxl_save_openpyxl_read(tmp_path: Path, fastpyxl, openpyxl):
     wb = fastpyxl.Workbook()
     ws = wb.active
     ws.title = "Export"
@@ -66,13 +66,13 @@ def test_fastpyxl_save_openpyxl_read(compat_tmp_path, fastpyxl, openpyxl):
     ws.append(["widgets", 12])
     ws["C2"] = "=B2*2"
 
-    path = compat_tmp_path / "fastpyxl_written.xlsx"
+    path = tmp_path / "fastpyxl_written.xlsx"
     reloaded = save_and_reload_cross(wb, openpyxl.load_workbook, path)
     reference = fastpyxl.load_workbook(path)
     assert_workbooks_match(reference, reloaded)
 
 
-def test_openpyxl_save_fastpyxl_read(compat_tmp_path, fastpyxl, openpyxl):
+def test_openpyxl_save_fastpyxl_read(tmp_path: Path, fastpyxl, openpyxl):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Import"
@@ -80,25 +80,25 @@ def test_openpyxl_save_fastpyxl_read(compat_tmp_path, fastpyxl, openpyxl):
     ws.append(["gadgets", 7])
     ws["C2"] = "=B2+1"
 
-    path = compat_tmp_path / "openpyxl_written.xlsx"
+    path = tmp_path / "openpyxl_written.xlsx"
     reloaded = save_and_reload_cross(wb, fastpyxl.load_workbook, path)
     reference = openpyxl.load_workbook(path)
     assert_workbooks_match(reloaded, reference)
 
 
-@pytest.mark.parametrize(
-    "extension",
-    ["xlsx", "xlsm", "xltx", "xltm"],
-)
+@pytest.mark.parametrize("extension", ["xlsx", "xlsm", "xltx", "xltm"])
+@pytest.mark.parametrize("writer", ["fastpyxl", "openpyxl"])
 def test_save_extension_round_trip(
     extension: str,
-    compat_tmp_path,
+    writer: str,
+    tmp_path: Path,
     fastpyxl,
     openpyxl,
 ):
-    wb = fastpyxl.Workbook()
-    wb.active["A1"] = f"saved-as-{extension}"
-    path = compat_tmp_path / f"workbook.{extension}"
+    writer_lib = fastpyxl if writer == "fastpyxl" else openpyxl
+    wb = writer_lib.Workbook()
+    wb.active["A1"] = f"saved-as-{extension}-by-{writer}"
+    path = tmp_path / f"workbook-{writer}.{extension}"
 
     wb.save(path)
     fast_reloaded = fastpyxl.load_workbook(path)

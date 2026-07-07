@@ -40,6 +40,7 @@ dev = [
     "ruff>=0.15.7",
     "ty>=0.0.24",
     "pytest-cov>=5.0.0",
+    "openpyxl==3.1.5",
 ]
 docs = [
     "lxml",
@@ -99,6 +100,7 @@ markers = [
     "pandas_required: Pandas required for the test",
     "numpy_required: Numpy required for the test",
     "no_pypy: do not run on pypy",
+    "openpyxl_compat: openpyxl required for drop-in compatibility contract tests",
 ]
 filterwarnings = [
     "error",

@@ -154,9 +154,11 @@ def main() -> None:
     lines = [
         f"# Real-world benchmark: {fixture.name}",
         "",
-        f"File size: {fixture.stat().st_size / 1024 / 1024:.1f} MB, "
-        f"cells: {data_fastpyxl.get('cell_count', 'N/A'):,}, "
-        f"{args.iterations} iterations (median)",
+        (
+            f"File size: {fixture.stat().st_size / 1024 / 1024:.1f} MB, "
+            f"cells: {data_fastpyxl.get('cell_count', 'N/A'):,}, "
+            f"{args.iterations} iterations (median)"
+        ),
         "",
         "| Benchmark | openpyxl | fastpyxl | Change |",
         "|---|--:|--:|--:|",

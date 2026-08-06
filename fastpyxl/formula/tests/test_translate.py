@@ -40,7 +40,7 @@ class TestTranslator:
         '=+IF(A$3<>$B7,"",(MIN(IF({TRUE, FALSE;1,2},A6:B6,$S7))>=' +
          'LOWER_BOUND)*($BR6>$S72123))',
         '=$A:$A,$C:$C',
-        "Just text"
+        "Just text",
         "123.456",
         "31/12/1999",
         "",

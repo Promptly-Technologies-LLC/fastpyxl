@@ -149,9 +149,11 @@ def markdown_compare_table(
 ) -> list[str]:
     """Markdown table for :func:`compare_by_name` output."""
     lines = [
-        "| Benchmark | "
-        f"Mean {left_label} (s) | Mean {right_label} (s) | Δ mean % | "
-        f"Median {left_label} (s) | Median {right_label} (s) | Δ median % |",
+        (
+            "| Benchmark | "
+            f"Mean {left_label} (s) | Mean {right_label} (s) | Δ mean % | "
+            f"Median {left_label} (s) | Median {right_label} (s) | Δ median % |"
+        ),
         "|---|---:|---:|---:|---:|---:|---:|",
     ]
     for row in rows:

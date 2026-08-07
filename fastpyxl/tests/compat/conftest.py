@@ -67,3 +67,7 @@ READ_FIXTURE_IDS = tuple(fixture_id for fixture_id, _ in READ_FIXTURES)
 READ_FIXTURE_PATHS = tuple(fixture_path for _, fixture_path in READ_FIXTURES)
 
 GENUINE_SAMPLE_FIXTURE = _TESTS_DIR / "data/genuine/sample.xlsx"
+LEGACY_DRAWING_XLSM = _FASTPYXL_DIR / "reader/tests/data/legacy_drawing.xlsm"
+EXTERNAL_LINKS_FIXTURE = (
+    _FASTPYXL_DIR / "workbook/external_link/tests/data/book1.xlsx"
+)

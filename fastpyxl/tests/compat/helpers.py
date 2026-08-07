@@ -29,11 +29,80 @@ class WorkbookSnapshot:
     sheets: dict[str, SheetSnapshot]
 
 
+_INLINE_FONT_BOOL_ATTRS = (
+    "b",
+    "i",
+    "strike",
+    "outline",
+    "shadow",
+    "condense",
+    "extend",
+)
+_INLINE_FONT_OTHER_ATTRS = (
+    "rFont",
+    "charset",
+    "family",
+    "sz",
+    "u",
+    "vertAlign",
+    "scheme",
+)
+
+
+def _primitive_attr(obj: Any, name: str) -> Any:
+    """Return a comparable attribute, ignoring unset openpyxl descriptors."""
+    value = getattr(obj, name, None)
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    return None
+
+
+def _normalize_color(color: Any) -> tuple[Any, ...] | None:
+    if color is None:
+        return None
+    tint = _primitive_attr(color, "tint")
+    return (
+        _primitive_attr(color, "type"),
+        _primitive_attr(color, "rgb"),
+        _primitive_attr(color, "theme"),
+        _primitive_attr(color, "indexed"),
+        0.0 if tint in (None, 0) else tint,
+    )
+
+
+def _normalize_inline_font(font: Any) -> tuple[tuple[str, Any], ...]:
+    attrs: dict[str, Any] = {
+        name: bool(_primitive_attr(font, name)) for name in _INLINE_FONT_BOOL_ATTRS
+    }
+    for name in _INLINE_FONT_OTHER_ATTRS:
+        attrs[name] = _primitive_attr(font, name)
+    attrs["color"] = _normalize_color(getattr(font, "color", None))
+    return tuple(sorted(attrs.items()))
+
+
 def _normalize_value(value: Any) -> Any:
     if isinstance(value, datetime.datetime):
         return value.replace(tzinfo=None)
     if isinstance(value, datetime.time):
         return value.replace(tzinfo=None)
+
+    type_name = type(value).__name__
+    # Compare semantic content across fastpyxl/openpyxl class identities.
+    if type_name == "ArrayFormula":
+        return (
+            "ArrayFormula",
+            getattr(value, "ref", None),
+            getattr(value, "text", None),
+            getattr(value, "t", None),
+        )
+    if type_name == "CellRichText":
+        return ("CellRichText", tuple(_normalize_value(part) for part in value))
+    if type_name == "TextBlock":
+        return (
+            "TextBlock",
+            getattr(value, "text", None),
+            _normalize_inline_font(getattr(value, "font", None)),
+        )
     return value
 
 

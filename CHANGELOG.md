@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v1.0.11 (2026-08-07)
+
+### Bug Fixes
+
+- Load x14 data validations from worksheet extLst
+  ([`9234030`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/9234030fc87f8ed0c5fa95ec8fbdf10bf905c616))
+
+### Build System
+
+- Upgrade ruff to 0.16 and enable ISC004
+  ([`b1c01d6`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/b1c01d6379675e78a1b3a3272569c4de8c316517))
+
+### Continuous Integration
+
+- Add a lint job running ruff and ty
+  ([`e60c56d`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/e60c56d72159f75719e29a4f55261af194f23182))
+
+### Documentation
+
+- Add Cursor Cloud environment setup notes to AGENTS.md
+  ([`387192f`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/387192f15104694a2ea40d28d695346150873901))
+
+
 ## v1.0.10 (2026-07-04)
 
 ### Bug Fixes

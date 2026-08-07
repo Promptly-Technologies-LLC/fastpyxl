@@ -5,8 +5,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from openpyxl.cell.rich_text import CellRichText, TextBlock
-from openpyxl.cell.text import InlineFont
 
 from .conftest import (
     EXTERNAL_LINKS_FIXTURE,
@@ -100,6 +98,8 @@ def test_keep_links_external_links_match(keep_links: bool):
 @pytest.fixture
 def rich_text_fixture(tmp_path: Path) -> Path:
     import openpyxl
+    from openpyxl.cell.rich_text import CellRichText, TextBlock
+    from openpyxl.cell.text import InlineFont
 
     path = tmp_path / "rich_text.xlsx"
     wb = openpyxl.Workbook()

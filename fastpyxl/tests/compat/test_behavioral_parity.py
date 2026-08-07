@@ -115,3 +115,76 @@ def test_read_only_iteration_values_match(fastpyxl, openpyxl):
     finally:
         fast_wb.close()
         openpyxl_wb.close()
+
+
+def _populate_write_only_workbook(workbook):
+    """Append mixed-type rows to a write-only workbook and return it."""
+    data = workbook.create_sheet("Data")
+    data.append(["name", "count", "when", "day", "formula", "flag"])
+    data.append(
+        [
+            "widgets",
+            12,
+            datetime.datetime(2024, 1, 15, 10, 30),
+            datetime.date(2024, 2, 1),
+            "=B2*2",
+            True,
+        ]
+    )
+    data.append(
+        [
+            "gadgets",
+            7.5,
+            None,
+            datetime.date(2024, 3, 1),
+            "=SUM(B2:B3)",
+            False,
+        ]
+    )
+    more = workbook.create_sheet("More")
+    more.append([1, "a", 3.14])
+    return workbook
+
+
+def test_write_only_round_trip_matches(tmp_path: Path, fastpyxl, openpyxl):
+    fast_path = tmp_path / "fastpyxl_write_only.xlsx"
+    openpyxl_path = tmp_path / "openpyxl_write_only.xlsx"
+
+    _populate_write_only_workbook(fastpyxl.Workbook(write_only=True)).save(fast_path)
+    _populate_write_only_workbook(openpyxl.Workbook(write_only=True)).save(
+        openpyxl_path
+    )
+
+    fast_reloaded = fastpyxl.load_workbook(fast_path)
+    openpyxl_reloaded = openpyxl.load_workbook(openpyxl_path)
+    try:
+        assert_workbooks_match(fast_reloaded, openpyxl_reloaded)
+    finally:
+        fast_reloaded.close()
+        openpyxl_reloaded.close()
+
+
+def test_write_only_fastpyxl_save_openpyxl_read(tmp_path: Path, fastpyxl, openpyxl):
+    path = tmp_path / "fastpyxl_write_only_cross.xlsx"
+    _populate_write_only_workbook(fastpyxl.Workbook(write_only=True)).save(path)
+
+    reference = fastpyxl.load_workbook(path)
+    reloaded = openpyxl.load_workbook(path)
+    try:
+        assert_workbooks_match(reference, reloaded)
+    finally:
+        reference.close()
+        reloaded.close()
+
+
+def test_write_only_openpyxl_save_fastpyxl_read(tmp_path: Path, fastpyxl, openpyxl):
+    path = tmp_path / "openpyxl_write_only_cross.xlsx"
+    _populate_write_only_workbook(openpyxl.Workbook(write_only=True)).save(path)
+
+    reloaded = fastpyxl.load_workbook(path)
+    reference = openpyxl.load_workbook(path)
+    try:
+        assert_workbooks_match(reloaded, reference)
+    finally:
+        reloaded.close()
+        reference.close()

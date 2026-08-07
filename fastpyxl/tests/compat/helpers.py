@@ -49,25 +49,33 @@ _INLINE_FONT_OTHER_ATTRS = (
 )
 
 
+def _primitive_attr(obj: Any, name: str) -> Any:
+    """Return a comparable attribute, ignoring unset openpyxl descriptors."""
+    value = getattr(obj, name, None)
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    return None
+
+
 def _normalize_color(color: Any) -> tuple[Any, ...] | None:
     if color is None:
         return None
-    tint = getattr(color, "tint", None)
+    tint = _primitive_attr(color, "tint")
     return (
-        getattr(color, "type", None),
-        getattr(color, "rgb", None),
-        getattr(color, "theme", None),
-        getattr(color, "indexed", None),
+        _primitive_attr(color, "type"),
+        _primitive_attr(color, "rgb"),
+        _primitive_attr(color, "theme"),
+        _primitive_attr(color, "indexed"),
         0.0 if tint in (None, 0) else tint,
     )
 
 
 def _normalize_inline_font(font: Any) -> tuple[tuple[str, Any], ...]:
     attrs: dict[str, Any] = {
-        name: bool(getattr(font, name, None)) for name in _INLINE_FONT_BOOL_ATTRS
+        name: bool(_primitive_attr(font, name)) for name in _INLINE_FONT_BOOL_ATTRS
     }
     for name in _INLINE_FONT_OTHER_ATTRS:
-        attrs[name] = getattr(font, name, None)
+        attrs[name] = _primitive_attr(font, name)
     attrs["color"] = _normalize_color(getattr(font, "color", None))
     return tuple(sorted(attrs.items()))
 

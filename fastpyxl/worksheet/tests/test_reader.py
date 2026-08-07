@@ -582,14 +582,14 @@ class TestWorksheetParser:
         assert len(recwarn) == 0
 
 
-    def test_x14_only_data_validation_extension_warns(self, WorkSheetParser, recwarn):
+    def test_x14_only_data_validation_extension_is_loaded(self, WorkSheetParser, recwarn):
         parser = WorkSheetParser
 
         src = """
         <extLst>
             <ext uri="{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
                 <x14:dataValidations count="1" xmlns:xm="http://schemas.microsoft.com/office/excel/2006/main">
-                    <x14:dataValidation type="list">
+                    <x14:dataValidation type="list" allowBlank="1" showInputMessage="1" showErrorMessage="1">
                         <x14:formula1>
                             <xm:f>Sheet2!$A$1:$A$5</xm:f>
                         </x14:formula1>
@@ -601,9 +601,46 @@ class TestWorksheetParser:
         """
         element = fromstring(src)
         parser.parse_extensions(element)
-        w = recwarn.pop()
-        assert issubclass(w.category, UserWarning)
-        assert "Data Validation" in str(w.message)
+        assert len(recwarn) == 0
+        assert len(parser.data_validations) == 1
+        dv = parser.data_validations.dataValidation[0]
+        assert dv.type == "list"
+        assert dv.formula1 == "Sheet2!$A$1:$A$5"
+        assert str(dv.sqref) == "A1:A1048576"
+        assert dv.allowBlank is True
+        assert dv.showInputMessage is True
+        assert dv.showErrorMessage is True
+
+
+    def test_x14_data_validation_with_formula2_is_loaded(self, WorkSheetParser, recwarn):
+        parser = WorkSheetParser
+
+        src = """
+        <extLst>
+            <ext uri="{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+                <x14:dataValidations count="1" xmlns:xm="http://schemas.microsoft.com/office/excel/2006/main">
+                    <x14:dataValidation type="whole" operator="between" allowBlank="1" showErrorMessage="1">
+                        <x14:formula1>
+                            <xm:f>1</xm:f>
+                        </x14:formula1>
+                        <x14:formula2>
+                            <xm:f>10</xm:f>
+                        </x14:formula2>
+                        <xm:sqref>B2:B10</xm:sqref>
+                    </x14:dataValidation>
+                </x14:dataValidations>
+            </ext>
+        </extLst>
+        """
+        element = fromstring(src)
+        parser.parse_extensions(element)
+        assert len(recwarn) == 0
+        dv = parser.data_validations.dataValidation[0]
+        assert dv.type == "whole"
+        assert dv.operator == "between"
+        assert dv.formula1 == "1"
+        assert dv.formula2 == "10"
+        assert str(dv.sqref) == "B2:B10"
 
 
     def test_bad_conditional_format_rule(self, WorkSheetParser, recwarn):

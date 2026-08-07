@@ -45,7 +45,7 @@ from .pagebreak import RowBreak, ColBreak
 from .protection import SheetProtection
 from .scenario import ScenarioList
 from .views import SheetViewList
-from .datavalidation import DataValidationList
+from .datavalidation import DataValidation, DataValidationList
 from .table import TablePartList
 from .properties import WorksheetProperties
 from .dimensions import SheetDimension
@@ -81,19 +81,45 @@ DATA_TAG = "{%s}sheetData" % SHEET_MAIN_NS
 DIMENSION_TAG = "{%s}dimension" % SHEET_MAIN_NS
 CUSTOM_VIEWS_TAG = "{%s}customSheetViews" % SHEET_MAIN_NS
 X14_DATA_VALIDATION_TAG = "{%s}dataValidation" % X14_NS
+XM_NS = "http://schemas.microsoft.com/office/excel/2006/main"
+X14_DATA_VALIDATIONS_TAG = "{%s}dataValidations" % X14_NS
+X14_FORMULA1_TAG = "{%s}formula1" % X14_NS
+X14_FORMULA2_TAG = "{%s}formula2" % X14_NS
+XM_F_TAG = "{%s}f" % XM_NS
+XM_SQREF_TAG = "{%s}sqref" % XM_NS
+_X14_DATA_VALIDATION_ATTRS = frozenset({
+    "type",
+    "operator",
+    "allowBlank",
+    "showDropDown",
+    "showInputMessage",
+    "showErrorMessage",
+    "errorTitle",
+    "error",
+    "promptTitle",
+    "prompt",
+    "errorStyle",
+    "imeMode",
+})
+
+
+def _local_tag_name(tag):
+    if isinstance(tag, str) and "}" in tag:
+        return tag.rsplit("}", 1)[-1]
+    return tag
 
 
 def _data_validation_extension_has_rules(ext_element):
     """Return True when the x14 data validation extension contains rules."""
     for child in ext_element:
-        if child.tag.endswith("}dataValidations"):
+        if child.tag == X14_DATA_VALIDATIONS_TAG or _local_tag_name(child.tag) == "dataValidations":
             for rule in child:
-                if rule.tag == X14_DATA_VALIDATION_TAG:
+                if rule.tag == X14_DATA_VALIDATION_TAG or _local_tag_name(rule.tag) == "dataValidation":
                     return True
     return False
 
 
-def _data_validation_extension_is_benign(parser, ext_element):
+def _data_validation_extension_is_redundant(parser, ext_element):
     """
     Excel often writes an x14 data validation companion in extLst even when
     the standard dataValidations block already holds the rules, or when the
@@ -103,6 +129,53 @@ def _data_validation_extension_is_benign(parser, ext_element):
         return True
     data_validations = getattr(parser, "data_validations", None)
     return data_validations is not None and len(data_validations) > 0
+
+
+def _x14_formula_text(formula_element):
+    """Return the formula string nested under an x14 formula element."""
+    for child in formula_element:
+        if child.tag == XM_F_TAG or _local_tag_name(child.tag) == "f":
+            return child.text
+    return formula_element.text
+
+
+def _parse_x14_data_validation(rule):
+    """Map an x14:dataValidation element onto a standard DataValidation."""
+    kwargs = {}
+    for key, value in rule.attrib.items():
+        name = _local_tag_name(key)
+        if name in _X14_DATA_VALIDATION_ATTRS:
+            kwargs[name] = value
+
+    for child in rule:
+        name = _local_tag_name(child.tag)
+        if child.tag == X14_FORMULA1_TAG or name == "formula1":
+            kwargs["formula1"] = _x14_formula_text(child)
+        elif child.tag == X14_FORMULA2_TAG or name == "formula2":
+            kwargs["formula2"] = _x14_formula_text(child)
+        elif child.tag == XM_SQREF_TAG or name == "sqref":
+            kwargs["sqref"] = child.text or ()
+
+    return DataValidation(**kwargs)
+
+
+def _load_x14_data_validations(ext_element):
+    """
+    Load Office 2010+ x14 data validations into a DataValidationList.
+
+    These rules live in worksheet extLst (often for cross-sheet list sources)
+    and would otherwise be discarded with a warning.
+    """
+    rules = []
+    for child in ext_element:
+        if child.tag != X14_DATA_VALIDATIONS_TAG and _local_tag_name(child.tag) != "dataValidations":
+            continue
+        for rule in child:
+            if rule.tag == X14_DATA_VALIDATION_TAG or _local_tag_name(rule.tag) == "dataValidation":
+                rules.append(_parse_x14_data_validation(rule))
+    if not rules:
+        return None
+    return DataValidationList(dataValidation=rules)
 
 
 def _cast_number(value):
@@ -384,7 +457,11 @@ class WorkSheetParser:
         for ext_element, extension in zip(element, extLst.ext):
             uri = extension.uri.upper() if extension.uri else ""
             if uri == DATA_VALIDATION_EXT_URI.upper():
-                if _data_validation_extension_is_benign(self, ext_element):
+                if _data_validation_extension_is_redundant(self, ext_element):
+                    continue
+                loaded = _load_x14_data_validations(ext_element)
+                if loaded is not None:
+                    self.data_validations = loaded
                     continue
             ext_type = EXT_TYPES.get(uri, "Unknown")
             msg = "{0} extension is not supported and will be removed".format(ext_type)

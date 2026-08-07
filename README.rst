@@ -2,10 +2,11 @@ fastpyxl
 ========
 
 A high-performance, statically typed drop-in replacement for
-`openpyxl <https://pypi.org/project/openpyxl/>`_.
+`openpyxl <https://pypi.org/project/openpyxl/>`_ **>= 3.0.0** on
+**Python >= 3.11**.
 
 fastpyxl reads and writes Excel 2010+ xlsx/xlsm/xltx/xltm files with the same
-API as openpyxl — just change your import:
+API as openpyxl 3.x — just change your import:
 
 .. code-block:: python
 
@@ -15,7 +16,11 @@ API as openpyxl — just change your import:
     # after
     from fastpyxl import Workbook, load_workbook
 
-No other code changes required.
+No other code changes are required for supported openpyxl 3.x usage.
+APIs removed before openpyxl 3.0 (and behaviour only present in openpyxl 2.x)
+are intentionally unsupported. See the
+`compatibility guide <https://promptlytechnologies.com/fastpyxl/user-guide/03-compatibility.html>`_
+for details.
 
 
 Performance
@@ -85,7 +90,7 @@ Quick start
 Key features
 ------------
 
-- 1-to-1 API compatibility with openpyxl
+- Drop-in API compatibility with openpyxl >= 3.0.0 (Python >= 3.11)
 - Static typing throughout
 - Optimized cell parsing, coordinate lookups, and style deduplication
 - Read-only and write-only modes for large files
@@ -108,6 +113,7 @@ Documentation
 Full documentation: https://promptlytechnologies.com/fastpyxl/
 
 - `Tutorial <https://promptlytechnologies.com/fastpyxl/user-guide/01-tutorial.html>`_
+- `Compatibility <https://promptlytechnologies.com/fastpyxl/user-guide/03-compatibility.html>`_
 - `API reference <https://promptlytechnologies.com/fastpyxl/reference/>`_
 - `Release notes <https://promptlytechnologies.com/fastpyxl/user-guide/95-changes.html>`_
 

@@ -1,0 +1,113 @@
+---
+title: "Compatibility"
+guide-section: "Introduction"
+---
+
+# Compatibility with openpyxl
+
+fastpyxl is a drop-in replacement for **openpyxl >= 3.0.0** on
+**Python >= 3.11**.
+
+Users on openpyxl 3.x should be able to change imports only:
+
+```python
+# before
+from openpyxl import Workbook, load_workbook
+
+# after
+from fastpyxl import Workbook, load_workbook
+```
+
+No other code changes are required for supported openpyxl 3.x usage.
+
+## Supported baseline
+
+| Constraint | Value |
+| --- | --- |
+| openpyxl API surface | `>= 3.0.0` |
+| Python | `>= 3.11` |
+| CI enforcement pin | openpyxl `3.1.5` |
+
+The public claim is compatibility with the openpyxl 3.x API family starting at
+3.0.0. Continuous integration pins the current openpyxl 3.1.x release used for
+benchmarks and runs the dedicated compatibility suite against that pin.
+
+## Intentional non-goals
+
+fastpyxl does **not** aim to preserve:
+
+- APIs removed before openpyxl 3.0
+- Behaviour only present in openpyxl 2.x
+- Legacy load options such as `use_iterators` (replaced by `read_only`)
+- Historical dual worksheet implementations (`IterableWorksheet` vs
+  `Worksheet`); read-only mode uses `ReadOnlyWorksheet`
+
+## Running the compatibility suite
+
+The openpyxl drop-in contract is enforced by tests under
+`fastpyxl/tests/compat`, marked `openpyxl_compat`. CI runs them in a dedicated
+job; locally:
+
+```bash
+uv sync --all-groups
+uv run pytest fastpyxl/tests/compat -m openpyxl_compat
+```
+
+`openpyxl==3.1.5` is installed via the `dev` dependency group.
+
+## Documenting intentional divergences
+
+When fastpyxl deliberately differs from openpyxl, document that difference as a
+reviewed `xfail` (or an allowlist entry in the API-surface tests) rather than
+allowing silent drift. Prefer:
+
+1. A short comment next to the `xfail` / allowlist entry explaining why
+2. A note in this page if the divergence affects end users
+3. A changelog entry when the divergence is introduced or removed
+
+## Environment variables
+
+Prefer the `FASTPYXL_*` names:
+
+| Setting | Preferred | Legacy alias (deprecated) |
+| --- | --- | --- |
+| Use lxml when available | `FASTPYXL_LXML` | `OPENPYXL_LXML` |
+| Use defusedxml when available | `FASTPYXL_DEFUSEDXML` | `OPENPYXL_DEFUSEDXML` |
+| Keep VBA on load (tests) | `FASTPYXL_KEEP_VBA` | `OPENPYXL_KEEP_VBA` |
+
+Using a legacy `OPENPYXL_*` name still works for one release cycle but emits a
+`DeprecationWarning`. Migrate to the `FASTPYXL_*` equivalent.
+
+## Removal plan for inherited compatibility cruft
+
+The openpyxl lineage left several deprecated call sites and shims. With the
+3.0+ contract published, removals proceed in phases:
+
+### Phase 1 — warn (current)
+
+- Emit `DeprecationWarning` for legacy `OPENPYXL_*` environment aliases
+- Keep deprecated openpyxl 3.x workbook helpers (`get_sheet_by_name`,
+  `get_sheet_names`, `remove_sheet`, `get_index`, `create_named_range`) and
+  `Worksheet.merged_cell_ranges` while they remain part of the openpyxl 3.x
+  surface that callers still use
+- Clean obsolete comments/docstrings that refer to pre-3.0 dual
+  implementations (`IterableWorksheet`, `use_iterators`)
+
+### Phase 2 — remove aliases
+
+- Drop `OPENPYXL_*` environment aliases after at least one released version has
+  carried the Phase 1 warnings
+- Refactor `reader/excel.py` so production code does not import test helpers
+  such as `KEEP_VBA` from `fastpyxl.tests`
+
+### Phase 3 — major-version API trim
+
+- Remove deprecated openpyxl 3.x methods/properties only in a major release
+  (v2.0), with release notes listing replacements (`wb[sheetname]`,
+  `wb.sheetnames`, `wb.remove()`, `wb.index()`, etc.)
+- Revisit type-checker carve-outs in `pyproject.toml` that exist only for
+  legacy Python 2 / transitional code once that code is gone
+
+Deprecated APIs that openpyxl itself still exposes in 3.x remain available in
+fastpyxl v1.x so import-only migrations keep working. They are not a promise of
+indefinite support beyond the next major version.

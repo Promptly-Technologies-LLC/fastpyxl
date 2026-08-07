@@ -356,7 +356,8 @@ def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
 
     .. note::
 
-        When using lazy load, all worksheets will be :class:`fastpyxl.worksheet.iter_worksheet.IterableWorksheet`
+        When using read-only mode, all worksheets will be
+        :class:`fastpyxl.worksheet._read_only.ReadOnlyWorksheet`
         and the returned workbook will be read-only.
 
     """

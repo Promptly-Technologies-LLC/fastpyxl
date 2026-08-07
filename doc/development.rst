@@ -13,11 +13,11 @@ Python environment, running tests and building the documentation.
 Getting the source
 ------------------
 
-The source code is on GitHub: https://github.com/fastpyxl/fastpyxl
+The source code is on GitHub: https://github.com/Promptly-Technologies-LLC/fastpyxl
 
 Clone the repository and install with :code:`uv` (recommended)::
 
-    $ git clone https://github.com/fastpyxl/fastpyxl.git
+    $ git clone https://github.com/Promptly-Technologies-LLC/fastpyxl.git
     $ cd fastpyxl
     $ uv sync --all-groups
     $ uv pip install -e .
@@ -44,6 +44,10 @@ To run the full suite from the repo root::
 To stop at the first failure::
 
     $ uv run pytest -xrf fastpyxl
+
+To run the openpyxl drop-in compatibility contract (also enforced in CI)::
+
+    $ uv run pytest fastpyxl/tests/compat -m openpyxl_compat
 
 
 Coverage
@@ -108,7 +112,8 @@ to the above format.
 Support of Python Versions
 --------------------------
 
-Python 3.6 and upwards are supported
+Python 3.11 and upwards are supported. fastpyxl targets openpyxl >= 3.0.0 as a
+drop-in replacement.
 
 
 Coding style

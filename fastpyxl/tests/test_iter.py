@@ -68,9 +68,7 @@ def test_force_dimension(datadir, DummyWorkbook, ReadOnlyWorksheet):
 
 
 def test_calculate_dimension(datadir):
-    """
-    Behaviour differs between implementations
-    """
+    """Read-only worksheets report dimensions from worksheet XML when available."""
     datadir.join("genuine").chdir()
     wb = load_workbook(filename="sample.xlsx", read_only=True)
     sheet2 = wb['Sheet2 - Numbers']

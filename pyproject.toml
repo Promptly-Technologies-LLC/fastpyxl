@@ -26,8 +26,8 @@ dependencies = [
 
 [project.urls]
 Documentation = "https://promptlytechnologies.com/fastpyxl/"
-Source = "https://github.com/fastpyxl/fastpyxl"
-Tracker = "https://github.com/fastpyxl/fastpyxl/issues"
+Source = "https://github.com/Promptly-Technologies-LLC/fastpyxl"
+Tracker = "https://github.com/Promptly-Technologies-LLC/fastpyxl/issues"
 
 
 [dependency-groups]

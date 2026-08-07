@@ -2,5 +2,10 @@ Contributing
 ============
 
 Contributions to fastpyxl are welcome.
-Please see the [developer documentation](https://fastpyxl.readthedocs.io/en/stable/development.html)
-for further information.
+Please see the developer documentation for further information:
+
+https://promptlytechnologies.com/fastpyxl/user-guide/90-development.html
+
+The openpyxl drop-in compatibility contract is documented at:
+
+https://promptlytechnologies.com/fastpyxl/user-guide/03-compatibility.html

@@ -83,6 +83,19 @@ def test_has_style(StyleableObject):
     assert so.has_style
 
 
+def test_ensure_style_array_resolves_style_id_zero(StyleableObject):
+    from ..cell_style import StyleArray
+
+    so = StyleableObject
+    wb = so.parent.parent
+    wb._number_formats = IndexedList(["GENERAL"])
+    wb._cell_styles = IndexedList([StyleArray([0, 0, 0, 164, 0, 1, 0, 0, 0])])
+    so._style = None
+    so._style_id = 0
+
+    assert so.number_format == "GENERAL"
+
+
 def test_style_descriptor_registration_deferred_until_style_id(StyleableObject):
     from ..fonts import Font
 

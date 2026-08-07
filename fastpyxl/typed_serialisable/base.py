@@ -346,7 +346,8 @@ class Serialisable(metaclass=MetaSerialisable):
                     else:
                         el = Element(namespaced_tag(tag, field.namespace or namespace))
                         if pattr is not None:
-                            el.set(pattr, safe_string(item))
+                            if item is not None:
+                                el.set(pattr, safe_string(item))
                         else:
                             el.text = safe_string(item)
                         root.append(el)

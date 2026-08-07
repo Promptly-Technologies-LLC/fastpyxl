@@ -37,22 +37,30 @@ def _fixture_id(path: Path) -> str:
     return path.name
 
 
+def _reader_fixture(name: str) -> tuple[str, Path]:
+    path = _FASTPYXL_DIR / "reader/tests/data" / name
+    return _fixture_id(path), path
+
+
+def _genuine_fixture(name: str) -> tuple[str, Path]:
+    path = _TESTS_DIR / "data/genuine" / name
+    return _fixture_id(path), path
+
+
 READ_FIXTURES = (
-    (_fixture_id(_FASTPYXL_DIR / "reader/tests/data/sample.xlsx"), _FASTPYXL_DIR / "reader/tests/data/sample.xlsx"),
-    (
-        _fixture_id(_FASTPYXL_DIR / "reader/tests/data/empty_with_no_properties.xlsx"),
-        _FASTPYXL_DIR / "reader/tests/data/empty_with_no_properties.xlsx",
-    ),
-    (
-        _fixture_id(_FASTPYXL_DIR / "reader/tests/data/hidden_sheets.xlsx"),
-        _FASTPYXL_DIR / "reader/tests/data/hidden_sheets.xlsx",
-    ),
-    (_fixture_id(_TESTS_DIR / "data/genuine/sample.xlsx"), _TESTS_DIR / "data/genuine/sample.xlsx"),
-    (_fixture_id(_TESTS_DIR / "data/genuine/empty.xlsx"), _TESTS_DIR / "data/genuine/empty.xlsx"),
-    (
-        _fixture_id(_TESTS_DIR / "data/genuine/empty-with-styles.xlsx"),
-        _TESTS_DIR / "data/genuine/empty-with-styles.xlsx",
-    ),
+    _reader_fixture("sample.xlsx"),
+    _reader_fixture("empty_with_no_properties.xlsx"),
+    _reader_fixture("hidden_sheets.xlsx"),
+    _reader_fixture("complex-styles.xlsx"),
+    _reader_fixture("pivot.xlsx"),
+    _reader_fixture("legacy_drawing.xlsm"),
+    _reader_fixture("contains_chartsheets.xlsx"),
+    _reader_fixture("sample_with_images.xlsx"),
+    _genuine_fixture("sample.xlsx"),
+    _genuine_fixture("empty.xlsx"),
+    _genuine_fixture("empty-with-styles.xlsx"),
+    _genuine_fixture("libreoffice_nrt.xlsx"),
+    _genuine_fixture("mac_date.xlsx"),
 )
 
 READ_FIXTURE_IDS = tuple(fixture_id for fixture_id, _ in READ_FIXTURES)

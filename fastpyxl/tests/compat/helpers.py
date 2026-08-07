@@ -41,6 +41,14 @@ def snapshot_workbook(workbook: Any) -> WorkbookSnapshot:
     sheets: dict[str, SheetSnapshot] = {}
     for name in workbook.sheetnames:
         worksheet = workbook[name]
+        if not hasattr(worksheet, "iter_rows"):
+            sheets[name] = SheetSnapshot(
+                title=worksheet.title,
+                max_row=0,
+                max_column=0,
+                cells={},
+            )
+            continue
         cells: dict[str, CellSnapshot] = {}
         for row in worksheet.iter_rows():
             for cell in row:

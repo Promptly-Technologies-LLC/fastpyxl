@@ -30,3 +30,12 @@ def test_read_no_theme(datadir):
     datadir.join("genuine").chdir()
     wb = load_workbook('libreoffice_nrt.xlsx')
     assert wb
+
+
+def test_read_libreoffice_custom_general_number_format(datadir):
+    datadir.join("genuine").chdir()
+    wb = load_workbook("libreoffice_nrt.xlsx")
+    ws = wb["Sheet1"]
+    assert ws["A1"].number_format == "GENERAL"
+    assert ws["A2"].number_format == "GENERAL"
+    assert ws["A3"].number_format == "GENERAL"

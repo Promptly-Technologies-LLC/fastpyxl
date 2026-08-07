@@ -95,6 +95,25 @@ class TestRowColItem:
         assert fut == RowColItem(r=1, x=[2])
 
 
+    def test_missing_v_omitted_on_round_trip(self, RowColItem):
+        src = """
+        <i t="grand">
+          <x/>
+        </i>
+        """
+        node = fromstring(src)
+        fut = RowColItem.from_tree(node)
+        assert fut.x == [None]
+        xml = tostring(fut.to_tree())
+        expected = """
+        <i i="0" r="0" t="grand">
+          <x />
+        </i>
+        """
+        diff = compare_xml(xml, expected)
+        assert diff is None, diff
+
+
 @pytest.fixture
 def DataField():
     from ..table import DataField

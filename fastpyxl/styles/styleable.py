@@ -221,9 +221,10 @@ class StyleableObject:
 
     def _ensure_style_array(self):
         if self._style is None:
+            styles = self.parent.parent._cell_styles
             style_id = self._style_id
-            if style_id:
-                self._style = StyleArray(self.parent.parent._cell_styles[style_id])
+            if style_id < len(styles):
+                self._style = StyleArray(styles[style_id])
             else:
                 self._style = StyleArray()
 

@@ -558,7 +558,7 @@ wheels = [
 
 [[package]]
 name = "fastpyxl"
-version = "1.0.11"
+version = "1.0.12"
 source = { editable = "." }
 dependencies = [
     { name = "et-xmlfile" },

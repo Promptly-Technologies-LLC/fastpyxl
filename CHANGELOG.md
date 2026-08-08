@@ -2,6 +2,40 @@
 
 <!-- version list -->
 
+## v1.0.12 (2026-08-08)
+
+### Bug Fixes
+
+- Accept a:spLocks noTextEdit via ShapeLocking
+  ([#69](https://github.com/Promptly-Technologies-LLC/fastpyxl/pull/69),
+  [`809a692`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/809a69252a6d1d9f07d67b36baa1d16f02caf7a6))
+
+### Documentation
+
+- Formalize openpyxl >=3.0 compatibility contract
+  ([`2f1ff39`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/2f1ff39fbbdb2c641ba5f823cd0ef5a0ef25043a))
+
+### Testing
+
+- Add load_workbook kwargs behavioral parity coverage
+  ([`87e112b`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/87e112b57d3eca5f9a337de2c2e574a53e9583e8))
+
+- Add write_only mode parity coverage to compat suite
+  ([`11ee797`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/11ee7978167318c6755b9ad00c8aebb5df3445cf))
+
+- Cover chart sibling parse with noTextEdit locks
+  ([`7fceb60`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/7fceb60145779c71e28a4eb93face58e3b7f9b96))
+
+- Defer openpyxl imports in rich-text fixture setup
+  ([`6adb4f2`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/6adb4f2693d308a5b3b151e8afdd11dfeb806b94))
+
+- Ignore unset openpyxl color descriptors in snapshots
+  ([`2df7238`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/2df7238114a376aa0314eff8be6631b2996d7294))
+
+- Normalize ArrayFormula and CellRichText in compat snapshots
+  ([`b3b70b8`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/b3b70b8e37dbbda1121dbe5088bec7d699c54741))
+
+
 ## Unreleased
 
 ### Features

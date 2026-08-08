@@ -65,6 +65,29 @@ allowing silent drift. Prefer:
 2. A note in this page if the divergence affects end users
 3. A changelog entry when the divergence is introduced or removed
 
+### `vba_archive` filtering (`keep_vba`)
+
+With `keep_vba=True`, openpyxl 3.1.5 copies the **entire** package into
+`Workbook.vba_archive`. fastpyxl instead stores a **filtered VBA cache**: only
+macro-relevant parts (`xl/vba*`, VML drawings, ActiveX, ctrlProps, customUI,
+EMF media, plus `[Content_Types].xml` and `_rels/.rels`).
+
+That filtered cache is enough for load→edit→save of macros; the writer already
+applies the same `ARC_VBA` allowlist on save. Filtering avoids cloning unused
+worksheet/XML parts on large `.xlsm` files.
+
+Callers that inspect non-VBA members of `wb.vba_archive` can opt into
+openpyxl-identical behaviour with the fastpyxl-specific escape hatch:
+
+```python
+wb = load_workbook("macros.xlsm", keep_vba=True)    # filtered cache (default)
+wb = load_workbook("macros.xlsm", keep_vba="full")  # full package mirror
+wb = load_workbook("macros.xlsm", keep_vba=False)   # no vba_archive
+```
+
+`True` / `False` remain drop-in compatible with openpyxl's bool API.
+`keep_vba="full"` is fastpyxl-only.
+
 ## Environment variables
 
 Prefer the `FASTPYXL_*` names:

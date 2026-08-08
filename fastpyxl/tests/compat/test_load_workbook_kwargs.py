@@ -59,15 +59,50 @@ def test_keep_vba_cell_values_and_presence_match(keep_vba: bool):
         _close_pair(fast_wb, openpyxl_wb)
 
 
-@pytest.mark.xfail(
-    reason=(
-        "Intentional divergence: fastpyxl keeps only VBA-relevant parts in "
-        "vba_archive, while openpyxl 3.1.5 stores the full package archive."
-    ),
-    strict=True,
-)
-def test_keep_vba_archive_namelist_matches_openpyxl():
+# Non-VBA package parts that must stay out of the filtered vba_archive cache.
+_NON_VBA_PACKAGE_PARTS = {
+    "xl/workbook.xml",
+    "xl/worksheets/sheet1.xml",
+    "xl/worksheets/sheet2.xml",
+    "xl/styles.xml",
+    "xl/sharedStrings.xml",
+    "docProps/app.xml",
+    "docProps/core.xml",
+}
+
+# VBA-relevant parts present in legacy_drawing.xlsm that filtered mode must keep.
+_REQUIRED_VBA_PARTS = {
+    "xl/drawings/vmlDrawing1.vml",
+    "xl/drawings/vmlDrawing2.vml",
+    "xl/ctrlProps/ctrlProp1.xml",
+    "[Content_Types].xml",
+    "_rels/.rels",
+}
+
+
+def test_keep_vba_true_vba_archive_is_filtered_subset_of_openpyxl():
+    """Default keep_vba=True: filtered VBA cache, subset of openpyxl's full mirror."""
     fast_wb, openpyxl_wb = load_fixture_both(LEGACY_DRAWING_XLSM, keep_vba=True)
+    try:
+        assert fast_wb.vba_archive is not None
+        assert openpyxl_wb.vba_archive is not None
+        fast_names = set(fast_wb.vba_archive.namelist())
+        openpyxl_names = set(openpyxl_wb.vba_archive.namelist())
+        assert fast_names <= openpyxl_names
+        assert _REQUIRED_VBA_PARTS <= fast_names
+        assert not (fast_names & _NON_VBA_PACKAGE_PARTS)
+        assert len(fast_names) < len(openpyxl_names)
+    finally:
+        _close_pair(fast_wb, openpyxl_wb)
+
+
+def test_keep_vba_full_vba_archive_namelist_matches_openpyxl():
+    """keep_vba='full': openpyxl-identical full-package vba_archive mirror."""
+    import fastpyxl
+    import openpyxl
+
+    fast_wb = fastpyxl.load_workbook(LEGACY_DRAWING_XLSM, keep_vba="full")
+    openpyxl_wb = openpyxl.load_workbook(LEGACY_DRAWING_XLSM, keep_vba=True)
     try:
         assert fast_wb.vba_archive is not None
         assert openpyxl_wb.vba_archive is not None

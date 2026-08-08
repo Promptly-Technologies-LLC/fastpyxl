@@ -416,7 +416,10 @@ to open an existing workbook:
 >   [keep_vba]{.title-ref} controls whether any Visual Basic elements are preserved or
 >
 >   :   not (default). If they are preserved they are still not
->       editable.
+>       editable. With `True`, fastpyxl stores a filtered VBA cache
+>       (macro-relevant parts only) in `Workbook.vba_archive`, not a
+>       full package snapshot. Pass `keep_vba="full"` for an
+>       openpyxl-identical full-archive mirror.
 >
 > - 
 >

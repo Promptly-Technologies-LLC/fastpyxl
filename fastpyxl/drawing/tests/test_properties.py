@@ -128,6 +128,53 @@ class TestGroupLocking:
 
 
 @pytest.fixture
+def ShapeLocking():
+    from ..properties import ShapeLocking
+    return ShapeLocking
+
+
+class TestShapeLocking:
+
+    def test_ctor(self, ShapeLocking):
+        lock = ShapeLocking(noChangeArrowheads=True, noTextEdit=True)
+        xml = tostring(lock.to_tree())
+        expected = """
+        <spLocks noChangeArrowheads="1" noTextEdit="1" xmlns="http://schemas.openxmlformats.org/drawingml/2006/main" />
+        """
+        diff = compare_xml(xml, expected)
+        assert diff is None, diff
+
+
+    def test_from_xml(self, ShapeLocking):
+        src = """
+        <spLocks noChangeArrowheads="1" noTextEdit="1"
+                 xmlns="http://schemas.openxmlformats.org/drawingml/2006/main" />
+        """
+        node = fromstring(src)
+        lock = ShapeLocking.from_tree(node)
+        assert lock == ShapeLocking(noChangeArrowheads=True, noTextEdit=True)
+
+
+@pytest.fixture
+def NonVisualDrawingShapeProps():
+    from ..properties import NonVisualDrawingShapeProps
+    return NonVisualDrawingShapeProps
+
+
+class TestNonVisualDrawingShapeProps:
+
+    def test_from_xml_with_no_text_edit(self, NonVisualDrawingShapeProps, ShapeLocking):
+        src = """
+        <cNvSpPr txBox="1" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+          <a:spLocks noChangeArrowheads="1" noTextEdit="1"/>
+        </cNvSpPr>
+        """
+        node = fromstring(src)
+        props = NonVisualDrawingShapeProps.from_tree(node)
+        assert props.spLocks == ShapeLocking(noChangeArrowheads=True, noTextEdit=True)
+
+
+@pytest.fixture
 def GroupShapeProperties():
     from ..properties import GroupShapeProperties
     return GroupShapeProperties

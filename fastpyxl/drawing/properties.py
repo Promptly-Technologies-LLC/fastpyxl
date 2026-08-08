@@ -87,6 +87,54 @@ class GroupLocking(TypedSerialisable):
         self.extLst = extLst
 
 
+class ShapeLocking(TypedSerialisable):
+    # OOXML CT_ShapeLocking (a:spLocks), including noTextEdit
+
+    tagname = "spLocks"
+    namespace = DRAWING_NS
+
+    noGrp: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noSelect: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noRot: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noChangeAspect: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noMove: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noResize: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noEditPoints: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noAdjustHandles: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noChangeArrowheads: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noChangeShapeType: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    noTextEdit: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
+    extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
+    xml_order = ()
+
+    def __init__(self,
+                 noGrp=None,
+                 noSelect=None,
+                 noRot=None,
+                 noChangeAspect=None,
+                 noMove=None,
+                 noResize=None,
+                 noEditPoints=None,
+                 noAdjustHandles=None,
+                 noChangeArrowheads=None,
+                 noChangeShapeType=None,
+                 noTextEdit=None,
+                 extLst=None,
+                ):
+        self.noGrp = noGrp
+        self.noSelect = noSelect
+        self.noRot = noRot
+        self.noChangeAspect = noChangeAspect
+        self.noMove = noMove
+        self.noResize = noResize
+        self.noEditPoints = noEditPoints
+        self.noAdjustHandles = noAdjustHandles
+        self.noChangeArrowheads = noChangeArrowheads
+        self.noChangeShapeType = noChangeShapeType
+        self.noTextEdit = noTextEdit
+        self.extLst = extLst
+
+
 class NonVisualGroupDrawingShapeProps(TypedSerialisable):
 
     tagname = "cNvGrpSpPr"
@@ -107,7 +155,7 @@ class NonVisualDrawingShapeProps(TypedSerialisable):
 
     tagname = "cNvSpPr"
 
-    spLocks: GroupLocking | None = Field.element(expected_type=GroupLocking, allow_none=True, default=None)
+    spLocks: ShapeLocking | None = Field.element(expected_type=ShapeLocking, allow_none=True, default=None)
     txBax: bool | None = Field.attribute(expected_type=bool, allow_none=True, default=None)
     extLst: OfficeArtExtensionList | None = Field.element(expected_type=OfficeArtExtensionList, allow_none=True, default=None)
 

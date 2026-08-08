@@ -2,6 +2,13 @@
 
 <!-- version list -->
 
+## Unreleased
+
+### Features
+
+- Add `keep_vba="full"` escape hatch and document filtered `vba_archive`
+  semantics for default `keep_vba=True` (fixes #67)
+
 ## v1.0.11 (2026-08-07)
 
 ### Bug Fixes

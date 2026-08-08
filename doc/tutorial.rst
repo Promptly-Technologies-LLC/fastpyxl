@@ -363,6 +363,9 @@ You can use the :func:`fastpyxl.load_workbook` to open an existing workbook::
 
     - `keep_vba` controls whether any Visual Basic elements are preserved or
        not (default). If they are preserved they are still not editable.
+       With `True`, fastpyxl stores a filtered VBA cache (macro-relevant
+       parts only) in `Workbook.vba_archive`. Pass `keep_vba="full"` for an
+       openpyxl-identical full-archive mirror.
 
     - `read-only` opens workbooks in a read-only mode. This uses much less
        memory and is faster but not all features are available (charts, images,

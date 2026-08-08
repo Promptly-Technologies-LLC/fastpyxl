@@ -5,6 +5,8 @@
 from tempfile import NamedTemporaryFile
 import zipfile
 
+import pytest
+
 # package imports
 from fastpyxl.reader.excel import load_workbook
 from fastpyxl.xml.functions import fromstring
@@ -112,6 +114,29 @@ def test_vba_archive_excludes_workbook_files(datadir):
     assert len(vba_names) < len(all_names), (
         "vba_archive should contain fewer files than the full archive"
     )
+    # Required VBA-relevant parts from this fixture must be present.
+    assert "xl/vbaProject.bin" in vba_names
+    assert "xl/drawings/vmlDrawing1.vml" in vba_names
+    assert "customUI/customUI.xml" in vba_names
+
+
+def test_keep_vba_full_mirrors_entire_package(datadir):
+    """keep_vba='full' copies every package member into vba_archive."""
+    datadir.join("reader").chdir()
+    with zipfile.ZipFile("vba-test.xlsm") as src:
+        all_names = set(src.namelist())
+    wb = load_workbook("vba-test.xlsm", keep_vba="full")
+    assert wb.vba_archive is not None
+    assert set(wb.vba_archive.namelist()) == all_names
+    # Non-VBA workbook parts are present in full mode.
+    assert "xl/workbook.xml" in wb.vba_archive.namelist()
+    assert "xl/worksheets/sheet1.xml" in wb.vba_archive.namelist()
+
+
+def test_keep_vba_rejects_invalid_value(datadir):
+    datadir.join("reader").chdir()
+    with pytest.raises(ValueError, match="keep_vba"):
+        load_workbook("vba-test.xlsm", keep_vba="maybe")
 
 
 def test_vml_two_digit_index_in_vba_archive(datadir):

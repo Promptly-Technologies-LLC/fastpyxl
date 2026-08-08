@@ -72,6 +72,22 @@ ARC_VBA = re.compile("|".join(
      r'_rels/\.rels', r'\[Content_Types\]\.xml')
 ))
 
+# keep_vba=True keeps only ARC_VBA matches (filtered cache).
+# keep_vba="full" copies the entire package (openpyxl-compatible escape hatch).
+_KEEP_VBA_FULL = "full"
+
+
+def _normalize_keep_vba(keep_vba):
+    """Validate keep_vba and return False, True, or 'full'."""
+    if keep_vba == _KEEP_VBA_FULL:
+        return _KEEP_VBA_FULL
+    if isinstance(keep_vba, str):
+        raise ValueError(
+            "keep_vba must be True, False, or 'full' "
+            f"(got {keep_vba!r})"
+        )
+    return True if keep_vba else False
+
 
 def _validate_archive(filename):
     """
@@ -133,7 +149,7 @@ class ExcelReader:
         self.archive = _validate_archive(fn)
         self.valid_files = self.archive.namelist()
         self.read_only = read_only
-        self.keep_vba = keep_vba
+        self.keep_vba = _normalize_keep_vba(keep_vba)
         self.data_only = data_only
         self.keep_links = keep_links
         self.rich_text = rich_text
@@ -168,13 +184,17 @@ class ExcelReader:
         wb._read_only = self.read_only
         wb.template = wb_part.ContentType in (XLTX, XLTM)
 
-        # If are going to preserve the vba then attach a copy of the archive to the
-        # workbook so that is available for the save.
+        # Preserve VBA parts on the workbook for save. Default keep_vba=True
+        # stores only ARC_VBA matches; keep_vba="full" mirrors the whole package.
         if self.keep_vba:
             wb.vba_archive = ZipFile(BytesIO(), 'a', ZIP_STORED)
-            for name in self.valid_files:
-                if ARC_VBA.match(name):
+            if self.keep_vba == _KEEP_VBA_FULL:
+                for name in self.valid_files:
                     wb.vba_archive.writestr(name, self.archive.read(name))
+            else:
+                for name in self.valid_files:
+                    if ARC_VBA.match(name):
+                        wb.vba_archive.writestr(name, self.archive.read(name))
 
         if self.read_only:
             wb._archive = self.archive
@@ -340,8 +360,12 @@ def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
     :param read_only: optimised for reading, content cannot be edited
     :type read_only: bool
 
-    :param keep_vba: preserve vba content (this does NOT mean you can use it)
-    :type keep_vba: bool
+    :param keep_vba: preserve VBA content (this does NOT mean you can use it).
+        ``True`` stores a filtered VBA cache of macro-relevant package parts in
+        ``Workbook.vba_archive``. ``"full"`` (fastpyxl-specific) copies the
+        entire package archive, matching openpyxl's ``keep_vba=True`` namelist
+        behaviour. ``False`` discards VBA parts.
+    :type keep_vba: bool or ``"full"``
 
     :param data_only: controls whether cells with formulae have either the formula (default) or the value stored the last time Excel read the sheet
     :type data_only: bool

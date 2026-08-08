@@ -49,8 +49,8 @@ def test_unsupported_image_format(datadir):
     assert images == ([], [])
 
 
-def test_find_images_accepts_sp_locks_no_text_edit():
-    """Excel text boxes emit a:spLocks noTextEdit; that must not drop the drawing."""
+def test_spreadsheet_drawing_keeps_chart_with_sp_locks_no_text_edit():
+    """A text box with noTextEdit must not prevent parsing sibling chart anchors."""
     drawing = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"
               xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
@@ -98,16 +98,50 @@ def test_find_images_accepts_sp_locks_no_text_edit():
       </xdr:twoCellAnchor>
     </xdr:wsDr>
     """
+    from fastpyxl.drawing.spreadsheet_drawing import SpreadsheetDrawing
+    from fastpyxl.xml.functions import fromstring
+
+    parsed = SpreadsheetDrawing.from_tree(fromstring(drawing.encode()))
+    assert len(parsed._chart_rels) == 1
+    assert len(parsed.twoCellAnchor) == 1
+    assert parsed.twoCellAnchor[0].sp is not None
+    assert parsed.twoCellAnchor[0].sp.nvSpPr.cNvSpPr.spLocks.noTextEdit is True
+
+
+def test_find_images_accepts_sp_locks_no_text_edit():
+    """Excel text boxes emit a:spLocks noTextEdit; that must not drop the drawing."""
+    drawing = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"
+              xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+      <xdr:twoCellAnchor>
+        <xdr:from><xdr:col>0</xdr:col><xdr:colOff>0</xdr:colOff>
+                   <xdr:row>0</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>
+        <xdr:to><xdr:col>1</xdr:col><xdr:colOff>0</xdr:colOff>
+                 <xdr:row>1</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:to>
+        <xdr:sp macro="" textlink="$A$1">
+          <xdr:nvSpPr>
+            <xdr:cNvPr id="2" name="Text Box 1"/>
+            <xdr:cNvSpPr txBox="1">
+              <a:spLocks noChangeArrowheads="1" noTextEdit="1"/>
+            </xdr:cNvSpPr>
+          </xdr:nvSpPr>
+          <xdr:spPr>
+            <a:xfrm><a:off x="0" y="0"/><a:ext cx="100" cy="100"/></a:xfrm>
+            <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+          </xdr:spPr>
+          <xdr:txBody>
+            <a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>hello</a:t></a:r></a:p>
+          </xdr:txBody>
+        </xdr:sp>
+        <xdr:clientData/>
+      </xdr:twoCellAnchor>
+    </xdr:wsDr>
+    """
     buf = BytesIO()
     with ZipFile(buf, "w") as archive:
         archive.writestr("drawing1.xml", drawing)
 
-    from fastpyxl.drawing.spreadsheet_drawing import SpreadsheetDrawing
-    from fastpyxl.xml.functions import fromstring
     from ..drawings import find_images
-
-    parsed = SpreadsheetDrawing.from_tree(fromstring(drawing))
-    assert len(parsed._chart_rels) == 1
 
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")

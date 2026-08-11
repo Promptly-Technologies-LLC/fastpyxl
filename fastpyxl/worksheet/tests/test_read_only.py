@@ -227,6 +227,7 @@ def test_implementation_compatbility(ReadOnlyWorksheet, DummyWorkbook):
     std_only = set(['HeaderFooter',
                     '_WorkbookChild__title',
                     '_cells',
+                    '_formula_caches',
                     '_charts',
                     '_comments',
                     '_current_row',

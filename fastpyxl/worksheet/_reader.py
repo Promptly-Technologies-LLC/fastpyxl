@@ -538,10 +538,11 @@ class WorksheetReader:
                 c.row = cell_row
                 c.column = cell_col
                 c._value = cell_val
-                c._cached_value = cell_cached
                 c.data_type = cell_dt
                 c._hyperlink = None
                 c._comment = None
+                if cell_cached is not None:
+                    _ws._formula_caches[(cell_row, cell_col)] = cell_cached
                 _cells[(cell_row, cell_col)] = c
 
         if _cells:

@@ -42,6 +42,9 @@ def DummyWorksheet():
         title = "Dummy Worksheet"
         _comment_count = 0
 
+        def __init__(self):
+            self._formula_caches = {}
+
         def cell(self, column, row):
             return Cell(self, row=row, column=column)
 

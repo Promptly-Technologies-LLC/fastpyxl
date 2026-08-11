@@ -114,6 +114,7 @@ class Worksheet(_WorkbookChild):
         self.row_breaks = RowBreak()
         self.col_breaks = ColBreak()
         self._cells = {}
+        self._formula_caches = {}
         self._charts = []
         self._images = []
         self._rels = RelationshipList()
@@ -385,6 +386,7 @@ class Worksheet(_WorkbookChild):
         row, column = coordinate_to_tuple(key)
         if (row, column) in self._cells:
             del self._cells[(row, column)]
+            self._formula_caches.pop((row, column), None)
             self._invalidate_bounds()
 
 
@@ -656,6 +658,7 @@ class Worksheet(_WorkbookChild):
         next(cells) # skip first cell
         for row, col in cells:
             self._cells[row, col] = MergedCell(self, row, col)
+            self._formula_caches.pop((row, col), None)
             self._update_bounds_on_add(row, col)
         mcr.format()
 
@@ -681,6 +684,7 @@ class Worksheet(_WorkbookChild):
         next(cells) # skip first cell
         for row, col in cells:
             del self._cells[(row, col)]
+            self._formula_caches.pop((row, col), None)
         self._invalidate_bounds()
 
 
@@ -792,6 +796,7 @@ class Worksheet(_WorkbookChild):
             for col in range(min_col, max_col):
                 if (row, col) in self._cells:
                     del self._cells[row, col]
+                self._formula_caches.pop((row, col), None)
         self._invalidate_bounds()
         self._current_row = self.max_row
         if not self._cells:
@@ -814,6 +819,7 @@ class Worksheet(_WorkbookChild):
             for row in range(min_row, max_row):
                 if (row, col) in self._cells:
                     del self._cells[row, col]
+                self._formula_caches.pop((row, col), None)
         self._invalidate_bounds()
 
 
@@ -858,6 +864,11 @@ class Worksheet(_WorkbookChild):
         new_col = cell.column + col_offset
         self._cells[new_row, new_col] = cell
         del self._cells[(cell.row, cell.column)]
+        caches = self._formula_caches
+        caches.pop((new_row, new_col), None)
+        old_key = (cell.row, cell.column)
+        if old_key in caches:
+            caches[(new_row, new_col)] = caches.pop(old_key)
         cell.row = new_row
         cell.column = new_col
         self._invalidate_bounds()

@@ -100,7 +100,6 @@ class Cell(StyleableObject):
         'row',
         'column',
         '_value',
-        '_cached_value',
         'data_type',
         'parent',
         '_hyperlink',
@@ -115,7 +114,6 @@ class Cell(StyleableObject):
         """Column number of this cell (1-based)"""
         # _value is the stored value, while value is the displayed value
         self._value = None
-        self._cached_value = None
         self._hyperlink = None
         self.data_type = 'n'
         if value is not None:
@@ -180,7 +178,9 @@ class Cell(StyleableObject):
         """Given a value, infer the correct data type"""
 
         self.data_type = "n"
-        self._cached_value = None
+        parent = self.parent
+        if parent is not None:
+            parent._formula_caches.pop((self.row, self.column), None)
         if isinstance(value, datetime.timedelta):
             self._value = value.total_seconds() / 86400.0
             self.data_type = "n"
@@ -233,12 +233,25 @@ class Cell(StyleableObject):
 
         Never computed by fastpyxl. ``None`` means no cache was loaded / kept,
         which is distinct from a cached numeric ``0`` or empty string.
+
+        Stored on the parent worksheet side map so default-mode cells do not
+        pay a per-instance pointer for an unused field.
         """
-        return self._cached_value
+        parent = self.parent
+        if parent is None:
+            return None
+        return parent._formula_caches.get((self.row, self.column))
 
     @cached_value.setter
     def cached_value(self, value):
-        self._cached_value = value
+        parent = self.parent
+        if parent is None:
+            return
+        key = (self.row, self.column)
+        if value is None:
+            parent._formula_caches.pop(key, None)
+        else:
+            parent._formula_caches[key] = value
 
     @property
     def internal_value(self):
@@ -334,7 +347,6 @@ class MergedCell(StyleableObject):
     __slots__ = ('row', 'column')
 
     _value = None
-    _cached_value = None
     data_type = "n"
     comment = None
     hyperlink = None

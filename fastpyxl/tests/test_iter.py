@@ -18,6 +18,7 @@ def DummyWorkbook():
         epoch = None
         _cell_styles = [StyleArray([0, 0, 0, 0, 0, 0, 0, 0, 0])]
         data_only = False
+        keep_formula_cache = False
 
         def __init__(self):
             self.sheetnames = []

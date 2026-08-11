@@ -100,6 +100,7 @@ class Cell(StyleableObject):
         'row',
         'column',
         '_value',
+        '_cached_value',
         'data_type',
         'parent',
         '_hyperlink',
@@ -114,6 +115,7 @@ class Cell(StyleableObject):
         """Column number of this cell (1-based)"""
         # _value is the stored value, while value is the displayed value
         self._value = None
+        self._cached_value = None
         self._hyperlink = None
         self.data_type = 'n'
         if value is not None:
@@ -178,6 +180,7 @@ class Cell(StyleableObject):
         """Given a value, infer the correct data type"""
 
         self.data_type = "n"
+        self._cached_value = None
         if isinstance(value, datetime.timedelta):
             self._value = value.total_seconds() / 86400.0
             self.data_type = "n"
@@ -223,6 +226,19 @@ class Cell(StyleableObject):
     def value(self, value):
         """Set the value and infer type and display options."""
         self._bind_value(value)
+
+    @property
+    def cached_value(self):
+        """Last calculated value from the file, if present.
+
+        Never computed by fastpyxl. ``None`` means no cache was loaded / kept,
+        which is distinct from a cached numeric ``0`` or empty string.
+        """
+        return self._cached_value
+
+    @cached_value.setter
+    def cached_value(self, value):
+        self._cached_value = value
 
     @property
     def internal_value(self):
@@ -318,9 +334,11 @@ class MergedCell(StyleableObject):
     __slots__ = ('row', 'column')
 
     _value = None
+    _cached_value = None
     data_type = "n"
     comment = None
     hyperlink = None
+    cached_value = None
 
 
     def __init__(self, worksheet, row=None, column=None):

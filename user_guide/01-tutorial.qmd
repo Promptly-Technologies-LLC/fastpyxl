@@ -413,6 +413,14 @@ to open an existing workbook:
 >
 > - 
 >
+>   [keep_formula_cache]{.title-ref} (fastpyxl-only) keeps both the formula on
+>
+>   :   [cell.value]{.title-ref} and the last calculated cache on
+>       [cell.cached_value]{.title-ref} in one parse. Mutually exclusive with
+>       [data_only=True]{.title-ref}. Default is [False]{.title-ref}.
+>
+> - 
+>
 >   [keep_vba]{.title-ref} controls whether any Visual Basic elements are preserved or
 >
 >   :   not (default). If they are preserved they are still not

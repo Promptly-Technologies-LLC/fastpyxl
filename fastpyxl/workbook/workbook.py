@@ -52,6 +52,7 @@ class Workbook:
 
     _read_only = False
     _data_only = False
+    _keep_formula_cache = False
     template = False
     path = "/xl/workbook.xml"
     _archive: Optional[ZipFile] = None
@@ -146,6 +147,11 @@ class Workbook:
     @property
     def data_only(self):
         return self._data_only
+
+    @property
+    def keep_formula_cache(self):
+        """True when formulas and cached values were dual-loaded."""
+        return self._keep_formula_cache
 
     @property
     def write_only(self):

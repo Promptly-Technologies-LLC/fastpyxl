@@ -7,11 +7,13 @@ from fastpyxl.utils import get_column_letter
 
 class ReadOnlyCell:
 
-    __slots__ =  ('parent', 'row', 'column', '_value', 'data_type', '_style_id')
+    __slots__ =  ('parent', 'row', 'column', '_value', '_cached_value', 'data_type', '_style_id')
 
-    def __init__(self, sheet, row, column, value, data_type='n', style_id=0):
+    def __init__(self, sheet, row, column, value, data_type='n', style_id=0,
+                 cached_value=None):
         self.parent = sheet
         self._value = None
+        self._cached_value = cached_value
         self.row = row
         self.column = column
         self.data_type = data_type
@@ -25,6 +27,7 @@ class ReadOnlyCell:
             and self.row == other.row
             and self.column == other.column
             and self._value == other._value
+            and self._cached_value == other._cached_value
             and self.data_type == other.data_type
             and self._style_id == other._style_id
         )
@@ -113,12 +116,18 @@ class ReadOnlyCell:
             raise AttributeError("Cell is read only")
         self._value = value
 
+    @property
+    def cached_value(self):
+        """Last calculated value from the file, if present."""
+        return self._cached_value
+
 
 class EmptyCell:
 
     __slots__ = ()
 
     value = None
+    cached_value = None
     is_date = False
     font = None
     border = None

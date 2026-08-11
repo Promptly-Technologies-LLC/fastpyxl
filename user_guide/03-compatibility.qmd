@@ -88,6 +88,35 @@ wb = load_workbook("macros.xlsm", keep_vba=False)   # no vba_archive
 `True` / `False` remain drop-in compatible with openpyxl's bool API.
 `keep_vba="full"` is fastpyxl-only.
 
+### Dual-load formulas and caches (`keep_formula_cache`)
+
+Excel sheet XML often stores both a formula (`<f>`) and a last-calculated
+cache (`<v>`) on the same cell. openpyxl (and default fastpyxl) keep only one
+or the other via `data_only`.
+
+fastpyxl adds an opt-in dual-load mode that keeps both in a single parse:
+
+```python
+wb = load_workbook("book.xlsx", keep_formula_cache=True)
+assert wb.data_only is False
+c = wb.active["D2"]
+c.value          # formula text, e.g. "='Sheet2'!D5"
+c.cached_value   # cached result from the file, or None
+```
+
+Compatibility constraints:
+
+- `load_workbook(path)` and `load_workbook(path, data_only=True)` remain
+  unchanged (and openpyxl-compatible) for `.value`, `.data_type`, iteration,
+  and save output. In those modes `cell.cached_value` is always `None`.
+- `data_only` stays a bool; do not pass `"both"`.
+- `data_only=True` and `keep_formula_cache=True` together raise `ValueError`.
+- Assigning `.value` clears `.cached_value` (the cache is stale).
+- Save still writes empty `<v>` for formula cells in v1; emitting real caches
+  is deferred.
+
+`keep_formula_cache` is fastpyxl-only.
+
 ## Environment variables
 
 Prefer the `FASTPYXL_*` names:

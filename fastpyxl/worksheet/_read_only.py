@@ -86,9 +86,7 @@ class ReadOnlyWorksheet:
                                      epoch=self.parent.epoch,
                                      date_formats=self.parent._date_formats,
                                      timedelta_formats=self.parent._timedelta_formats,
-                                     keep_formula_cache=getattr(
-                                         self.parent, "keep_formula_cache", False
-                                     ))
+                                     keep_formula_cache=self.parent.keep_formula_cache)
 
             for idx, row in parser.parse():
                 if max_row is not None and idx > max_row:

@@ -48,6 +48,7 @@ def Workbook():
     class DummyWorkbook:
 
         data_only = False
+        keep_formula_cache = False
         _colors = []
         encoding = "utf8"
         epoch = CALENDAR_WINDOWS_1900

@@ -518,7 +518,7 @@ class WorksheetReader:
             ws.parent._date_formats,
             ws.parent._timedelta_formats,
             rich_text,
-            keep_formula_cache=getattr(ws.parent, "keep_formula_cache", False),
+            keep_formula_cache=ws.parent.keep_formula_cache,
         )
         self.tables = []
 

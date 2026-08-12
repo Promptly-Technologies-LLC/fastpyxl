@@ -32,7 +32,8 @@ class ReadOnlyWorksheet:
     __iter__ = Worksheet.__iter__
 
 
-    def __init__(self, parent_workbook, title, worksheet_path, shared_strings):
+    def __init__(self, parent_workbook, title, worksheet_path, shared_strings,
+                 rich_text=False):
         self.parent = parent_workbook
         self.title = title
         self.sheet_state = 'visible'
@@ -44,6 +45,7 @@ class ReadOnlyWorksheet:
         self._bounds_dirty = False
         self._worksheet_path = worksheet_path
         self._shared_strings = shared_strings
+        self._rich_text = rich_text
         self._get_size()
         self.defined_names = DefinedNameDict()
 
@@ -86,6 +88,7 @@ class ReadOnlyWorksheet:
                                      epoch=self.parent.epoch,
                                      date_formats=self.parent._date_formats,
                                      timedelta_formats=self.parent._timedelta_formats,
+                                     rich_text=self._rich_text,
                                      keep_formula_cache=self.parent.keep_formula_cache)
 
             for idx, row in parser.parse():

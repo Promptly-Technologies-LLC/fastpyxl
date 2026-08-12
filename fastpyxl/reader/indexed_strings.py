@@ -53,10 +53,8 @@ class IndexedSharedStrings:
     ):
         self._part = part
         if spans is None:
-            # Index from an in-memory snapshot when the part may be file-backed.
-            with part.open() as src:
-                data = src.read()
-            spans = build_si_index(data)
+            with part.bytes_view() as data:
+                spans = build_si_index(data)
         self._spans = spans
         self._rich_text = rich_text
         self._cache: OrderedDict[int, object] = OrderedDict()
@@ -65,9 +63,9 @@ class IndexedSharedStrings:
 
     @classmethod
     def from_part(cls, part: DecompressedPart, *, rich_text: bool = False, cache_size: int = 256):
-        with part.open() as src:
-            data = src.read()
-        return cls(part, build_si_index(data), rich_text=rich_text, cache_size=cache_size)
+        with part.bytes_view() as data:
+            spans = build_si_index(data)
+        return cls(part, spans, rich_text=rich_text, cache_size=cache_size)
 
     def __len__(self) -> int:
         return len(self._spans)

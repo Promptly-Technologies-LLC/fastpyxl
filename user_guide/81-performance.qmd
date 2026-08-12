@@ -55,7 +55,9 @@ significantly reduces performance.
 
 For sparse random access, prefer `access=\"indexed\"` (fastpyxl-only): it
 pays an up-front inflate/index cost, then seeks to row and shared-string
-offsets instead of re-scanning the sheet. See
+offsets instead of re-scanning the sheet. Parts over 16 MiB spool to disk
+and are indexed through `mmap`, but inflate/index peak memory is still
+roughly proportional to decompressed part size. See
 `optimized`{.interpreted-text role="doc"} and
 `scripts/bench_indexed_access.py` for the microbenchmark matrix versus
 normal and `read_only` loads.

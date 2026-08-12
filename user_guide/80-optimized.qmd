@@ -76,11 +76,22 @@ role="class"}, a subclass of
 `ReadOnlyWorksheet`{.interpreted-text role="class"}). Styles remain
 eagerly loaded. Missing cells still return the
 `EMPTY_CELL`{.interpreted-text role="class"} singleton and never densify
-the sheet.
+the sheet. As with `read_only`, merges, comments, tables, and drawings are
+not bound.
+
+Large sheet / shared-string parts (>16 MiB uncompressed) stream to a temp
+file instead of staying in a Python `bytes` object. Index construction
+scans that file via `mmap`, so spooling avoids a second full in-process
+copy—but peak RSS during inflate/index can still be on the order of the
+decompressed part while the ZIP member is being expanded and scanned.
+Prefixed SpreadsheetML tags such as `<x:row>` are not indexed in v1
+(unprefixed Excel-style tags only); those cells appear missing.
 
 Indexed mode is **not** aimed at beating a full sequential dump: index
 build plus a second pass can lose to normal or `read_only` iteration.
-Prefer it when the workload is dominated by sparse / random hits.
+Prefer it when the workload is dominated by sparse / random hits. There
+is no row-level parse cache yet, so many hits inside one row re-parse that
+row each time.
 
 ## Write-only mode
 

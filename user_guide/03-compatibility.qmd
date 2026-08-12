@@ -143,6 +143,8 @@ Compatibility constraints:
 - Unknown `access` values raise `ValueError`.
 - Misses return `EMPTY_CELL` (no densifying writes).
 - Styles stay eagerly loaded; only sheet rows and shared strings are indexed.
+- Like `read_only`, indexed worksheets do not bind merges, comments, tables,
+  drawings, or other worksheet relationship metadata.
 
 `access` is fastpyxl-only.
 

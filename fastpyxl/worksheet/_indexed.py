@@ -4,8 +4,6 @@
 
 from __future__ import annotations
 
-from io import BytesIO
-
 from fastpyxl.cell.read_only import EMPTY_CELL, ReadOnlyCell
 from fastpyxl.reader.part_cache import DecompressedPart
 from fastpyxl.reader.xml_index import build_row_index, iter_row_spans
@@ -18,7 +16,12 @@ from ._reader import WorkSheetParser
 
 _ROW_WRAP_PREFIX = f'<sheetData xmlns="{SHEET_MAIN_NS}">'.encode("ascii")
 _ROW_WRAP_SUFFIX = b"</sheetData>"
-_SHARED_MARKER = b't="shared"'
+# Excel emits double quotes; accept single-quoted third-party XML too.
+_SHARED_MARKERS = (b't="shared"', b"t='shared'")
+
+
+def _has_shared_formula(data) -> bool:
+    return any(marker in data for marker in _SHARED_MARKERS)
 
 
 class IndexedWorksheet(ReadOnlyWorksheet):
@@ -54,39 +57,44 @@ class IndexedWorksheet(ReadOnlyWorksheet):
             part = DecompressedPart.from_archive(parent_workbook._archive, worksheet_path)
         self._part = part
 
-        with self._part.open() as src:
-            data = src.read()
-        self._row_index = build_row_index(data)
-        self._shared_formulae = self._collect_shared_formulae(data)
-        self._load_dimensions(data)
+        # Scan via bytes_view so spooled parts are mmap'd rather than re-read
+        # into a second full Python bytes object.
+        with self._part.bytes_view() as data:
+            self._row_index = build_row_index(data)
+            self._shared_formulae = self._collect_shared_formulae(data)
+        self._load_dimensions()
 
         from fastpyxl.workbook.defined_name import DefinedNameDict
 
         self.defined_names = DefinedNameDict()
 
-    def _load_dimensions(self, data: bytes) -> None:
-        parser = WorkSheetParser(BytesIO(data), [])
-        dimensions = parser.parse_dimensions()
+    def _load_dimensions(self) -> None:
+        with self._part.open() as src:
+            parser = WorkSheetParser(src, [])
+            dimensions = parser.parse_dimensions()
         if dimensions is not None:
             self._min_column, self._min_row, self._max_column, self._max_row = dimensions
         elif self._row_index:
             self._min_row = min(self._row_index)
             self._max_row = max(self._row_index)
 
-    def _collect_shared_formulae(self, data: bytes) -> dict:
+    def _collect_shared_formulae(self, data) -> dict:
         """Parse rows that declare shared formulas so dependents can translate."""
         shared: dict = {}
-        if _SHARED_MARKER not in data:
+        if not _has_shared_formula(data):
             return shared
-        parser = self._make_parser(BytesIO(b""))
+        parser = self._make_parser(None)
         parser.shared_formulae = shared
         for _row_num, start, end in iter_row_spans(data):
             chunk = data[start:end]
-            if _SHARED_MARKER not in chunk:
+            if not _has_shared_formula(chunk):
                 continue
             # Only rows that may introduce a master (non-empty <f> body) need parse.
             if b"</f>" not in chunk:
                 continue
+            # mmap slices are bytes; wrap for ElementTree.
+            if not isinstance(chunk, (bytes, bytearray)):
+                chunk = bytes(chunk)
             row_elem = fromstring(_ROW_WRAP_PREFIX + chunk + _ROW_WRAP_SUFFIX)[0]
             parser.parse_row(row_elem)
         return shared
@@ -114,7 +122,7 @@ class IndexedWorksheet(ReadOnlyWorksheet):
         start, end = span
         chunk = self._part.read_at(start, end)
         row_elem = fromstring(_ROW_WRAP_PREFIX + chunk + _ROW_WRAP_SUFFIX)[0]
-        parser = self._make_parser(BytesIO(b""))
+        parser = self._make_parser(None)
         parser.shared_formulae = self._shared_formulae
         # Ensure dependents without r= still get the right row counter if needed.
         parser.row_counter = row - 1

@@ -324,7 +324,13 @@ class ExcelReader:
                 self.wb._read_resources.append(ws)
                 continue
             if self.read_only:
-                ws = ReadOnlyWorksheet(self.wb, sheet.name, rel.target, self.shared_strings)
+                ws = ReadOnlyWorksheet(
+                    self.wb,
+                    sheet.name,
+                    rel.target,
+                    self.shared_strings,
+                    rich_text=self.rich_text,
+                )
                 ws.sheet_state = sheet.state
                 self.wb._sheets.append(ws)
                 self.wb._sheet_titles_lower.add(ws.title.lower())

@@ -40,6 +40,10 @@
 
 ### Features
 
+- Add `keep_formula_cache=True` to dual-load formulas and cached values in
+  one parse (fixes #71). Formula caches live on a worksheet side map so
+  default-mode cells do not pay a per-instance slot (fixes #73).
+
 - Add `keep_vba="full"` escape hatch and document filtered `vba_archive`
   semantics for default `keep_vba=True` (fixes #67)
 

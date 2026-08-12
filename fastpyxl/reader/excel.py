@@ -89,6 +89,20 @@ def _normalize_keep_vba(keep_vba):
     return True if keep_vba else False
 
 
+def _normalize_keep_formula_cache(keep_formula_cache, data_only):
+    """Validate keep_formula_cache; reject combination with data_only=True."""
+    if type(keep_formula_cache) is not bool:
+        raise ValueError(
+            "keep_formula_cache must be True or False "
+            f"(got {keep_formula_cache!r})"
+        )
+    if keep_formula_cache and data_only:
+        raise ValueError(
+            "data_only=True and keep_formula_cache=True are mutually exclusive"
+        )
+    return keep_formula_cache
+
+
 def _validate_archive(filename):
     """
     Does a first check whether filename is a string or a file-like
@@ -145,7 +159,8 @@ class ExcelReader:
     """
 
     def __init__(self, fn, read_only=False, keep_vba=KEEP_VBA,
-                 data_only=False, keep_links=True, rich_text=False):
+                 data_only=False, keep_links=True, rich_text=False,
+                 keep_formula_cache=False):
         self.archive = _validate_archive(fn)
         self.valid_files = self.archive.namelist()
         self.read_only = read_only
@@ -153,6 +168,9 @@ class ExcelReader:
         self.data_only = data_only
         self.keep_links = keep_links
         self.rich_text = rich_text
+        self.keep_formula_cache = _normalize_keep_formula_cache(
+            keep_formula_cache, data_only
+        )
         self.shared_strings = []
 
 
@@ -181,6 +199,7 @@ class ExcelReader:
         wb._sheets = []
         wb._sheet_titles_lower.clear()
         wb._data_only = self.data_only
+        wb._keep_formula_cache = self.keep_formula_cache
         wb._read_only = self.read_only
         wb.template = wb_part.ContentType in (XLTX, XLTM)
 
@@ -351,7 +370,8 @@ class ExcelReader:
 
 
 def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
-                  data_only=False, keep_links=True, rich_text=False):
+                  data_only=False, keep_links=True, rich_text=False,
+                  keep_formula_cache=False):
     """Open the given filename and return the workbook
 
     :param filename: the path to open or a file-like object
@@ -376,6 +396,11 @@ def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
     :param rich_text: if set to True fastpyxl will preserve any rich text formatting in cells. The default is False
     :type rich_text: bool
 
+    :param keep_formula_cache: if True, keep both the formula (on ``cell.value``)
+        and the last calculated cache from the file (on ``cell.cached_value``)
+        in one parse. Mutually exclusive with ``data_only=True``. fastpyxl-only.
+    :type keep_formula_cache: bool
+
     :rtype: :class:`fastpyxl.workbook.Workbook`
 
     .. note::
@@ -386,6 +411,7 @@ def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
 
     """
     reader = ExcelReader(filename, read_only, keep_vba,
-                         data_only, keep_links, rich_text)
+                         data_only, keep_links, rich_text,
+                         keep_formula_cache)
     reader.read()
     return reader.wb

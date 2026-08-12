@@ -49,6 +49,7 @@ class WorksheetCopy:
             target_cell = self.target.cell(column=col, row=row)
 
             target_cell._value = source_cell._value
+            target_cell.cached_value = source_cell.cached_value
             target_cell.data_type = source_cell.data_type
 
             if source_cell.has_style:

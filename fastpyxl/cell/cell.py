@@ -174,10 +174,27 @@ class Cell(StyleableObject):
             return u'#N/A'
 
 
+    def _is_live_sheet_cell(self):
+        """True when this instance is the worksheet's cell at its coordinates.
+
+        Detached helpers such as ``WriteOnlyCell`` share a parent worksheet and
+        default to ``(1, 1)`` but are not the live sheet entry; they must not
+        read or write ``ws._formula_caches``.
+        """
+        parent = self.parent
+        if parent is None:
+            return False
+        cells = getattr(parent, "_cells", None)
+        if cells is None:
+            return False
+        return cells.get((self.row, self.column)) is self
+
     def _bind_value(self, value):
         """Given a value, infer the correct data type"""
 
         self.data_type = "n"
+        if self._is_live_sheet_cell():
+            self.parent._formula_caches.pop((self.row, self.column), None)
         if isinstance(value, datetime.timedelta):
             self._value = value.total_seconds() / 86400.0
             self.data_type = "n"
@@ -223,6 +240,31 @@ class Cell(StyleableObject):
     def value(self, value):
         """Set the value and infer type and display options."""
         self._bind_value(value)
+
+    @property
+    def cached_value(self):
+        """Last calculated value from the file, if present.
+
+        Never computed by fastpyxl. ``None`` means no cache was loaded / kept,
+        which is distinct from a cached numeric ``0`` or empty string.
+
+        Stored on the parent worksheet side map so default-mode cells do not
+        pay a per-instance pointer for an unused field. Only the live sheet
+        cell at a coordinate may read or write that map entry.
+        """
+        if not self._is_live_sheet_cell():
+            return None
+        return self.parent._formula_caches.get((self.row, self.column))
+
+    @cached_value.setter
+    def cached_value(self, value):
+        if not self._is_live_sheet_cell():
+            return
+        key = (self.row, self.column)
+        if value is None:
+            self.parent._formula_caches.pop(key, None)
+        else:
+            self.parent._formula_caches[key] = value
 
     @property
     def internal_value(self):
@@ -321,6 +363,7 @@ class MergedCell(StyleableObject):
     data_type = "n"
     comment = None
     hyperlink = None
+    cached_value = None
 
 
     def __init__(self, worksheet, row=None, column=None):

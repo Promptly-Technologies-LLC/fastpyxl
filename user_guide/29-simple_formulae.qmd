@@ -29,6 +29,23 @@ name of a formula:
 \>\>\> from fastpyxl.utils import FORMULAE \>\>\> \"HEX2DEC\" in
 FORMULAE True
 
+To read both the formula text and the last calculated cache Excel wrote
+into the file (without opening the workbook twice), use
+[keep_formula_cache=True]{.title-ref}:
+
+```python
+from fastpyxl import load_workbook
+
+wb = load_workbook("formula.xlsx", keep_formula_cache=True)
+cell = wb.active["A1"]
+cell.value         # "=SUM(1, 1)"
+cell.cached_value  # 2, or None if the file has no cache
+```
+
+Default and [data_only=True]{.title-ref} loads leave
+[cell.cached_value]{.title-ref} as [None]{.title-ref}. See
+[Compatibility](03-compatibility.qmd) for the drop-in contract.
+
 If you\'re trying to use a formula that isn\'t known this could be
 because you\'re using a formula that was not included in the initial
 specification. Such formulae must be prefixed with [\_xlfn.]{.title-ref}

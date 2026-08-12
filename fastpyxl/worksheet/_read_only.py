@@ -85,7 +85,8 @@ class ReadOnlyWorksheet:
                                      data_only=self.parent.data_only,
                                      epoch=self.parent.epoch,
                                      date_formats=self.parent._date_formats,
-                                     timedelta_formats=self.parent._timedelta_formats)
+                                     timedelta_formats=self.parent._timedelta_formats,
+                                     keep_formula_cache=self.parent.keep_formula_cache)
 
             for idx, row in parser.parse():
                 if max_row is not None and idx > max_row:
@@ -121,13 +122,14 @@ class ReadOnlyWorksheet:
         if values_only:
             new_row = [None] * row_width
 
-        for cell_row, cell_col, cell_val, cell_dt, cell_sid in row:
+        for cell_row, cell_col, cell_val, cell_dt, cell_sid, cell_cached in row:
             if min_col <= cell_col <= max_col:
                 idx = cell_col - min_col # position in list of cells returned
                 new_row[idx] = cell_val
                 if not values_only:
                     new_row[idx] = ReadOnlyCell(
-                        self, cell_row, cell_col, cell_val, cell_dt, cell_sid
+                        self, cell_row, cell_col, cell_val, cell_dt, cell_sid,
+                        cached_value=cell_cached,
                     )
 
         return tuple(new_row)

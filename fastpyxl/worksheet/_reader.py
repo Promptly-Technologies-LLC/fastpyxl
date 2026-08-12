@@ -207,12 +207,14 @@ class WorkSheetParser:
         date_formats=set(),
         timedelta_formats=set(),
         rich_text=False,
+        keep_formula_cache=False,
     ):
         self.min_row = self.min_col = None
         self.epoch = epoch
         self.source = src
         self.shared_strings = shared_strings
         self.data_only = data_only
+        self.keep_formula_cache = keep_formula_cache
         self.shared_formulae = {}
         self.row_counter = self.col_counter = 0
         self.tables = TablePartList()
@@ -310,7 +312,7 @@ class WorkSheetParser:
 
         n_children = len(element)
         if n_children == 0:
-            return (row, column, None, data_type, style_id)
+            return (row, column, None, data_type, style_id, None)
 
         # For cells with exactly one child (the common case), use direct index
         # access instead of find/findtext to avoid redundant C-level searches.
@@ -336,34 +338,19 @@ class WorkSheetParser:
                 value = element.findtext(VALUE_TAG, None) or None
             formula_elem = element.find(FORMULA_TAG)
 
-        if not self.data_only and formula_elem is not None:
+        cached_value = None
+        if formula_elem is not None and not self.data_only:
+            if self.keep_formula_cache and value is not None:
+                cached_value = self._coerce_value(
+                    value, data_type, style_id, coordinate
+                )
             data_type = "f"
             value = self.parse_formula(element, formula_elem)
 
         elif value is not None:
-            if data_type == "n":
-                value = _cast_number(value)
-                if style_id in self.date_formats:
-                    data_type = "d"
-                    try:
-                        value = from_excel(
-                            value,
-                            self.epoch,
-                            timedelta=style_id in self.timedelta_formats,
-                        )
-                    except (OverflowError, ValueError):
-                        msg = f"""Cell {coordinate} is marked as a date but the serial value {value} is outside the limits for dates. The cell will be treated as an error."""
-                        warn(msg)
-                        data_type = "e"
-                        value = "#VALUE!"
-            elif data_type == "s":
-                value = self.shared_strings[int(value)]
-            elif data_type == "b":
-                value = bool(int(value))
-            elif data_type == "str":
-                data_type = "s"
-            elif data_type == "d":
-                value = from_ISO8601(value)
+            value, data_type = self._coerce_value(
+                value, data_type, style_id, coordinate, return_type=True
+            )
 
         elif data_type == "inlineStr":
             if n_children == 1:
@@ -377,7 +364,37 @@ class WorkSheetParser:
                 else:
                     value = Text.from_tree(child).content
 
-        return (row, column, value, data_type, style_id)
+        return (row, column, value, data_type, style_id, cached_value)
+
+    def _coerce_value(self, value, data_type, style_id, coordinate, return_type=False):
+        """Coerce a raw ``<v>`` string using the cell type attribute."""
+        if data_type == "n":
+            value = _cast_number(value)
+            if style_id in self.date_formats:
+                data_type = "d"
+                try:
+                    value = from_excel(
+                        value,
+                        self.epoch,
+                        timedelta=style_id in self.timedelta_formats,
+                    )
+                except (OverflowError, ValueError):
+                    msg = f"""Cell {coordinate} is marked as a date but the serial value {value} is outside the limits for dates. The cell will be treated as an error."""
+                    warn(msg)
+                    data_type = "e"
+                    value = "#VALUE!"
+        elif data_type == "s":
+            value = self.shared_strings[int(value)]
+        elif data_type == "b":
+            value = bool(int(value))
+        elif data_type == "str":
+            data_type = "s"
+        elif data_type == "d":
+            value = from_ISO8601(value)
+
+        if return_type:
+            return value, data_type
+        return value
 
     def parse_formula(self, element, formula=None):
         """
@@ -501,6 +518,7 @@ class WorksheetReader:
             ws.parent._date_formats,
             ws.parent._timedelta_formats,
             rich_text,
+            keep_formula_cache=ws.parent.keep_formula_cache,
         )
         self.tables = []
 
@@ -510,7 +528,7 @@ class WorksheetReader:
         _ws = self.ws
         _cells = _ws._cells
         for idx, row in self.parser.parse():
-            for cell_row, cell_col, cell_val, cell_dt, cell_sid in row:
+            for cell_row, cell_col, cell_val, cell_dt, cell_sid, cell_cached in row:
                 c = _new(_Cell)
                 c.parent = _ws
                 c._style = None
@@ -523,6 +541,8 @@ class WorksheetReader:
                 c.data_type = cell_dt
                 c._hyperlink = None
                 c._comment = None
+                if cell_cached is not None:
+                    _ws._formula_caches[(cell_row, cell_col)] = cell_cached
                 _cells[(cell_row, cell_col)] = c
 
         if _cells:

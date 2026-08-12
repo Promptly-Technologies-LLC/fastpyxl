@@ -48,6 +48,7 @@ def Workbook():
     class DummyWorkbook:
 
         data_only = False
+        keep_formula_cache = False
         _colors = []
         encoding = "utf8"
         epoch = CALENDAR_WINDOWS_1900
@@ -237,7 +238,92 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, '=IF(TRUE, "y", "n")', 'f', 0)
+        assert cell == (1, 1, '=IF(TRUE, "y", "n")', 'f', 0, None)
+
+
+    def test_formula_keep_formula_cache(self, WorkSheetParser):
+        parser = WorkSheetParser
+        parser.keep_formula_cache = True
+
+        src = """
+        <c r="A1" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+            <f>1+2</f>
+            <v>3</v>
+        </c>
+        """
+        element = fromstring(src)
+
+        parser.row_counter = 1
+        cell = parser.parse_cell(element)
+        assert cell == (1, 1, '=1+2', 'f', 0, 3)
+
+
+    def test_string_formula_keep_formula_cache(self, WorkSheetParser):
+        parser = WorkSheetParser
+        parser.keep_formula_cache = True
+
+        src = """
+        <c r="A1" t="str" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+            <f>IF(TRUE, "y", "n")</f>
+            <v>y</v>
+        </c>
+        """
+        element = fromstring(src)
+
+        parser.row_counter = 1
+        cell = parser.parse_cell(element)
+        assert cell == (1, 1, '=IF(TRUE, "y", "n")', 'f', 0, 'y')
+
+
+    def test_formula_keep_formula_cache_missing_v(self, WorkSheetParser):
+        parser = WorkSheetParser
+        parser.keep_formula_cache = True
+
+        src = """
+        <c r="A1" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+            <f>1+2</f>
+        </c>
+        """
+        element = fromstring(src)
+
+        parser.row_counter = 1
+        cell = parser.parse_cell(element)
+        assert cell == (1, 1, '=1+2', 'f', 0, None)
+
+
+    def test_formula_keep_formula_cache_empty_v(self, WorkSheetParser):
+        parser = WorkSheetParser
+        parser.keep_formula_cache = True
+
+        src = """
+        <c r="A1" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+            <f>1+2</f>
+            <v></v>
+        </c>
+        """
+        element = fromstring(src)
+
+        parser.row_counter = 1
+        cell = parser.parse_cell(element)
+        assert cell == (1, 1, '=1+2', 'f', 0, None)
+
+
+    def test_shared_formula_keep_formula_cache(self, WorkSheetParser):
+        parser = WorkSheetParser
+        parser.keep_formula_cache = True
+        parser.shared_formulae['0'] = Translator("=A4*B4", "A1")
+
+        src = """
+        <c r="A9" t="str" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+          <f t="shared" si="0"/>
+          <v>9</v>
+        </c>
+        """
+        element = fromstring(src)
+
+        parser.row_counter = 9
+        cell = parser.parse_cell(element)
+        assert cell == (9, 1, '=A12*B12', 'f', 0, '9')
 
 
     def test_formula_data_only(self, WorkSheetParser):
@@ -254,7 +340,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, 3, 'n', 0)
+        assert cell == (1, 1, 3, 'n', 0, None)
 
 
     def test_string_formula_data_only(self, WorkSheetParser):
@@ -271,7 +357,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, 'y', 's', 0)
+        assert cell == (1, 1, 'y', 's', 0, None)
 
 
     def test_number(self, WorkSheetParser):
@@ -286,7 +372,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, 1, 'n', 0)
+        assert cell == (1, 1, 1, 'n', 0, None)
 
 
 
@@ -302,7 +388,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, datetime.datetime(2011, 12, 25, 14, 23, 55), 'd', 0)
+        assert cell == (1, 1, datetime.datetime(2011, 12, 25, 14, 23, 55), 'd', 0, None)
 
 
     def test_timedelta(self, WorkSheetParser):
@@ -317,7 +403,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, datetime.timedelta(days=1, hours=6), 'd', 30)
+        assert cell == (1, 1, datetime.timedelta(days=1, hours=6), 'd', 30, None)
 
 
     def test_mac_date(self, WorkSheetParser):
@@ -333,7 +419,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, datetime.datetime(2016, 10, 3, 0, 0), 'd', 29)
+        assert cell == (1, 1, datetime.datetime(2016, 10, 3, 0, 0), 'd', 29, None)
 
     @pytest.mark.parametrize("value", [
         -693595,
@@ -367,7 +453,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, 'a', 's', 0)
+        assert cell == (1, 1, 'a', 's', 0, None)
 
 
     def test_boolean(self, WorkSheetParser):
@@ -382,7 +468,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, True, 'b', 0)
+        assert cell == (1, 1, True, 'b', 0, None)
 
 
     def test_inline_string(self, WorkSheetParser):
@@ -399,7 +485,7 @@ class TestWorksheetParser:
 
         parser.row_counter = 1
         cell = parser.parse_cell(element)
-        assert cell == (1, 1, "ID", 's', 0)
+        assert cell == (1, 1, "ID", 's', 0, None)
 
 
     def test_inline_richtext(self, WorkSheetParser):
@@ -423,7 +509,7 @@ class TestWorksheetParser:
         cell = parser.parse_cell(element)
         expected = CellRichText(TextBlock(font=InlineFont(sz="8.0"),
                                            text="11 de September de 2014"))
-        assert cell == (2, 18, expected, 's', 4)
+        assert cell == (2, 18, expected, 's', 4, None)
 
 
     def test_parse_richtext(self):
@@ -714,9 +800,9 @@ class TestWorksheetParser:
         element = fromstring(src)
         max_row, cells = parser.parse_row(element)
         expected = [
-            (1, 1, 2, 'n', 0),
-            (1, 2, 4, 'n', 0),
-            (1, 3, 3, 'n', 0),
+            (1, 1, 2, 'n', 0, None),
+            (1, 2, 4, 'n', 0, None),
+            (1, 3, 3, 'n', 0, None),
         ]
         for expected_cell, cell in zip(expected, cells):
             assert expected_cell == cell
@@ -743,10 +829,10 @@ class TestWorksheetParser:
         element = fromstring(src)
         _, cells = parser.parse_row(element)
         expected = [
-            (1, 1, 1, 'n', 0),
-            (1, 4, 2, 'n', 0),
-            (1, 5, 3, 'n', 0),
-            (1, 7, 4, 'n', 0),
+            (1, 1, 1, 'n', 0, None),
+            (1, 4, 2, 'n', 0, None),
+            (1, 5, 3, 'n', 0, None),
+            (1, 7, 4, 'n', 0, None),
         ]
         assert len(cells) == len(expected)
         for expected_cell, cell in zip(expected, cells):
@@ -766,7 +852,7 @@ class TestWorksheetParser:
         parser.parse_row(element)
         max_row, cells = parser.parse_row(element)
         expected = [
-            (2, 1, 2, 'n', 0),
+            (2, 1, 2, 'n', 0, None),
         ]
         for expected_cell, cell in zip(expected, cells):
             assert expected_cell == cell

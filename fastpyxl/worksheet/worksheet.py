@@ -114,6 +114,7 @@ class Worksheet(_WorkbookChild):
         self.row_breaks = RowBreak()
         self.col_breaks = ColBreak()
         self._cells = {}
+        self._formula_caches = {}
         self._charts = []
         self._images = []
         self._rels = RelationshipList()
@@ -385,6 +386,7 @@ class Worksheet(_WorkbookChild):
         row, column = coordinate_to_tuple(key)
         if (row, column) in self._cells:
             del self._cells[(row, column)]
+            self._formula_caches.pop((row, column), None)
             self._invalidate_bounds()
 
 
@@ -656,6 +658,7 @@ class Worksheet(_WorkbookChild):
         next(cells) # skip first cell
         for row, col in cells:
             self._cells[row, col] = MergedCell(self, row, col)
+            self._formula_caches.pop((row, col), None)
             self._update_bounds_on_add(row, col)
         mcr.format()
 
@@ -681,6 +684,7 @@ class Worksheet(_WorkbookChild):
         next(cells) # skip first cell
         for row, col in cells:
             del self._cells[(row, col)]
+            self._formula_caches.pop((row, col), None)
         self._invalidate_bounds()
 
 
@@ -712,9 +716,16 @@ class Worksheet(_WorkbookChild):
                     cell = content
                     if cell.parent and cell.parent != self:
                         raise ValueError("Cells cannot be copied from other worksheets")
+                    old_key = (cell.row, cell.column)
+                    new_key = (row_idx, col_idx)
                     cell.parent = self
                     cell.column = col_idx
                     cell.row = row_idx
+                    if old_key != new_key:
+                        caches = self._formula_caches
+                        caches.pop(new_key, None)
+                        if old_key in caches:
+                            caches[new_key] = caches.pop(old_key)
                 else:
                     cell = Cell(self, row=row_idx, column=col_idx, value=content)
                 self._cells[(row_idx, col_idx)] = cell
@@ -792,6 +803,7 @@ class Worksheet(_WorkbookChild):
             for col in range(min_col, max_col):
                 if (row, col) in self._cells:
                     del self._cells[row, col]
+                self._formula_caches.pop((row, col), None)
         self._invalidate_bounds()
         self._current_row = self.max_row
         if not self._cells:
@@ -814,6 +826,7 @@ class Worksheet(_WorkbookChild):
             for row in range(min_row, max_row):
                 if (row, col) in self._cells:
                     del self._cells[row, col]
+                self._formula_caches.pop((row, col), None)
         self._invalidate_bounds()
 
 
@@ -858,12 +871,21 @@ class Worksheet(_WorkbookChild):
         new_col = cell.column + col_offset
         self._cells[new_row, new_col] = cell
         del self._cells[(cell.row, cell.column)]
+        caches = self._formula_caches
+        caches.pop((new_row, new_col), None)
+        old_key = (cell.row, cell.column)
+        if old_key in caches:
+            caches[(new_row, new_col)] = caches.pop(old_key)
         cell.row = new_row
         cell.column = new_col
         self._invalidate_bounds()
         if translate and cell.data_type == "f":
             t = Translator(cell.value, cell.coordinate)
-            cell.value = t.translate_formula(row_delta=row_offset, col_delta=col_offset)
+            # Assign _value directly so formula translation does not clear the
+            # remapped side-map cache via Cell._bind_value.
+            cell._value = t.translate_formula(
+                row_delta=row_offset, col_delta=col_offset
+            )
 
 
     def _invalid_row(self, iterable):

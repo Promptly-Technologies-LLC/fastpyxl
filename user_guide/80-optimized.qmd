@@ -9,7 +9,7 @@ guide-section: "Performance"
 
 Sometimes, you will need to open or write extremely large XLSX files,
 and the common routines in fastpyxl won\'t be able to handle that load.
-Fortunately, there are two modes that enable you to read and write
+Fortunately, there are optimised modes that enable you to read and write
 unlimited amounts of data with (near) constant memory consumption.
 
 Introducing
@@ -41,7 +41,7 @@ Warning
 
 Cells returned are not regular
 `fastpyxl.cell.cell.Cell`{.interpreted-text role="class"} but
-`fastpyxl.cell._read_only.ReadOnlyCell`{.interpreted-text role="class"}.
+`fastpyxl.cell.read_only.ReadOnlyCell`{.interpreted-text role="class"}.
 
 ### Worksheet dimensions
 
@@ -55,6 +55,43 @@ max_row and max_column attributes should allow you to work with the
 file:
 
     ws.reset_dimensions()
+
+## Indexed mode
+
+For sparse or random cell access, `read_only=True` can be expensive:
+every lookup re-opens the worksheet ZIP member and re-scans from the
+start of the sheet. fastpyxl adds an opt-in indexed strategy that builds
+row and shared-string byte-offset indexes over decompressed package
+parts, then seeks to the needed row/`<si>` on demand:
+
+    from fastpyxl import load_workbook
+    wb = load_workbook("large_file.xlsx", access="indexed")
+    ws = wb["big_data"]
+    print(ws["Z100000"].value)
+    wb.close()
+
+`access="indexed"` implies read-only worksheets
+(`fastpyxl.worksheet._indexed.IndexedWorksheet`{.interpreted-text
+role="class"}, a subclass of
+`ReadOnlyWorksheet`{.interpreted-text role="class"}). Styles remain
+eagerly loaded. Missing cells still return the
+`EMPTY_CELL`{.interpreted-text role="class"} singleton and never densify
+the sheet. As with `read_only`, merges, comments, tables, and drawings are
+not bound.
+
+Large sheet / shared-string parts (>16 MiB uncompressed) stream to a temp
+file instead of staying in a Python `bytes` object. Index construction
+scans that file via `mmap`, so spooling avoids a second full in-process
+copy—but peak RSS during inflate/index can still be on the order of the
+decompressed part while the ZIP member is being expanded and scanned.
+Prefixed SpreadsheetML tags such as `<x:row>` are not indexed in v1
+(unprefixed Excel-style tags only); those cells appear missing.
+
+Indexed mode is **not** aimed at beating a full sequential dump: index
+build plus a second pass can lose to normal or `read_only` iteration.
+Prefer it when the workload is dominated by sparse / random hits. There
+is no row-level parse cache yet, so many hits inside one row re-parse that
+row each time.
 
 ## Write-only mode
 

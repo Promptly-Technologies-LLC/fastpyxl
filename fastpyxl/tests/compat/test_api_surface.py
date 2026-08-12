@@ -64,7 +64,8 @@ def test_load_workbook_signature_matches(fastpyxl, openpyxl):
     openpyxl_sig = inspect.signature(openpyxl.load_workbook)
     openpyxl_names = list(openpyxl_sig.parameters)
     fast_names = list(fast_sig.parameters)
-    # Shared openpyxl params must match; fastpyxl may append keep_formula_cache.
+    # Shared openpyxl params must match; fastpyxl may append keep_formula_cache
+    # and access (both keyword opt-ins documented in 03-compatibility.qmd).
     assert fast_names[: len(openpyxl_names)] == openpyxl_names
     for name in openpyxl_names:
         fast_param = fast_sig.parameters[name]
@@ -72,9 +73,11 @@ def test_load_workbook_signature_matches(fastpyxl, openpyxl):
         assert fast_param.default == openpyxl_param.default, name
         assert fast_param.kind == openpyxl_param.kind, name
     extra = fast_names[len(openpyxl_names) :]
-    assert extra == ["keep_formula_cache"]
+    assert extra == ["keep_formula_cache", "access"]
     assert fast_sig.parameters["keep_formula_cache"].default is False
     assert fast_sig.parameters["keep_formula_cache"].kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
+    assert fast_sig.parameters["access"].default is None
+    assert fast_sig.parameters["access"].kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
 
 
 def test_workbook_constructor_signature_matches(fastpyxl, openpyxl):

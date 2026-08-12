@@ -53,9 +53,11 @@ class Workbook:
     _read_only = False
     _data_only = False
     _keep_formula_cache = False
+    _access = None
     template = False
     path = "/xl/workbook.xml"
     _archive: Optional[ZipFile] = None
+    _indexed_strings = None
 
     def __init__(
         self,
@@ -77,6 +79,9 @@ class Workbook:
         self.security = DocumentSecurity()
         self.__write_only = write_only
         self.shared_strings = IndexedList()
+        self._read_resources: list = []
+        self._access = None
+        self._indexed_strings = None
 
         self._setup_styles()
 
@@ -489,8 +494,14 @@ class Workbook:
 
     def close(self):
         """
-        Close workbook file if open. Only affects read-only and write-only modes.
+        Close workbook file if open. Only affects read-only, indexed, and
+        write-only modes.
         """
+        for resource in getattr(self, "_read_resources", ()) or ():
+            close = getattr(resource, "close", None)
+            if close is not None:
+                close()
+        self._read_resources = []
         archive = self._archive
         if archive is not None:
             archive.close()

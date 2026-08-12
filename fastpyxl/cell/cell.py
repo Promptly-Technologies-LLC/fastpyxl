@@ -174,13 +174,27 @@ class Cell(StyleableObject):
             return u'#N/A'
 
 
+    def _is_live_sheet_cell(self):
+        """True when this instance is the worksheet's cell at its coordinates.
+
+        Detached helpers such as ``WriteOnlyCell`` share a parent worksheet and
+        default to ``(1, 1)`` but are not the live sheet entry; they must not
+        read or write ``ws._formula_caches``.
+        """
+        parent = self.parent
+        if parent is None:
+            return False
+        cells = getattr(parent, "_cells", None)
+        if cells is None:
+            return False
+        return cells.get((self.row, self.column)) is self
+
     def _bind_value(self, value):
         """Given a value, infer the correct data type"""
 
         self.data_type = "n"
-        parent = self.parent
-        if parent is not None:
-            parent._formula_caches.pop((self.row, self.column), None)
+        if self._is_live_sheet_cell():
+            self.parent._formula_caches.pop((self.row, self.column), None)
         if isinstance(value, datetime.timedelta):
             self._value = value.total_seconds() / 86400.0
             self.data_type = "n"
@@ -235,23 +249,22 @@ class Cell(StyleableObject):
         which is distinct from a cached numeric ``0`` or empty string.
 
         Stored on the parent worksheet side map so default-mode cells do not
-        pay a per-instance pointer for an unused field.
+        pay a per-instance pointer for an unused field. Only the live sheet
+        cell at a coordinate may read or write that map entry.
         """
-        parent = self.parent
-        if parent is None:
+        if not self._is_live_sheet_cell():
             return None
-        return parent._formula_caches.get((self.row, self.column))
+        return self.parent._formula_caches.get((self.row, self.column))
 
     @cached_value.setter
     def cached_value(self, value):
-        parent = self.parent
-        if parent is None:
+        if not self._is_live_sheet_cell():
             return
         key = (self.row, self.column)
         if value is None:
-            parent._formula_caches.pop(key, None)
+            self.parent._formula_caches.pop(key, None)
         else:
-            parent._formula_caches[key] = value
+            self.parent._formula_caches[key] = value
 
     @property
     def internal_value(self):

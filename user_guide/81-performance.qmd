@@ -53,6 +53,13 @@ not automatically convert dates and times into Python datetimes, though
 it does annotate cells accordingly but to do this in client code
 significantly reduces performance.
 
+For sparse random access, prefer `access=\"indexed\"` (fastpyxl-only): it
+pays an up-front inflate/index cost, then seeks to row and shared-string
+offsets instead of re-scanning the sheet. See
+`optimized`{.interpreted-text role="doc"} and
+`scripts/bench_indexed_access.py` for the microbenchmark matrix versus
+normal and `read_only` loads.
+
 ::: literalinclude
 read_performance.txt
 :::

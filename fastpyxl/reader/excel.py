@@ -37,6 +37,8 @@ from fastpyxl.cell import MergedCell
 from fastpyxl.comments.comment_sheet import CommentSheet
 
 from .strings import read_string_table, read_rich_text
+from .indexed_strings import IndexedSharedStrings
+from .part_cache import DecompressedPart
 from .workbook import WorkbookParser
 from fastpyxl.styles.stylesheet import apply_stylesheet
 
@@ -51,6 +53,7 @@ from fastpyxl.packaging.relationship import (
 )
 
 from fastpyxl.worksheet._read_only import ReadOnlyWorksheet
+from fastpyxl.worksheet._indexed import IndexedWorksheet
 from fastpyxl.worksheet._reader import WorksheetReader
 from fastpyxl.chartsheet import Chartsheet
 from fastpyxl.worksheet.table import Table
@@ -101,6 +104,20 @@ def _normalize_keep_formula_cache(keep_formula_cache, data_only):
             "data_only=True and keep_formula_cache=True are mutually exclusive"
         )
     return keep_formula_cache
+
+
+_ACCESS_INDEXED = "indexed"
+_ACCESS_VALUES = (None, _ACCESS_INDEXED)
+
+
+def _normalize_access(access):
+    """Validate fastpyxl-only access mode; None is the openpyxl-compatible default."""
+    if access not in _ACCESS_VALUES:
+        raise ValueError(
+            "access must be None or 'indexed' "
+            f"(got {access!r})"
+        )
+    return access
 
 
 def _validate_archive(filename):
@@ -160,10 +177,13 @@ class ExcelReader:
 
     def __init__(self, fn, read_only=False, keep_vba=KEEP_VBA,
                  data_only=False, keep_links=True, rich_text=False,
-                 keep_formula_cache=False):
+                 keep_formula_cache=False, access=None):
         self.archive = _validate_archive(fn)
         self.valid_files = self.archive.namelist()
-        self.read_only = read_only
+        self.access = _normalize_access(access)
+        self.indexed = self.access == _ACCESS_INDEXED
+        # Indexed mode is a read-only access strategy.
+        self.read_only = bool(read_only) or self.indexed
         self.keep_vba = _normalize_keep_vba(keep_vba)
         self.data_only = data_only
         self.keep_links = keep_links
@@ -182,13 +202,20 @@ class ExcelReader:
 
     def read_strings(self):
         ct = self.package.find(SHARED_STRINGS)
+        if ct is None:
+            return
+        strings_path = ct.PartName[1:]
+        if self.indexed:
+            part = DecompressedPart.from_archive(self.archive, strings_path)
+            self.shared_strings = IndexedSharedStrings.from_part(
+                part, rich_text=self.rich_text
+            )
+            return
         reader = read_string_table
         if self.rich_text:
             reader = read_rich_text
-        if ct is not None:
-            strings_path = ct.PartName[1:]
-            with self.archive.open(strings_path,) as src:
-                self.shared_strings = reader(src)
+        with self.archive.open(strings_path,) as src:
+            self.shared_strings = reader(src)
 
 
     def read_workbook(self):
@@ -201,6 +228,7 @@ class ExcelReader:
         wb._data_only = self.data_only
         wb._keep_formula_cache = self.keep_formula_cache
         wb._read_only = self.read_only
+        wb._access = self.access
         wb.template = wb_part.ContentType in (XLTX, XLTM)
 
         # Preserve VBA parts on the workbook for save. Default keep_vba=True
@@ -217,6 +245,11 @@ class ExcelReader:
 
         if self.read_only:
             wb._archive = self.archive
+        if self.indexed:
+            wb._indexed_strings = self.shared_strings
+            wb._read_resources = []
+            if isinstance(self.shared_strings, IndexedSharedStrings):
+                wb._read_resources.append(self.shared_strings)
 
         self.wb = wb
 
@@ -275,6 +308,21 @@ class ExcelReader:
             if rels_path in self.valid_files:
                 rels = get_dependents(self.archive, rels_path)
 
+            if self.indexed:
+                part = DecompressedPart.from_archive(self.archive, rel.target)
+                ws = IndexedWorksheet(
+                    self.wb,
+                    sheet.name,
+                    rel.target,
+                    self.shared_strings,
+                    part=part,
+                    rich_text=self.rich_text,
+                )
+                ws.sheet_state = sheet.state
+                self.wb._sheets.append(ws)
+                self.wb._sheet_titles_lower.add(ws.title.lower())
+                self.wb._read_resources.append(ws)
+                continue
             if self.read_only:
                 ws = ReadOnlyWorksheet(self.wb, sheet.name, rel.target, self.shared_strings)
                 ws.sheet_state = sheet.state
@@ -371,7 +419,7 @@ class ExcelReader:
 
 def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
                   data_only=False, keep_links=True, rich_text=False,
-                  keep_formula_cache=False):
+                  keep_formula_cache=False, access=None):
     """Open the given filename and return the workbook
 
     :param filename: the path to open or a file-like object
@@ -401,6 +449,13 @@ def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
         in one parse. Mutually exclusive with ``data_only=True``. fastpyxl-only.
     :type keep_formula_cache: bool
 
+    :param access: optional fastpyxl-only read strategy. ``None`` (default)
+        keeps openpyxl-compatible eager or ``read_only`` behaviour.
+        ``"indexed"`` builds row/SST byte-offset indexes over decompressed
+        sheet and shared-string parts for sparse / random cell access.
+        Implies read-only worksheets.
+    :type access: ``None`` or ``"indexed"``
+
     :rtype: :class:`fastpyxl.workbook.Workbook`
 
     .. note::
@@ -409,9 +464,14 @@ def load_workbook(filename, read_only=False, keep_vba=KEEP_VBA,
         :class:`fastpyxl.worksheet._read_only.ReadOnlyWorksheet`
         and the returned workbook will be read-only.
 
+        When ``access="indexed"``, worksheets are
+        :class:`fastpyxl.worksheet._indexed.IndexedWorksheet`
+        (a read-only subclass) and resources must be released with
+        :meth:`Workbook.close`.
+
     """
     reader = ExcelReader(filename, read_only, keep_vba,
                          data_only, keep_links, rich_text,
-                         keep_formula_cache)
+                         keep_formula_cache, access)
     reader.read()
     return reader.wb

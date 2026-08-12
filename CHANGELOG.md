@@ -40,6 +40,9 @@
 
 ### Features
 
+- Add `access="indexed"` for opt-in on-demand workbook reads with row and
+  shared-string byte-offset indexes (fixes #75).
+
 - Add `keep_formula_cache=True` to dual-load formulas and cached values in
   one parse (fixes #71). Formula caches live on a worksheet side map so
   default-mode cells do not pay a per-instance slot (fixes #73).

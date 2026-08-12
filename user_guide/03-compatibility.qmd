@@ -123,6 +123,29 @@ Compatibility constraints:
 
 `keep_formula_cache` is fastpyxl-only.
 
+### Indexed / on-demand reads (`access`)
+
+Default `load_workbook` and `read_only=True` keep their openpyxl semantics.
+fastpyxl adds an opt-in indexed read strategy for sparse / random access:
+
+```python
+wb = load_workbook("book.xlsx", access="indexed")
+assert wb.read_only is True
+print(wb.active["Z100000"].value)
+wb.close()
+```
+
+Compatibility constraints:
+
+- `access=None` (default) is unchanged and openpyxl-compatible.
+- `access="indexed"` implies read-only worksheets; `read_only=True` may be
+  passed together and is accepted.
+- Unknown `access` values raise `ValueError`.
+- Misses return `EMPTY_CELL` (no densifying writes).
+- Styles stay eagerly loaded; only sheet rows and shared strings are indexed.
+
+`access` is fastpyxl-only.
+
 ## Environment variables
 
 Prefer the `FASTPYXL_*` names:

@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from fastpyxl import Workbook, load_workbook
+from fastpyxl.cell.cell import Cell, WriteOnlyCell
 from fastpyxl.worksheet.copier import WorksheetCopy
 
 
@@ -210,3 +211,78 @@ def test_cached_value_zero_is_preserved_in_side_map():
     cell.cached_value = 0
     assert cell.cached_value == 0
     assert ws._formula_caches[(1, 1)] == 0
+
+
+def test_write_only_cell_does_not_clobber_live_cache():
+    wb = Workbook()
+    ws = wb.active
+    live = ws["A1"]
+    live.value = "=SUM(1,1)"
+    live.cached_value = 2
+    WriteOnlyCell(ws, value="hello")
+    assert live.cached_value == 2
+    assert ws._formula_caches[(1, 1)] == 2
+
+
+def test_detached_cell_value_assign_does_not_clobber_live_cache():
+    wb = Workbook()
+    ws = wb.active
+    live = ws["B2"]
+    live.value = "=3"
+    live.cached_value = 3
+    detached = Cell(ws, row=2, column=2, value="x")
+    assert live.cached_value == 3
+    assert live.value == "=3"
+    assert detached.value == "x"
+    assert ws._formula_caches[(2, 2)] == 3
+
+
+def test_detached_cell_cached_value_setter_is_ignored():
+    wb = Workbook()
+    ws = wb.active
+    live = ws["A1"]
+    live.value = "=1"
+    live.cached_value = 1
+    detached = WriteOnlyCell(ws)
+    detached.cached_value = 99
+    assert live.cached_value == 1
+    assert detached.cached_value is None
+    assert ws._formula_caches == {(1, 1): 1}
+
+
+def test_move_range_translate_preserves_formula_cache():
+    wb = Workbook()
+    ws = wb.active
+    cell = ws["A1"]
+    cell.value = "=B1"
+    cell.cached_value = 42
+    ws.move_range("A1", rows=1, cols=0, translate=True)
+    moved = ws["A2"]
+    assert moved.value == "=B2"
+    assert moved.cached_value == 42
+    assert ws._formula_caches == {(2, 1): 42}
+
+
+def test_insert_rows_remaps_formula_cache():
+    wb = Workbook()
+    ws = wb.active
+    cell = ws["A2"]
+    cell.value = "=1+1"
+    cell.cached_value = 2
+    ws.insert_rows(1)
+    assert (2, 1) not in ws._formula_caches
+    assert ws._formula_caches[(3, 1)] == 2
+    assert ws["A3"].cached_value == 2
+
+
+def test_append_cell_remaps_formula_cache():
+    wb = Workbook()
+    ws = wb.active
+    cell = ws["A1"]
+    cell.value = "=1+1"
+    cell.cached_value = 2
+    ws.append([cell])
+    assert (1, 1) not in ws._formula_caches
+    assert ws._formula_caches[(2, 1)] == 2
+    assert cell.row == 2 and cell.column == 1
+    assert cell.cached_value == 2

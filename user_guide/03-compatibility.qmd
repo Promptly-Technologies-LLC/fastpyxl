@@ -114,7 +114,9 @@ Compatibility constraints:
 - Assigning `.value` clears `.cached_value` (the cache is stale).
 - On standard worksheets, caches are stored in a sheet-level side map
   (`ws._formula_caches`) rather than a per-cell slot, so default-mode loads
-  do not pay a pointer per cell. `read_only` cells keep instance storage
+  do not pay a pointer per cell. Only the live sheet cell at a coordinate
+  may read or write that map entry; detached helpers such as
+  `WriteOnlyCell` are ignored. `read_only` cells keep instance storage
   because they are ephemeral and must not accumulate a sheet-wide map.
 - Save still writes empty `<v>` for formula cells in v1; emitting real caches
   is deferred.

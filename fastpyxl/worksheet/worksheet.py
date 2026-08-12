@@ -716,9 +716,16 @@ class Worksheet(_WorkbookChild):
                     cell = content
                     if cell.parent and cell.parent != self:
                         raise ValueError("Cells cannot be copied from other worksheets")
+                    old_key = (cell.row, cell.column)
+                    new_key = (row_idx, col_idx)
                     cell.parent = self
                     cell.column = col_idx
                     cell.row = row_idx
+                    if old_key != new_key:
+                        caches = self._formula_caches
+                        caches.pop(new_key, None)
+                        if old_key in caches:
+                            caches[new_key] = caches.pop(old_key)
                 else:
                     cell = Cell(self, row=row_idx, column=col_idx, value=content)
                 self._cells[(row_idx, col_idx)] = cell
@@ -874,7 +881,11 @@ class Worksheet(_WorkbookChild):
         self._invalidate_bounds()
         if translate and cell.data_type == "f":
             t = Translator(cell.value, cell.coordinate)
-            cell.value = t.translate_formula(row_delta=row_offset, col_delta=col_offset)
+            # Assign _value directly so formula translation does not clear the
+            # remapped side-map cache via Cell._bind_value.
+            cell._value = t.translate_formula(
+                row_delta=row_offset, col_delta=col_offset
+            )
 
 
     def _invalid_row(self, iterable):

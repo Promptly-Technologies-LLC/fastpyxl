@@ -145,3 +145,68 @@ def test_internal_value_remains_formula():
         assert cell.internal_value != cell.cached_value
     finally:
         wb.close()
+
+
+def test_cell_has_no_cached_value_slot():
+    from fastpyxl.cell.cell import Cell
+
+    assert "_cached_value" not in Cell.__slots__
+
+
+def test_default_mode_formula_cache_map_stays_empty():
+    wb = load_workbook(GENUINE_SAMPLE)
+    try:
+        for ws in wb.worksheets:
+            assert ws._formula_caches == {}
+            for cell in ws._cells.values():
+                assert not hasattr(cell, "_cached_value")
+    finally:
+        wb.close()
+
+
+def test_dual_load_stores_cache_in_worksheet_side_map():
+    wb = load_workbook(GENUINE_SAMPLE, keep_formula_cache=True)
+    try:
+        ws = wb[FORMULA_SHEET]
+        cell = ws[FORMULA_COORD]
+        assert cell.cached_value == CACHED_RESULT
+        assert not hasattr(cell, "_cached_value")
+        assert ws._formula_caches[(cell.row, cell.column)] == CACHED_RESULT
+    finally:
+        wb.close()
+
+
+def test_deleting_cell_drops_side_map_entry():
+    wb = load_workbook(GENUINE_SAMPLE, keep_formula_cache=True)
+    try:
+        ws = wb[FORMULA_SHEET]
+        cell = ws[FORMULA_COORD]
+        key = (cell.row, cell.column)
+        assert key in ws._formula_caches
+        del ws[FORMULA_COORD]
+        assert key not in ws._formula_caches
+    finally:
+        wb.close()
+
+
+def test_move_range_remaps_formula_cache():
+    wb = Workbook()
+    ws = wb.active
+    cell = ws["A1"]
+    cell.value = "=1+1"
+    cell.cached_value = 2
+    assert ws._formula_caches[(1, 1)] == 2
+    ws.move_range("A1", rows=1, cols=1)
+    assert (1, 1) not in ws._formula_caches
+    assert ws._formula_caches[(2, 2)] == 2
+    assert ws["B2"].cached_value == 2
+
+
+def test_cached_value_zero_is_preserved_in_side_map():
+    wb = Workbook()
+    ws = wb.active
+    cell = ws["A1"]
+    cell.value = "=0"
+    cell.cached_value = 0
+    assert cell.cached_value == 0
+    assert ws._formula_caches[(1, 1)] == 0

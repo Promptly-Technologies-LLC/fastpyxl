@@ -1,0 +1,39 @@
+name: conventional-commits
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Fetch PR base
+        run: git fetch --no-tags origin ${{ github.base_ref }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Check PR title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: uv run python -m devtools.conventional_commits --subject "$PR_TITLE"
+
+      - name: Check commit subjects
+        run: |
+          uv run python -m devtools.conventional_commits \
+            --git-range "origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }}"

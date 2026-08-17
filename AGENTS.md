@@ -13,3 +13,4 @@ Before pushing new optimizations to the remote, run microbenchmarks to ensure pe
 - Lint/type-check: `uv run ruff check .` and `uv run ty check`.
 - openpyxl drop-in contract: documented in `user_guide/03-compatibility.qmd`; enforce with `uv run pytest fastpyxl/tests/compat -m openpyxl_compat`.
 - Benchmarks/profiling scripts live in `devtools/` and `scripts/`; run them with `uv run` (e.g. `uv run python devtools/benchmark.py`).
+- PyPI versions are cut by python-semantic-release on push to `master`. Merge commits are ignored. Only conventional subjects bump: `feat:` (minor), `fix:` / `perf:` (patch). Prose titles such as `Add keep_formula_cache…` land CI-green and skip PyPI. CI enforces this on pull request titles and non-merge commit subjects (`devtools/conventional_commits.py`).

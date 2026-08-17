@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.1.0 (2026-08-17)
+
+### Continuous Integration
+
+- Require conventional commit subjects for PyPI releases
+  ([`2b6d914`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/2b6d914d9a588114c8e25d88e760d7c19573c982))
+
+### Features
+
+- Keep_formula_cache dual-load and indexed access
+  ([`cd934a3`](https://github.com/Promptly-Technologies-LLC/fastpyxl/commit/cd934a3b3da1e002aa748444893f558d20e9342f))
+
+
 ## v1.0.12 (2026-08-08)
 
 ### Bug Fixes

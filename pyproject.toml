@@ -177,3 +177,6 @@ insecure = false
 [tool.semantic_release.publish]
 dist_glob_patterns = ["dist/*"]
 upload_to_vcs_release = false
+
+[tool.uv]
+constraint-dependencies = ["certifi>=2026.10.19"]
